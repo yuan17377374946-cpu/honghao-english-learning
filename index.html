@@ -199,7 +199,7 @@
     $("#timerToggle").onclick=toggleTimer;$("#timerReset").onclick=()=>{if(!confirm("确定把本次有效用时归零吗？其他标记不会清除。"))return;if(timerId){clearInterval(timerId);timerId=null}state.seconds=0;saveState();timerRender()};
     $("#save").onclick=()=>{const h=history(),ratings=Object.values(state.ratings).map(Number).filter(Boolean);h.unshift({date:new Date().toLocaleString("zh-CN",{hour12:false}),seconds:state.seconds,assessed:Object.keys(state.assess).length,rate:Math.round(entries().length/allCount()*100),rating:ratings.length?(ratings.reduce((a,b)=>a+b,0)/ratings.length).toFixed(1):"—"});localStorage.setItem(HKEY,JSON.stringify(h.slice(0,12)));notice("已保存在这台设备的浏览器中");historyRender()};
     $("#copy").onclick=async()=>{try{await navigator.clipboard.writeText(summary());notice("课堂小结已复制")}catch{notice("复制失败，请检查浏览器权限")}};
-    $("#clearHistory").onclick=()=>{if(confirm("确定清空这台设备里的演示课堂记录吗？")){localStorage.removeItem(HKEY);historyRender()}};
+    $("#clearHistory").onclick=()=>{if(confirm("确定清空这台设备里的学习记录吗？")){localStorage.removeItem(HKEY);historyRender()}};
     $("#readingCount").textContent=`${readingData.flatMap(x=>words(x[0])).length}词`;
     if(state.view!=="reading"&&![0,1,2,3].includes(Number(state.view)))state.view=0;
     render();metrics();markedWords();timerRender();historyRender();
