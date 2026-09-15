@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="宏浩英语课堂辅助工具：长句理解、生词标记、句子结构划分与课堂记录。">
+  <meta name="theme-color" content="#173b67">
+  <title>宏浩英语课堂</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23173b67'/%3E%3Cpath d='M17 17h22a8 8 0 0 1 8 8v22H25a8 8 0 0 1-8-8V17Z' fill='%23fff'/%3E%3Cpath d='M25 25h14M25 32h14M25 39h9' stroke='%23f0b429' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
+  <style>
+    :root {
+      --navy:#173b67; --deep:#0d294a; --blue:#2f70b7; --sky:#eaf4ff;
+      --ink:#172434; --muted:#657386; --line:#dce5ef; --page:#f4f7fb;
+      --yellow:#ffe37a; --red:#ff9292; --green:#2f8f68;
+      font-family:Inter,"PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+    }
+    *{box-sizing:border-box} body{margin:0;min-width:320px;color:var(--ink);background:radial-gradient(circle at 8% 0%,rgba(47,112,183,.11),transparent 28rem),var(--page)}
+    button{font:inherit;cursor:pointer} button:focus-visible{outline:3px solid rgba(47,112,183,.35);outline-offset:2px}
+    h1,h2,h3,p{margin-top:0}.shell{width:min(1320px,calc(100% - 40px));margin:auto;padding:28px 0 52px}
+    .topbar,.overview-main,.card-head,.toolbar,.assessment,.reading-head,.history-head{display:flex;align-items:center;justify-content:space-between;gap:18px}
+    .eyebrow,.small-label{margin:0 0 6px;color:var(--blue);font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+    h1{margin:0;color:var(--deep);font-size:clamp(1.8rem,3vw,2.6rem)} h2{margin-bottom:8px;color:var(--deep);font-size:1.35rem} h3{margin-bottom:8px;font-size:1rem}
+    .timer{display:grid;grid-template-columns:auto auto;align-items:center;gap:8px 18px;min-width:310px;padding:14px 16px;border:1px solid var(--line);border-radius:18px;background:#ffffffdf;box-shadow:0 10px 24px rgba(27,57,91,.06)}
+    .timer span{color:var(--muted);font-size:.82rem;font-weight:700}.timer strong{grid-row:span 2;color:var(--navy);font-size:1.75rem;font-variant-numeric:tabular-nums}.timer-actions{display:flex;gap:8px}
+    .btn{min-height:40px;padding:9px 15px;border:1px solid transparent;border-radius:11px;font-weight:750;transition:.15s}.btn:hover{transform:translateY(-1px)}
+    .primary{background:var(--navy);color:#fff}.primary:hover{background:var(--deep)}.quiet{background:#edf2f7;color:var(--muted)}.outline{border-color:var(--line);background:#fff;color:var(--navy)}.full{width:100%;margin-top:9px}
+    .overview{margin-top:24px;padding:24px;border-radius:24px;background:linear-gradient(120deg,var(--deep),var(--navy));color:#fff;box-shadow:0 18px 45px rgba(27,57,91,.12)}
+    .overview h2{margin:9px 0 6px;color:#fff}.overview p{margin:0;color:#dceaff;font-size:.9rem}.demo{display:inline-flex;padding:5px 9px;border:1px solid #ffffff3d;border-radius:999px;background:#ffffff18;font-size:.74rem;font-weight:800}
+    .progress-copy{text-align:right}.progress-copy strong,.progress-copy span{display:block}.progress-copy strong{font-size:1.7rem}.progress-copy span{color:#c8dcf7;font-size:.75rem}
+    .track{height:8px;margin:20px 0 18px;overflow:hidden;border-radius:999px;background:#ffffff29}.track i{display:block;width:0;height:100%;border-radius:inherit;background:linear-gradient(90deg,#ffdd68,#fff1b6);transition:width .25s}
+    .metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.metric{padding:10px 12px;border:1px solid #ffffff1f;border-radius:12px;background:#ffffff12}.metric span,.metric strong{display:block}.metric span{color:#c8dcf7;font-size:.73rem}.metric strong{font-size:1.05rem}
+    .tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:20px 0}.tab{min-height:58px;padding:10px;border:1px solid var(--line);border-radius:14px;background:#fff;color:var(--ink);font-weight:800;text-align:left}.tab span{display:block;margin-top:3px;color:var(--muted);font-size:.72rem;font-weight:650}.tab.active{border-color:var(--blue);background:var(--sky);color:var(--navy)}
+    .workspace{display:grid;grid-template-columns:minmax(0,1fr) 310px;gap:20px;align-items:start}.lesson-card,.side-card,.reading,.history{border:1px solid var(--line);background:#fff;box-shadow:0 12px 32px rgba(27,57,91,.06)}
+    .lesson-card{min-height:590px;padding:clamp(22px,4vw,42px);border-radius:24px}.tag{display:inline-flex;padding:4px 8px;border-radius:8px;background:#edf4fb;color:var(--blue);font-size:.73rem;font-weight:750}
+    .sentence{display:flex;flex-wrap:wrap;align-items:baseline;min-height:155px;margin:34px 0 20px;padding:28px;border:1px solid #e5ebf2;border-radius:18px;background:#fbfdff;font:clamp(1.55rem,3vw,2.35rem)/1.75 Georgia,"Times New Roman",serif}
+    .segment{position:relative;display:inline;margin-right:.18em;padding:3px 4px;border-radius:7px}.segment[data-label]::after{content:attr(data-label);position:absolute;left:6px;bottom:-17px;color:var(--muted);font:700 .6rem/1 Inter,"PingFang SC",sans-serif;white-space:nowrap}
+    .subject{background:#e7f1ff}.verb{background:#e7f8ef}.object{background:#fff1da}.detail{background:#f2eaff}
+    .word{display:inline;padding:1px 2px;border:0;border-radius:4px;background:transparent;color:inherit;font:inherit}.word:hover{background:#eaf1f8}.word.uncertain{background:var(--yellow)!important;box-shadow:inset 0 -2px #d7a900}.word.unknown{background:var(--red)!important;box-shadow:inset 0 -2px #c74343}
+    .legend{display:flex;flex-wrap:wrap;gap:13px;margin:-2px 0 20px;color:var(--muted);font-size:.75rem}.legend[hidden]{display:none}.legend span{display:flex;align-items:center;gap:6px}.legend i{width:12px;height:12px;border-radius:4px}
+    .toolbar{padding:16px 18px;border-radius:16px;background:#f4f7fa}.toolbar strong,.toolbar small{display:block}.toolbar small{margin-top:3px;color:var(--muted)}.marker-buttons,.assessment-buttons{display:flex;flex-wrap:wrap;gap:7px}
+    .marker,.assessment-buttons button{min-height:38px;padding:8px 11px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--ink);font-size:.76rem;font-weight:750}.marker.active,.assessment-buttons button.selected{border-color:var(--blue);background:var(--sky);color:var(--navy);box-shadow:0 0 0 2px rgba(47,112,183,.08)}
+    .marker i{display:inline-block;width:12px;height:12px;margin-right:6px;border-radius:4px;vertical-align:-1px}.yellow{background:var(--yellow)}.red{background:var(--red)}
+    .assessment{margin:22px 0}.assessment>span{font-size:.85rem;font-weight:750}.nav{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:16px;padding-top:18px;border-top:1px solid var(--line)}
+    .dots{display:flex;justify-content:center;gap:8px}.dot{width:12px;height:12px;padding:0;border:0;border-radius:50%;background:#dbe3ec}.dot.current{background:var(--blue);box-shadow:0 0 0 4px rgba(47,112,183,.12)}.dot.done{background:var(--green)}
+    .side{display:grid;gap:14px}.side-card{padding:18px;border-radius:18px}.side-title{display:flex;align-items:center;justify-content:space-between;gap:12px}.side-title span{padding:4px 8px;border-radius:8px;background:#edf4fb;color:var(--blue);font-size:.72rem;font-weight:750}.side-card p,.reading p{margin-bottom:0;color:var(--muted);font-size:.8rem;line-height:1.55}
+    .stars{display:flex;justify-content:space-between;margin-top:14px}.stars button{padding:2px;border:0;background:transparent;color:#d7dfe8;font-size:1.65rem}.stars button.filled{color:#f0b429}
+    .marked{display:flex;flex-wrap:wrap;gap:7px;max-height:175px;margin-top:12px;overflow:auto}.chip{padding:5px 8px;border-radius:8px;font-size:.73rem;font-weight:750}.chip.uncertain{background:#fff6cc;color:#745b00}.chip.unknown{background:#ffe1e1;color:#922f2f}.empty{color:#8c98a8;font-size:.8rem}.notice{display:block;min-height:20px;margin-top:8px;color:var(--green);font-size:.74rem;text-align:center}
+    .reading,.history{padding:clamp(22px,4vw,38px);border-radius:24px}.reading[hidden],.workspace[hidden]{display:none}.reading-head{align-items:flex-end;margin-bottom:24px}.reading-head h2{margin-bottom:5px}.reading-list{display:grid;gap:14px}.reading-sentence{padding:18px 20px;border-left:4px solid #bed6ee;border-radius:0 14px 14px 0;background:#f8fbfe}.reading-line{font:1.18rem/1.8 Georgia,"Times New Roman",serif}.hint{display:none;margin:12px 0 0;padding-top:10px;border-top:1px dashed #ccd8e5;color:var(--muted);font-size:.84rem;line-height:1.65}.hint.show{display:block}.hint-btn{margin-top:9px;padding:0;border:0;background:transparent;color:var(--blue);font-size:.76rem;font-weight:800}.reading-foot{margin-top:24px;padding-top:20px;border-top:1px solid var(--line)}
+    .history{margin-top:20px}.history-head{margin-bottom:16px}.history-head h2{margin-bottom:0}.text-btn{padding:4px;border:0;background:transparent;color:var(--muted);font-size:.76rem;text-decoration:underline}.history-list{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.record{padding:15px;border:1px solid var(--line);border-radius:14px;background:#fbfdff}.record time,.record strong,.record span{display:block}.record time{margin-bottom:9px;color:var(--muted);font-size:.72rem}.record strong{margin-bottom:4px;color:var(--navy)}.record span{color:var(--muted);font-size:.76rem}
+    @media(max-width:980px){.workspace{grid-template-columns:1fr}.side{grid-template-columns:repeat(3,1fr)}}
+    @media(max-width:760px){.shell{width:calc(100% - 24px);padding-top:18px}.topbar,.overview-main,.toolbar,.assessment,.reading-head{align-items:stretch;flex-direction:column}.topbar{display:flex}.timer{min-width:0}.metrics{grid-template-columns:repeat(2,1fr)}.tabs{display:flex;overflow-x:auto;padding-bottom:5px}.tab{min-width:118px}.sentence{min-height:180px;margin-top:24px;padding:20px;font-size:1.45rem}.side,.history-list{grid-template-columns:1fr}.marker-buttons,.assessment-buttons{width:100%}.marker,.assessment-buttons button{flex:1 1 auto}}
+    @media(max-width:480px){.lesson-card{padding:20px 16px;border-radius:18px}.card-head{align-items:flex-start;flex-direction:column}.nav{grid-template-columns:1fr 1fr}.dots{grid-column:1/-1;grid-row:1}}
+    @media(prefers-reduced-motion:reduce){*{transition:none!important}}
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <div><p class="eyebrow">学生 01 · 课堂辅助</p><h1>宏浩英语课堂</h1></div>
+      <div class="timer" aria-label="本次课堂计时">
+        <span>本次有效用时</span><strong id="timer">00:00</strong>
+        <div class="timer-actions"><button id="timerToggle" class="btn primary">开始</button><button id="timerReset" class="btn quiet">归零</button></div>
+      </div>
+    </header>
+
+    <section class="overview">
+      <div class="overview-main">
+        <div><span class="demo">演示课程</span><h2>Day 1 · 长句理解训练</h2><p>20个句子分4关，每关5句。演示内容不会自动计入正式学习档案。</p></div>
+        <div class="progress-copy"><strong id="progressText">0 / 20</strong><span>已记录理解情况</span></div>
+      </div>
+      <div class="track"><i id="progressBar"></i></div>
+      <div class="metrics">
+        <div class="metric"><span>生词率</span><strong id="rate">0%</strong></div>
+        <div class="metric"><span>模糊词</span><strong id="uncertain">0</strong></div>
+        <div class="metric"><span>不认识</span><strong id="unknown">0</strong></div>
+        <div class="metric"><span>已评句子</span><strong id="assessed">0</strong></div>
+      </div>
+    </section>
+
+    <nav class="tabs" aria-label="课程关卡">
+      <button class="tab active" data-view="0">第1关<span>句子 1–5</span></button>
+      <button class="tab" data-view="1">第2关<span>句子 6–10</span></button>
+      <button class="tab" data-view="2">第3关<span>句子 11–15</span></button>
+      <button class="tab" data-view="3">第4关<span>句子 16–20</span></button>
+      <button class="tab" data-view="reading">短文阅读<span id="readingCount">约100词</span></button>
+    </nav>
+
+    <main>
+      <section id="workspace" class="workspace">
+        <article class="lesson-card">
+          <div class="card-head">
+            <div><p id="sentenceNo" class="small-label">句子 1 / 20</p><span id="focus" class="tag">基础主干</span></div>
+            <button id="structure" class="btn outline">显示句子结构</button>
+          </div>
+          <div id="sentence" class="sentence" aria-label="英文句子"></div>
+          <div id="legend" class="legend" hidden>
+            <span><i style="background:#cfe4ff"></i>主语</span><span><i style="background:#ccefdc"></i>动作/状态</span><span><i style="background:#ffe2b5"></i>对象/补充</span><span><i style="background:#dfcdf9"></i>时间、地点或从句</span>
+          </div>
+          <div class="toolbar">
+            <div><strong>生词荧光笔</strong><small>选择颜色，再点击句中的单词</small></div>
+            <div class="marker-buttons">
+              <button class="marker active" data-marker="uncertain"><i class="yellow"></i>有点模糊</button>
+              <button class="marker" data-marker="unknown"><i class="red"></i>不认识</button>
+              <button class="marker" data-marker="erase">清除标记</button>
+            </div>
+          </div>
+          <div class="assessment"><span>这句话理解得怎么样？</span><div class="assessment-buttons">
+            <button data-assess="understood">能独立理解</button><button data-assess="prompted">提醒后理解</button><button data-assess="review">需要再讲</button>
+          </div></div>
+          <footer class="nav"><button id="prev" class="btn outline">上一句</button><div id="dots" class="dots"></div><button id="next" class="btn primary">下一句</button></footer>
+        </article>
+        <aside class="side">
+          <section class="side-card"><div class="side-title"><h3>本关评价</h3><span id="levelLabel">第1关</span></div><p>完成5个句子后，记录本关整体表现。</p><div class="stars" id="stars"><button data-star="1">★</button><button data-star="2">★</button><button data-star="3">★</button><button data-star="4">★</button><button data-star="5">★</button></div></section>
+          <section class="side-card"><div class="side-title"><h3>本次生词</h3><span id="markedTotal">0个</span></div><div id="markedWords" class="marked empty">还没有标记生词</div></section>
+          <section class="side-card"><h3>课堂记录</h3><p>保存后可以对比不同日期的用时、进度和生词率。</p><button id="save" class="btn primary full">保存本次记录</button><button id="copy" class="btn outline full">复制课堂小结</button><span id="notice" class="notice"></span></section>
+        </aside>
+      </section>
+
+      <section id="reading" class="reading" hidden>
+        <div class="reading-head"><div><p class="small-label">短文阅读</p><h2>A Visit to the Library</h2><p>点击单词可以继续使用黄色和红色荧光笔。</p></div><div class="marker-buttons"><button class="marker active" data-marker="uncertain"><i class="yellow"></i>有点模糊</button><button class="marker" data-marker="unknown"><i class="red"></i>不认识</button><button class="marker" data-marker="erase">清除标记</button></div></div>
+        <div id="readingList" class="reading-list"></div>
+        <div class="assessment reading-foot"><div><strong>阅读完成情况</strong><p>讲解结束后记录整体理解程度。</p></div><div class="assessment-buttons"><button data-reading="understood">能说出大意</button><button data-reading="prompted">提示后理解</button><button data-reading="review">需要再读</button></div></div>
+      </section>
+
+      <section class="history"><div class="history-head"><div><p class="small-label">学习记录</p><h2>最近课堂对比</h2></div><button id="clearHistory" class="text-btn">清空演示记录</button></div><div id="historyList" class="history-list empty">保存一次课堂记录后，这里会显示对比。</div></section>
+    </main>
+  </div>
+
+  <script>
+    const lessons = [
+      ["基础主干 + 时间地点",[["The boy","subject","主语"],["runs","verb","动作"],["in the park every morning.","detail","地点 + 时间"]]],
+      ["基础主干 + 时间",[["My sister","subject","主语"],["reads","verb","动作"],["a book","object","对象"],["after dinner.","detail","时间"]]],
+      ["that引导的定语从句",[["The bus","subject","主语"],["that stops near our school","detail","介绍bus"],["is","verb","状态"],["always crowded.","object","补充说明"]]],
+      ["because原因从句",[["We","subject","主语"],["stayed","verb","动作"],["inside","object","地点"],["because the rain was heavy.","detail","原因"]]],
+      ["when时间从句",[["When the bell rang,","detail","发生时间"],["the students","subject","主语"],["went back","verb","动作"],["to class.","object","地点"]]],
+      ["who引导的定语从句",[["The girl","subject","主语"],["who wears a red coat","detail","介绍girl"],["is","verb","状态"],["my cousin.","object","身份"]]],
+      ["while同时发生",[["Dad","subject","主语"],["was cooking","verb","动作一"],["while I was setting the table.","detail","同时的动作二"]]],
+      ["that引导的定语从句",[["The dog","subject","主语"],["that lives next door","detail","介绍dog"],["follows","verb","动作"],["me to school.","object","对象 + 地点"]]],
+      ["if条件从句",[["If you leave early,","detail","条件"],["you","subject","主语"],["can catch","verb","动作"],["the first bus.","object","对象"]]],
+      ["although让步从句",[["Although Tom was tired,","detail","虽然很累"],["he","subject","主语"],["finished","verb","动作"],["his homework.","object","对象"]]],
+      ["that定语从句 + 双主干",[["The book","subject","主语"],["that our teacher gave us","detail","介绍book"],["tells","verb","动作"],["a simple story.","object","对象"]]],
+      ["after时间从句",[["After the rain stopped,","detail","发生时间"],["the children","subject","主语"],["played","verb","动作"],["football outside.","object","对象 + 地点"]]],
+      ["who引导的定语从句",[["The woman","subject","主语"],["who helped us at the station","detail","介绍woman"],["was","verb","状态"],["very kind.","object","补充说明"]]],
+      ["because原因从句",[["I","subject","主语"],["keep","verb","动作"],["a small notebook","object","对象"],["because new words are easy to forget.","detail","原因"]]],
+      ["while时间从句",[["While the train was moving,","detail","发生时间"],["we","subject","主语"],["watched","verb","动作"],["the farms pass by.","object","看到的内容"]]],
+      ["that引导的定语从句",[["The shop","subject","主语"],["that opened last month","detail","介绍shop"],["sells","verb","动作"],["fresh fruit.","object","对象"]]],
+      ["before时间从句",[["Before the movie began,","detail","发生时间"],["everyone","subject","主语"],["turned off","verb","动作"],["their phones.","object","对象"]]],
+      ["so结果 + until时间",[["The road","subject","主语一"],["was","verb","状态"],["busy,","object","补充说明"],["so we waited until the light turned green.","detail","结果 + 时间"]]],
+      ["who定语从句 + 方式",[["The student","subject","主语"],["who asked the question","detail","介绍student"],["found","verb","动作"],["the answer by himself.","object","对象 + 方式"]]],
+      ["even though让步从句",[["Even though the task looked difficult,","detail","虽然看起来很难"],["our group","subject","主语"],["completed","verb","动作"],["it on time.","object","对象 + 时间"]]]
+    ];
+    const readingData = [
+      ["Last Saturday, Leo and his sister went to the city library.","时间是上周六；人物是Leo和他的妹妹；动作是去市图书馆。"],
+      ["They looked for a book about birds because their science teacher had given them a project.","主干是They looked for a book；because后面解释找书的原因。"],
+      ["When they arrived, the library was quiet, but many students were reading near the windows.","when说明到达的时间；but连接两个信息。"],
+      ["A librarian showed them a shelf of animal books.","主干是A librarian showed them a shelf；of animal books补充书架上的内容。"],
+      ["Leo chose a blue book, while his sister wrote down useful facts.","while连接同时发生的两件事：Leo选书，妹妹记录资料。"],
+      ["Before they left, they borrowed two books and thanked the librarian.","before说明离开之前；两个动作是borrowed和thanked。"],
+      ["On the way home, they talked about how they would finish the project together.","背景是回家路上；how后面说明他们将怎样完成项目。"],
+      ["They felt tired, but both of them were happy with their work.","but表示转折：虽然累，但是两个人都对成果感到开心。"]
+    ];
+    const KEY="honghao-classroom-v1", HKEY="honghao-history-v1";
+    const base={view:0,index:0,marker:"uncertain",structure:false,marks:{},assess:{},ratings:{},readingAssess:"",seconds:0};
+    let state={...base,...JSON.parse(localStorage.getItem(KEY)||"{}")}, timerId=null;
+    const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+    const saveState=()=>localStorage.setItem(KEY,JSON.stringify(state));
+    const words=t=>t.match(/[A-Za-z]+(?:'[A-Za-z]+)?/g)||[];
+    const tokens=t=>t.match(/[A-Za-z]+(?:'[A-Za-z]+)?|[^A-Za-z]+/g)||[];
+    const fmt=s=>`${String(Math.floor(s/60)).padStart(2,"0")}:${String(s%60).padStart(2,"0")}`;
+
+    function tokenText(host,text,prefix,start=0){let i=start;tokens(text).forEach(token=>{if(/^[A-Za-z]/.test(token)){const b=document.createElement("button"),key=`${prefix}-${i}`;b.className=`word ${state.marks[key]||""}`;b.textContent=token;b.dataset.key=key;b.dataset.word=token.toLowerCase();b.onclick=()=>mark(key);host.append(b);i++}else host.append(document.createTextNode(token))});return i}
+    function mark(key){state.marker==="erase"?delete state.marks[key]:state.marks[key]=state.marker;saveState();render();metrics();markedWords()}
+    function current(){return lessons[state.view*5+state.index]}
+    function sentenceRender(){const item=current(),id=state.view*5+state.index+1;$("#sentenceNo").textContent=`句子 ${id} / 20`;$("#focus").textContent=item[0];$("#sentence").innerHTML="";let n=0;item[1].forEach(([text,type,label])=>{const span=document.createElement("span");span.className="segment";if(state.structure){span.classList.add(type);span.dataset.label=label}n=tokenText(span,text,`s${id}`,n);$("#sentence").append(span)});$("#structure").textContent=state.structure?"隐藏句子结构":"显示句子结构";$("#legend").hidden=!state.structure;$("#levelLabel").textContent=`第${state.view+1}关`;assessRender();dotsRender();starsRender()}
+    function assessRender(){const id=state.view*5+state.index+1;$$('[data-assess]').forEach(b=>b.classList.toggle("selected",state.assess[`s${id}`]===b.dataset.assess))}
+    function dotsRender(){$("#dots").innerHTML="";for(let i=0;i<5;i++){const b=document.createElement("button"),id=state.view*5+i+1;b.className=`dot ${i===state.index?"current":""} ${state.assess[`s${id}`]?"done":""}`;b.ariaLabel=`本关第${i+1}句`;b.onclick=()=>{state.index=i;state.structure=false;saveState();render()};$("#dots").append(b)}}
+    function starsRender(){const r=Number(state.ratings[state.view]||0);$$('[data-star]').forEach(b=>b.classList.toggle("filled",Number(b.dataset.star)<=r))}
+    function readingRender(){$("#readingList").innerHTML="";let n=0;readingData.forEach(([text,hint])=>{const card=document.createElement("article"),line=document.createElement("div"),btn=document.createElement("button"),p=document.createElement("p");card.className="reading-sentence";line.className="reading-line";n=tokenText(line,text,"r",n);btn.className="hint-btn";btn.textContent="显示这句的理解提示";p.className="hint";p.textContent=hint;btn.onclick=()=>{p.classList.toggle("show");btn.textContent=p.classList.contains("show")?"收起理解提示":"显示这句的理解提示"};card.append(line,btn,p);$("#readingList").append(card)});$$('[data-reading]').forEach(b=>b.classList.toggle("selected",state.readingAssess===b.dataset.reading))}
+    function render(){const read=state.view==="reading";$("#workspace").hidden=read;$("#reading").hidden=!read;$$('.tab').forEach(b=>b.classList.toggle("active",b.dataset.view===String(state.view)));if(read)readingRender();else sentenceRender();$$('[data-marker]').forEach(b=>b.classList.toggle("active",b.dataset.marker===state.marker))}
+    const allCount=()=>lessons.flatMap(x=>x[1].flatMap(y=>words(y[0]))).length+readingData.flatMap(x=>words(x[0])).length;
+    function entries(){return Object.entries(state.marks).filter(x=>["uncertain","unknown"].includes(x[1]))}
+    function metrics(){const e=entries(),u=e.filter(x=>x[1]==="uncertain").length,k=e.filter(x=>x[1]==="unknown").length,a=Object.keys(state.assess).length;$("#uncertain").textContent=u;$("#unknown").textContent=k;$("#assessed").textContent=a;$("#rate").textContent=`${Math.round(e.length/allCount()*100)}%`;$("#progressText").textContent=`${a} / 20`;$("#progressBar").style.width=`${a/20*100}%`;$("#markedTotal").textContent=`${e.length}个`}
+    function findWord(key){const [prefix,raw]=key.split("-"),i=Number(raw);if(prefix==="r")return readingData.flatMap(x=>words(x[0]))[i]||"";const id=Number(prefix.slice(1));return lessons[id-1][1].flatMap(x=>words(x[0]))[i]||""}
+    function markedWords(){const map=new Map;entries().forEach(([k,s])=>{const w=findWord(k).toLowerCase(),old=map.get(w);if(w)map.set(w,old==="unknown"||s==="unknown"?"unknown":"uncertain")});const host=$("#markedWords");if(!map.size){host.className="marked empty";host.textContent="还没有标记生词";return}host.className="marked";host.innerHTML="";[...map].sort().forEach(([w,s])=>{const c=document.createElement("span");c.className=`chip ${s}`;c.textContent=w;host.append(c)})}
+    function timerRender(){$("#timer").textContent=fmt(state.seconds);$("#timerToggle").textContent=timerId?"暂停":"开始"}
+    function toggleTimer(){if(timerId){clearInterval(timerId);timerId=null;saveState()}else timerId=setInterval(()=>{state.seconds++;timerRender();if(state.seconds%5===0)saveState()},1000);timerRender()}
+    function history(){try{return JSON.parse(localStorage.getItem(HKEY)||"[]")}catch{return[]}}
+    function historyRender(){const h=history(),host=$("#historyList");if(!h.length){host.className="history-list empty";host.textContent="保存一次课堂记录后，这里会显示对比。";return}host.className="history-list";host.innerHTML="";h.slice(0,3).forEach(r=>{const a=document.createElement("article");a.className="record";a.innerHTML=`<time>${r.date}</time><strong>完成 ${r.assessed}/20 句 · 用时 ${fmt(r.seconds)}</strong><span>生词率 ${r.rate}% · 平均 ${r.rating} 星</span>`;host.append(a)})}
+    function summary(){const e=entries(),a=Object.values(state.assess);return [`宏浩英语课堂记录（演示课程）`,`有效用时：${fmt(state.seconds)}`,`已评句子：${a.length}/20`,`理解情况：独立理解${a.filter(x=>x==="understood").length}句，提示后理解${a.filter(x=>x==="prompted").length}句，需要再讲${a.filter(x=>x==="review").length}句`,`生词标记：模糊${e.filter(x=>x[1]==="uncertain").length}个，不认识${e.filter(x=>x[1]==="unknown").length}个，生词率${Math.round(e.length/allCount()*100)}%`].join("\n")}
+    function notice(t){$("#notice").textContent=t;setTimeout(()=>$("#notice").textContent="",2200)}
+    $$('.tab').forEach(b=>b.onclick=()=>{state.view=b.dataset.view==="reading"?"reading":Number(b.dataset.view);state.index=0;state.structure=false;saveState();render()});
+    $$('[data-marker]').forEach(b=>b.onclick=()=>{state.marker=b.dataset.marker;saveState();render()});
+    $$('[data-assess]').forEach(b=>b.onclick=()=>{const id=state.view*5+state.index+1;state.assess[`s${id}`]=b.dataset.assess;saveState();render();metrics()});
+    $$('[data-reading]').forEach(b=>b.onclick=()=>{state.readingAssess=b.dataset.reading;saveState();readingRender()});
+    $$('[data-star]').forEach(b=>b.onclick=()=>{state.ratings[state.view]=Number(b.dataset.star);saveState();starsRender()});
+    $("#structure").onclick=()=>{state.structure=!state.structure;saveState();sentenceRender()};
+    $("#prev").onclick=()=>{if(state.index>0)state.index--;else if(state.view>0){state.view--;state.index=4}state.structure=false;saveState();render()};
+    $("#next").onclick=()=>{if(state.index<4)state.index++;else if(state.view<3){state.view++;state.index=0}else{state.view="reading";state.index=0}state.structure=false;saveState();render()};
+    $("#timerToggle").onclick=toggleTimer;$("#timerReset").onclick=()=>{if(!confirm("确定把本次有效用时归零吗？其他标记不会清除。"))return;if(timerId){clearInterval(timerId);timerId=null}state.seconds=0;saveState();timerRender()};
+    $("#save").onclick=()=>{const h=history(),ratings=Object.values(state.ratings).map(Number).filter(Boolean);h.unshift({date:new Date().toLocaleString("zh-CN",{hour12:false}),seconds:state.seconds,assessed:Object.keys(state.assess).length,rate:Math.round(entries().length/allCount()*100),rating:ratings.length?(ratings.reduce((a,b)=>a+b,0)/ratings.length).toFixed(1):"—"});localStorage.setItem(HKEY,JSON.stringify(h.slice(0,12)));notice("已保存在这台设备的浏览器中");historyRender()};
+    $("#copy").onclick=async()=>{try{await navigator.clipboard.writeText(summary());notice("课堂小结已复制")}catch{notice("复制失败，请检查浏览器权限")}};
+    $("#clearHistory").onclick=()=>{if(confirm("确定清空这台设备里的演示课堂记录吗？")){localStorage.removeItem(HKEY);historyRender()}};
+    $("#readingCount").textContent=`${readingData.flatMap(x=>words(x[0])).length}词`;
+    if(state.view!=="reading"&&![0,1,2,3].includes(Number(state.view)))state.view=0;
+    render();metrics();markedWords();timerRender();historyRender();
+  </script>
+</body>
+</html>
