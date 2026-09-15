@@ -45,10 +45,10 @@
     .side{display:grid;gap:14px}.side-card{padding:18px;border-radius:18px}.side-title{display:flex;align-items:center;justify-content:space-between;gap:12px}.side-title span{padding:4px 8px;border-radius:8px;background:#edf4fb;color:var(--blue);font-size:.72rem;font-weight:750}.side-card p,.reading p{margin-bottom:0;color:var(--muted);font-size:.8rem;line-height:1.55}
     .stars{display:flex;justify-content:space-between;margin-top:14px}.stars button{padding:2px;border:0;background:transparent;color:#d7dfe8;font-size:1.65rem}.stars button.filled{color:#f0b429}
     .marked{display:flex;flex-wrap:wrap;gap:7px;max-height:175px;margin-top:12px;overflow:auto}.chip{padding:5px 8px;border-radius:8px;font-size:.73rem;font-weight:750}.chip.uncertain{background:#fff6cc;color:#745b00}.chip.unknown{background:#ffe1e1;color:#922f2f}.empty{color:#8c98a8;font-size:.8rem}.notice{display:block;min-height:20px;margin-top:8px;color:var(--green);font-size:.74rem;text-align:center}
-    .reading,.history{padding:clamp(22px,4vw,38px);border-radius:24px}.reading[hidden],.workspace[hidden]{display:none}.reading-head{align-items:flex-end;margin-bottom:24px}.reading-head h2{margin-bottom:5px}.reading-list{display:grid;gap:14px}.reading-sentence{padding:18px 20px;border-left:4px solid #bed6ee;border-radius:0 14px 14px 0;background:#f8fbfe}.reading-line{font:1.18rem/1.8 Georgia,"Times New Roman",serif}.hint{display:none;margin:12px 0 0;padding-top:10px;border-top:1px dashed #ccd8e5;color:var(--muted);font-size:.84rem;line-height:1.65}.hint.show{display:block}.hint-btn{margin-top:9px;padding:0;border:0;background:transparent;color:var(--blue);font-size:.76rem;font-weight:800}.reading-foot{margin-top:24px;padding-top:20px;border-top:1px solid var(--line)}
+    .reading,.history{padding:clamp(22px,4vw,38px);border-radius:24px}.reading[hidden],.workspace[hidden]{display:none}.reading-head{align-items:flex-end;margin-bottom:24px}.reading-head h2{margin-bottom:5px}.cloze-layout{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(340px,.92fr);gap:24px;align-items:start}.passage-panel,.questions-panel{border:1px solid var(--line);border-radius:20px;background:#fbfdff}.passage-panel{position:sticky;top:18px;padding:26px}.passage-meta{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid var(--line)}.passage-meta strong{color:var(--navy)}.passage-meta span{color:var(--muted);font-size:.78rem}.passage-text{font:1.12rem/2 Georgia,"Times New Roman",serif}.passage-text p{margin:0 0 1.2em}.passage-text p:last-child{margin-bottom:0}.cloze-blank{display:inline-block;min-width:94px;margin:0 .12em;padding:0 .35em;border-bottom:2px solid #8ea9c6;color:var(--navy);font:800 .92rem/1.8 Inter,"PingFang SC",sans-serif;text-align:center;vertical-align:.06em}.questions-panel{overflow:hidden;background:#fff}.questions-head{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:18px 20px;border-bottom:1px solid var(--line);background:#f7faff}.questions-head h3{margin:0;color:var(--deep);font-size:1.05rem}.questions-head span{color:var(--muted);font-size:.78rem}.question-list{display:grid}.quiz-question{padding:18px 20px;border-bottom:1px solid var(--line)}.quiz-question:last-child{border-bottom:0}.quiz-question h4{margin:0 0 11px;color:var(--ink);font-size:.88rem}.option-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.quiz-option{min-height:40px;padding:8px 10px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--ink);font-size:.8rem;font-weight:700;text-align:left}.quiz-option:hover{border-color:#9bb9da;background:#f7fbff}.quiz-option.selected{border-color:var(--blue);background:var(--sky);color:var(--navy);box-shadow:0 0 0 2px rgba(47,112,183,.08)}.quiz-option.correct{border-color:#62a987;background:#e8f7ef;color:#176344}.quiz-option.wrong{border-color:#d87979;background:#ffeded;color:#922f2f}.answer-note{display:none;margin:11px 0 0;padding:10px 12px;border-radius:10px;background:#f4f7fa;color:var(--muted);font-size:.78rem;line-height:1.55}.answer-note.show{display:block}.quiz-actions{position:sticky;bottom:0;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 20px;border-top:1px solid var(--line);background:#fffffff2;backdrop-filter:blur(8px)}.quiz-result strong,.quiz-result span{display:block}.quiz-result strong{color:var(--navy)}.quiz-result span{margin-top:3px;color:var(--muted);font-size:.75rem}.quiz-buttons{display:flex;gap:8px}.btn:disabled{cursor:not-allowed;opacity:.48;transform:none}.reading-foot{margin-top:24px;padding-top:20px;border-top:1px solid var(--line)}
     .history{margin-top:20px}.history-head{margin-bottom:16px}.history-head h2{margin-bottom:0}.text-btn{padding:4px;border:0;background:transparent;color:var(--muted);font-size:.76rem;text-decoration:underline}.history-list{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.record{padding:15px;border:1px solid var(--line);border-radius:14px;background:#fbfdff}.record time,.record strong,.record span{display:block}.record time{margin-bottom:9px;color:var(--muted);font-size:.72rem}.record strong{margin-bottom:4px;color:var(--navy)}.record span{color:var(--muted);font-size:.76rem}
-    @media(max-width:980px){.workspace{grid-template-columns:1fr}.side{grid-template-columns:repeat(3,1fr)}}
-    @media(max-width:760px){.shell{width:calc(100% - 24px);padding-top:18px}.topbar,.overview-main,.toolbar,.assessment,.reading-head{align-items:stretch;flex-direction:column}.topbar{display:flex}.timer{min-width:0}.metrics{grid-template-columns:repeat(2,1fr)}.tabs{display:flex;overflow-x:auto;padding-bottom:5px}.tab{min-width:118px}.sentence{min-height:180px;margin-top:24px;padding:20px;font-size:1.45rem}.side,.history-list{grid-template-columns:1fr}.marker-buttons,.assessment-buttons{width:100%}.marker,.assessment-buttons button{flex:1 1 auto}}
+    @media(max-width:980px){.workspace{grid-template-columns:1fr}.side{grid-template-columns:repeat(3,1fr)}.cloze-layout{grid-template-columns:1fr}.passage-panel{position:static}}
+    @media(max-width:760px){.shell{width:calc(100% - 24px);padding-top:18px}.topbar,.overview-main,.toolbar,.assessment,.reading-head{align-items:stretch;flex-direction:column}.topbar{display:flex}.timer{min-width:0}.metrics{grid-template-columns:repeat(2,1fr)}.tabs{display:flex;overflow-x:auto;padding-bottom:5px}.tab{min-width:118px}.sentence{min-height:180px;margin-top:24px;padding:20px;font-size:1.45rem}.side,.history-list{grid-template-columns:1fr}.marker-buttons,.assessment-buttons{width:100%}.marker,.assessment-buttons button{flex:1 1 auto}.passage-panel{padding:20px}.passage-text{font-size:1.05rem;line-height:1.95}.questions-panel{border-radius:16px}.quiz-actions{align-items:stretch;flex-direction:column}.quiz-buttons{width:100%}.quiz-buttons .btn{flex:1}}
     @media(max-width:480px){.lesson-card{padding:20px 16px;border-radius:18px}.card-head{align-items:flex-start;flex-direction:column}.nav{grid-template-columns:1fr 1fr}.dots{grid-column:1/-1;grid-row:1}}
     @media(prefers-reduced-motion:reduce){*{transition:none!important}}
   </style>
@@ -82,7 +82,7 @@
       <button class="tab" data-view="1">第2关<span>句子 6–10</span></button>
       <button class="tab" data-view="2">第3关<span>句子 11–15</span></button>
       <button class="tab" data-view="3">第4关<span>句子 16–20</span></button>
-      <button class="tab" data-view="reading">短文阅读<span id="readingCount">约100词</span></button>
+      <button class="tab" data-view="reading">完形填空<span id="readingCount">约150词 · 10题</span></button>
     </nav>
 
     <main>
@@ -117,9 +117,21 @@
       </section>
 
       <section id="reading" class="reading" hidden>
-        <div class="reading-head"><div><p class="small-label">短文阅读</p><h2>A Visit to the Library</h2><p>点击单词可以继续使用黄色和红色荧光笔。</p></div><div class="marker-buttons"><button class="marker active" data-marker="uncertain"><i class="yellow"></i>有点模糊</button><button class="marker" data-marker="unknown"><i class="red"></i>不认识</button><button class="marker" data-marker="erase">清除标记</button></div></div>
-        <div id="readingList" class="reading-list"></div>
-        <div class="assessment reading-foot"><div><strong>阅读完成情况</strong><p>讲解结束后记录整体理解程度。</p></div><div class="assessment-buttons"><button data-reading="understood">能说出大意</button><button data-reading="prompted">提示后理解</button><button data-reading="review">需要再读</button></div></div>
+        <div class="reading-head"><div><p class="small-label">第一单元主题 · 完形填空</p><h2>Tu Youyou: A Great Chinese Scientist</h2><p>先通读文章，再完成右侧10道题。少量主题词已直接标注中文。</p></div><div class="marker-buttons"><button class="marker active" data-marker="uncertain"><i class="yellow"></i>有点模糊</button><button class="marker" data-marker="unknown"><i class="red"></i>不认识</button><button class="marker" data-marker="erase">清除标记</button></div></div>
+        <div class="cloze-layout">
+          <article class="passage-panel">
+            <div class="passage-meta"><strong>完形填空正文</strong><span>约150词 · 共10空</span></div>
+            <div id="passageText" class="passage-text" aria-label="完形填空正文"></div>
+          </article>
+          <section class="questions-panel" aria-label="完形填空选项">
+            <div class="questions-head"><h3>选择最合适的答案</h3><span id="quizProgress">已选 0 / 10</span></div>
+            <div id="questionList" class="question-list"></div>
+            <div class="quiz-actions">
+              <div id="quizResult" class="quiz-result"><strong>完成全部题目后交卷</strong><span>交卷后显示得分和逐题解析</span></div>
+              <div class="quiz-buttons"><button id="quizReset" class="btn outline" hidden>重新作答</button><button id="quizSubmit" class="btn primary" disabled>提交答案</button></div>
+            </div>
+          </section>
+        </div>
       </section>
 
       <section class="history"><div class="history-head"><div><p class="small-label">学习记录</p><h2>最近课堂对比</h2></div><button id="clearHistory" class="text-btn">清空学习记录</button></div><div id="historyList" class="history-list empty">保存一次课堂记录后，这里会显示对比。</div></section>
@@ -149,18 +161,25 @@
       ["第4关 · that + after",[["The vegetable soup","subject","主语"],["that my father made last night","detail","介绍soup"],["tasted","verb","状态"],["better","object","补充说明"],["after he added some salt.","detail","时间"]]],
       ["第4关 · after + that",[["After we finished the project","detail","发生时间"],["that our science teacher gave us,","detail","介绍project"],["everyone in the group","subject","主句主语"],["felt","verb","主句状态"],["tired but happy.","object","补充说明"]]]
     ];
-    const readingData = [
-      ["Last Saturday, Leo and his sister went to the city library.","时间是上周六；人物是Leo和他的妹妹；动作是去市图书馆。"],
-      ["They looked for a book about birds because their science teacher had given them a project.","主干是They looked for a book；because后面解释找书的原因。"],
-      ["When they arrived, the library was quiet, but many students were reading near the windows.","when说明到达的时间；but连接两个信息。"],
-      ["A librarian showed them a shelf of animal books.","主干是A librarian showed them a shelf；of animal books补充书架上的内容。"],
-      ["Leo chose a blue book, while his sister wrote down useful facts.","while连接同时发生的两件事：Leo选书，妹妹记录资料。"],
-      ["Before they left, they borrowed two books and thanked the librarian.","before说明离开之前；两个动作是borrowed和thanked。"],
-      ["On the way home, they talked about how they would finish the project together.","背景是回家路上；how后面说明他们将怎样完成项目。"],
-      ["They felt tired, but both of them were happy with their work.","but表示转折：虽然累，但是两个人都对成果感到开心。"]
+    const clozeParagraphs = [
+      ["Tu Youyou is a Chinese scientist. She was born in Ningbo in 1930. As a child, she liked science and medicine（医学）. Later, she joined a team that wanted to help sick people."],
+      ["Many people were ill because of malaria（疟疾）. Tu and her team read Chinese books and did tests. The work was not ",{q:1},", and they failed again. However, Tu did not ",{q:2}," up. She believed they could find a useful medicine（药物）. She got an idea from an old book. After more tests, her team ",{q:3}," artemisinin（青蒿素）, a medicine that could save lives."],
+      ["In 2015, Tu Youyou ",{q:4}," the Nobel Prize（诺贝尔奖）in Medicine. She said the prize belonged to（属于）her whole ",{q:5},". Her story shows that hard work and hope can help us ",{q:6}," difficulties（困难）. Tu is a scientist ",{q:7}," makes China proud（自豪的）. She is also a good example ",{q:8}," young people. We should learn ",{q:9}," her and try to help ",{q:10},"."]
+    ];
+    const clozeQuestions = [
+      {n:1,answer:"B",reason:"后面说他们又失败了，说明研究工作并不容易。not easy 表示“不容易”。",options:{A:"long",B:"easy",C:"young",D:"warm"}},
+      {n:2,answer:"D",reason:"give up 是固定搭配，表示“放弃”；did not give up 表示她没有放弃。",options:{A:"look",B:"come",C:"get",D:"give"}},
+      {n:3,answer:"A",reason:"经过多次试验后，团队找到了青蒿素。found 是 find 的过去式。",options:{A:"found",B:"lost",C:"bought",D:"carried"}},
+      {n:4,answer:"C",reason:"won the Nobel Prize 是“获得诺贝尔奖”的常用表达。",options:{A:"read",B:"made",C:"won",D:"took"}},
+      {n:5,answer:"B",reason:"前文多次提到她和团队共同研究，因此奖项属于整个 team。",options:{A:"school",B:"team",C:"city",D:"room"}},
+      {n:6,answer:"A",reason:"face difficulties 是常用搭配，表示“面对困难”。",options:{A:"face",B:"close",C:"wash",D:"draw"}},
+      {n:7,answer:"C",reason:"空格后的内容介绍前面的 scientist，that 引导定语从句。",options:{A:"what",B:"when",C:"that",D:"where"}},
+      {n:8,answer:"D",reason:"an example for young people 表示“年轻人的榜样”。",options:{A:"at",B:"on",C:"from",D:"for"}},
+      {n:9,answer:"B",reason:"learn from somebody 是固定搭配，表示“向某人学习”。",options:{A:"with",B:"from",C:"after",D:"about"}},
+      {n:10,answer:"A",reason:"文章强调帮助病人和其他人，help others 符合全文主题。",options:{A:"others",B:"nothing",C:"herself",D:"books"}}
     ];
     const KEY="honghao-day10-that-v1", HKEY="honghao-history-v1";
-    const base={view:0,index:0,marker:"uncertain",structure:false,marks:{},assess:{},ratings:{},readingAssess:"",seconds:0};
+    const base={view:0,index:0,marker:"uncertain",structure:false,marks:{},assess:{},ratings:{},readingAssess:"",clozeAnswers:{},clozeSubmitted:false,seconds:0};
     let state={...base,...JSON.parse(localStorage.getItem(KEY)||"{}")}, timerId=null;
     const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
     const saveState=()=>localStorage.setItem(KEY,JSON.stringify(state));
@@ -175,12 +194,18 @@
     function assessRender(){const id=state.view*5+state.index+1;$$('[data-assess]').forEach(b=>b.classList.toggle("selected",state.assess[`s${id}`]===b.dataset.assess))}
     function dotsRender(){$("#dots").innerHTML="";for(let i=0;i<5;i++){const b=document.createElement("button"),id=state.view*5+i+1;b.className=`dot ${i===state.index?"current":""} ${state.assess[`s${id}`]?"done":""}`;b.ariaLabel=`本关第${i+1}句`;b.onclick=()=>{state.index=i;state.structure=false;saveState();render()};$("#dots").append(b)}}
     function starsRender(){const r=Number(state.ratings[state.view]||0);$$('[data-star]').forEach(b=>b.classList.toggle("filled",Number(b.dataset.star)<=r))}
-    function readingRender(){$("#readingList").innerHTML="";let n=0;readingData.forEach(([text,hint])=>{const card=document.createElement("article"),line=document.createElement("div"),btn=document.createElement("button"),p=document.createElement("p");card.className="reading-sentence";line.className="reading-line";n=tokenText(line,text,"r",n);btn.className="hint-btn";btn.textContent="显示这句的理解提示";p.className="hint";p.textContent=hint;btn.onclick=()=>{p.classList.toggle("show");btn.textContent=p.classList.contains("show")?"收起理解提示":"显示这句的理解提示"};card.append(line,btn,p);$("#readingList").append(card)});$$('[data-reading]').forEach(b=>b.classList.toggle("selected",state.readingAssess===b.dataset.reading))}
+    function readingWords(){return clozeParagraphs.flatMap(p=>p.filter(x=>typeof x==="string").flatMap(words))}
+    function readingRender(){
+      const passage=$("#passageText"),list=$("#questionList");passage.innerHTML="";list.innerHTML="";let wordIndex=0;
+      clozeParagraphs.forEach(parts=>{const p=document.createElement("p");parts.forEach(part=>{if(typeof part==="string")wordIndex=tokenText(p,part,"r",wordIndex);else{const blank=document.createElement("span");blank.className="cloze-blank";blank.textContent=`(${part.q}) ______`;p.append(blank)}});passage.append(p)});
+      clozeQuestions.forEach(q=>{const card=document.createElement("article"),title=document.createElement("h4"),grid=document.createElement("div"),note=document.createElement("p");card.className="quiz-question";title.textContent=`第 ${q.n} 题`;grid.className="option-grid";Object.entries(q.options).forEach(([letter,label])=>{const b=document.createElement("button"),selected=state.clozeAnswers[q.n]===letter;b.className=`quiz-option ${selected?"selected":""}`;b.textContent=`${letter}. ${label}`;b.disabled=state.clozeSubmitted;if(state.clozeSubmitted){if(letter===q.answer)b.classList.add("correct");else if(selected)b.classList.add("wrong")}b.onclick=()=>{state.clozeAnswers[q.n]=letter;saveState();readingRender()};grid.append(b)});note.className=`answer-note ${state.clozeSubmitted?"show":""}`;note.textContent=`答案：${q.answer}. ${q.options[q.answer]}。${q.reason}`;card.append(title,grid,note);list.append(card)});
+      const answered=Object.keys(state.clozeAnswers).filter(n=>state.clozeAnswers[n]).length,score=clozeQuestions.filter(q=>state.clozeAnswers[q.n]===q.answer).length;$("#quizProgress").textContent=`已选 ${answered} / 10`;$("#quizSubmit").disabled=answered<10||state.clozeSubmitted;$("#quizSubmit").hidden=state.clozeSubmitted;$("#quizReset").hidden=!state.clozeSubmitted;if(state.clozeSubmitted){$("#quizResult").innerHTML=`<strong>得分 ${score} / 10</strong><span>${score===10?"全部正确，完成得很好。":"向下查看每题答案和解析。"}</span>`}else{$("#quizResult").innerHTML=`<strong>${answered===10?"已经全部完成，可以交卷":"完成全部题目后交卷"}</strong><span>${answered===10?"交卷后显示得分和逐题解析":`还剩 ${10-answered} 题未完成`}</span>`}
+    }
     function render(){const read=state.view==="reading";$("#workspace").hidden=read;$("#reading").hidden=!read;$$('.tab').forEach(b=>b.classList.toggle("active",b.dataset.view===String(state.view)));if(read)readingRender();else sentenceRender();$$('[data-marker]').forEach(b=>b.classList.toggle("active",b.dataset.marker===state.marker))}
-    const allCount=()=>lessons.flatMap(x=>x[1].flatMap(y=>words(y[0]))).length+readingData.flatMap(x=>words(x[0])).length;
+    const allCount=()=>lessons.flatMap(x=>x[1].flatMap(y=>words(y[0]))).length+readingWords().length;
     function entries(){return Object.entries(state.marks).filter(x=>["uncertain","unknown"].includes(x[1]))}
     function metrics(){const e=entries(),u=e.filter(x=>x[1]==="uncertain").length,k=e.filter(x=>x[1]==="unknown").length,a=Object.keys(state.assess).length;$("#uncertain").textContent=u;$("#unknown").textContent=k;$("#assessed").textContent=a;$("#rate").textContent=`${Math.round(e.length/allCount()*100)}%`;$("#progressText").textContent=`${a} / 20`;$("#progressBar").style.width=`${a/20*100}%`;$("#markedTotal").textContent=`${e.length}个`}
-    function findWord(key){const [prefix,raw]=key.split("-"),i=Number(raw);if(prefix==="r")return readingData.flatMap(x=>words(x[0]))[i]||"";const id=Number(prefix.slice(1));return lessons[id-1][1].flatMap(x=>words(x[0]))[i]||""}
+    function findWord(key){const [prefix,raw]=key.split("-"),i=Number(raw);if(prefix==="r")return readingWords()[i]||"";const id=Number(prefix.slice(1));return lessons[id-1][1].flatMap(x=>words(x[0]))[i]||""}
     function markedWords(){const map=new Map;entries().forEach(([k,s])=>{const w=findWord(k).toLowerCase(),old=map.get(w);if(w)map.set(w,old==="unknown"||s==="unknown"?"unknown":"uncertain")});const host=$("#markedWords");if(!map.size){host.className="marked empty";host.textContent="还没有标记生词";return}host.className="marked";host.innerHTML="";[...map].sort().forEach(([w,s])=>{const c=document.createElement("span");c.className=`chip ${s}`;c.textContent=w;host.append(c)})}
     function timerRender(){$("#timer").textContent=fmt(state.seconds);$("#timerToggle").textContent=timerId?"暂停":"开始"}
     function toggleTimer(){if(timerId){clearInterval(timerId);timerId=null;saveState()}else timerId=setInterval(()=>{state.seconds++;timerRender();if(state.seconds%5===0)saveState()},1000);timerRender()}
@@ -200,7 +225,9 @@
     $("#save").onclick=()=>{const h=history(),ratings=Object.values(state.ratings).map(Number).filter(Boolean);h.unshift({date:new Date().toLocaleString("zh-CN",{hour12:false}),seconds:state.seconds,assessed:Object.keys(state.assess).length,rate:Math.round(entries().length/allCount()*100),rating:ratings.length?(ratings.reduce((a,b)=>a+b,0)/ratings.length).toFixed(1):"—"});localStorage.setItem(HKEY,JSON.stringify(h.slice(0,12)));notice("已保存在这台设备的浏览器中");historyRender()};
     $("#copy").onclick=async()=>{try{await navigator.clipboard.writeText(summary());notice("课堂小结已复制")}catch{notice("复制失败，请检查浏览器权限")}};
     $("#clearHistory").onclick=()=>{if(confirm("确定清空这台设备里的学习记录吗？")){localStorage.removeItem(HKEY);historyRender()}};
-    $("#readingCount").textContent=`${readingData.flatMap(x=>words(x[0])).length}词`;
+    $("#quizSubmit").onclick=()=>{if(Object.keys(state.clozeAnswers).filter(n=>state.clozeAnswers[n]).length<10)return;state.clozeSubmitted=true;saveState();readingRender();$("#questionList").scrollIntoView({behavior:"smooth",block:"start"})};
+    $("#quizReset").onclick=()=>{state.clozeAnswers={};state.clozeSubmitted=false;saveState();readingRender();$("#passageText").scrollIntoView({behavior:"smooth",block:"start"})};
+    $("#readingCount").textContent=`约150词 · 10题`;
     if(state.view!=="reading"&&![0,1,2,3].includes(Number(state.view)))state.view=0;
     render();metrics();markedWords();timerRender();historyRender();
   </script>
