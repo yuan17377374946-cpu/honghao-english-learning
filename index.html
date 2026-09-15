@@ -65,7 +65,7 @@
 
     <section class="overview">
       <div class="overview-main">
-        <div><span class="demo">演示课程</span><h2>Day 1 · 长句理解训练</h2><p>20个句子分4关，每关5句。演示内容不会自动计入正式学习档案。</p></div>
+        <div><span class="demo">今日课程</span><h2>Day 10 · that引导的定语从句</h2><p>20个句子分4关，每关5句。先找that从句，再看它介绍前面的谁或什么。</p></div>
         <div class="progress-copy"><strong id="progressText">0 / 20</strong><span>已记录理解情况</span></div>
       </div>
       <div class="track"><i id="progressBar"></i></div>
@@ -122,32 +122,32 @@
         <div class="assessment reading-foot"><div><strong>阅读完成情况</strong><p>讲解结束后记录整体理解程度。</p></div><div class="assessment-buttons"><button data-reading="understood">能说出大意</button><button data-reading="prompted">提示后理解</button><button data-reading="review">需要再读</button></div></div>
       </section>
 
-      <section class="history"><div class="history-head"><div><p class="small-label">学习记录</p><h2>最近课堂对比</h2></div><button id="clearHistory" class="text-btn">清空演示记录</button></div><div id="historyList" class="history-list empty">保存一次课堂记录后，这里会显示对比。</div></section>
+      <section class="history"><div class="history-head"><div><p class="small-label">学习记录</p><h2>最近课堂对比</h2></div><button id="clearHistory" class="text-btn">清空学习记录</button></div><div id="historyList" class="history-list empty">保存一次课堂记录后，这里会显示对比。</div></section>
     </main>
   </div>
 
   <script>
     const lessons = [
-      ["基础主干 + 时间地点",[["The boy","subject","主语"],["runs","verb","动作"],["in the park every morning.","detail","地点 + 时间"]]],
-      ["基础主干 + 时间",[["My sister","subject","主语"],["reads","verb","动作"],["a book","object","对象"],["after dinner.","detail","时间"]]],
-      ["that引导的定语从句",[["The bus","subject","主语"],["that stops near our school","detail","介绍bus"],["is","verb","状态"],["always crowded.","object","补充说明"]]],
-      ["because原因从句",[["We","subject","主语"],["stayed","verb","动作"],["inside","object","地点"],["because the rain was heavy.","detail","原因"]]],
-      ["when时间从句",[["When the bell rang,","detail","发生时间"],["the students","subject","主语"],["went back","verb","动作"],["to class.","object","地点"]]],
-      ["who引导的定语从句",[["The girl","subject","主语"],["who wears a red coat","detail","介绍girl"],["is","verb","状态"],["my cousin.","object","身份"]]],
-      ["while同时发生",[["Dad","subject","主语"],["was cooking","verb","动作一"],["while I was setting the table.","detail","同时的动作二"]]],
-      ["that引导的定语从句",[["The dog","subject","主语"],["that lives next door","detail","介绍dog"],["follows","verb","动作"],["me to school.","object","对象 + 地点"]]],
-      ["if条件从句",[["If you leave early,","detail","条件"],["you","subject","主语"],["can catch","verb","动作"],["the first bus.","object","对象"]]],
-      ["although让步从句",[["Although Tom was tired,","detail","虽然很累"],["he","subject","主语"],["finished","verb","动作"],["his homework.","object","对象"]]],
-      ["that定语从句 + 双主干",[["The book","subject","主语"],["that our teacher gave us","detail","介绍book"],["tells","verb","动作"],["a simple story.","object","对象"]]],
-      ["after时间从句",[["After the rain stopped,","detail","发生时间"],["the children","subject","主语"],["played","verb","动作"],["football outside.","object","对象 + 地点"]]],
-      ["who引导的定语从句",[["The woman","subject","主语"],["who helped us at the station","detail","介绍woman"],["was","verb","状态"],["very kind.","object","补充说明"]]],
-      ["because原因从句",[["I","subject","主语"],["keep","verb","动作"],["a small notebook","object","对象"],["because new words are easy to forget.","detail","原因"]]],
-      ["while时间从句",[["While the train was moving,","detail","发生时间"],["we","subject","主语"],["watched","verb","动作"],["the farms pass by.","object","看到的内容"]]],
-      ["that引导的定语从句",[["The shop","subject","主语"],["that opened last month","detail","介绍shop"],["sells","verb","动作"],["fresh fruit.","object","对象"]]],
-      ["before时间从句",[["Before the movie began,","detail","发生时间"],["everyone","subject","主语"],["turned off","verb","动作"],["their phones.","object","对象"]]],
-      ["so结果 + until时间",[["The road","subject","主语一"],["was","verb","状态"],["busy,","object","补充说明"],["so we waited until the light turned green.","detail","结果 + 时间"]]],
-      ["who定语从句 + 方式",[["The student","subject","主语"],["who asked the question","detail","介绍student"],["found","verb","动作"],["the answer by himself.","object","对象 + 方式"]]],
-      ["even though让步从句",[["Even though the task looked difficult,","detail","虽然看起来很难"],["our group","subject","主语"],["completed","verb","动作"],["it on time.","object","对象 + 时间"]]]
+      ["第1关 · 找出that介绍的事物",[["The bus","subject","主语"],["that stops near our school","detail","介绍bus"],["is","verb","状态"],["always full.","object","补充说明"]]],
+      ["第1关 · 找出that介绍的事物",[["The book","subject","主语"],["that is on the desk","detail","介绍book"],["is","verb","状态"],["Lily's.","object","所属关系"]]],
+      ["第1关 · 找出that介绍的人",[["The boy","subject","主语"],["that wears a blue coat","detail","介绍boy"],["is","verb","状态"],["my cousin.","object","身份"]]],
+      ["第1关 · 找出that介绍的事物",[["The shop","subject","主语"],["that sells fresh fruit","detail","介绍shop"],["opens","verb","动作"],["at eight.","object","时间"]]],
+      ["第1关 · 找出that介绍的动物",[["The dog","subject","主语"],["that follows me every morning","detail","介绍dog"],["lives","verb","动作"],["next door.","object","地点"]]],
+      ["第2关 · that后面有新主语",[["I","subject","主语"],["like","verb","动作"],["the picture","object","对象"],["that my sister drew yesterday.","detail","介绍picture"]]],
+      ["第2关 · that后面有新主语",[["We","subject","主语"],["took","verb","动作"],["the train","object","对象"],["that Dad told us about.","detail","介绍train"]]],
+      ["第2关 · that后面有新主语",[["She","subject","主语"],["found","verb","动作"],["the key","object","对象"],["that she lost in the park.","detail","介绍key"]]],
+      ["第2关 · that后面有新主语",[["The salad","subject","主语"],["that my mother made for dinner","detail","介绍salad"],["was","verb","状态"],["very fresh.","object","补充说明"]]],
+      ["第2关 · that后面有新主语",[["The teacher","subject","主语"],["checked","verb","动作"],["the homework","object","对象"],["that the students finished after class.","detail","介绍homework"]]],
+      ["第3关 · 加入地点和时间",[["The restaurant","subject","主语"],["that is next to the hospital","detail","介绍restaurant"],["is","verb","状态"],["busy at lunchtime.","object","补充 + 时间"]]],
+      ["第3关 · when + that",[["When we arrived at the station,","detail","发生时间"],["the bus","subject","主语"],["that goes to the city center","detail","介绍bus"],["was","verb","状态"],["already there.","object","补充说明"]]],
+      ["第3关 · because + that",[["Because the road","detail","原因从句"],["that leads to the market","detail","介绍road"],["was busy,","verb","从句状态"],["we","subject","主句主语"],["left","verb","主句动作"],["home early.","object","地点 + 时间"]]],
+      ["第3关 · that从句里有地点",[["The red bike","subject","主语"],["that my brother rides to school","detail","介绍bike"],["needs","verb","动作"],["a new seat.","object","对象"]]],
+      ["第3关 · while + that",[["While Grandma was cooking,","detail","同时发生"],["I","subject","主句主语"],["washed","verb","主句动作"],["the vegetables","object","对象"],["that we bought at the market.","detail","介绍vegetables"]]],
+      ["第4关 · if + that",[["If you see the girl","detail","条件从句"],["that carries a yellow bag,","detail","介绍girl"],["please give","verb","主句动作"],["this book to her.","object","对象"]]],
+      ["第4关 · 两个that定语从句",[["The library","subject","主语"],["that we visited after school","detail","介绍library"],["had","verb","动作"],["many easy books","object","对象"],["that young students could understand.","detail","介绍books"]]],
+      ["第4关 · that + because",[["The boy","subject","主语"],["that helped the old man at the bus stop","detail","介绍boy"],["missed","verb","动作"],["the first class","object","对象"],["because he arrived late.","detail","原因"]]],
+      ["第4关 · that + after",[["The vegetable soup","subject","主语"],["that my father made last night","detail","介绍soup"],["tasted","verb","状态"],["better","object","补充说明"],["after he added some salt.","detail","时间"]]],
+      ["第4关 · after + that",[["After we finished the project","detail","发生时间"],["that our science teacher gave us,","detail","介绍project"],["everyone in the group","subject","主句主语"],["felt","verb","主句状态"],["tired but happy.","object","补充说明"]]]
     ];
     const readingData = [
       ["Last Saturday, Leo and his sister went to the city library.","时间是上周六；人物是Leo和他的妹妹；动作是去市图书馆。"],
@@ -159,7 +159,7 @@
       ["On the way home, they talked about how they would finish the project together.","背景是回家路上；how后面说明他们将怎样完成项目。"],
       ["They felt tired, but both of them were happy with their work.","but表示转折：虽然累，但是两个人都对成果感到开心。"]
     ];
-    const KEY="honghao-classroom-v1", HKEY="honghao-history-v1";
+    const KEY="honghao-day10-that-v1", HKEY="honghao-history-v1";
     const base={view:0,index:0,marker:"uncertain",structure:false,marks:{},assess:{},ratings:{},readingAssess:"",seconds:0};
     let state={...base,...JSON.parse(localStorage.getItem(KEY)||"{}")}, timerId=null;
     const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
@@ -186,7 +186,7 @@
     function toggleTimer(){if(timerId){clearInterval(timerId);timerId=null;saveState()}else timerId=setInterval(()=>{state.seconds++;timerRender();if(state.seconds%5===0)saveState()},1000);timerRender()}
     function history(){try{return JSON.parse(localStorage.getItem(HKEY)||"[]")}catch{return[]}}
     function historyRender(){const h=history(),host=$("#historyList");if(!h.length){host.className="history-list empty";host.textContent="保存一次课堂记录后，这里会显示对比。";return}host.className="history-list";host.innerHTML="";h.slice(0,3).forEach(r=>{const a=document.createElement("article");a.className="record";a.innerHTML=`<time>${r.date}</time><strong>完成 ${r.assessed}/20 句 · 用时 ${fmt(r.seconds)}</strong><span>生词率 ${r.rate}% · 平均 ${r.rating} 星</span>`;host.append(a)})}
-    function summary(){const e=entries(),a=Object.values(state.assess);return [`宏浩英语课堂记录（演示课程）`,`有效用时：${fmt(state.seconds)}`,`已评句子：${a.length}/20`,`理解情况：独立理解${a.filter(x=>x==="understood").length}句，提示后理解${a.filter(x=>x==="prompted").length}句，需要再讲${a.filter(x=>x==="review").length}句`,`生词标记：模糊${e.filter(x=>x[1]==="uncertain").length}个，不认识${e.filter(x=>x[1]==="unknown").length}个，生词率${Math.round(e.length/allCount()*100)}%`].join("\n")}
+    function summary(){const e=entries(),a=Object.values(state.assess);return [`宏浩英语课堂记录（Day 10 · that定语从句）`,`有效用时：${fmt(state.seconds)}`,`已评句子：${a.length}/20`,`理解情况：独立理解${a.filter(x=>x==="understood").length}句，提示后理解${a.filter(x=>x==="prompted").length}句，需要再讲${a.filter(x=>x==="review").length}句`,`生词标记：模糊${e.filter(x=>x[1]==="uncertain").length}个，不认识${e.filter(x=>x[1]==="unknown").length}个，生词率${Math.round(e.length/allCount()*100)}%`].join("\n")}
     function notice(t){$("#notice").textContent=t;setTimeout(()=>$("#notice").textContent="",2200)}
     $$('.tab').forEach(b=>b.onclick=()=>{state.view=b.dataset.view==="reading"?"reading":Number(b.dataset.view);state.index=0;state.structure=false;saveState();render()});
     $$('[data-marker]').forEach(b=>b.onclick=()=>{state.marker=b.dataset.marker;saveState();render()});
