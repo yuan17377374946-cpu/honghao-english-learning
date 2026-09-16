@@ -65,7 +65,7 @@
 
     <section class="overview">
       <div class="overview-main">
-        <div><span class="demo">今日课程</span><h2>Day 11 · that定语从句 + 单词树</h2><p>先练20个长句，再用5棵单词树认识词干、后缀和合成词，最后完成主题完形填空。</p></div>
+        <div><span class="demo">今日课程</span><h2>Day 11 · that定语从句 + 单词树</h2><p>先练20个长句，再用10棵单词树认识词干、词缀和合成词，最后完成主题完形填空。</p></div>
         <div class="progress-copy"><strong id="progressText">0 / 20</strong><span>已记录理解情况</span></div>
       </div>
       <div class="track"><i id="progressBar"></i></div>
@@ -82,7 +82,7 @@
       <button class="tab" data-view="1">第2关<span>句子 6–10</span></button>
       <button class="tab" data-view="2">第3关<span>句子 11–15</span></button>
       <button class="tab" data-view="3">第4关<span>句子 16–20</span></button>
-      <button class="tab" data-view="wordtree">单词树<span>5棵树 · 20词</span></button>
+      <button class="tab" data-view="wordtree">单词树<span>10棵树 · 40词</span></button>
       <button class="tab" data-view="reading">完形填空<span id="readingCount">约150词 · 10题</span></button>
     </nav>
 
@@ -119,7 +119,7 @@
 
       <section id="wordTrees" class="word-trees" hidden>
         <div class="tree-head">
-          <div><p class="small-label">词汇规律 · 约8分钟</p><h2>一个中心词，长出一组新单词</h2><p>先看中心词，再点击三个分支。注意：这里既有后缀构词，也有两个单词合在一起的合成词。</p></div>
+          <div><p class="small-label">词汇规律 · 可分两组学习</p><h2>一个中心词，长出一组新单词</h2><p>前5棵复习基础构词，后5棵学习九年级第一单元词族。点击分支可查看词性、拆词说明和例句。</p></div>
           <button id="toReading" class="btn primary">学完去做完形填空</button>
         </div>
         <div id="treeSelector" class="tree-selector" aria-label="选择单词树"></div>
@@ -128,9 +128,9 @@
           <aside id="treeDetail" class="tree-detail" aria-live="polite"></aside>
         </div>
         <section class="tree-quiz" aria-label="单词树快速判断">
-          <div class="tree-quiz-head"><h3>3道快速判断</h3><span class="tag">看懂规律再答</span></div>
+          <div class="tree-quiz-head"><h3>6道快速判断</h3><span class="tag">看懂规律再答</span></div>
           <div id="treeQuiz" class="tree-quiz-list"></div>
-          <div class="tree-quiz-foot"><div id="treeResult" class="tree-result">完成3题后检查答案。</div><button id="treeSubmit" class="btn primary" disabled>检查答案</button></div>
+          <div class="tree-quiz-foot"><div id="treeResult" class="tree-result">完成6题后检查答案。</div><button id="treeSubmit" class="btn primary" disabled>检查答案</button></div>
         </section>
       </section>
 
@@ -221,16 +221,46 @@
         {word:"worker",pos:"n.",posName:"名词",meaning:"工人；工作者",build:"work + -er",note:"-er表示“做这件事的人”。",example:"The worker fixed the machine."},
         {word:"homework",pos:"n.",posName:"名词",meaning:"家庭作业",build:"home + work",note:"这是合成词：home和work两个完整单词合在一起。",example:"He finished his homework."},
         {word:"teamwork",pos:"n.",posName:"名词",meaning:"团队合作",build:"team + work",note:"这是合成词：team和work合在一起，表示团队合作。",example:"Teamwork helped us win."}
+      ]},
+      {name:"class 家族",base:{word:"class",pos:"n.",posName:"名词",meaning:"班级；课",build:"中心词 class",note:"class是这一组的中心词。它既可以表示“班级”，也可以表示“一节课”。",example:"We are in the same class."},branches:[
+        {word:"classic",pos:"adj. / n.",posName:"形容词 / 名词",meaning:"经典的；经典作品",build:"class + -ic",note:"-ic常构成形容词。classic强调经久不衰、具有代表性。",example:"This is a classic story."},
+        {word:"classical",pos:"adj.",posName:"形容词",meaning:"古典的；经典的",build:"classic + -al",note:"-al常构成形容词。classical常用于古典音乐、古典艺术等。",example:"She likes classical music."},
+        {word:"classmate",pos:"n.",posName:"名词",meaning:"同班同学",build:"class + mate",note:"这是合成词：class和mate合在一起，表示同班同学。",example:"My classmate helped me."}
+      ]},
+      {name:"convince 家族",base:{word:"convince",pos:"v.",posName:"动词",meaning:"使相信；说服",build:"中心词 convince",note:"convince常用于 convince somebody to do something，表示“说服某人做某事”。",example:"I convinced him to try again."},branches:[
+        {word:"convinced",pos:"adj.",posName:"形容词",meaning:"确信的；深信的",build:"convince + -d",note:"convinced描述人的感受，表示某人已经相信或确信。",example:"I am convinced that he is right."},
+        {word:"convincing",pos:"adj.",posName:"形容词",meaning:"令人信服的",build:"convince + -ing",note:"convincing描述让别人相信的人、理由或说法。",example:"Her answer sounds convincing."},
+        {word:"unconvinced",pos:"adj.",posName:"形容词",meaning:"不信服的",build:"un- + convinced",note:"前缀un-表示“不”，所以unconvinced表示“没有被说服的”。",example:"He remained unconvinced."}
+      ]},
+      {name:"manage 家族",base:{word:"manage",pos:"v.",posName:"动词",meaning:"设法完成；管理",build:"中心词 manage",note:"manage既可以表示“管理”，也常表示虽然困难但最终设法做成。",example:"She managed to finish the work."},branches:[
+        {word:"manager",pos:"n.",posName:"名词",meaning:"经理；管理者",build:"manage + -r",note:"-er或-r常表示“做这件事的人”。",example:"The manager spoke to us."},
+        {word:"management",pos:"n.",posName:"名词",meaning:"管理；经营",build:"manage + -ment",note:"-ment常把动词变成名词，management表示管理这件事。",example:"Good time management is important."},
+        {word:"manageable",pos:"adj.",posName:"形容词",meaning:"可处理的；能应付的",build:"manage + -able",note:"-able表示“能够……的”，manageable就是能够处理或应付的。",example:"The task is manageable."}
+      ]},
+      {name:"true 家族",base:{word:"true",pos:"adj.",posName:"形容词",meaning:"真实的；正确的",build:"中心词 true",note:"true是形容词，可以描述事情真实，也可以表示答案正确。",example:"The story is true."},branches:[
+        {word:"truth",pos:"n.",posName:"名词",meaning:"事实；真相",build:"true → truth",note:"true变成名词truth时拼写发生变化，不是直接添加后缀。",example:"Please tell me the truth."},
+        {word:"truly",pos:"adv.",posName:"副词",meaning:"真正地；确实",build:"true - e + -ly",note:"true去掉末尾e再加-ly，变成副词truly。",example:"I am truly sorry."},
+        {word:"truthful",pos:"adj.",posName:"形容词",meaning:"诚实的；真实的",build:"truth + -ful",note:"truth加-ful构成形容词，表示说真话的或真实的。",example:"He gave a truthful answer."}
+      ]},
+      {name:"believe 家族",base:{word:"believe",pos:"v.",posName:"动词",meaning:"相信；认为",build:"中心词 believe",note:"believe是动词，表示相信某人、某事或认为某件事是真的。",example:"I believe you."},branches:[
+        {word:"belief",pos:"n.",posName:"名词",meaning:"信念；相信",build:"believe → belief",note:"believe变为名词belief时，词尾-ve变成-f。",example:"Her belief gave her strength."},
+        {word:"believable",pos:"adj.",posName:"形容词",meaning:"可信的",build:"believe - e + -able",note:"-able表示“能够……的”，believable就是能够让人相信的。",example:"The story is believable."},
+        {word:"unbelievable",pos:"adj.",posName:"形容词",meaning:"难以置信的",build:"un- + believable",note:"前缀un-表示“不”，所以unbelievable表示难以让人相信。",example:"The result was unbelievable."}
       ]}
     ];
     const treeQuestions = [
       {q:"后缀 -ful 通常表示什么？",options:["有……的","没有……的"],answer:0},
       {q:"careless 的意思是哪一个？",options:["仔细的","粗心的"],answer:1},
-      {q:"worker 主要表示什么？",options:["做工作的人","工作这件事"],answer:0}
+      {q:"worker 主要表示什么？",options:["做工作的人","工作这件事"],answer:0},
+      {q:"management 是什么词性？",options:["名词","形容词"],answer:0},
+      {q:"描述“令人信服的理由”应该用哪个词？",options:["convinced","convincing"],answer:1},
+      {q:"believe 变成名词后是哪一个？",options:["belief","believable"],answer:0}
     ];
     const KEY="honghao-day11-that-v1", HKEY="honghao-history-v1";
-    const base={view:0,index:0,marker:"uncertain",structure:false,marks:{},assess:{},ratings:{},readingAssess:"",treeIndex:0,treeWord:"help",treeAnswers:{},treeSubmitted:false,clozeAnswers:{},clozeSubmitted:false,seconds:0};
-    let state={...base,...JSON.parse(localStorage.getItem(KEY)||"{}")}, timerId=null;
+    const base={view:0,index:0,marker:"uncertain",structure:false,marks:{},assess:{},ratings:{},readingAssess:"",treeIndex:0,treeWord:"help",treeAnswers:{},treeSubmitted:false,treeQuizVersion:2,clozeAnswers:{},clozeSubmitted:false,seconds:0};
+    const savedState=JSON.parse(localStorage.getItem(KEY)||"{}");
+    let state={...base,...savedState}, timerId=null;
+    if(savedState.treeQuizVersion!==2){state.treeAnswers={};state.treeSubmitted=false;state.treeQuizVersion=2}
     const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
     const saveState=()=>localStorage.setItem(KEY,JSON.stringify(state));
     const words=t=>t.match(/[A-Za-z]+(?:'[A-Za-z]+)?/g)||[];
@@ -270,7 +300,7 @@
     function toggleTimer(){if(timerId){clearInterval(timerId);timerId=null;saveState()}else timerId=setInterval(()=>{state.seconds++;timerRender();if(state.seconds%5===0)saveState()},1000);timerRender()}
     function history(){try{return JSON.parse(localStorage.getItem(HKEY)||"[]")}catch{return[]}}
     function historyRender(){const h=history(),host=$("#historyList");if(!h.length){host.className="history-list empty";host.textContent="保存一次课堂记录后，这里会显示对比。";return}host.className="history-list";host.innerHTML="";h.slice(0,3).forEach(r=>{const a=document.createElement("article");a.className="record";a.innerHTML=`<time>${r.date}</time><strong>完成 ${r.assessed}/20 句 · 用时 ${fmt(r.seconds)}</strong><span>生词率 ${r.rate}% · 平均 ${r.rating} 星</span>`;host.append(a)})}
-    function summary(){const e=entries(),a=Object.values(state.assess),treeScore=treeQuestions.filter((q,i)=>Number(state.treeAnswers[i])===q.answer).length,clozeScore=clozeQuestions.filter(q=>state.clozeAnswers[q.n]===q.answer).length;return [`宏浩英语课堂记录（Day 11 · that定语从句 + 单词树）`,`有效用时：${fmt(state.seconds)}`,`已评句子：${a.length}/20`,`理解情况：独立理解${a.filter(x=>x==="understood").length}句，提示后理解${a.filter(x=>x==="prompted").length}句，需要再讲${a.filter(x=>x==="review").length}句`,`单词树判断：${state.treeSubmitted?`${treeScore}/3`:"未提交"}`,`完形填空：${state.clozeSubmitted?`${clozeScore}/10`:"未提交"}`,`生词标记：模糊${e.filter(x=>x[1]==="uncertain").length}个，不认识${e.filter(x=>x[1]==="unknown").length}个，生词率${Math.round(e.length/allCount()*100)}%`].join("\n")}
+    function summary(){const e=entries(),a=Object.values(state.assess),treeScore=treeQuestions.filter((q,i)=>Number(state.treeAnswers[i])===q.answer).length,clozeScore=clozeQuestions.filter(q=>state.clozeAnswers[q.n]===q.answer).length;return [`宏浩英语课堂记录（Day 11 · that定语从句 + 单词树）`,`有效用时：${fmt(state.seconds)}`,`已评句子：${a.length}/20`,`理解情况：独立理解${a.filter(x=>x==="understood").length}句，提示后理解${a.filter(x=>x==="prompted").length}句，需要再讲${a.filter(x=>x==="review").length}句`,`单词树判断：${state.treeSubmitted?`${treeScore}/${treeQuestions.length}`:"未提交"}`,`完形填空：${state.clozeSubmitted?`${clozeScore}/10`:"未提交"}`,`生词标记：模糊${e.filter(x=>x[1]==="uncertain").length}个，不认识${e.filter(x=>x[1]==="unknown").length}个，生词率${Math.round(e.length/allCount()*100)}%`].join("\n")}
     function notice(t){$("#notice").textContent=t;setTimeout(()=>$("#notice").textContent="",2200)}
     $$('.tab').forEach(b=>b.onclick=()=>{const view=b.dataset.view;state.view=["reading","wordtree"].includes(view)?view:Number(view);state.index=0;state.structure=false;saveState();render()});
     $$('[data-marker]').forEach(b=>b.onclick=()=>{state.marker=b.dataset.marker;saveState();render()});
