@@ -43,5 +43,12 @@
       </article>
     </section>
   </main>
+  <script>
+    if(location.hostname==="htmlpreview.github.io"){
+      const source=decodeURIComponent(location.search.slice(1));
+      const base=source.replace(/\/[^/]+(?:\?.*)?$/,"/");
+      document.querySelectorAll("a.course").forEach(link=>{link.href=`?${base}${link.getAttribute("href")}`});
+    }
+  </script>
 </body>
 </html>
