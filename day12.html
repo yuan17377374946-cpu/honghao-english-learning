@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#173b67">
+  <meta name="description" content="宏浩英语课堂 Day 12：that定语从句、单词树与阅读理解">
+  <title>宏浩英语课堂 · Day 12</title>
+  <style>
+    :root{--navy:#173b67;--deep:#0d294a;--blue:#2f70b7;--sky:#eaf4ff;--ink:#172434;--muted:#657386;--line:#dce5ef;--page:#f4f7fb;--yellow:#ffe37a;--red:#ff9292;--green:#2f8f68;--purple:#7c5bb6;font-family:Inter,"PingFang SC","Microsoft YaHei",system-ui,sans-serif}
+    *{box-sizing:border-box}body{margin:0;min-width:320px;color:var(--ink);background:radial-gradient(circle at 8% 0%,rgba(47,112,183,.12),transparent 28rem),var(--page)}
+    button{font:inherit;cursor:pointer}button:focus-visible,.lookup-word:focus-visible{outline:3px solid rgba(47,112,183,.3);outline-offset:2px}
+    h1,h2,h3,p{margin-top:0}.shell{width:min(1180px,calc(100% - 32px));margin:auto;padding:26px 0 56px}
+    .home{display:inline-flex;margin-bottom:14px;padding:8px 12px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--navy);font-size:.82rem;font-weight:800;text-decoration:none}
+    .topbar,.overview-main,.section-head,.lesson-head,.nav-row,.quiz-foot,.dictionary-head,.timer-actions{display:flex;align-items:center;justify-content:space-between;gap:14px}
+    .eyebrow,.small{margin:0 0 6px;color:var(--blue);font-size:.76rem;font-weight:850;letter-spacing:.08em;text-transform:uppercase}
+    h1{margin:0;color:var(--deep);font-size:clamp(1.8rem,4vw,2.65rem)}h2{margin-bottom:7px;color:var(--deep);font-size:1.35rem}h3{margin-bottom:7px}
+    .timer{display:grid;grid-template-columns:auto auto;align-items:center;gap:7px 16px;min-width:300px;padding:13px 15px;border:1px solid var(--line);border-radius:18px;background:#fff}
+    .timer span{color:var(--muted);font-size:.78rem;font-weight:750}.timer strong{grid-row:span 2;color:var(--navy);font-size:1.7rem;font-variant-numeric:tabular-nums}
+    .btn{min-height:39px;padding:8px 14px;border:1px solid transparent;border-radius:10px;font-weight:800;transition:.15s}.btn:hover{transform:translateY(-1px)}
+    .primary{background:var(--navy);color:#fff}.outline{border-color:var(--line);background:#fff;color:var(--navy)}.quiet{background:#edf2f7;color:var(--muted)}
+    .overview{margin-top:20px;padding:23px;border-radius:24px;background:linear-gradient(120deg,var(--deep),var(--navy));color:#fff;box-shadow:0 18px 45px rgba(27,57,91,.12)}
+    .overview h2{margin:8px 0 6px;color:#fff}.overview p{margin:0;color:#dceaff;font-size:.88rem;line-height:1.6}.badge{display:inline-flex;padding:5px 9px;border:1px solid #ffffff3d;border-radius:999px;background:#ffffff18;font-size:.73rem;font-weight:800}
+    .overview-stat{text-align:right}.overview-stat strong,.overview-stat span{display:block}.overview-stat strong{font-size:1.7rem}.overview-stat span{color:#c8dcf7;font-size:.75rem}
+    .tabs{display:grid;grid-template-columns:repeat(6,1fr);gap:9px;margin:18px 0}.tab{min-height:57px;padding:9px 11px;border:1px solid var(--line);border-radius:13px;background:#fff;color:var(--ink);font-weight:850;text-align:left}.tab span{display:block;margin-top:3px;color:var(--muted);font-size:.7rem;font-weight:650}.tab.active{border-color:var(--blue);background:var(--sky);color:var(--navy)}
+    .panel{padding:clamp(20px,4vw,34px);border:1px solid var(--line);border-radius:24px;background:#fff;box-shadow:0 12px 32px rgba(27,57,91,.06)}.panel[hidden]{display:none}
+    .lesson-layout{display:grid;grid-template-columns:minmax(0,1fr) 290px;gap:18px}.sentence-card{padding:24px;border:1px solid var(--line);border-radius:20px;background:#fbfdff}
+    .sentence{min-height:142px;margin:25px 0 18px;padding:24px;border:1px solid #e4eaf1;border-radius:17px;background:#fff;font:clamp(1.45rem,3vw,2.05rem)/1.8 Georgia,"Times New Roman",serif}
+    .lookup-word{display:inline;padding:2px 3px;border-radius:5px;cursor:pointer}.lookup-word:hover{background:#eaf4ff}.lookup-word.uncertain{background:var(--yellow)}.lookup-word.unknown{background:var(--red)}
+    .structure{margin:-5px 0 18px;padding:14px;border-radius:13px;background:#f4f7fa;color:var(--muted);font-size:.85rem;line-height:1.7}.structure b{color:var(--navy)}.structure .rel{color:var(--purple)}
+    .audio-actions{display:flex;flex-wrap:wrap;gap:7px}.audio-btn{min-height:35px;padding:7px 10px;border:1px solid var(--line);border-radius:9px;background:#fff;color:var(--navy);font-size:.76rem;font-weight:800}
+    .dictionary{margin:14px 0;padding:15px;border:1px solid #bfd3e8;border-radius:14px;background:#f2f8ff}.dictionary[hidden]{display:none}.dictionary h3{margin:0;color:var(--deep);font-size:1.18rem}.dictionary .phonetic{color:var(--blue);font-size:.8rem}.dictionary .meaning{margin:8px 0 3px;font-weight:850}.dictionary .hint{margin:0;color:var(--muted);font-size:.76rem}.dictionary-actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}
+    .mark-btn{padding:7px 10px;border:1px solid var(--line);border-radius:9px;background:#fff;font-size:.76rem;font-weight:800}.mark-btn.yellow{background:#fff7cb}.mark-btn.red{background:#ffe5e5}.mark-btn.clear{color:var(--muted)}
+    .assessment{margin:18px 0}.assessment p{margin-bottom:9px;font-size:.84rem;font-weight:800}.choice-row{display:flex;flex-wrap:wrap;gap:7px}.choice-row button{padding:8px 10px;border:1px solid var(--line);border-radius:9px;background:#fff;font-size:.76rem;font-weight:750}.choice-row button.selected{border-color:var(--blue);background:var(--sky);color:var(--navy)}
+    .nav-row{padding-top:17px;border-top:1px solid var(--line)}.dots{display:flex;gap:7px}.dot{width:11px;height:11px;padding:0;border:0;border-radius:50%;background:#dce4ed}.dot.active{background:var(--blue);box-shadow:0 0 0 4px rgba(47,112,183,.12)}.dot.done{background:var(--green)}
+    .side{display:grid;gap:13px}.side-card{padding:17px;border:1px solid var(--line);border-radius:17px;background:#fff}.side-card p{margin-bottom:0;color:var(--muted);font-size:.78rem;line-height:1.55}.side-card strong{color:var(--navy)}.word-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}.word-chip{padding:5px 7px;border-radius:8px;background:#edf3f8;color:var(--navy);font-size:.72rem;font-weight:750}
+    .tree-tabs{display:flex;flex-wrap:wrap;gap:8px;margin:17px 0}.tree-tab{padding:8px 13px;border:1px solid var(--line);border-radius:999px;background:#fff;font-weight:800}.tree-tab.active{border-color:var(--blue);background:var(--sky);color:var(--navy)}
+    .tree-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,.8fr);gap:18px}.tree-nodes{display:grid;grid-template-columns:repeat(2,1fr);gap:11px;padding:20px;border:1px solid var(--line);border-radius:18px;background:#fbfdff}.tree-node{min-height:88px;padding:13px;border:1px solid #b9cee4;border-radius:14px;background:#fff;color:var(--navy);font-weight:850}.tree-node small{display:block;margin-top:5px;color:var(--muted);font-weight:650}.tree-node.active{border-color:var(--blue);background:var(--sky)}
+    .word-detail{padding:21px;border:1px solid var(--line);border-radius:18px;background:#fff}.word-detail h3{margin-bottom:4px;font-size:1.55rem}.word-detail .example{margin-top:15px;padding:12px;border-left:4px solid var(--yellow);background:#fff9df;color:var(--ink)}
+    .quiz{margin-top:20px;padding-top:20px;border-top:1px solid var(--line)}.quiz-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:11px}.question{padding:14px;border:1px solid var(--line);border-radius:14px;background:#fbfdff}.question p{min-height:40px;margin-bottom:10px;font-size:.84rem;font-weight:800;line-height:1.5}.options{display:grid;gap:7px}.option{padding:8px 10px;border:1px solid var(--line);border-radius:9px;background:#fff;text-align:left;font-size:.78rem;font-weight:750}.option.selected{border-color:var(--blue);background:var(--sky)}.option.correct{border-color:#62a987;background:#e8f7ef;color:#176344}.option.wrong{border-color:#d87979;background:#ffeded;color:#922f2f}.explain{margin:9px 0 0;color:var(--muted);font-size:.74rem;line-height:1.5}
+    .quiz-foot{margin-top:14px}.quiz-result{color:var(--muted);font-size:.8rem}.quiz-result strong{color:var(--navy)}
+    .reading-controls{display:flex;flex-wrap:wrap;gap:8px}.reading-layout{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(330px,.95fr);gap:18px;align-items:start;margin-top:18px}.passage-box,.reading-questions{border:1px solid var(--line);border-radius:18px;background:#fbfdff}.passage-box{padding:22px}.passage-text{font:1.08rem/2 Georgia,"Times New Roman",serif}.passage-text p{margin-bottom:1.1em}.passage-text p:last-child{margin-bottom:0}.reading-questions{overflow:hidden;background:#fff}.reading-questions h3{margin:0;padding:17px 18px;border-bottom:1px solid var(--line);background:#f6f9fc}.reading-question{padding:15px 18px;border-bottom:1px solid var(--line)}.reading-question:last-child{border-bottom:0}.reading-question h4{margin:0 0 9px;font-size:.84rem;line-height:1.5}
+    .translation{margin:12px 0 0;padding:12px;border-radius:11px;background:#edf7f1;color:#176344;font-size:.82rem;line-height:1.7}
+    .footer-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}.notice{min-height:20px;margin-top:9px;color:var(--green);font-size:.76rem}
+    @media(max-width:900px){.lesson-layout,.tree-layout,.reading-layout{grid-template-columns:1fr}.side{grid-template-columns:repeat(3,1fr)}}
+    @media(max-width:700px){.shell{width:calc(100% - 22px);padding-top:16px}.topbar,.overview-main,.section-head,.lesson-head{align-items:stretch;flex-direction:column}.timer{min-width:0}.tabs{display:flex;overflow-x:auto;padding-bottom:4px}.tab{min-width:118px}.side{grid-template-columns:1fr}.quiz-grid{grid-template-columns:1fr}.sentence-card{padding:17px}.sentence{min-height:165px;padding:18px;font-size:1.35rem}.tree-nodes{grid-template-columns:1fr}.overview-stat{text-align:left}}
+    @media(prefers-reduced-motion:reduce){*{transition:none!important}}
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <a class="home" href="index.html">← 返回课程记录</a>
+    <header class="topbar">
+      <div><p class="eyebrow">宏浩英语课堂</p><h1>Day 12 · that定语从句</h1></div>
+      <div class="timer"><span>本次有效用时</span><strong id="timer">00:00</strong><div class="timer-actions"><button id="timerToggle" class="btn primary">开始</button><button id="timerReset" class="btn quiet">归零</button></div></div>
+    </header>
+    <section class="overview">
+      <div class="overview-main">
+        <div><span class="badge">课程存档</span><h2>20个that句子 + 5组单词树 + 阅读理解</h2><p>只学习that：先找被介绍的人或事物，再看that后面的补充说明。</p></div>
+        <div class="overview-stat"><strong id="progressText">0 / 20</strong><span>已记录句子理解情况</span></div>
+      </div>
+    </section>
+    <nav class="tabs" aria-label="课程内容">
+      <button class="tab active" data-view="0">第1关<span>句子 1–5</span></button>
+      <button class="tab" data-view="1">第2关<span>句子 6–10</span></button>
+      <button class="tab" data-view="2">第3关<span>句子 11–15</span></button>
+      <button class="tab" data-view="3">第4关<span>句子 16–20</span></button>
+      <button class="tab" data-view="trees">单词树<span>5组 · 18词</span></button>
+      <button class="tab" data-view="reading">阅读理解<span>约152词 · 5题</span></button>
+    </nav>
+    <main>
+      <section id="lessonPanel" class="panel">
+        <div class="lesson-layout">
+          <article class="sentence-card">
+            <div class="lesson-head">
+              <div><p id="sentenceNo" class="small">句子 1 / 20</p><h2 id="lessonTitle">that介绍人</h2></div>
+              <div class="audio-actions"><button class="audio-btn" data-speak="sentence" data-rate="1">🔊 正常</button><button class="audio-btn" data-speak="sentence" data-rate=".72">🐢 慢速</button><button id="structureToggle" class="audio-btn">显示结构</button></div>
+            </div>
+            <div id="sentence" class="sentence"></div>
+            <div id="structureBox" class="structure" hidden></div>
+            <button id="translationToggle" class="btn outline">查看中文翻译</button>
+            <div id="translation" class="translation" hidden></div>
+            <div id="sentenceLookup" class="dictionary" hidden></div>
+            <div class="assessment">
+              <p>这句话理解得怎么样？</p>
+              <div class="choice-row"><button data-assess="understood">能独立理解</button><button data-assess="prompted">提醒后理解</button><button data-assess="review">需要再讲</button></div>
+            </div>
+            <footer class="nav-row"><button id="prev" class="btn outline">上一句</button><div id="dots" class="dots"></div><button id="next" class="btn primary">下一句</button></footer>
+          </article>
+          <aside class="side">
+            <section class="side-card"><h3>学习方法</h3><p>①找被介绍的人或事物<br>②找到that<br>③读that后面的补充说明</p></section>
+            <section class="side-card"><h3>本次生词</h3><p><strong id="markedCount">0个</strong> 已标记</p><div id="markedWords" class="word-list"></div></section>
+            <section class="side-card"><h3>课堂记录</h3><p>学习数据只保存在当前浏览器。</p><button id="saveRecord" class="btn primary" style="width:100%;margin-top:10px">保存本次记录</button><div id="notice" class="notice"></div></section>
+          </aside>
+        </div>
+      </section>
+      <section id="treePanel" class="panel" hidden>
+        <div class="section-head"><div><p class="small">构词规律</p><h2>5组单词树</h2><p style="color:var(--muted);margin:0;font-size:.82rem">点击单词查看音标、词性、中文、例句和发音。</p></div></div>
+        <div id="treeTabs" class="tree-tabs"></div>
+        <div class="tree-layout"><div id="treeNodes" class="tree-nodes"></div><aside id="wordDetail" class="word-detail"></aside></div>
+        <section class="quiz">
+          <div class="section-head"><div><p class="small">快速检查</p><h2>单词树练习</h2></div></div>
+          <div id="treeQuiz" class="quiz-grid"></div>
+          <div class="quiz-foot"><div id="treeResult" class="quiz-result">完成6题后检查答案。</div><button id="treeSubmit" class="btn primary" disabled>检查答案</button></div>
+        </section>
+      </section>
+      <section id="readingPanel" class="panel" hidden>
+        <div class="section-head">
+          <div><p class="small">阅读理解</p><h2>Wang Zhenyi Loved Learning</h2><p style="color:var(--muted);margin:0;font-size:.82rem">点击文章中的单词或短语，下方会显示中文意思。</p></div>
+          <div class="reading-controls"><button class="audio-btn" data-speak="reading" data-rate="1">🔊 整篇朗读</button><button class="audio-btn" data-speak="reading" data-rate=".72">🐢 慢速朗读</button><button id="stopSpeak" class="audio-btn">⏹ 停止</button></div>
+        </div>
+        <div class="reading-layout">
+          <article class="passage-box"><div id="passageText" class="passage-text"></div><div id="readingLookup" class="dictionary" hidden></div></article>
+          <section class="reading-questions"><h3>选择最合适的答案</h3><div id="readingQuiz"></div><div style="padding:15px 18px"><div id="readingResult" class="quiz-result">完成5题后提交。</div><div class="footer-actions"><button id="readingReset" class="btn outline" hidden>重新作答</button><button id="readingSubmit" class="btn primary" disabled>提交答案</button></div></div></section>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script>
+    const lessons=[
+      {level:"第1关 · that介绍人",parts:["Wang Zhenyi was a woman ","that loved science","."],cn:"王贞仪是一位热爱科学的女性。",target:"woman"},
+      {level:"第1关 · that介绍人",parts:["She was a girl ","that liked reading","."],cn:"她是一个喜欢阅读的女孩。",target:"girl"},
+      {level:"第1关 · that介绍人",parts:["Her father was a man ","that taught her math","."],cn:"她的父亲是一位教她数学的人。",target:"man"},
+      {level:"第1关 · that介绍人",parts:["Her grandfather was a man ","that studied stars","."],cn:"她的祖父是一位研究星星的人。",target:"man"},
+      {level:"第1关 · that介绍人",parts:["Her grandmother was a woman ","that wrote poems","."],cn:"她的祖母是一位写诗的女性。",target:"woman"},
+      {level:"第2关 · that介绍事物",parts:["She read books ","that were very old","."],cn:"她读了很古老的书。",target:"books"},
+      {level:"第2关 · that介绍事物",parts:["She learned ideas ","that were hard to understand","."],cn:"她学习了一些很难理解的知识。",target:"ideas"},
+      {level:"第2关 · that介绍事物",parts:["She made a model ","that showed the Moon","."],cn:"她制作了一个展示月球的模型。",target:"model"},
+      {level:"第2关 · that介绍事物",parts:["She wrote a book ","that used easy words","."],cn:"她写了一本使用简单词语的书。",target:"book"},
+      {level:"第2关 · that介绍事物",parts:["She studied stars ","that she saw at night","."],cn:"她研究了晚上看到的星星。",target:"stars"},
+      {level:"第3关 · that从句放在主语中间",parts:["The books ","that she read"," were difficult."],cn:"她读的那些书很难。",target:"books"},
+      {level:"第3关 · that从句放在主语中间",parts:["The model ","that she made"," was simple."],cn:"她制作的模型很简单。",target:"model"},
+      {level:"第3关 · that从句放在主语中间",parts:["The poem ","that she wrote"," was about women."],cn:"她写的那首诗是关于女性的。",target:"poem"},
+      {level:"第3关 · that从句放在主语中间",parts:["The table ","that she used"," was in the garden."],cn:"她使用的桌子在花园里。",target:"table"},
+      {level:"第3关 · that从句放在主语中间",parts:["The book ","that she rewrote"," was about math."],cn:"她重写的那本书是关于数学的。",target:"book"},
+      {level:"第4关 · 稍长句子",parts:["Wang was a student ","that studied every day","."],cn:"王贞仪是一位每天学习的学生。",target:"student"},
+      {level:"第4关 · 稍长句子",parts:["She explained things ","that people did not understand","."],cn:"她解释了人们不理解的事情。",target:"things"},
+      {level:"第4关 · 稍长句子",parts:["She made a model ","that showed how an eclipse happens","."],cn:"她制作了一个展示日食或月食如何发生的模型。",target:"model"},
+      {level:"第4关 · 稍长句子",parts:["People remember the scientist ","that made learning easier","."],cn:"人们记得这位让学习变得更容易的科学家。",target:"scientist"},
+      {level:"第4关 · 稍长句子",parts:["Wang was a woman ","that believed women could learn well","."],cn:"王贞仪是一位相信女性也能学得很好的女性。",target:"woman"}
+    ];
+    const wordTrees=[
+      {name:"science",words:[{w:"science",ipa:"/ˈsaɪəns/",pos:"n.",zh:"科学",ex:"Science helps us learn."},{w:"scientist",ipa:"/ˈsaɪəntɪst/",pos:"n.",zh:"科学家",ex:"She is a scientist."},{w:"scientific",ipa:"/ˌsaɪənˈtɪfɪk/",pos:"adj.",zh:"科学的",ex:"This is a scientific idea."}]},
+      {name:"art",words:[{w:"art",ipa:"/ɑːrt/",pos:"n.",zh:"艺术",ex:"I like art."},{w:"artist",ipa:"/ˈɑːrtɪst/",pos:"n.",zh:"艺术家",ex:"Picasso was an artist."},{w:"artistic",ipa:"/ɑːrˈtɪstɪk/",pos:"adj.",zh:"艺术的",ex:"This is an artistic picture."}]},
+      {name:"music",words:[{w:"music",ipa:"/ˈmjuːzɪk/",pos:"n.",zh:"音乐",ex:"I like music."},{w:"musician",ipa:"/mjuˈzɪʃən/",pos:"n.",zh:"音乐家",ex:"Beethoven was a musician."},{w:"musical",ipa:"/ˈmjuːzɪkəl/",pos:"adj.",zh:"音乐的",ex:"This is a musical show."}]},
+      {name:"teach",words:[{w:"teach",ipa:"/tiːtʃ/",pos:"v.",zh:"教",ex:"I teach English."},{w:"teacher",ipa:"/ˈtiːtʃər/",pos:"n.",zh:"老师",ex:"She is my teacher."},{w:"teaching",ipa:"/ˈtiːtʃɪŋ/",pos:"n.",zh:"教学",ex:"Teaching is her job."},{w:"taught",ipa:"/tɔːt/",pos:"v.",zh:"teach的过去式：教了",ex:"Her grandmother taught her poems."}]},
+      {name:"write",words:[{w:"write",ipa:"/raɪt/",pos:"v.",zh:"写",ex:"I write every day."},{w:"writer",ipa:"/ˈraɪtər/",pos:"n.",zh:"作家；写作者",ex:"She is a writer."},{w:"writing",ipa:"/ˈraɪtɪŋ/",pos:"n.",zh:"写作",ex:"Writing helps me think."},{w:"rewrite",ipa:"/ˌriːˈraɪt/",pos:"v.",zh:"重写",ex:"Please rewrite this sentence."},{w:"rewrote",ipa:"/ˌriːˈroʊt/",pos:"v.",zh:"rewrite的过去式：重写了",ex:"She rewrote the math book."}]}
+    ];
+    const treeQuestions=[
+      {q:"A person that studies science is a ______.",opts:["scientist","science"],a:0,why:"scientist表示“科学家”。"},
+      {q:"artist 是什么意思？",opts:["音乐家","艺术家"],a:1,why:"art是艺术，artist是艺术家。"},
+      {q:"A person that makes music is a ______.",opts:["musician","musical"],a:0,why:"musician表示“音乐家”。"},
+      {q:"rewrite 是什么意思？",opts:["重新写","停止写"],a:0,why:"前缀re-表示“再次、重新”。"},
+      {q:"The past form of teach is ______.",opts:["teached","taught"],a:1,why:"teach的过去式是不规则变化taught。"},
+      {q:"A person that writes books is a ______.",opts:["writer","writing"],a:0,why:"writer表示“作家、写作者”。"}
+    ];
+    const readingParagraphs=[
+      "Wang Zhenyi was born in China in 1768. She was a girl that loved learning. Her father taught her math, her grandfather taught her about stars, and her grandmother taught her poems. Wang read many books that were old and difficult, but she did not stop learning.",
+      "When she grew up, she studied the Sun, Earth and Moon. She made a simple model in her garden to show how a lunar eclipse happens. The model used a table, a lamp and a mirror. It helped ordinary people understand the sky.",
+      "Wang also rewrote a math book that was hard to read. She used easier words so more people could understand it. She wrote poems too. In one poem, she said women could learn as well as men. Wang died when she was only twenty-nine, but people still remember her as a great scientist that loved learning and helped others understand science."
+    ];
+    const readingQuestions=[
+      {q:"1. What did Wang love when she was young?",opts:["Cooking","Learning","Running","Singing"],a:1,why:"第一段说她是一个热爱学习的女孩。"},
+      {q:"2. Who taught Wang about stars?",opts:["Her father","Her mother","Her grandfather","Her friend"],a:2,why:"第一段说她的祖父教她有关星星的知识。"},
+      {q:"3. What did Wang’s model show?",opts:["How an eclipse happens","How to write a poem","How to read a book","How to cook food"],a:0,why:"第二段说模型用来展示月食如何发生。"},
+      {q:"4. Why did Wang rewrite the math book?",opts:["To sell it","To make it easier to understand","To give it to her friend","To learn music"],a:1,why:"她使用更简单的词，让更多人能理解。"},
+      {q:"5. What is the passage mainly about?",opts:["Wang’s family","A garden model","A woman that loved learning and science","An old math book"],a:2,why:"全文主要介绍王贞仪热爱学习和科学的一生。"}
+    ];
+    const DICT={
+      "wang zhenyi":["/wɑːŋ dʒen jiː/","n.","王贞仪"],"was born":["/wəz bɔːrn/","phrase","出生"],"grew up":["/ɡruː ʌp/","phrase","长大"],"did not stop":["/dɪd nɑːt stɑːp/","phrase","没有停止"],"hard to read":["/hɑːrd tə riːd/","phrase","难以阅读"],"as well as":["/æz wel æz/","phrase","和……一样好"],"twenty-nine":["/ˌtwenti ˈnaɪn/","num.","二十九"],
+      wang:["/wɑːŋ/","n.","王（人名）"],zhenyi:["/dʒen jiː/","n.","贞仪（人名）"],china:["/ˈtʃaɪnə/","n.","中国"],she:["/ʃiː/","pron.","她"],her:["/hɜːr/","pron.","她的；她"],it:["/ɪt/","pron.","它"],one:["/wʌn/","pron. / num.","一个；一"],others:["/ˈʌðərz/","pron.","其他人"],people:["/ˈpiːpəl/","n.","人们"],person:["/ˈpɜːrsən/","n.","人"],woman:["/ˈwʊmən/","n.","女性"],women:["/ˈwɪmɪn/","n.","女性（复数）"],men:["/men/","n.","男性（复数）"],girl:["/ɡɜːrl/","n.","女孩"],man:["/mæn/","n.","男人"],student:["/ˈstuːdənt/","n.","学生"],father:["/ˈfɑːðər/","n.","父亲"],mother:["/ˈmʌðər/","n.","母亲"],grandfather:["/ˈɡrænfɑːðər/","n.","祖父；外祖父"],grandmother:["/ˈɡrænmʌðər/","n.","祖母；外祖母"],friend:["/frend/","n.","朋友"],scientist:["/ˈsaɪəntɪst/","n.","科学家"],writer:["/ˈraɪtər/","n.","作家；写作者"],artist:["/ˈɑːrtɪst/","n.","艺术家"],musician:["/mjuˈzɪʃən/","n.","音乐家"],teacher:["/ˈtiːtʃər/","n.","老师"],
+      a:["/ə/","art.","一个"],an:["/ən/","art.","一个"],the:["/ðə/","art.","这个；那个；这些；那些"],in:["/ɪn/","prep.","在……里面；在"],on:["/ɑːn/","prep.","在……上"],at:["/æt/","prep.","在"],about:["/əˈbaʊt/","prep.","关于"],after:["/ˈæftər/","prep.","在……之后"],to:["/tə/","prep.","到；为了"],of:["/əv/","prep.","……的"],as:["/æz/","conj.","像；如同"],and:["/ænd/","conj.","和；并且"],but:["/bʌt/","conj.","但是"],so:["/soʊ/","conj.","所以；以便"],when:["/wen/","conj.","当……时"],how:["/haʊ/","adv.","怎样"],that:["/ðæt/","pron.","引导定语从句，介绍前面的人或事物"],who:["/huː/","pron.","谁"],what:["/wʌt/","pron.","什么"],why:["/waɪ/","adv.","为什么"],more:["/mɔːr/","adj.","更多的"],very:["/ˈveri/","adv.","非常"],also:["/ˈɔːlsoʊ/","adv.","也"],too:["/tuː/","adv.","也"],still:["/stɪl/","adv.","仍然"],only:["/ˈoʊnli/","adv.","仅仅"],many:["/ˈmeni/","adj.","许多"],every:["/ˈevri/","adj.","每一个"],ordinary:["/ˈɔːrdəneri/","adj.","普通的"],simple:["/ˈsɪmpəl/","adj.","简单的"],easy:["/ˈiːzi/","adj.","容易的"],easier:["/ˈiːziər/","adj.","更容易的"],old:["/oʊld/","adj.","古老的；老的"],difficult:["/ˈdɪfɪkəlt/","adj.","困难的"],great:["/ɡreɪt/","adj.","伟大的"],young:["/jʌŋ/","adj.","年轻的"],musical:["/ˈmjuːzɪkəl/","adj.","音乐的"],scientific:["/ˌsaɪənˈtɪfɪk/","adj.","科学的"],artistic:["/ɑːrˈtɪstɪk/","adj.","艺术的"],
+      love:["/lʌv/","v.","爱；喜爱"],loved:["/lʌvd/","v.","喜爱（过去式）"],like:["/laɪk/","v.","喜欢"],liked:["/laɪkt/","v.","喜欢（过去式）"],learn:["/lɜːrn/","v.","学习"],learning:["/ˈlɜːrnɪŋ/","n.","学习"],learned:["/lɜːrnd/","v.","学习（过去式）"],study:["/ˈstʌdi/","v.","学习；研究"],studied:["/ˈstʌdid/","v.","学习；研究（过去式）"],teach:["/tiːtʃ/","v.","教"],taught:["/tɔːt/","v.","教（过去式）"],read:["/riːd/","v.","阅读"],write:["/raɪt/","v.","写"],wrote:["/roʊt/","v.","写（过去式）"],rewrite:["/ˌriːˈraɪt/","v.","重写"],rewrote:["/ˌriːˈroʊt/","v.","重写（过去式）"],make:["/meɪk/","v.","制作；使"],made:["/meɪd/","v.","制作；使（过去式）"],show:["/ʃoʊ/","v.","展示"],showed:["/ʃoʊd/","v.","展示（过去式）"],see:["/siː/","v.","看见"],saw:["/sɔː/","v.","看见（过去式）"],use:["/juːz/","v.","使用"],used:["/juːzd/","v.","使用（过去式）"],explain:["/ɪkˈspleɪn/","v.","解释"],explained:["/ɪkˈspleɪnd/","v.","解释（过去式）"],understand:["/ˌʌndərˈstænd/","v.","理解"],remember:["/rɪˈmembər/","v.","记得"],believe:["/bɪˈliːv/","v.","相信"],believed:["/bɪˈliːvd/","v.","相信（过去式）"],help:["/help/","v.","帮助"],helped:["/helpt/","v.","帮助（过去式）"],happen:["/ˈhæpən/","v.","发生"],happens:["/ˈhæpənz/","v.","发生"],move:["/muːv/","v.","移动"],could:["/kʊd/","modal v.","能够"],did:["/dɪd/","v.","do的过去式"],died:["/daɪd/","v.","去世"],is:["/ɪz/","v.","是"],was:["/wəz/","v.","是（过去式）"],were:["/wɜːr/","v.","是（过去式）"],be:["/biː/","v.","是"],are:["/ɑːr/","v.","是"],can:["/kæn/","modal v.","能"],stop:["/stɑːp/","v.","停止"],said:["/sed/","v.","说（过去式）"],
+      math:["/mæθ/","n.","数学"],science:["/ˈsaɪəns/","n.","科学"],art:["/ɑːrt/","n.","艺术"],music:["/ˈmjuːzɪk/","n.","音乐"],reading:["/ˈriːdɪŋ/","n.","阅读"],stars:["/stɑːrz/","n.","星星"],star:["/stɑːr/","n.","星星"],sun:["/sʌn/","n.","太阳"],earth:["/ɜːrθ/","n.","地球"],moon:["/muːn/","n.","月球"],sky:["/skaɪ/","n.","天空"],eclipse:["/ɪˈklɪps/","n.","日食或月食"],lunar:["/ˈluːnər/","adj.","月球的"],model:["/ˈmɑːdəl/","n.","模型"],garden:["/ˈɡɑːrdən/","n.","花园"],table:["/ˈteɪbəl/","n.","桌子"],lamp:["/læmp/","n.","灯"],mirror:["/ˈmɪrər/","n.","镜子"],book:["/bʊk/","n.","书"],books:["/bʊks/","n.","书（复数）"],poem:["/ˈpoʊəm/","n.","诗"],poems:["/ˈpoʊəmz/","n.","诗（复数）"],words:["/wɜːrdz/","n.","单词；话语"],word:["/wɜːrd/","n.","单词"],ideas:["/aɪˈdiːəz/","n.","想法；知识"],idea:["/aɪˈdiːə/","n.","想法"],things:["/θɪŋz/","n.","事情"],night:["/naɪt/","n.","夜晚"],day:["/deɪ/","n.","一天"],picture:["/ˈpɪktʃər/","n.","图片"],job:["/dʒɑːb/","n.","工作"],writing:["/ˈraɪtɪŋ/","n.","写作"],teaching:["/ˈtiːtʃɪŋ/","n.","教学"],cooking:["/ˈkʊkɪŋ/","n.","烹饪"],running:["/ˈrʌnɪŋ/","n.","跑步"],singing:["/ˈsɪŋɪŋ/","n.","唱歌"],food:["/fuːd/","n.","食物"],family:["/ˈfæməli/","n.","家庭"]
+    };
+    const KEY="honghao-day12-v1",HISTORY_KEY="honghao-history-v1";
+    const defaultState={view:0,index:0,assess:{},marks:{},seconds:0,treeIndex:0,treeWord:"science",treeAnswers:{},treeSubmitted:false,readingAnswers:{},readingSubmitted:false};
+    let state;try{state=Object.assign({},defaultState,JSON.parse(localStorage.getItem(KEY)||"{}"))}catch(e){state=Object.assign({},defaultState)}
+    let timerId=null,structureShown=false,translationShown=false;
+    const $=s=>document.querySelector(s),$$=s=>Array.from(document.querySelectorAll(s));
+    const save=()=>localStorage.setItem(KEY,JSON.stringify(state));
+    const lessonText=item=>item.parts.join("");
+    const fmt=s=>String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");
+    function findDict(term){const key=term.toLowerCase().replace(/[.,?!’']/g,"").trim();if(DICT[key])return {key:key,data:DICT[key]};const singular=key.endsWith("s")?key.slice(0,-1):key;if(DICT[singular])return {key:singular,data:DICT[singular]};return {key:key,data:["","word","课堂词汇：请结合句子理解"]}}
+    function tokenize(text,host,source){
+      host.innerHTML="";const phrases=["wang zhenyi","was born","grew up","did not stop","hard to read","as well as","twenty-nine"];
+      const escaped=phrases.map(p=>p.replace(/[-/\\^$*+?.()|[\]{}]/g,"\\$&")).join("|");
+      const regex=new RegExp("("+escaped+"|[A-Za-z]+(?:[-’'][A-Za-z]+)?)","gi");let last=0,match;
+      while((match=regex.exec(text))){host.append(document.createTextNode(text.slice(last,match.index)));const span=document.createElement("span"),term=match[0],key=findDict(term).key;span.className="lookup-word "+(state.marks[key]||"");span.textContent=term;span.tabIndex=0;span.dataset.term=term;span.dataset.source=source;span.onclick=e=>{e.stopPropagation();showLookup(term,source)};span.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();showLookup(term,source)}};host.append(span);last=regex.lastIndex}host.append(document.createTextNode(text.slice(last)))
+    }
+    function showLookup(term,source){
+      const found=findDict(term),data=found.data,host=source==="sentence"?$("#sentenceLookup"):$("#readingLookup");host.hidden=false;host.dataset.key=found.key;host.innerHTML="";
+      const head=document.createElement("div");head.className="dictionary-head";const left=document.createElement("div"),title=document.createElement("h3"),ipa=document.createElement("span");title.textContent=term;ipa.className="phonetic";ipa.textContent=data[0]+" · "+data[1];left.append(title,ipa);const speak=document.createElement("button");speak.className="audio-btn";speak.textContent="🔊 发音";speak.onclick=()=>speakText(term,.82);head.append(left,speak);
+      const meaning=document.createElement("p");meaning.className="meaning";meaning.textContent=data[2];const hint=document.createElement("p");hint.className="hint";hint.textContent="选择熟悉程度后，会加入本次生词记录。";const actions=document.createElement("div");actions.className="dictionary-actions";
+      [["uncertain","有点模糊","yellow"],["unknown","不认识","red"],["","清除标记","clear"]].forEach(item=>{const b=document.createElement("button");b.className="mark-btn "+item[2];b.textContent=item[1];b.onclick=()=>{if(item[0])state.marks[found.key]=item[0];else delete state.marks[found.key];save();renderMarked();renderCurrentText();showLookup(term,source)};actions.append(b)});host.append(head,meaning,hint,actions);host.scrollIntoView({behavior:"smooth",block:"nearest"})
+    }
+    function speakText(text,rate){if(!("speechSynthesis" in window)){alert("当前浏览器不支持朗读功能。");return}window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang="en-US";u.rate=Number(rate)||1;const voices=window.speechSynthesis.getVoices(),voice=voices.find(v=>v.lang&&v.lang.toLowerCase().startsWith("en-us"))||voices.find(v=>v.lang&&v.lang.toLowerCase().startsWith("en"));if(voice)u.voice=voice;window.speechSynthesis.speak(u)}
+    function renderCurrentText(){if(typeof state.view==="number"){const item=lessons[state.view*5+state.index];tokenize(lessonText(item),$("#sentence"),"sentence")}else if(state.view==="reading")renderPassage()}
+    function renderLesson(){
+      const id=state.view*5+state.index,item=lessons[id];$("#sentenceNo").textContent="句子 "+(id+1)+" / 20";$("#lessonTitle").textContent=item.level;tokenize(lessonText(item),$("#sentence"),"sentence");
+      $("#translation").textContent=item.cn;$("#translation").hidden=!translationShown;$("#translationToggle").textContent=translationShown?"隐藏中文翻译":"查看中文翻译";$("#structureBox").hidden=!structureShown;$("#structureBox").innerHTML="<b>被介绍的词：</b>"+item.target+"　 <b class='rel'>that补充说明：</b>"+item.parts[1].replace(/^that\s+/i,"");$("#structureToggle").textContent=structureShown?"隐藏结构":"显示结构";
+      $$("[data-assess]").forEach(b=>b.classList.toggle("selected",state.assess[id]===b.dataset.assess));const dots=$("#dots");dots.innerHTML="";for(let i=0;i<5;i++){const b=document.createElement("button"),sid=state.view*5+i;b.className="dot "+(i===state.index?"active ":"")+(state.assess[sid]?"done":"");b.ariaLabel="本关第"+(i+1)+"句";b.onclick=()=>{state.index=i;structureShown=false;translationShown=false;save();renderLesson()};dots.append(b)}updateProgress()
+    }
+    function updateProgress(){const count=Object.keys(state.assess).length;$("#progressText").textContent=count+" / 20"}
+    function renderMarked(){const entries=Object.entries(state.marks),host=$("#markedWords");$("#markedCount").textContent=entries.length+"个";host.innerHTML="";entries.sort().forEach(([w,status])=>{const span=document.createElement("span");span.className="word-chip";span.textContent=w+(status==="unknown"?" · 不认识":" · 模糊");host.append(span)})}
+    function renderTrees(){
+      const tabs=$("#treeTabs"),nodes=$("#treeNodes"),tree=wordTrees[state.treeIndex]||wordTrees[0];tabs.innerHTML="";nodes.innerHTML="";wordTrees.forEach((t,i)=>{const b=document.createElement("button");b.className="tree-tab "+(i===state.treeIndex?"active":"");b.textContent=t.name;b.onclick=()=>{state.treeIndex=i;state.treeWord=wordTrees[i].words[0].w;save();renderTrees()};tabs.append(b)});
+      tree.words.forEach(word=>{const b=document.createElement("button");b.className="tree-node "+(word.w===state.treeWord?"active":"");b.innerHTML=word.w+"<small>"+word.pos+" · "+word.zh+"</small>";b.onclick=()=>{state.treeWord=word.w;save();renderTrees()};nodes.append(b)});
+      const selected=tree.words.find(w=>w.w===state.treeWord)||tree.words[0],detail=$("#wordDetail");detail.innerHTML="";const title=document.createElement("h3");title.textContent=selected.w;const meta=document.createElement("p");meta.className="phonetic";meta.textContent=selected.ipa+" · "+selected.pos;const meaning=document.createElement("p");meaning.className="meaning";meaning.textContent=selected.zh;const example=document.createElement("p");example.className="example";example.textContent="例句："+selected.ex;const actions=document.createElement("div");actions.className="audio-actions";[["🔊 单词",selected.w,.82],["🔊 例句",selected.ex,1],["🐢 慢速例句",selected.ex,.72]].forEach(item=>{const b=document.createElement("button");b.className="audio-btn";b.textContent=item[0];b.onclick=()=>speakText(item[1],item[2]);actions.append(b)});detail.append(title,meta,meaning,example,actions);renderTreeQuiz()
+    }
+    function renderTreeQuiz(){
+      const host=$("#treeQuiz");host.innerHTML="";treeQuestions.forEach((q,i)=>{const card=document.createElement("article");card.className="question";const p=document.createElement("p");p.textContent=(i+1)+". "+q.q;const opts=document.createElement("div");opts.className="options";q.opts.forEach((o,j)=>{const b=document.createElement("button"),picked=Number(state.treeAnswers[i])===j;b.className="option "+(picked?"selected ":"");b.textContent=String.fromCharCode(65+j)+". "+o;b.disabled=state.treeSubmitted;if(state.treeSubmitted){if(j===q.a)b.classList.add("correct");else if(picked)b.classList.add("wrong")}b.onclick=()=>{state.treeAnswers[i]=j;save();renderTreeQuiz()};opts.append(b)});card.append(p,opts);if(state.treeSubmitted){const e=document.createElement("p");e.className="explain";e.textContent=q.why;card.append(e)}host.append(card)});
+      const answered=Object.keys(state.treeAnswers).length,score=treeQuestions.filter((q,i)=>Number(state.treeAnswers[i])===q.a).length;$("#treeSubmit").disabled=answered<treeQuestions.length&&!state.treeSubmitted;$("#treeSubmit").textContent=state.treeSubmitted?"重新作答":"检查答案";$("#treeResult").innerHTML=state.treeSubmitted?"<strong>答对 "+score+" / 6 题。</strong>":"已完成 "+answered+" / 6 题。"
+    }
+    function renderPassage(){const host=$("#passageText");host.innerHTML="";readingParagraphs.forEach(text=>{const p=document.createElement("p");tokenize(text,p,"reading");host.append(p)})}
+    function renderReadingQuiz(){
+      const host=$("#readingQuiz");host.innerHTML="";readingQuestions.forEach((q,i)=>{const card=document.createElement("article");card.className="reading-question";const title=document.createElement("h4");title.textContent=q.q;const opts=document.createElement("div");opts.className="options";q.opts.forEach((o,j)=>{const b=document.createElement("button"),picked=Number(state.readingAnswers[i])===j;b.className="option "+(picked?"selected ":"");b.textContent=String.fromCharCode(65+j)+". "+o;b.disabled=state.readingSubmitted;if(state.readingSubmitted){if(j===q.a)b.classList.add("correct");else if(picked)b.classList.add("wrong")}b.onclick=()=>{state.readingAnswers[i]=j;save();renderReadingQuiz()};opts.append(b)});card.append(title,opts);if(state.readingSubmitted){const e=document.createElement("p");e.className="explain";e.textContent=q.why;card.append(e)}host.append(card)});
+      const answered=Object.keys(state.readingAnswers).length,score=readingQuestions.filter((q,i)=>Number(state.readingAnswers[i])===q.a).length;$("#readingSubmit").disabled=answered<5||state.readingSubmitted;$("#readingSubmit").hidden=state.readingSubmitted;$("#readingReset").hidden=!state.readingSubmitted;$("#readingResult").innerHTML=state.readingSubmitted?"<strong>得分 "+score+" / 5。</strong> 向上查看每题解析。":"已完成 "+answered+" / 5 题。"
+    }
+    function changeView(view){state.view=["trees","reading"].includes(view)?view:Number(view);state.index=0;structureShown=false;translationShown=false;save();$("#lessonPanel").hidden=typeof state.view!=="number";$("#treePanel").hidden=state.view!=="trees";$("#readingPanel").hidden=state.view!=="reading";$$(".tab").forEach(b=>b.classList.toggle("active",b.dataset.view===String(state.view)));if(typeof state.view==="number")renderLesson();else if(state.view==="trees")renderTrees();else{renderPassage();renderReadingQuiz()}}
+    $$("[data-view]").forEach(b=>b.onclick=()=>changeView(b.dataset.view));
+    $$("[data-assess]").forEach(b=>b.onclick=()=>{const id=state.view*5+state.index;state.assess[id]=b.dataset.assess;save();renderLesson()});
+    $$("[data-speak]").forEach(b=>b.onclick=()=>{const text=b.dataset.speak==="reading"?readingParagraphs.join(" "):lessonText(lessons[state.view*5+state.index]);speakText(text,b.dataset.rate)});
+    $("#stopSpeak").onclick=()=>window.speechSynthesis&&window.speechSynthesis.cancel();
+    $("#structureToggle").onclick=()=>{structureShown=!structureShown;renderLesson()};
+    $("#translationToggle").onclick=()=>{translationShown=!translationShown;renderLesson()};
+    $("#prev").onclick=()=>{if(state.index>0)state.index--;else if(state.view>0){state.view--;state.index=4}structureShown=false;translationShown=false;save();renderLesson()};
+    $("#next").onclick=()=>{if(state.index<4)state.index++;else if(state.view<3){state.view++;state.index=0;$$(".tab").forEach(b=>b.classList.toggle("active",b.dataset.view===String(state.view)))}else{changeView("trees");return}structureShown=false;translationShown=false;save();renderLesson()};
+    $("#treeSubmit").onclick=()=>{if(state.treeSubmitted){state.treeAnswers={};state.treeSubmitted=false}else state.treeSubmitted=true;save();renderTreeQuiz()};
+    $("#readingSubmit").onclick=()=>{if(Object.keys(state.readingAnswers).length<5)return;state.readingSubmitted=true;save();renderReadingQuiz()};
+    $("#readingReset").onclick=()=>{state.readingAnswers={};state.readingSubmitted=false;save();renderReadingQuiz()};
+    $("#timerToggle").onclick=()=>{if(timerId){clearInterval(timerId);timerId=null;save()}else timerId=setInterval(()=>{state.seconds++;$("#timer").textContent=fmt(state.seconds);if(state.seconds%5===0)save()},1000);$("#timerToggle").textContent=timerId?"暂停":"开始"};
+    $("#timerReset").onclick=()=>{if(!confirm("确定把本次有效用时归零吗？"))return;if(timerId){clearInterval(timerId);timerId=null}state.seconds=0;save();$("#timer").textContent=fmt(0);$("#timerToggle").textContent="开始"};
+    $("#saveRecord").onclick=()=>{let h=[];try{h=JSON.parse(localStorage.getItem(HISTORY_KEY)||"[]")}catch(e){}h.unshift({date:new Date().toLocaleString("zh-CN",{hour12:false}),day:"Day 12",seconds:state.seconds,assessed:Object.keys(state.assess).length,words:Object.keys(state.marks).length});localStorage.setItem(HISTORY_KEY,JSON.stringify(h.slice(0,12)));$("#notice").textContent="已保存在当前浏览器";setTimeout(()=>$("#notice").textContent="",2200)};
+    $("#timer").textContent=fmt(state.seconds);renderMarked();updateProgress();if(![0,1,2,3,"trees","reading"].includes(state.view))state.view=0;changeView(String(state.view));
+    if(location.hostname==="htmlpreview.github.io"){const source=decodeURIComponent(location.search.slice(1));$(".home").href="?"+source.replace(/\/[^/]+(?:\?.*)?$/,"/index.html")}
+  </script>
+</body>
+</html>
