@@ -339,5 +339,11 @@
     if(!["reading","wordtree"].includes(state.view))state.view="wordtree";
     render();metrics();markedWords();timerRender();historyRender();
   </script>
+  <script>
+    if(location.hostname==="htmlpreview.github.io"){
+      const source=decodeURIComponent(location.search.slice(1));
+      document.querySelector(".course-home-link").href=`?${source.replace(/\/[^/]+(?:\?.*)?$/,"/index.html")}`;
+    }
+  </script>
 </body>
 </html>
