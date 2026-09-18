@@ -28,7 +28,7 @@
     .sentence{min-height:142px;margin:25px 0 18px;padding:24px;border:1px solid #e4eaf1;border-radius:17px;background:#fff;font:clamp(1.45rem,3vw,2.05rem)/1.8 Georgia,"Times New Roman",serif}
     .lookup-word{position:relative;display:inline;padding:2px 3px;border-radius:5px;cursor:pointer}.lookup-word:hover{background:#eaf4ff}.lookup-word.uncertain{background:var(--yellow)}.lookup-word.unknown{background:var(--red)}
     .inline-meaning{position:absolute;top:calc(100% + 4px);left:50%;z-index:30;min-width:max-content;max-width:190px;padding:4px 8px;transform:translateX(-50%);border:1px solid #e47b7b;border-radius:6px;background:#fff;color:#9a3030;box-shadow:0 6px 18px rgba(31,52,79,.16);font:800 .72rem/1.35 Inter,"PingFang SC","Microsoft YaHei",sans-serif;white-space:nowrap}
-    .structure{margin:-5px 0 18px;padding:14px;border-radius:13px;background:#f4f7fa;color:var(--muted);font-size:.85rem;line-height:1.7}.structure b{color:var(--navy)}.structure .rel{color:var(--purple)}
+    .structure-mark{-webkit-box-decoration-break:clone;box-decoration-break:clone;padding:0 .06em;border-radius:.16em}.structure-target{background:linear-gradient(transparent 42%,rgba(255,218,76,.78) 42%,rgba(255,218,76,.78) 92%,transparent 92%)}.structure-relation{background:linear-gradient(transparent 42%,rgba(177,142,255,.48) 42%,rgba(177,142,255,.48) 92%,transparent 92%)}
     .audio-actions{display:flex;flex-wrap:wrap;gap:7px}.audio-btn{min-height:35px;padding:7px 10px;border:1px solid var(--line);border-radius:9px;background:#fff;color:var(--navy);font-size:.76rem;font-weight:800}
     .dictionary{margin:14px 0;padding:15px;border:1px solid #bfd3e8;border-radius:14px;background:#f2f8ff}.dictionary[hidden]{display:none}.dictionary h3{margin:0;color:var(--deep);font-size:1.18rem}.dictionary .phonetic{color:var(--blue);font-size:.8rem}.dictionary .meaning{margin:8px 0 3px;font-weight:850}.dictionary .hint{margin:0;color:var(--muted);font-size:.76rem}.dictionary-actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}
     .mark-btn{padding:7px 10px;border:1px solid var(--line);border-radius:9px;background:#fff;font-size:.76rem;font-weight:800}.mark-btn.yellow{background:#fff7cb}.mark-btn.red{background:#ffe5e5}.mark-btn.clear{color:var(--muted)}
@@ -79,7 +79,6 @@
               <div class="audio-actions"><button class="audio-btn" data-speak="sentence" data-rate="1">🔊 正常</button><button class="audio-btn" data-speak="sentence" data-rate=".72">🐢 慢速</button><button id="structureToggle" class="audio-btn">显示结构</button></div>
             </div>
             <div id="sentence" class="sentence"></div>
-            <div id="structureBox" class="structure" hidden></div>
             <button id="translationToggle" class="btn outline">查看中文翻译</button>
             <div id="translation" class="translation" hidden></div>
             <div id="sentenceLookup" class="dictionary" hidden></div>
@@ -139,7 +138,7 @@
       {level:"第4关 · 较长句子",parts:["Wang Zhenyi wrote a math book, ","which used easy words","."],cn:"王贞仪写了一本使用简单词语的数学书。",target:"a math book"},
       {level:"第4关 · 较长句子",parts:["Tu Youyou won the Nobel Prize, ","which helped more people learn about her work","."],cn:"屠呦呦获得了诺贝尔奖，这让更多人了解她的工作。",target:"the Nobel Prize"},
       {level:"第4关 · 综合理解",parts:["The four scientists, ","who worked in different fields",", all made important contributions."],cn:"这四位在不同领域工作的科学家都作出了重要贡献。",target:"The four scientists"},
-      {level:"第4关 · 综合理解",parts:["Beethoven, Copernicus, Wang Zhenyi and Tu Youyou, ","who came from different times",", all worked hard for their dreams."],cn:"贝多芬、哥白尼、王贞仪和屠呦呦来自不同年代，但都为梦想努力。",target:"the four people"}
+      {level:"第4关 · 综合理解",parts:["Beethoven, Copernicus, Wang Zhenyi and Tu Youyou, ","who came from different times",", all worked hard for their dreams."],cn:"贝多芬、哥白尼、王贞仪和屠呦呦来自不同年代，但都为梦想努力。",target:"Beethoven, Copernicus, Wang Zhenyi and Tu Youyou"}
     ];
     const wordTrees=[
       {name:"science",words:[{w:"science",ipa:"/ˈsaɪəns/",pos:"n.",zh:"科学",ex:"Science helps us learn."},{w:"scientist",ipa:"/ˈsaɪəntɪst/",pos:"n.",zh:"科学家",ex:"She is a scientist."},{w:"scientific",ipa:"/ˌsaɪənˈtɪfɪk/",pos:"adj.",zh:"科学的",ex:"This is a scientific idea."}]},
@@ -265,10 +264,12 @@
       [["uncertain","有点模糊","yellow"],["unknown","不认识","red"],["","清除标记","clear"]].forEach(item=>{const b=document.createElement("button");b.className="mark-btn "+item[2];b.textContent=item[1];b.onclick=()=>{if(item[0])state.marks[found.key]=item[0];else delete state.marks[found.key];save();renderMarked();renderCurrentText();showLookup(term,source)};actions.append(b)});host.append(head,meaning,hint,actions);host.scrollIntoView({behavior:"smooth",block:"nearest"})
     }
     function speakText(text,rate){if(!("speechSynthesis" in window)){alert("当前浏览器不支持朗读功能。");return}window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang="en-US";u.rate=Number(rate)||1;const voices=window.speechSynthesis.getVoices(),voice=voices.find(v=>v.lang&&v.lang.toLowerCase().startsWith("en-us"))||voices.find(v=>v.lang&&v.lang.toLowerCase().startsWith("en"));if(voice)u.voice=voice;window.speechSynthesis.speak(u)}
-    function renderCurrentText(){if(typeof state.view==="number"){const item=lessons[state.view*5+state.index];tokenize(lessonText(item),$("#sentence"),"sentence")}else if(state.view==="reading")renderPassage()}
+    function appendSentenceChunk(text,host,className,title){if(!text)return;const span=document.createElement("span");if(className)span.className=className;if(title)span.title=title;tokenize(text,span,"sentence");host.append(span)}
+    function renderSentence(item){const host=$("#sentence");if(!structureShown){tokenize(lessonText(item),host,"sentence");return}host.innerHTML="";const first=item.parts[0],target=item.target||"",start=first.toLowerCase().lastIndexOf(target.toLowerCase());if(target&&start>=0){appendSentenceChunk(first.slice(0,start),host);appendSentenceChunk(first.slice(start,start+target.length),host,"structure-mark structure-target","被介绍的人或事物");appendSentenceChunk(first.slice(start+target.length),host)}else{const match=first.match(/^(.*?)([,\s]*)$/);appendSentenceChunk(match&&match[1]?match[1]:first,host,"structure-mark structure-target","被介绍的人或事物");if(match)appendSentenceChunk(match[2],host)}appendSentenceChunk(item.parts[1],host,"structure-mark structure-relation","关系词引导的补充说明");item.parts.slice(2).forEach(part=>appendSentenceChunk(part,host))}
+    function renderCurrentText(){if(typeof state.view==="number"){const item=lessons[state.view*5+state.index];renderSentence(item)}else if(state.view==="reading")renderPassage()}
     function renderLesson(){
-      const id=state.view*5+state.index,item=lessons[id];$("#sentenceNo").textContent="句子 "+(id+1)+" / 20";$("#lessonTitle").textContent=item.level;tokenize(lessonText(item),$("#sentence"),"sentence");
-      $("#translation").textContent=item.cn;$("#translation").hidden=!translationShown;$("#translationToggle").textContent=translationShown?"隐藏中文翻译":"查看中文翻译";$("#structureBox").hidden=!structureShown;$("#structureBox").innerHTML="<b>被介绍的词：</b>"+item.target+"　 <b class='rel'>关系词补充说明：</b>"+item.parts[1].replace(/^(?:that|who|which)\s+/i,"");$("#structureToggle").textContent=structureShown?"隐藏结构":"显示结构";
+      const id=state.view*5+state.index,item=lessons[id];$("#sentenceNo").textContent="句子 "+(id+1)+" / 20";$("#lessonTitle").textContent=item.level;renderSentence(item);
+      $("#translation").textContent=item.cn;$("#translation").hidden=!translationShown;$("#translationToggle").textContent=translationShown?"隐藏中文翻译":"查看中文翻译";$("#structureToggle").textContent=structureShown?"隐藏结构":"显示结构";
       $$("[data-assess]").forEach(b=>b.classList.toggle("selected",state.assess[id]===b.dataset.assess));const dots=$("#dots");dots.innerHTML="";for(let i=0;i<5;i++){const b=document.createElement("button"),sid=state.view*5+i;b.className="dot "+(i===state.index?"active ":"")+(state.assess[sid]?"done":"");b.ariaLabel="本关第"+(i+1)+"句";b.onclick=()=>{state.index=i;structureShown=false;translationShown=false;save();renderLesson()};dots.append(b)}updateProgress()
     }
     function updateProgress(){const count=Object.keys(state.assess).length;$("#progressText").textContent=count+" / 20"}
