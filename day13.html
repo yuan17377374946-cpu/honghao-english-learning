@@ -67,7 +67,7 @@
       <button class="tab" data-view="1">第2关<span>句子 6–10</span></button>
       <button class="tab" data-view="2">第3关<span>句子 11–15</span></button>
       <button class="tab" data-view="3">第4关<span>句子 16–20</span></button>
-      <button class="tab" data-view="trees">单词树<span>10组 · 33词</span></button>
+      <button class="tab" data-view="trees">单词树<span>10组 · 36词</span></button>
       <button class="tab" data-view="reading">综合阅读<span>2篇完形 + 2篇选择</span></button>
     </nav>
     <main>
@@ -289,7 +289,7 @@
       task.paragraphs.forEach(text=>{const p=document.createElement("p");tokenize(text,p,"reading");$("#passageText").append(p)});
     }
     function renderReadingQuiz(){
-      const task=currentReading(),qs=task.questions,answers=state.readingAnswersByTask[readingTaskIndex]||{},submitted=Boolean(state.readingSubmittedByTask[readingTaskIndex]),host=$("#readingQuiz");host.innerHTML="";
+      const task=currentReading(),qs=task.questions;state.readingAnswersByTask[readingTaskIndex]=state.readingAnswersByTask[readingTaskIndex]||{};state.readingSubmittedByTask[readingTaskIndex]=Boolean(state.readingSubmittedByTask[readingTaskIndex]);const answers=state.readingAnswersByTask[readingTaskIndex],submitted=state.readingSubmittedByTask[readingTaskIndex],host=$("#readingQuiz");host.innerHTML="";
       qs.forEach((q,i)=>{const card=document.createElement("article");card.className="reading-question";const title=document.createElement("h4");tokenize(q.q,title,"question");const opts=document.createElement("div");opts.className="options";
         q.opts.forEach((o,j)=>{const b=document.createElement("button"),picked=Number(answers[i])===j;b.className="option "+(picked?"selected ":"");tokenize(String.fromCharCode(65+j)+". "+o,b,"question");b.disabled=submitted;if(submitted){if(j===q.a)b.classList.add("correct");else if(picked)b.classList.add("wrong")}b.onclick=()=>{state.readingAnswersByTask[readingTaskIndex][i]=j;save();renderReadingQuiz()};opts.append(b)});
         card.append(title,opts);if(submitted){const e=document.createElement("p");e.className="explain";e.textContent=q.why;card.append(e)}host.append(card)});
