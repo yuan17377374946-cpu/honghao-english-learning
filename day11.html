@@ -328,7 +328,7 @@
     $("#prev").onclick=()=>{if(state.index>0)state.index--;else if(state.view>0){state.view--;state.index=4}state.structure=false;saveState();render()};
     $("#next").onclick=()=>{if(state.index<4)state.index++;else if(state.view<3){state.view++;state.index=0}else{state.view="wordtree";state.index=0;treeRevealed=false;exampleRevealed=false}state.structure=false;saveState();render()};
     $("#timerToggle").onclick=toggleTimer;$("#timerReset").onclick=()=>{if(!confirm("确定把本次有效用时归零吗？其他标记不会清除。"))return;if(timerId){clearInterval(timerId);timerId=null}state.seconds=0;saveState();timerRender()};
-    $("#save").onclick=()=>{const h=history(),ratings=Object.values(state.ratings).map(Number).filter(Boolean);h.unshift({date:new Date().toLocaleString("zh-CN",{hour12:false}),seconds:state.seconds,assessed:Object.keys(state.assess).length,rate:Math.round(entries().length/allCount()*100),rating:ratings.length?(ratings.reduce((a,b)=>a+b,0)/ratings.length).toFixed(1):"—"});localStorage.setItem(HKEY,JSON.stringify(h.slice(0,12)));notice("已保存在这台设备的浏览器中");historyRender()};
+    $("#save").onclick=()=>{const h=history(),ratings=Object.values(state.ratings).map(Number).filter(Boolean);h.unshift({date:new Date().toLocaleString("zh-CN",{hour12:false}),seconds:state.seconds,assessed:Object.keys(state.assess).length,rate:Math.round(entries().length/allCount()*100),rating:ratings.length?(ratings.reduce((a,b)=>a+b,0)/ratings.length).toFixed(1):"—"});localStorage.setItem(HKEY,JSON.stringify(h.slice(0,12)));notice("已保存；登录后会自动同步到云端");historyRender()};
     $("#copy").onclick=async()=>{try{await navigator.clipboard.writeText(summary());notice("课堂小结已复制")}catch{notice("复制失败，请检查浏览器权限")}};
     $("#clearHistory").onclick=()=>{if(confirm("确定清空这台设备里的学习记录吗？")){localStorage.removeItem(HKEY);historyRender()}};
     $("#quizSubmit").onclick=()=>{if(Object.keys(state.clozeAnswers).filter(n=>state.clozeAnswers[n]).length<10)return;state.clozeSubmitted=true;saveState();readingRender();$("#questionList").scrollIntoView({behavior:"smooth",block:"start"})};
@@ -345,5 +345,6 @@
       document.querySelector(".course-home-link").href=`?${source.replace(/\/[^/]+(?:\?.*)?$/,"/index.html")}`;
     }
   </script>
+  <script>(function(){const s=document.createElement("script");s.src=location.hostname==="htmlpreview.github.io"?"https://cdn.jsdelivr.net/gh/yuan17377374946-cpu/honghao-english-learning@main/cloud-sync.js?v=2":"cloud-sync.js";document.body.append(s)})();</script>
 </body>
 </html>
