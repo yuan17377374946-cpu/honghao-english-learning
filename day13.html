@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#173b67">
+  <meta name="description" content="宏浩英语课堂 Day 13：非限制性定语从句、单词树与综合阅读">
+  <title>宏浩英语课堂 · Day 13</title>
+  <style>
+    :root{--navy:#173b67;--deep:#0d294a;--blue:#2f70b7;--sky:#eaf4ff;--ink:#172434;--muted:#657386;--line:#dce5ef;--page:#f4f7fb;--yellow:#ffe37a;--red:#ff9292;--green:#2f8f68;--purple:#7c5bb6;font-family:Inter,"PingFang SC","Microsoft YaHei",system-ui,sans-serif}
+    *{box-sizing:border-box}body{margin:0;min-width:320px;color:var(--ink);background:radial-gradient(circle at 8% 0%,rgba(47,112,183,.12),transparent 28rem),var(--page)}
+    button{font:inherit;cursor:pointer}button:focus-visible,.lookup-word:focus-visible{outline:3px solid rgba(47,112,183,.3);outline-offset:2px}
+    h1,h2,h3,p{margin-top:0}.shell{width:min(1180px,calc(100% - 32px));margin:auto;padding:26px 0 56px}
+    .home{display:inline-flex;margin-bottom:14px;padding:8px 12px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--navy);font-size:.82rem;font-weight:800;text-decoration:none}
+    .topbar,.overview-main,.section-head,.lesson-head,.nav-row,.quiz-foot,.dictionary-head,.timer-actions{display:flex;align-items:center;justify-content:space-between;gap:14px}
+    .eyebrow,.small{margin:0 0 6px;color:var(--blue);font-size:.76rem;font-weight:850;letter-spacing:.08em;text-transform:uppercase}
+    h1{margin:0;color:var(--deep);font-size:clamp(1.8rem,4vw,2.65rem)}h2{margin-bottom:7px;color:var(--deep);font-size:1.35rem}h3{margin-bottom:7px}
+    .timer{display:grid;grid-template-columns:auto auto;align-items:center;gap:7px 16px;min-width:300px;padding:13px 15px;border:1px solid var(--line);border-radius:18px;background:#fff}
+    .timer span{color:var(--muted);font-size:.78rem;font-weight:750}.timer strong{grid-row:span 2;color:var(--navy);font-size:1.7rem;font-variant-numeric:tabular-nums}
+    .btn{min-height:39px;padding:8px 14px;border:1px solid transparent;border-radius:10px;font-weight:800;transition:.15s}.btn:hover{transform:translateY(-1px)}
+    .primary{background:var(--navy);color:#fff}.outline{border-color:var(--line);background:#fff;color:var(--navy)}.quiet{background:#edf2f7;color:var(--muted)}
+    .overview{margin-top:20px;padding:23px;border-radius:24px;background:linear-gradient(120deg,var(--deep),var(--navy));color:#fff;box-shadow:0 18px 45px rgba(27,57,91,.12)}
+    .overview h2{margin:8px 0 6px;color:#fff}.overview p{margin:0;color:#dceaff;font-size:.88rem;line-height:1.6}.badge{display:inline-flex;padding:5px 9px;border:1px solid #ffffff3d;border-radius:999px;background:#ffffff18;font-size:.73rem;font-weight:800}
+    .overview-stat{text-align:right}.overview-stat strong,.overview-stat span{display:block}.overview-stat strong{font-size:1.7rem}.overview-stat span{color:#c8dcf7;font-size:.75rem}
+    .tabs{display:grid;grid-template-columns:repeat(6,1fr);gap:9px;margin:18px 0}.tab{min-height:57px;padding:9px 11px;border:1px solid var(--line);border-radius:13px;background:#fff;color:var(--ink);font-weight:850;text-align:left}.tab span{display:block;margin-top:3px;color:var(--muted);font-size:.7rem;font-weight:650}.tab.active{border-color:var(--blue);background:var(--sky);color:var(--navy)}
+    .panel{padding:clamp(20px,4vw,34px);border:1px solid var(--line);border-radius:24px;background:#fff;box-shadow:0 12px 32px rgba(27,57,91,.06)}.panel[hidden]{display:none}
+    .lesson-layout{display:grid;grid-template-columns:minmax(0,1fr) 290px;gap:18px}.sentence-card{padding:24px;border:1px solid var(--line);border-radius:20px;background:#fbfdff}
+    .sentence{min-height:142px;margin:25px 0 18px;padding:24px;border:1px solid #e4eaf1;border-radius:17px;background:#fff;font:clamp(1.45rem,3vw,2.05rem)/1.8 Georgia,"Times New Roman",serif}
+    .lookup-word{position:relative;display:inline;padding:2px 3px;border-radius:5px;cursor:pointer}.lookup-word:hover{background:#eaf4ff}.lookup-word.uncertain{background:var(--yellow)}.lookup-word.unknown{background:var(--red)}
+    .inline-meaning{position:absolute;top:calc(100% + 4px);left:50%;z-index:30;min-width:max-content;max-width:190px;padding:4px 8px;transform:translateX(-50%);border:1px solid #e47b7b;border-radius:6px;background:#fff;color:#9a3030;box-shadow:0 6px 18px rgba(31,52,79,.16);font:800 .72rem/1.35 Inter,"PingFang SC","Microsoft YaHei",sans-serif;white-space:nowrap}
+    .structure{margin:-5px 0 18px;padding:14px;border-radius:13px;background:#f4f7fa;color:var(--muted);font-size:.85rem;line-height:1.7}.structure b{color:var(--navy)}.structure .rel{color:var(--purple)}
+    .audio-actions{display:flex;flex-wrap:wrap;gap:7px}.audio-btn{min-height:35px;padding:7px 10px;border:1px solid var(--line);border-radius:9px;background:#fff;color:var(--navy);font-size:.76rem;font-weight:800}
+    .dictionary{margin:14px 0;padding:15px;border:1px solid #bfd3e8;border-radius:14px;background:#f2f8ff}.dictionary[hidden]{display:none}.dictionary h3{margin:0;color:var(--deep);font-size:1.18rem}.dictionary .phonetic{color:var(--blue);font-size:.8rem}.dictionary .meaning{margin:8px 0 3px;font-weight:850}.dictionary .hint{margin:0;color:var(--muted);font-size:.76rem}.dictionary-actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}
+    .mark-btn{padding:7px 10px;border:1px solid var(--line);border-radius:9px;background:#fff;font-size:.76rem;font-weight:800}.mark-btn.yellow{background:#fff7cb}.mark-btn.red{background:#ffe5e5}.mark-btn.clear{color:var(--muted)}
+    .assessment{margin:18px 0}.assessment p{margin-bottom:9px;font-size:.84rem;font-weight:800}.choice-row{display:flex;flex-wrap:wrap;gap:7px}.choice-row button{padding:8px 10px;border:1px solid var(--line);border-radius:9px;background:#fff;font-size:.76rem;font-weight:750}.choice-row button.selected{border-color:var(--blue);background:var(--sky);color:var(--navy)}
+    .nav-row{padding-top:17px;border-top:1px solid var(--line)}.dots{display:flex;gap:7px}.dot{width:11px;height:11px;padding:0;border:0;border-radius:50%;background:#dce4ed}.dot.active{background:var(--blue);box-shadow:0 0 0 4px rgba(47,112,183,.12)}.dot.done{background:var(--green)}
+    .side{display:grid;gap:13px}.side-card{padding:17px;border:1px solid var(--line);border-radius:17px;background:#fff}.side-card p{margin-bottom:0;color:var(--muted);font-size:.78rem;line-height:1.55}.side-card strong{color:var(--navy)}.word-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}.word-chip{padding:5px 7px;border-radius:8px;background:#edf3f8;color:var(--navy);font-size:.72rem;font-weight:750}
+    .tree-tabs{display:flex;flex-wrap:wrap;gap:8px;margin:17px 0}.tree-tab{padding:8px 13px;border:1px solid var(--line);border-radius:999px;background:#fff;font-weight:800}.tree-tab.active{border-color:var(--blue);background:var(--sky);color:var(--navy)}
+    .tree-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,.8fr);gap:18px}.tree-nodes{display:grid;grid-template-columns:repeat(2,1fr);gap:11px;padding:20px;border:1px solid var(--line);border-radius:18px;background:#fbfdff}.tree-node{min-height:88px;padding:13px;border:1px solid #b9cee4;border-radius:14px;background:#fff;color:var(--navy);font-weight:850}.tree-node small{display:block;margin-top:5px;color:var(--muted);font-weight:650}.tree-node.active{border-color:var(--blue);background:var(--sky)}
+    .word-detail{padding:21px;border:1px solid var(--line);border-radius:18px;background:#fff}.word-detail h3{margin-bottom:4px;font-size:1.55rem}.word-detail .example{margin-top:15px;padding:12px;border-left:4px solid var(--yellow);background:#fff9df;color:var(--ink)}
+    .quiz{margin-top:20px;padding-top:20px;border-top:1px solid var(--line)}.quiz-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:11px}.question{padding:14px;border:1px solid var(--line);border-radius:14px;background:#fbfdff}.question p{min-height:40px;margin-bottom:10px;font-size:.84rem;font-weight:800;line-height:1.5}.options{display:grid;gap:7px}.option{padding:8px 10px;border:1px solid var(--line);border-radius:9px;background:#fff;text-align:left;font-size:.78rem;font-weight:750}.option.selected{border-color:var(--blue);background:var(--sky)}.option.correct{border-color:#62a987;background:#e8f7ef;color:#176344}.option.wrong{border-color:#d87979;background:#ffeded;color:#922f2f}.explain{margin:9px 0 0;color:var(--muted);font-size:.74rem;line-height:1.5}
+    .quiz-foot{margin-top:14px}.quiz-result{color:var(--muted);font-size:.8rem}.quiz-result strong{color:var(--navy)}
+    .reading-controls{display:flex;flex-wrap:wrap;gap:8px}.reading-layout{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(330px,.95fr);gap:18px;align-items:start;margin-top:18px}.passage-box,.reading-questions{border:1px solid var(--line);border-radius:18px;background:#fbfdff}.passage-box{padding:22px}.passage-text{font:1.08rem/2 Georgia,"Times New Roman",serif}.passage-text p{margin-bottom:1.1em}.passage-text p:last-child{margin-bottom:0}.reading-questions{overflow:hidden;background:#fff}.reading-questions h3{flex:0 0 auto;margin:0;padding:17px 18px;border-bottom:1px solid var(--line);background:#f6f9fc}.reading-question{padding:15px 18px;border-bottom:1px solid var(--line)}.reading-question:last-child{border-bottom:0}.reading-question h4{margin:0 0 9px;font-size:.84rem;line-height:1.5}
+    .translation{margin:12px 0 0;padding:12px;border-radius:11px;background:#edf7f1;color:#176344;font-size:.82rem;line-height:1.7}
+    .footer-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}.notice{min-height:20px;margin-top:9px;color:var(--green);font-size:.76rem}
+    @media(min-width:901px){.reading-questions{position:sticky;top:16px;display:flex;height:min(650px,calc(100vh - 120px));min-height:480px;flex-direction:column}.reading-questions #readingQuiz{min-height:0;overflow-y:auto;overscroll-behavior:contain}.reading-questions>div:last-child{flex:0 0 auto;border-top:1px solid var(--line);background:#fff}}
+    @media(max-width:900px){.lesson-layout,.tree-layout,.reading-layout{grid-template-columns:1fr}.side{grid-template-columns:repeat(3,1fr)}.reading-questions{height:auto}.reading-questions #readingQuiz{overflow:visible}}
+    @media(max-width:700px){.shell{width:calc(100% - 22px);padding-top:16px}.topbar,.overview-main,.section-head,.lesson-head{align-items:stretch;flex-direction:column}.timer{min-width:0}.tabs{display:flex;overflow-x:auto;padding-bottom:4px}.tab{min-width:118px}.side{grid-template-columns:1fr}.quiz-grid{grid-template-columns:1fr}.sentence-card{padding:17px}.sentence{min-height:165px;padding:18px;font-size:1.35rem}.tree-nodes{grid-template-columns:1fr}.overview-stat{text-align:left}}
+    @media(prefers-reduced-motion:reduce){*{transition:none!important}}
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <a class="home" href="index.html">← 返回课程记录</a>
+    <header class="topbar">
+      <div><p class="eyebrow">宏浩英语课堂</p><h1>Day 13 · 非限制性定语从句</h1></div>
+      <div class="timer"><span>本次有效用时</span><strong id="timer">00:00</strong><div class="timer-actions"><button id="timerToggle" class="btn primary">开始</button><button id="timerReset" class="btn quiet">归零</button></div></div>
+    </header>
+    <section class="overview">
+      <div class="overview-main">
+        <div><span class="badge">课程存档</span><h2>20个非限制性定语从句 + 10组单词树 + 4篇阅读</h2><p>今天重点看逗号、who/which和补充信息：先判断词性，再推测一连串派生词的意思。</p></div>
+        <div class="overview-stat"><strong id="progressText">0 / 20</strong><span>已记录句子理解情况</span></div>
+      </div>
+    </section>
+    <nav class="tabs" aria-label="课程内容">
+      <button class="tab active" data-view="0">第1关<span>句子 1–5</span></button>
+      <button class="tab" data-view="1">第2关<span>句子 6–10</span></button>
+      <button class="tab" data-view="2">第3关<span>句子 11–15</span></button>
+      <button class="tab" data-view="3">第4关<span>句子 16–20</span></button>
+      <button class="tab" data-view="trees">单词树<span>10组 · 33词</span></button>
+      <button class="tab" data-view="reading">综合阅读<span>2篇完形 + 2篇选择</span></button>
+    </nav>
+    <main>
+      <section id="lessonPanel" class="panel">
+        <div class="lesson-layout">
+          <article class="sentence-card">
+            <div class="lesson-head">
+              <div><p id="sentenceNo" class="small">句子 1 / 20</p><h2 id="lessonTitle">that介绍人</h2></div>
+              <div class="audio-actions"><button class="audio-btn" data-speak="sentence" data-rate="1">🔊 正常</button><button class="audio-btn" data-speak="sentence" data-rate=".72">🐢 慢速</button><button id="structureToggle" class="audio-btn">显示结构</button></div>
+            </div>
+            <div id="sentence" class="sentence"></div>
+            <div id="structureBox" class="structure" hidden></div>
+            <button id="translationToggle" class="btn outline">查看中文翻译</button>
+            <div id="translation" class="translation" hidden></div>
+            <div id="sentenceLookup" class="dictionary" hidden></div>
+            <div class="assessment">
+              <p>这句话理解得怎么样？</p>
+              <div class="choice-row"><button data-assess="understood">能独立理解</button><button data-assess="prompted">提醒后理解</button><button data-assess="review">需要再讲</button></div>
+            </div>
+            <footer class="nav-row"><button id="prev" class="btn outline">上一句</button><div id="dots" class="dots"></div><button id="next" class="btn primary">下一句</button></footer>
+          </article>
+          <aside class="side">
+            <section class="side-card"><h3>学习方法</h3><p>①找被介绍的人或事物<br>②找到that<br>③读that后面的补充说明</p></section>
+            <section class="side-card"><h3>本次生词</h3><p><strong id="markedCount">0个</strong> 已标记</p><div id="markedWords" class="word-list"></div></section>
+            <section class="side-card"><h3>课堂记录</h3><p>学习数据只保存在当前浏览器。</p><button id="saveRecord" class="btn primary" style="width:100%;margin-top:10px">保存本次记录</button><div id="notice" class="notice"></div></section>
+          </aside>
+        </div>
+      </section>
+      <section id="treePanel" class="panel" hidden>
+        <div class="section-head"><div><p class="small">构词规律</p><h2>10组单词树</h2><p style="color:var(--muted);margin:0;font-size:.82rem">点击单词查看音标、词性、中文、例句和发音；旧的5组也保留。</p></div></div>
+        <div id="treeTabs" class="tree-tabs"></div>
+        <div class="tree-layout"><div id="treeNodes" class="tree-nodes"></div><aside id="wordDetail" class="word-detail"></aside></div>
+        <section class="quiz">
+          <div class="section-head"><div><p class="small">快速检查</p><h2>单词树练习</h2></div></div>
+          <div id="treeQuiz" class="quiz-grid"></div>
+          <div class="quiz-foot"><div id="treeResult" class="quiz-result">完成6题后检查答案。</div><button id="treeSubmit" class="btn primary" disabled>检查答案</button></div>
+        </section>
+      </section>
+      <section id="readingPanel" class="panel" hidden>
+        <div class="section-head">
+          <div><p class="small">今日综合阅读</p><h2 id="readingTitle">完形填空一：Beethoven</h2><p style="color:var(--muted);margin:0;font-size:.82rem">点击文章中的单词或短语，下方会显示中文意思。</p></div>
+          <div class="reading-controls"><button class="audio-btn" data-speak="reading" data-rate="1">🔊 整篇朗读</button><button class="audio-btn" data-speak="reading" data-rate=".72">🐢 慢速朗读</button><button id="stopSpeak" class="audio-btn">⏹ 停止</button></div>
+        </div>
+        <div id="readingTaskTabs" class="tree-tabs"></div><div class="reading-layout">
+          <article class="passage-box"><div id="passageText" class="passage-text"></div></article>
+          <section class="reading-questions"><h3>选择最合适的答案</h3><div id="readingQuiz"></div><div style="padding:15px 18px"><div id="readingResult" class="quiz-result">完成5题后提交。</div><div class="footer-actions"><button id="readingReset" class="btn outline" hidden>重新作答</button><button id="readingSubmit" class="btn primary" disabled>提交答案</button></div></div></section>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script>
+    const lessons=[
+      {level:"第1关 · who介绍人",parts:["Tu Youyou, ","who is a famous scientist",", helped many sick people."],cn:"屠呦呦是一位著名的科学家，她帮助了许多病人。",target:"Tu Youyou"},
+      {level:"第1关 · who介绍人",parts:["Beethoven, ","who loved music",", wrote many beautiful pieces."],cn:"贝多芬热爱音乐，他写了许多优美的乐曲。",target:"Beethoven"},
+      {level:"第1关 · who介绍人",parts:["Wang Zhenyi, ","who liked learning",", studied the stars."],cn:"王贞仪喜欢学习，她研究了星星。",target:"Wang Zhenyi"},
+      {level:"第1关 · who介绍人",parts:["Copernicus, ","who was an astronomer",", watched the sky carefully."],cn:"哥白尼是一位天文学家，他认真观察天空。",target:"Copernicus"},
+      {level:"第1关 · who介绍人",parts:["My teacher, ","who is very patient",", helps me learn English."],cn:"我的老师很有耐心，他（她）帮助我学习英语。",target:"My teacher"},
+      {level:"第2关 · which介绍事物",parts:["The book, ","which is about science",", is easy to read."],cn:"这本关于科学的书很容易读。",target:"The book"},
+      {level:"第2关 · which介绍事物",parts:["Beethoven wrote a piece of music, ","which many people still enjoy","."],cn:"贝多芬写了一首许多人现在仍然喜欢的乐曲。",target:"a piece of music"},
+      {level:"第2关 · which介绍事物",parts:["Wang made a model, ","which showed how a lunar eclipse happened","."],cn:"王贞仪制作了一个展示月食如何发生的模型。",target:"a model"},
+      {level:"第2关 · which介绍事物",parts:["Tu found a medicine, ","which helped many sick people","."],cn:"屠呦呦发现了一种帮助许多病人的药物。",target:"a medicine"},
+      {level:"第2关 · which介绍事物",parts:["Copernicus wrote a book, ","which explained his new idea","."],cn:"哥白尼写了一本解释他新想法的书。",target:"a book"},
+      {level:"第3关 · 补充出生和经历",parts:["Tu Youyou, ","who was born in Ningbo",", worked hard for many years."],cn:"出生于宁波的屠呦呦努力工作了许多年。",target:"Tu Youyou"},
+      {level:"第3关 · 补充出生和经历",parts:["Wang Zhenyi, ","who lived in the Qing Dynasty",", learned from her family."],cn:"生活在清朝的王贞仪向家人学习。",target:"Wang Zhenyi"},
+      {level:"第3关 · 补充出生和经历",parts:["Beethoven, ","who lost his hearing",", did not give up music."],cn:"失去听力的贝多芬没有放弃音乐。",target:"Beethoven"},
+      {level:"第3关 · 补充出生和经历",parts:["Copernicus, ","who studied the sky for many years",", found a new idea."],cn:"研究天空多年的哥白尼发现了一个新想法。",target:"Copernicus"},
+      {level:"第3关 · 补充出生和经历",parts:["The old book, ","which was difficult to read",", gave Tu a useful idea."],cn:"那本难读的旧书给了屠呦呦一个有用的想法。",target:"The old book"},
+      {level:"第4关 · 较长句子",parts:["The model, ","which used a lamp and a round ball",", helped people understand an eclipse."],cn:"这个使用灯和圆球的模型帮助人们理解月食。",target:"The model"},
+      {level:"第4关 · 较长句子",parts:["Wang Zhenyi wrote a math book, ","which used easy words","."],cn:"王贞仪写了一本使用简单词语的数学书。",target:"a math book"},
+      {level:"第4关 · 较长句子",parts:["Tu Youyou won the Nobel Prize, ","which helped more people learn about her work","."],cn:"屠呦呦获得了诺贝尔奖，这让更多人了解她的工作。",target:"the Nobel Prize"},
+      {level:"第4关 · 综合理解",parts:["The four scientists, ","who worked in different fields",", all made important contributions."],cn:"这四位在不同领域工作的科学家都作出了重要贡献。",target:"The four scientists"},
+      {level:"第4关 · 综合理解",parts:["Beethoven, Copernicus, Wang Zhenyi and Tu Youyou, ","who came from different times",", all worked hard for their dreams."],cn:"贝多芬、哥白尼、王贞仪和屠呦呦来自不同年代，但都为梦想努力。",target:"the four people"}
+    ];
+    const wordTrees=[
+      {name:"science",words:[{w:"science",ipa:"/ˈsaɪəns/",pos:"n.",zh:"科学",ex:"Science helps us learn."},{w:"scientist",ipa:"/ˈsaɪəntɪst/",pos:"n.",zh:"科学家",ex:"She is a scientist."},{w:"scientific",ipa:"/ˌsaɪənˈtɪfɪk/",pos:"adj.",zh:"科学的",ex:"This is a scientific idea."}]},
+      {name:"art",words:[{w:"art",ipa:"/ɑːrt/",pos:"n.",zh:"艺术",ex:"I like art."},{w:"artist",ipa:"/ˈɑːrtɪst/",pos:"n.",zh:"艺术家",ex:"Picasso was an artist."},{w:"artistic",ipa:"/ɑːrˈtɪstɪk/",pos:"adj.",zh:"艺术的",ex:"This is an artistic picture."}]},
+      {name:"music",words:[{w:"music",ipa:"/ˈmjuːzɪk/",pos:"n.",zh:"音乐",ex:"I like music."},{w:"musician",ipa:"/mjuˈzɪʃən/",pos:"n.",zh:"音乐家",ex:"Beethoven was a musician."},{w:"musical",ipa:"/ˈmjuːzɪkəl/",pos:"adj.",zh:"音乐的",ex:"This is a musical show."}]},
+      {name:"teach",words:[{w:"teach",ipa:"/tiːtʃ/",pos:"v.",zh:"教",ex:"I teach English."},{w:"teacher",ipa:"/ˈtiːtʃər/",pos:"n.",zh:"老师",ex:"She is my teacher."},{w:"teaching",ipa:"/ˈtiːtʃɪŋ/",pos:"n.",zh:"教学",ex:"Teaching is her job."},{w:"taught",ipa:"/tɔːt/",pos:"v.",zh:"teach的过去式：教了",ex:"Her grandmother taught her poems."}]},
+      {name:"write",words:[{w:"write",ipa:"/raɪt/",pos:"v.",zh:"写",ex:"I write every day."},{w:"writer",ipa:"/ˈraɪtər/",pos:"n.",zh:"作家；写作者",ex:"She is a writer."},{w:"writing",ipa:"/ˈraɪtɪŋ/",pos:"n.",zh:"写作",ex:"Writing helps me think."},{w:"rewrite",ipa:"/ˌriːˈraɪt/",pos:"v.",zh:"重写",ex:"Please rewrite this sentence."},{w:"rewrote",ipa:"/ˌriːˈroʊt/",pos:"v.",zh:"rewrite的过去式：重写了",ex:"She rewrote the math book."}]}
+      {name:"contribute",words:[{w:"contribute",ipa:"/kənˈtrɪbjuːt/",pos:"v.",zh:"贡献；作出贡献",ex:"Everyone can contribute to the team."},{w:"contribution",ipa:"/ˌkɒntrɪˈbjuːʃən/",pos:"n.",zh:"贡献",ex:"Her contribution was important."},{w:"contributor",ipa:"/kənˈtrɪbjətər/",pos:"n.",zh:"贡献者",ex:"He is a regular contributor."}]},
+      {name:"create",words:[{w:"create",ipa:"/kriˈeɪt/",pos:"v.",zh:"创造；创作",ex:"Artists create new works."},{w:"creation",ipa:"/kriˈeɪʃən/",pos:"n.",zh:"创造；作品",ex:"This painting is a new creation."},{w:"creative",ipa:"/kriˈeɪtɪv/",pos:"adj.",zh:"有创造力的",ex:"She has a creative idea."},{w:"creator",ipa:"/kriˈeɪtər/",pos:"n.",zh:"创造者",ex:"The creator made a useful model."}]},
+      {name:"discover",words:[{w:"discover",ipa:"/dɪˈskʌvər/",pos:"v.",zh:"发现",ex:"They discovered a new medicine."},{w:"discovery",ipa:"/dɪˈskʌvəri/",pos:"n.",zh:"发现",ex:"The discovery helped many people."},{w:"discoverer",ipa:"/dɪˈskʌvərər/",pos:"n.",zh:"发现者",ex:"The discoverer worked hard."}]},
+      {name:"learn",words:[{w:"learn",ipa:"/lɜːrn/",pos:"v.",zh:"学习；得知",ex:"We learn from books."},{w:"learner",ipa:"/ˈlɜːrnər/",pos:"n.",zh:"学习者",ex:"He is a fast learner."},{w:"learning",ipa:"/ˈlɜːrnɪŋ/",pos:"n.",zh:"学习",ex:"Learning takes time."},{w:"learned",ipa:"/ˈlɜːrnɪd/",pos:"adj.",zh:"博学的",ex:"She was a learned woman."}]},
+      {name:"believe",words:[{w:"believe",ipa:"/bɪˈliːv/",pos:"v.",zh:"相信",ex:"I believe her story."},{w:"belief",ipa:"/bɪˈliːf/",pos:"n.",zh:"信念；相信",ex:"His belief gave him hope."},{w:"believable",ipa:"/bɪˈliːvəbl/",pos:"adj.",zh:"可信的",ex:"The story is believable."},{w:"unbelievable",ipa:"/ˌʌnbɪˈliːvəbl/",pos:"adj.",zh:"难以置信的",ex:"The result was unbelievable."}]}
+    ];
+    const treeQuestions=[
+      {q:"contribute变成名词是______。",opts:["contribution","contributor"],a:0,why:"-tion常把动词变成名词，contribution是“贡献”。"},
+      {q:"create变成“有创造力的”是______。",opts:["creation","creative"],a:1,why:"creative是形容词，表示“有创造力的”。"},
+      {q:"discover变成名词是______。",opts:["discovery","discoverer"],a:0,why:"discovery表示“发现”，是名词。"},
+      {q:"词尾-able通常表示什么？",opts:["能够……的","正在……"],a:0,why:"-able常表示“能够……的”，如 believable。"},
+      {q:"belief的词性是______。",opts:["名词","动词"],a:0,why:"belief是名词，表示“信念；相信”。"},
+      {q:"unbelievable中的un-表示______。",opts:["不、相反","再次"],a:0,why:"un-常表示“不、相反”，unbelievable是“难以置信的”。"}
+    ];
+    const readingTasks=[
+      {title:"完形填空一：Beethoven",kind:"cloze",paragraphs:[
+        "Ludwig van Beethoven was a famous (1) ______ from Germany. He was born in 1770. When he was young, he loved music and learned to play the piano. His father was a music teacher (2) ______ wanted him to become a great musician.",
+        "When Beethoven grew older, he wrote many pieces of music (3) ______ people still enjoy today. However, he had a serious problem. He slowly lost his (4) ______. It was very hard for a musician to live without hearing music, but Beethoven did not (5) ______ working. He spent many hours thinking about new music and writing it down.",
+        "Beethoven changed some old rules of (6) ______ music. His music was strong and full of (7) ______. His life was difficult, but he fought for his (8) ______. Today, people remember Beethoven as a great composer (9) ______ changed music history. His story teaches us to keep trying and never (10) ______ up."
+      ],questions:[
+        {q:"1. The famous ______ was from Germany.",opts:["scientist","composer","doctor","farmer"],a:1,why:"Beethoven是作曲家，composer表示“作曲家”。"},
+        {q:"2. His father was a music teacher ______ wanted him to become a musician.",opts:["who","what","where","when"],a:0,why:"先行词teacher指人，用who。"},
+        {q:"3. He wrote music ______ people still enjoy today.",opts:["where","who","that","what"],a:2,why:"music是物，用that引导定语从句。"},
+        {q:"4. He slowly lost his ______.",opts:["hearing","reading","walking","eating"],a:0,why:"失去听力是lost his hearing。"},
+        {q:"5. He did not ______ working.",opts:["stop","stopped","stopping","stops"],a:0,why:"did not后用动词原形，stop working表示没有停止工作。"},
+        {q:"6. He changed old rules of ______ music.",opts:["classical","medical","natural","personal"],a:0,why:"classical music表示古典音乐。"},
+        {q:"7. His music was full of ______.",opts:["feeling","question","number","place"],a:0,why:"full of feeling表示充满感情。"},
+        {q:"8. He fought for his ______.",opts:["dream","room","ticket","road"],a:0,why:"fight for his dream表示为梦想奋斗。"},
+        {q:"9. He was a composer ______ changed music history.",opts:["where","that","when","what"],a:1,why:"that引导定语从句，修饰composer。"},
+        {q:"10. We should never ______ up.",opts:["give","take","bring","get"],a:0,why:"give up表示放弃。"}
+      ]},
+      {title:"完形填空二：Copernicus（课后）",kind:"cloze",paragraphs:[
+        "Nicolaus Copernicus was a famous (1) ______. He was born in Poland in 1473. When he was young, he liked reading and studying the (2) ______. He watched the Sun, the Moon and the stars carefully.",
+        "At that time, many people believed that the (3) ______ was at the center of the solar system. Copernicus did not (4) ______ with this idea. He studied old books and made many notes. After a long time, he found that the Earth and other (5) ______ moved around the Sun.",
+        "His idea was new, so some people did not (6) ______ it. However, Copernicus believed that the (7) ______ was important. He continued his work and wrote a (8) ______ that explained his idea. His discovery changed the way people (9) ______ the sky. Today, people remember him as a great astronomer (10) ______ helped us understand our world."
+      ],questions:[
+        {q:"1. Copernicus was a famous ______.",opts:["astronomer","composer","painter","nurse"],a:0,why:"astronomer表示天文学家。"},
+        {q:"2. He studied the ______.",opts:["sky","sea","farm","classroom"],a:0,why:"他观察太阳、月亮和星星，所以研究sky。"},
+        {q:"3. Many people believed the ______ was at the center.",opts:["Earth","Moon","Sun","star"],a:0,why:"这里先说当时人们认为地球在中心。"},
+        {q:"4. He did not ______ with this idea.",opts:["agree","arrive","begin","travel"],a:0,why:"agree with表示同意。"},
+        {q:"5. The Earth and other ______ moved around the Sun.",opts:["planets","animals","rivers","mountains"],a:0,why:"planets表示行星。"},
+        {q:"6. Some people did not ______ his idea.",opts:["accept","carry","wash","close"],a:0,why:"accept表示接受。"},
+        {q:"7. He believed that the ______ was important.",opts:["truth","color","sound","price"],a:0,why:"truth表示真相、真理。"},
+        {q:"8. He wrote a ______ that explained his idea.",opts:["book","song","meal","game"],a:0,why:"书可以解释他的想法。"},
+        {q:"9. His discovery changed the way people ______ the sky.",opts:["understood","planted","cleaned","painted"],a:0,why:"understood表示理解。"},
+        {q:"10. He was an astronomer ______ helped us.",opts:["where","who","that","when"],a:2,why:"that引导定语从句，修饰astronomer。"}
+      ]},
+      {title:"选择题阅读一：Wang Zhenyi",kind:"mcq",paragraphs:[
+        "Wang Zhenyi, who loved learning, was a Chinese woman born in 1768. Her family valued education. Her father taught her mathematics, her grandfather taught her about stars, and her grandmother taught her poems.",
+        "When Wang was a teenager, she read many old books. She also studied the Sun, the Moon and the stars. One day, she made a simple model in her garden, which showed how a lunar eclipse happened. It used a table, a lamp and a round ball.",
+        "Wang also rewrote a difficult math book in easy words. She wanted more people to understand mathematics. She believed that women could learn as well as men. Wang died when she was only twenty-nine, but people still remember her as a great scholar."
+      ],questions:[
+        {q:"1. What did Wang’s family value?",opts:["Money","Education","Sports","Travel"],a:1,why:"第一段说Her family valued education。"},
+        {q:"2. Who taught Wang about stars?",opts:["Her father","Her mother","Her grandfather","Her friend"],a:2,why:"她的祖父教她关于星星的知识。"},
+        {q:"3. What did her model show?",opts:["How music is made","How a lunar eclipse happened","How to write a poem","How to build a house"],a:1,why:"模型展示了月食如何发生。"},
+        {q:"4. Why did Wang rewrite the math book?",opts:["To make it easier to understand","To sell it to children","To learn a new language","To change the writer’s name"],a:0,why:"她用简单词语重写，是为了让更多人理解数学。"},
+        {q:"5. What did Wang believe?",opts:["Only men could study science","Women could learn as well as men","Science was not important","Poems were better than math"],a:1,why:"文章最后说women could learn as well as men。"}
+      ]},
+      {title:"选择题阅读二：Four People, Four Contributions（课后）",kind:"mcq",paragraphs:[
+        "Some people help the world through science, and some help it through art or music. Beethoven, who wrote powerful music, continued to work even after he lost his hearing.",
+        "Copernicus, who studied the Sun, the Earth and the planets, had a new idea that changed the way people understood the sky. Wang Zhenyi, who loved mathematics and astronomy, made a model to show how an eclipse happened.",
+        "Tu Youyou, who helped find an important medicine for malaria, worked with her team for many years and did not give up. These four people worked in different fields, but they had something in common. They loved learning, worked hard and tried to help others."
+      ],questions:[
+        {q:"1. Who was a composer?",opts:["Tu Youyou","Beethoven","Copernicus","Wang Zhenyi"],a:1,why:"第一段介绍Beethoven的音乐。"},
+        {q:"2. Who studied the Sun, the Earth and the planets?",opts:["Beethoven","Tu Youyou","Copernicus","Wang Zhenyi"],a:2,why:"第二段的主语是Copernicus。"},
+        {q:"3. What did Wang Zhenyi make?",opts:["A music book","A medicine","A model","A computer"],a:2,why:"她制作模型来展示月食。"},
+        {q:"4. What did the four people have in common?",opts:["They all studied music","They came from the same country","They loved learning and worked hard","They were all teachers"],a:2,why:"最后一段概括了他们共同的品质。"},
+        {q:"5. What is the main idea?",opts:["Different people can make important contributions in different fields","Science is more important than music","Famous people should work alone","Old books are always difficult"],a:0,why:"文章说明不同领域的人都能作出重要贡献。"}
+      ]}
+    ];
+    let readingTaskIndex=0;
+    const DICT={
+      "wang zhenyi":["/wɑːŋ dʒen jiː/","n.","王贞仪"],"was born":["/wəz bɔːrn/","phrase","出生"],"grew up":["/ɡruː ʌp/","phrase","长大"],"did not stop":["/dɪd nɑːt stɑːp/","phrase","没有停止"],"hard to read":["/hɑːrd tə riːd/","phrase","难以阅读"],"as well as":["/æz wel æz/","phrase","和……一样好"],"twenty-nine":["/ˌtwenti ˈnaɪn/","num.","二十九"],
+      wang:["/wɑːŋ/","n.","王（人名）"],zhenyi:["/dʒen jiː/","n.","贞仪（人名）"],china:["/ˈtʃaɪnə/","n.","中国"],she:["/ʃiː/","pron.","她"],her:["/hɜːr/","pron.","她的；她"],it:["/ɪt/","pron.","它"],one:["/wʌn/","pron. / num.","一个；一"],others:["/ˈʌðərz/","pron.","其他人"],people:["/ˈpiːpəl/","n.","人们"],person:["/ˈpɜːrsən/","n.","人"],woman:["/ˈwʊmən/","n.","女性"],women:["/ˈwɪmɪn/","n.","女性（复数）"],men:["/men/","n.","男性（复数）"],girl:["/ɡɜːrl/","n.","女孩"],man:["/mæn/","n.","男人"],student:["/ˈstuːdənt/","n.","学生"],father:["/ˈfɑːðər/","n.","父亲"],mother:["/ˈmʌðər/","n.","母亲"],grandfather:["/ˈɡrænfɑːðər/","n.","祖父；外祖父"],grandmother:["/ˈɡrænmʌðər/","n.","祖母；外祖母"],friend:["/frend/","n.","朋友"],scientist:["/ˈsaɪəntɪst/","n.","科学家"],writer:["/ˈraɪtər/","n.","作家；写作者"],artist:["/ˈɑːrtɪst/","n.","艺术家"],musician:["/mjuˈzɪʃən/","n.","音乐家"],teacher:["/ˈtiːtʃər/","n.","老师"],
+      a:["/ə/","art.","一个"],an:["/ən/","art.","一个"],the:["/ðə/","art.","这个；那个；这些；那些"],in:["/ɪn/","prep.","在……里面；在"],on:["/ɑːn/","prep.","在……上"],at:["/æt/","prep.","在"],about:["/əˈbaʊt/","prep.","关于"],after:["/ˈæftər/","prep.","在……之后"],to:["/tə/","prep.","到；为了"],of:["/əv/","prep.","……的"],as:["/æz/","conj.","像；如同"],and:["/ænd/","conj.","和；并且"],but:["/bʌt/","conj.","但是"],so:["/soʊ/","conj.","所以；以便"],when:["/wen/","conj.","当……时"],how:["/haʊ/","adv.","怎样"],that:["/ðæt/","pron.","引导定语从句，介绍前面的人或事物"],who:["/huː/","pron.","谁"],what:["/wʌt/","pron.","什么"],why:["/waɪ/","adv.","为什么"],more:["/mɔːr/","adj.","更多的"],very:["/ˈveri/","adv.","非常"],also:["/ˈɔːlsoʊ/","adv.","也"],too:["/tuː/","adv.","也"],still:["/stɪl/","adv.","仍然"],only:["/ˈoʊnli/","adv.","仅仅"],many:["/ˈmeni/","adj.","许多"],every:["/ˈevri/","adj.","每一个"],ordinary:["/ˈɔːrdəneri/","adj.","普通的"],simple:["/ˈsɪmpəl/","adj.","简单的"],easy:["/ˈiːzi/","adj.","容易的"],easier:["/ˈiːziər/","adj.","更容易的"],old:["/oʊld/","adj.","古老的；老的"],difficult:["/ˈdɪfɪkəlt/","adj.","困难的"],great:["/ɡreɪt/","adj.","伟大的"],young:["/jʌŋ/","adj.","年轻的"],musical:["/ˈmjuːzɪkəl/","adj.","音乐的"],scientific:["/ˌsaɪənˈtɪfɪk/","adj.","科学的"],artistic:["/ɑːrˈtɪstɪk/","adj.","艺术的"],
+      love:["/lʌv/","v.","爱；喜爱"],loved:["/lʌvd/","v.","喜爱（过去式）"],like:["/laɪk/","v.","喜欢"],liked:["/laɪkt/","v.","喜欢（过去式）"],learn:["/lɜːrn/","v.","学习"],learning:["/ˈlɜːrnɪŋ/","n.","学习"],learned:["/lɜːrnd/","v.","学习（过去式）"],study:["/ˈstʌdi/","v.","学习；研究"],studied:["/ˈstʌdid/","v.","学习；研究（过去式）"],teach:["/tiːtʃ/","v.","教"],taught:["/tɔːt/","v.","教（过去式）"],read:["/riːd/","v.","阅读"],write:["/raɪt/","v.","写"],wrote:["/roʊt/","v.","写（过去式）"],rewrite:["/ˌriːˈraɪt/","v.","重写"],rewrote:["/ˌriːˈroʊt/","v.","重写（过去式）"],make:["/meɪk/","v.","制作；使"],made:["/meɪd/","v.","制作；使（过去式）"],show:["/ʃoʊ/","v.","展示"],showed:["/ʃoʊd/","v.","展示（过去式）"],see:["/siː/","v.","看见"],saw:["/sɔː/","v.","看见（过去式）"],use:["/juːz/","v.","使用"],used:["/juːzd/","v.","使用（过去式）"],explain:["/ɪkˈspleɪn/","v.","解释"],explained:["/ɪkˈspleɪnd/","v.","解释（过去式）"],understand:["/ˌʌndərˈstænd/","v.","理解"],remember:["/rɪˈmembər/","v.","记得"],believe:["/bɪˈliːv/","v.","相信"],believed:["/bɪˈliːvd/","v.","相信（过去式）"],help:["/help/","v.","帮助"],helped:["/helpt/","v.","帮助（过去式）"],happen:["/ˈhæpən/","v.","发生"],happens:["/ˈhæpənz/","v.","发生"],move:["/muːv/","v.","移动"],could:["/kʊd/","modal v.","能够"],did:["/dɪd/","v.","do的过去式"],died:["/daɪd/","v.","去世"],is:["/ɪz/","v.","是"],was:["/wəz/","v.","是（过去式）"],were:["/wɜːr/","v.","是（过去式）"],be:["/biː/","v.","是"],are:["/ɑːr/","v.","是"],can:["/kæn/","modal v.","能"],stop:["/stɑːp/","v.","停止"],said:["/sed/","v.","说（过去式）"],
+      math:["/mæθ/","n.","数学"],science:["/ˈsaɪəns/","n.","科学"],art:["/ɑːrt/","n.","艺术"],music:["/ˈmjuːzɪk/","n.","音乐"],reading:["/ˈriːdɪŋ/","n.","阅读"],stars:["/stɑːrz/","n.","星星"],star:["/stɑːr/","n.","星星"],sun:["/sʌn/","n.","太阳"],earth:["/ɜːrθ/","n.","地球"],moon:["/muːn/","n.","月球"],sky:["/skaɪ/","n.","天空"],eclipse:["/ɪˈklɪps/","n.","日食或月食"],lunar:["/ˈluːnər/","adj.","月球的"],model:["/ˈmɑːdəl/","n.","模型"],garden:["/ˈɡɑːrdən/","n.","花园"],table:["/ˈteɪbəl/","n.","桌子"],lamp:["/læmp/","n.","灯"],mirror:["/ˈmɪrər/","n.","镜子"],book:["/bʊk/","n.","书"],books:["/bʊks/","n.","书（复数）"],poem:["/ˈpoʊəm/","n.","诗"],poems:["/ˈpoʊəmz/","n.","诗（复数）"],words:["/wɜːrdz/","n.","单词；话语"],word:["/wɜːrd/","n.","单词"],ideas:["/aɪˈdiːəz/","n.","想法；知识"],idea:["/aɪˈdiːə/","n.","想法"],things:["/θɪŋz/","n.","事情"],night:["/naɪt/","n.","夜晚"],day:["/deɪ/","n.","一天"],picture:["/ˈpɪktʃər/","n.","图片"],job:["/dʒɑːb/","n.","工作"],writing:["/ˈraɪtɪŋ/","n.","写作"],teaching:["/ˈtiːtʃɪŋ/","n.","教学"],cooking:["/ˈkʊkɪŋ/","n.","烹饪"],running:["/ˈrʌnɪŋ/","n.","跑步"],singing:["/ˈsɪŋɪŋ/","n.","唱歌"],food:["/fuːd/","n.","食物"],family:["/ˈfæməli/","n.","家庭"]
+    };
+    const KEY="honghao-day13-v1",HISTORY_KEY="honghao-history-v1";
+    const defaultState={view:0,index:0,assess:{},marks:{},seconds:0,treeIndex:0,treeWord:"science",readingAnswersByTask:{},readingSubmittedByTask:{},treeAnswers:{},treeSubmitted:false,readingAnswers:{},readingSubmitted:false};
+    let state;try{state=Object.assign({},defaultState,JSON.parse(localStorage.getItem(KEY)||"{}"))}catch(e){state=Object.assign({},defaultState)}
+    let timerId=null,structureShown=false,translationShown=false;
+    const $=s=>document.querySelector(s),$$=s=>Array.from(document.querySelectorAll(s));
+    const save=()=>localStorage.setItem(KEY,JSON.stringify(state));
+    const lessonText=item=>item.parts.join("");
+    const fmt=s=>String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");
+    function findDict(term){const key=term.toLowerCase().replace(/[.,?!’']/g,"").trim();if(DICT[key])return {key:key,data:DICT[key]};const singular=key.endsWith("s")?key.slice(0,-1):key;if(DICT[singular])return {key:singular,data:DICT[singular]};return {key:key,data:["","word","课堂词汇：请结合句子理解"]}}
+    function tokenize(text,host,source){
+      host.innerHTML="";const phrases=["wang zhenyi","was born","grew up","did not stop","hard to read","as well as","twenty-nine"];
+      const escaped=phrases.map(p=>p.replace(/[-/\\^$*+?.()|[\]{}]/g,"\\$&")).join("|");
+      const regex=new RegExp("("+escaped+"|[A-Za-z]+(?:[-’'][A-Za-z]+)?)","gi");let last=0,match;
+      while((match=regex.exec(text))){host.append(document.createTextNode(text.slice(last,match.index)));const span=document.createElement("span"),term=match[0],key=findDict(term).key;span.className="lookup-word "+(state.marks[key]||"");span.textContent=term;span.tabIndex=0;span.dataset.term=term;span.dataset.source=source;span.onclick=e=>{if(source!=="question")e.stopPropagation();showLookup(term,source,span)};span.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();showLookup(term,source,span)}};host.append(span);last=regex.lastIndex}host.append(document.createTextNode(text.slice(last)))
+    }
+    function markReadingLookup(term){
+      const found=findDict(term);
+      state.marks[found.key]="unknown";
+      save();
+      renderMarked();
+    }
+    function showLookup(term,source,anchor){
+      const found=findDict(term),data=found.data;
+      if(source==="reading"||source==="question"){
+        markReadingLookup(term);
+        if(source==="question"&&(!anchor||anchor.tagName!=="SPAN"))return;
+        const existing=anchor.querySelector(".inline-meaning"),wasOpen=Boolean(existing);
+        $(".inline-meaning").forEach(item=>item.remove());
+        if(wasOpen)return;
+        const tip=document.createElement("span");tip.className="inline-meaning";tip.textContent=data[2];anchor.append(tip);return;
+      }
+      const host=$("#sentenceLookup");host.hidden=false;host.dataset.key=found.key;host.innerHTML="";
+      const head=document.createElement("div");head.className="dictionary-head";const left=document.createElement("div"),title=document.createElement("h3"),ipa=document.createElement("span");title.textContent=term;ipa.className="phonetic";ipa.textContent=data[0]+" · "+data[1];left.append(title,ipa);const speak=document.createElement("button");speak.className="audio-btn";speak.textContent="🔊 发音";speak.onclick=()=>speakText(term,.82);head.append(left,speak);
+      const meaning=document.createElement("p");meaning.className="meaning";meaning.textContent=data[2];const hint=document.createElement("p");hint.className="hint";hint.textContent="选择熟悉程度后，会加入本次生词记录。";const actions=document.createElement("div");actions.className="dictionary-actions";
+      [["uncertain","有点模糊","yellow"],["unknown","不认识","red"],["","清除标记","clear"]].forEach(item=>{const b=document.createElement("button");b.className="mark-btn "+item[2];b.textContent=item[1];b.onclick=()=>{if(item[0])state.marks[found.key]=item[0];else delete state.marks[found.key];save();renderMarked();renderCurrentText();showLookup(term,source)};actions.append(b)});host.append(head,meaning,hint,actions);host.scrollIntoView({behavior:"smooth",block:"nearest"})
+    }
+    function speakText(text,rate){if(!("speechSynthesis" in window)){alert("当前浏览器不支持朗读功能。");return}window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang="en-US";u.rate=Number(rate)||1;const voices=window.speechSynthesis.getVoices(),voice=voices.find(v=>v.lang&&v.lang.toLowerCase().startsWith("en-us"))||voices.find(v=>v.lang&&v.lang.toLowerCase().startsWith("en"));if(voice)u.voice=voice;window.speechSynthesis.speak(u)}
+    function renderCurrentText(){if(typeof state.view==="number"){const item=lessons[state.view*5+state.index];tokenize(lessonText(item),$("#sentence"),"sentence")}else if(state.view==="reading")renderPassage()}
+    function renderLesson(){
+      const id=state.view*5+state.index,item=lessons[id];$("#sentenceNo").textContent="句子 "+(id+1)+" / 20";$("#lessonTitle").textContent=item.level;tokenize(lessonText(item),$("#sentence"),"sentence");
+      $("#translation").textContent=item.cn;$("#translation").hidden=!translationShown;$("#translationToggle").textContent=translationShown?"隐藏中文翻译":"查看中文翻译";$("#structureBox").hidden=!structureShown;$("#structureBox").innerHTML="<b>被介绍的词：</b>"+item.target+"　 <b class='rel'>关系词补充说明：</b>"+item.parts[1].replace(/^(?:that|who|which)\s+/i,"");$("#structureToggle").textContent=structureShown?"隐藏结构":"显示结构";
+      $$("[data-assess]").forEach(b=>b.classList.toggle("selected",state.assess[id]===b.dataset.assess));const dots=$("#dots");dots.innerHTML="";for(let i=0;i<5;i++){const b=document.createElement("button"),sid=state.view*5+i;b.className="dot "+(i===state.index?"active ":"")+(state.assess[sid]?"done":"");b.ariaLabel="本关第"+(i+1)+"句";b.onclick=()=>{state.index=i;structureShown=false;translationShown=false;save();renderLesson()};dots.append(b)}updateProgress()
+    }
+    function updateProgress(){const count=Object.keys(state.assess).length;$("#progressText").textContent=count+" / 20"}
+    function renderMarked(){const entries=Object.entries(state.marks),host=$("#markedWords");$("#markedCount").textContent=entries.length+"个";host.innerHTML="";entries.sort().forEach(([w,status])=>{const span=document.createElement("span");span.className="word-chip";span.textContent=w+(status==="unknown"?" · 不认识":" · 模糊");host.append(span)})}
+    function renderTrees(){
+      const tabs=$("#treeTabs"),nodes=$("#treeNodes"),tree=wordTrees[state.treeIndex]||wordTrees[0];tabs.innerHTML="";nodes.innerHTML="";wordTrees.forEach((t,i)=>{const b=document.createElement("button");b.className="tree-tab "+(i===state.treeIndex?"active":"");b.textContent=t.name;b.onclick=()=>{state.treeIndex=i;state.treeWord=wordTrees[i].words[0].w;save();renderTrees()};tabs.append(b)});
+      tree.words.forEach(word=>{const b=document.createElement("button");b.className="tree-node "+(word.w===state.treeWord?"active":"");b.innerHTML=word.w+"<small>"+word.pos+" · "+word.zh+"</small>";b.onclick=()=>{state.treeWord=word.w;save();renderTrees()};nodes.append(b)});
+      const selected=tree.words.find(w=>w.w===state.treeWord)||tree.words[0],detail=$("#wordDetail");detail.innerHTML="";const title=document.createElement("h3");title.textContent=selected.w;const meta=document.createElement("p");meta.className="phonetic";meta.textContent=selected.ipa+" · "+selected.pos;const meaning=document.createElement("p");meaning.className="meaning";meaning.textContent=selected.zh;const example=document.createElement("p");example.className="example";example.textContent="例句："+selected.ex;const actions=document.createElement("div");actions.className="audio-actions";[["🔊 单词",selected.w,.82],["🔊 例句",selected.ex,1],["🐢 慢速例句",selected.ex,.72]].forEach(item=>{const b=document.createElement("button");b.className="audio-btn";b.textContent=item[0];b.onclick=()=>speakText(item[1],item[2]);actions.append(b)});detail.append(title,meta,meaning,example,actions);renderTreeQuiz()
+    }
+    function renderTreeQuiz(){
+      const host=$("#treeQuiz");host.innerHTML="";treeQuestions.forEach((q,i)=>{const card=document.createElement("article");card.className="question";const p=document.createElement("p");p.textContent=(i+1)+". "+q.q;const opts=document.createElement("div");opts.className="options";q.opts.forEach((o,j)=>{const b=document.createElement("button"),picked=Number(state.treeAnswers[i])===j;b.className="option "+(picked?"selected ":"");tokenize(String.fromCharCode(65+j)+". "+o,b,"question");b.disabled=state.treeSubmitted;if(state.treeSubmitted){if(j===q.a)b.classList.add("correct");else if(picked)b.classList.add("wrong")}b.onclick=()=>{state.treeAnswers[i]=j;save();renderTreeQuiz()};opts.append(b)});card.append(p,opts);if(state.treeSubmitted){const e=document.createElement("p");e.className="explain";e.textContent=q.why;card.append(e)}host.append(card)});
+      const answered=Object.keys(state.treeAnswers).length,score=treeQuestions.filter((q,i)=>Number(state.treeAnswers[i])===q.a).length;$("#treeSubmit").disabled=answered<treeQuestions.length&&!state.treeSubmitted;$("#treeSubmit").textContent=state.treeSubmitted?"重新作答":"检查答案";$("#treeResult").innerHTML=state.treeSubmitted?"<strong>答对 "+score+" / 6 题。</strong>":"已完成 "+answered+" / 6 题。"
+    }
+    function currentReading(){return readingTasks[readingTaskIndex]}
+    function renderReadingTaskTabs(){
+      const host=$("#readingTaskTabs");host.innerHTML="";
+      readingTasks.forEach((task,i)=>{const b=document.createElement("button");b.className="tree-tab "+(i===readingTaskIndex?"active":"");b.textContent=(i+1)+". "+task.title;b.onclick=()=>{readingTaskIndex=i;state.readingAnswersByTask[readingTaskIndex]={};state.readingSubmittedByTask[readingTaskIndex]=false;save();renderReadingTaskTabs();renderPassage();renderReadingQuiz()};host.append(b)});
+    }
+    function renderPassage(){
+      const task=currentReading();$("#readingTitle").textContent=task.title;$("#passageText").innerHTML="";
+      task.paragraphs.forEach(text=>{const p=document.createElement("p");tokenize(text,p,"reading");$("#passageText").append(p)});
+    }
+    function renderReadingQuiz(){
+      const task=currentReading(),qs=task.questions,answers=state.readingAnswersByTask[readingTaskIndex]||{},submitted=Boolean(state.readingSubmittedByTask[readingTaskIndex]),host=$("#readingQuiz");host.innerHTML="";
+      qs.forEach((q,i)=>{const card=document.createElement("article");card.className="reading-question";const title=document.createElement("h4");tokenize(q.q,title,"question");const opts=document.createElement("div");opts.className="options";
+        q.opts.forEach((o,j)=>{const b=document.createElement("button"),picked=Number(answers[i])===j;b.className="option "+(picked?"selected ":"");tokenize(String.fromCharCode(65+j)+". "+o,b,"question");b.disabled=submitted;if(submitted){if(j===q.a)b.classList.add("correct");else if(picked)b.classList.add("wrong")}b.onclick=()=>{state.readingAnswersByTask[readingTaskIndex][i]=j;save();renderReadingQuiz()};opts.append(b)});
+        card.append(title,opts);if(submitted){const e=document.createElement("p");e.className="explain";e.textContent=q.why;card.append(e)}host.append(card)});
+      const answered=Object.keys(answers).length,score=qs.filter((q,i)=>Number(answers[i])===q.a).length;$("#readingSubmit").disabled=answered<qs.length||submitted;$("#readingSubmit").hidden=submitted;$("#readingReset").hidden=!submitted;$("#readingResult").innerHTML=submitted?"<strong>得分 "+score+" / "+qs.length+"。</strong> 向上查看每题解析。":"已完成 "+answered+" / "+qs.length+" 题。";
+    }
+    function changeView(view){state.view=["trees","reading"].includes(view)?view:Number(view);state.index=0;structureShown=false;translationShown=false;save();$("#lessonPanel").hidden=typeof state.view!=="number";$("#treePanel").hidden=state.view!=="trees";$("#readingPanel").hidden=state.view!=="reading";$$(".tab").forEach(b=>b.classList.toggle("active",b.dataset.view===String(state.view)));if(typeof state.view==="number")renderLesson();else if(state.view==="trees")renderTrees();else{renderReadingTaskTabs();renderPassage();renderReadingQuiz()}}
+    $$("[data-view]").forEach(b=>b.onclick=()=>changeView(b.dataset.view));
+    $$("[data-assess]").forEach(b=>b.onclick=()=>{const id=state.view*5+state.index;state.assess[id]=b.dataset.assess;save();renderLesson()});
+    $$("[data-speak]").forEach(b=>b.onclick=()=>{const text=b.dataset.speak==="reading"?currentReading().paragraphs.join(" "):lessonText(lessons[state.view*5+state.index]);speakText(text,b.dataset.rate)});
+    $("#stopSpeak").onclick=()=>window.speechSynthesis&&window.speechSynthesis.cancel();
+    $("#structureToggle").onclick=()=>{structureShown=!structureShown;renderLesson()};
+    $("#translationToggle").onclick=()=>{translationShown=!translationShown;renderLesson()};
+    $("#prev").onclick=()=>{if(state.index>0)state.index--;else if(state.view>0){state.view--;state.index=4}structureShown=false;translationShown=false;save();renderLesson()};
+    $("#next").onclick=()=>{if(state.index<4)state.index++;else if(state.view<3){state.view++;state.index=0;$$(".tab").forEach(b=>b.classList.toggle("active",b.dataset.view===String(state.view)))}else{changeView("trees");return}structureShown=false;translationShown=false;save();renderLesson()};
+    $("#treeSubmit").onclick=()=>{if(state.treeSubmitted){state.treeAnswers={};state.treeSubmitted=false}else state.treeSubmitted=true;save();renderTreeQuiz()};
+    $("#readingSubmit").onclick=()=>{const qs=currentReading().questions,answers=state.readingAnswersByTask[readingTaskIndex]||{};if(Object.keys(answers).length<qs.length)return;state.readingSubmittedByTask[readingTaskIndex]=true;save();renderReadingQuiz()};
+    $("#readingReset").onclick=()=>{state.readingAnswersByTask[readingTaskIndex]={};state.readingSubmittedByTask[readingTaskIndex]=false;save();renderReadingQuiz()};
+    $("#timerToggle").onclick=()=>{if(timerId){clearInterval(timerId);timerId=null;save()}else timerId=setInterval(()=>{state.seconds++;$("#timer").textContent=fmt(state.seconds);if(state.seconds%5===0)save()},1000);$("#timerToggle").textContent=timerId?"暂停":"开始"};
+    $("#timerReset").onclick=()=>{if(!confirm("确定把本次有效用时归零吗？"))return;if(timerId){clearInterval(timerId);timerId=null}state.seconds=0;save();$("#timer").textContent=fmt(0);$("#timerToggle").textContent="开始"};
+    $("#saveRecord").onclick=()=>{let h=[];try{h=JSON.parse(localStorage.getItem(HISTORY_KEY)||"[]")}catch(e){}h.unshift({date:new Date().toLocaleString("zh-CN",{hour12:false}),day:"Day 13",seconds:state.seconds,assessed:Object.keys(state.assess).length,words:Object.keys(state.marks).length});localStorage.setItem(HISTORY_KEY,JSON.stringify(h.slice(0,12)));$("#notice").textContent="已保存在当前浏览器";setTimeout(()=>$("#notice").textContent="",2200)};
+    $("#timer").textContent=fmt(state.seconds);renderMarked();updateProgress();if(![0,1,2,3,"trees","reading"].includes(state.view))state.view=0;changeView(String(state.view));
+    if(location.hostname==="htmlpreview.github.io"){const source=decodeURIComponent(location.search.slice(1));$(".home").href="?"+source.replace(/\/[^/]+(?:\?.*)?$/,"/index.html")}
+  </script>
+</body>
+</html>
