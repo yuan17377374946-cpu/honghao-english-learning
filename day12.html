@@ -26,7 +26,7 @@
     .panel{padding:clamp(20px,4vw,34px);border:1px solid var(--line);border-radius:24px;background:#fff;box-shadow:0 12px 32px rgba(27,57,91,.06)}.panel[hidden]{display:none}
     .lesson-layout{display:grid;grid-template-columns:minmax(0,1fr) 290px;gap:18px}.sentence-card{padding:24px;border:1px solid var(--line);border-radius:20px;background:#fbfdff}
     .sentence{min-height:142px;margin:25px 0 18px;padding:24px;border:1px solid #e4eaf1;border-radius:17px;background:#fff;font:clamp(1.45rem,3vw,2.05rem)/1.8 Georgia,"Times New Roman",serif}
-    .lookup-word{position:relative;display:inline;padding:2px 3px;border-radius:5px;cursor:pointer}.lookup-word:hover{background:#eaf4ff}.lookup-word.uncertain{background:var(--yellow)}.lookup-word.unknown{background:var(--red)}
+    .lookup-word{position:relative;display:inline;padding:2px 3px;border-radius:5px;cursor:pointer}.lookup-word:hover{background:#eaf4ff}.lookup-word.uncertain{background:var(--yellow)}.lookup-word.unknown{background:var(--red)}.lookup-word.highlight-yellow{background:#fff1a8}.lookup-word.highlight-blue{background:#cfe9ff}.lookup-word.highlight-green{background:#d7f2df}
     .inline-meaning{position:absolute;top:calc(100% + 4px);left:50%;z-index:30;min-width:max-content;max-width:190px;padding:4px 8px;transform:translateX(-50%);border:1px solid #e47b7b;border-radius:6px;background:#fff;color:#9a3030;box-shadow:0 6px 18px rgba(31,52,79,.16);font:800 .72rem/1.35 Inter,"PingFang SC","Microsoft YaHei",sans-serif;white-space:nowrap}
     .structure-mark{-webkit-box-decoration-break:clone;box-decoration-break:clone;padding:0 .06em;border-radius:.16em}.structure-target{background:linear-gradient(transparent 42%,rgba(255,218,76,.78) 42%,rgba(255,218,76,.78) 92%,transparent 92%)}.structure-relation{background:linear-gradient(transparent 42%,rgba(177,142,255,.48) 42%,rgba(177,142,255,.48) 92%,transparent 92%)}
     .audio-actions{display:flex;flex-wrap:wrap;gap:7px}.audio-btn{min-height:35px;padding:7px 10px;border:1px solid var(--line);border-radius:9px;background:#fff;color:var(--navy);font-size:.76rem;font-weight:800}
@@ -40,7 +40,7 @@
     .word-detail{padding:21px;border:1px solid var(--line);border-radius:18px;background:#fff}.word-detail h3{margin-bottom:4px;font-size:1.55rem}.word-detail .example{margin-top:15px;padding:12px;border-left:4px solid var(--yellow);background:#fff9df;color:var(--ink)}
     .quiz{margin-top:20px;padding-top:20px;border-top:1px solid var(--line)}.quiz-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:11px}.question{padding:14px;border:1px solid var(--line);border-radius:14px;background:#fbfdff}.question p{min-height:40px;margin-bottom:10px;font-size:.84rem;font-weight:800;line-height:1.5}.options{display:grid;gap:7px}.option{padding:8px 10px;border:1px solid var(--line);border-radius:9px;background:#fff;text-align:left;font-size:.78rem;font-weight:750}.option.selected{border-color:var(--blue);background:var(--sky)}.option.correct{border-color:#62a987;background:#e8f7ef;color:#176344}.option.wrong{border-color:#d87979;background:#ffeded;color:#922f2f}.explain{margin:9px 0 0;color:var(--muted);font-size:.74rem;line-height:1.5}
     .quiz-foot{margin-top:14px}.quiz-result{color:var(--muted);font-size:.8rem}.quiz-result strong{color:var(--navy)}
-    .reading-controls{display:flex;flex-wrap:wrap;gap:8px}.reading-layout{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(330px,.95fr);gap:18px;align-items:start;margin-top:18px}.passage-box,.reading-questions{border:1px solid var(--line);border-radius:18px;background:#fbfdff}.passage-box{padding:22px}.passage-text{font:1.08rem/2 Georgia,"Times New Roman",serif}.passage-text p{margin-bottom:1.1em}.passage-text p:last-child{margin-bottom:0}.reading-questions{overflow:hidden;background:#fff}.reading-questions h3{flex:0 0 auto;margin:0;padding:17px 18px;border-bottom:1px solid var(--line);background:#f6f9fc}.reading-question{padding:15px 18px;border-bottom:1px solid var(--line)}.reading-question:last-child{border-bottom:0}.reading-question h4{margin:0 0 9px;font-size:.84rem;line-height:1.5}
+    .reading-controls{display:flex;flex-wrap:wrap;gap:8px}.reading-marker.active{border-color:var(--blue);box-shadow:0 0 0 2px rgba(47,112,183,.12)}.reading-marker[data-reading-marker="highlight-yellow"].active{background:#fff1a8}.reading-marker[data-reading-marker="highlight-blue"].active{background:#cfe9ff}.reading-marker[data-reading-marker="highlight-green"].active{background:#d7f2df}.reading-marker[data-reading-marker="erase"].active{background:#edf2f7}.reading-layout{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(330px,.95fr);gap:18px;align-items:start;margin-top:18px}.passage-box,.reading-questions{border:1px solid var(--line);border-radius:18px;background:#fbfdff}.passage-box{padding:22px}.passage-text{font:1.08rem/2 Georgia,"Times New Roman",serif}.passage-text p{margin-bottom:1.1em}.passage-text p:last-child{margin-bottom:0}.reading-questions{overflow:hidden;background:#fff}.reading-questions h3{flex:0 0 auto;margin:0;padding:17px 18px;border-bottom:1px solid var(--line);background:#f6f9fc}.reading-question{padding:15px 18px;border-bottom:1px solid var(--line)}.reading-question:last-child{border-bottom:0}.reading-question h4{margin:0 0 9px;font-size:.84rem;line-height:1.5}
     .translation{margin:12px 0 0;padding:12px;border-radius:11px;background:#edf7f1;color:#176344;font-size:.82rem;line-height:1.7}
     .footer-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}.notice{min-height:20px;margin-top:9px;color:var(--green);font-size:.76rem}
     @media(min-width:901px){.reading-questions{position:sticky;top:16px;display:flex;height:min(650px,calc(100vh - 120px));min-height:480px;flex-direction:column}.reading-questions #readingQuiz{min-height:0;overflow-y:auto;overscroll-behavior:contain}.reading-questions>div:last-child{flex:0 0 auto;border-top:1px solid var(--line);background:#fff}}
@@ -108,7 +108,7 @@
       <section id="readingPanel" class="panel" hidden>
         <div class="section-head">
           <div><p class="small">阅读理解</p><h2>Wang Zhenyi Loved Learning</h2><p style="color:var(--muted);margin:0;font-size:.82rem">点击文章中的单词或短语，下方会显示中文意思。</p></div>
-          <div class="reading-controls"><button class="audio-btn" data-speak="reading" data-rate="1">🔊 整篇朗读</button><button class="audio-btn" data-speak="reading" data-rate=".72">🐢 慢速朗读</button><button id="stopSpeak" class="audio-btn">⏹ 停止</button></div>
+          <div class="reading-controls"><button class="audio-btn" data-speak="reading" data-rate="1">🔊 整篇朗读</button><button class="audio-btn" data-speak="reading" data-rate=".72">🐢 慢速朗读</button><button id="stopSpeak" class="audio-btn">⏹ 停止</button><button class="audio-btn reading-marker active" data-reading-marker="highlight-yellow">淡黄</button><button class="audio-btn reading-marker" data-reading-marker="highlight-blue">淡蓝</button><button class="audio-btn reading-marker" data-reading-marker="highlight-green">淡绿</button><button class="audio-btn reading-marker" data-reading-marker="erase">取消标色</button></div>
         </div>
         <div class="reading-layout">
           <article class="passage-box"><div id="passageText" class="passage-text"></div></article>
@@ -175,7 +175,7 @@
       math:["/mæθ/","n.","数学"],science:["/ˈsaɪəns/","n.","科学"],art:["/ɑːrt/","n.","艺术"],music:["/ˈmjuːzɪk/","n.","音乐"],reading:["/ˈriːdɪŋ/","n.","阅读"],stars:["/stɑːrz/","n.","星星"],star:["/stɑːr/","n.","星星"],sun:["/sʌn/","n.","太阳"],earth:["/ɜːrθ/","n.","地球"],moon:["/muːn/","n.","月球"],sky:["/skaɪ/","n.","天空"],eclipse:["/ɪˈklɪps/","n.","日食或月食"],lunar:["/ˈluːnər/","adj.","月球的"],model:["/ˈmɑːdəl/","n.","模型"],garden:["/ˈɡɑːrdən/","n.","花园"],table:["/ˈteɪbəl/","n.","桌子"],lamp:["/læmp/","n.","灯"],mirror:["/ˈmɪrər/","n.","镜子"],book:["/bʊk/","n.","书"],books:["/bʊks/","n.","书（复数）"],poem:["/ˈpoʊəm/","n.","诗"],poems:["/ˈpoʊəmz/","n.","诗（复数）"],words:["/wɜːrdz/","n.","单词；话语"],word:["/wɜːrd/","n.","单词"],ideas:["/aɪˈdiːəz/","n.","想法；知识"],idea:["/aɪˈdiːə/","n.","想法"],things:["/θɪŋz/","n.","事情"],night:["/naɪt/","n.","夜晚"],day:["/deɪ/","n.","一天"],picture:["/ˈpɪktʃər/","n.","图片"],job:["/dʒɑːb/","n.","工作"],writing:["/ˈraɪtɪŋ/","n.","写作"],teaching:["/ˈtiːtʃɪŋ/","n.","教学"],cooking:["/ˈkʊkɪŋ/","n.","烹饪"],running:["/ˈrʌnɪŋ/","n.","跑步"],singing:["/ˈsɪŋɪŋ/","n.","唱歌"],food:["/fuːd/","n.","食物"],family:["/ˈfæməli/","n.","家庭"]
     };
     const KEY="honghao-day12-v1",HISTORY_KEY="honghao-history-v1";
-    const defaultState={view:0,index:0,assess:{},marks:{},seconds:0,treeIndex:0,treeWord:"science",treeAnswers:{},treeSubmitted:false,readingAnswers:{},readingSubmitted:false};
+    const defaultState={view:0,index:0,assess:{},marks:{},readingHighlights:{},readingMarker:"highlight-yellow",seconds:0,treeIndex:0,treeWord:"science",treeAnswers:{},treeSubmitted:false,readingAnswers:{},readingSubmitted:false};
     let state;try{state=Object.assign({},defaultState,JSON.parse(localStorage.getItem(KEY)||"{}"))}catch(e){state=Object.assign({},defaultState)}
     let timerId=null,structureShown=false,translationShown=false;
     const $=s=>document.querySelector(s),$$=s=>Array.from(document.querySelectorAll(s));
@@ -188,16 +188,17 @@
       host.innerHTML="";const phrases=["wang zhenyi","was born","grew up","did not stop","hard to read","as well as","twenty-nine"];
       const escaped=phrases.map(p=>p.replace(/[-/\\^$*+?.()|[\]{}]/g,"\\$&")).join("|");
       const regex=new RegExp("("+escaped+"|[A-Za-z]+(?:[-’'][A-Za-z]+)?)","gi");let last=0,match;
-      while((match=regex.exec(text))){host.append(document.createTextNode(text.slice(last,match.index)));const span=document.createElement("span"),term=match[0],key=findDict(term).key;span.className="lookup-word "+(state.marks[key]||"");span.textContent=term;span.tabIndex=0;span.dataset.term=term;span.dataset.key=key;span.dataset.source=source;span.onclick=e=>{if(source!=="question")e.stopPropagation();showLookup(term,source,span)};span.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();showLookup(term,source,span)}};host.append(span);last=regex.lastIndex}host.append(document.createTextNode(text.slice(last)))
+      while((match=regex.exec(text))){host.append(document.createTextNode(text.slice(last,match.index)));const span=document.createElement("span"),term=match[0],key=findDict(term).key,readingSource=source==="reading"||source==="question",visual=readingSource?(state.readingHighlights[key]||(state.marks[key]?"highlight-yellow":"")):(state.marks[key]||"");span.className="lookup-word "+visual;span.textContent=term;span.tabIndex=0;span.dataset.term=term;span.dataset.key=key;span.dataset.source=source;span.onclick=e=>{if(source!=="question")e.stopPropagation();showLookup(term,source,span)};span.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();showLookup(term,source,span)}};host.append(span);last=regex.lastIndex}host.append(document.createTextNode(text.slice(last)))
     }
-    function applyWordHighlight(key,status){$$(".lookup-word").forEach(span=>{if(span.dataset.key!==key)return;span.classList.remove("uncertain","unknown");if(status)span.classList.add(status)})}
+    function applyWordHighlight(key,status){$$(".lookup-word").forEach(span=>{if(span.dataset.key!==key)return;span.classList.remove("uncertain","unknown","highlight-yellow","highlight-blue","highlight-green");if(status)span.classList.add(status)})}
     function markReadingLookup(term){
-      const found=findDict(term);
-      state.marks[found.key]="unknown";
+      const found=findDict(term),marker=state.readingMarker||"highlight-yellow";
+      if(marker==="erase"){delete state.marks[found.key];delete state.readingHighlights[found.key]}else{state.marks[found.key]="unknown";state.readingHighlights[found.key]=marker}
       save();
       renderMarked();
-      applyWordHighlight(found.key,"unknown");
+      applyWordHighlight(found.key,marker==="erase"?"":marker);
     }
+    function updateReadingMarkerControls(){$$("[data-reading-marker]").forEach(b=>b.classList.toggle("active",b.dataset.readingMarker===(state.readingMarker||"highlight-yellow")))}
     function showLookup(term,source,anchor){
       const found=findDict(term),data=found.data;
       if(source==="reading"||source==="question"){
@@ -243,6 +244,7 @@
     $$("[data-assess]").forEach(b=>b.onclick=()=>{const id=state.view*5+state.index;state.assess[id]=b.dataset.assess;save();renderLesson()});
     $$("[data-speak]").forEach(b=>b.onclick=()=>{const text=b.dataset.speak==="reading"?readingParagraphs.join(" "):lessonText(lessons[state.view*5+state.index]);speakText(text,b.dataset.rate)});
     $("#stopSpeak").onclick=()=>window.speechSynthesis&&window.speechSynthesis.cancel();
+    $$('[data-reading-marker]').forEach(b=>b.onclick=()=>{state.readingMarker=b.dataset.readingMarker;save();updateReadingMarkerControls()});
     $("#structureToggle").onclick=()=>{structureShown=!structureShown;renderLesson()};
     $("#translationToggle").onclick=()=>{translationShown=!translationShown;renderLesson()};
     $("#prev").onclick=()=>{if(state.index>0)state.index--;else if(state.view>0){state.view--;state.index=4}structureShown=false;translationShown=false;save();renderLesson()};
@@ -253,7 +255,7 @@
     $("#timerToggle").onclick=()=>{if(timerId){clearInterval(timerId);timerId=null;save()}else timerId=setInterval(()=>{state.seconds++;$("#timer").textContent=fmt(state.seconds);if(state.seconds%5===0)save()},1000);$("#timerToggle").textContent=timerId?"暂停":"开始"};
     $("#timerReset").onclick=()=>{if(!confirm("确定把本次有效用时归零吗？"))return;if(timerId){clearInterval(timerId);timerId=null}state.seconds=0;save();$("#timer").textContent=fmt(0);$("#timerToggle").textContent="开始"};
     $("#saveRecord").onclick=()=>{let h=[];try{h=JSON.parse(localStorage.getItem(HISTORY_KEY)||"[]")}catch(e){}h.unshift({date:new Date().toLocaleString("zh-CN",{hour12:false}),day:"Day 12",seconds:state.seconds,assessed:Object.keys(state.assess).length,words:Object.keys(state.marks).length});localStorage.setItem(HISTORY_KEY,JSON.stringify(h.slice(0,12)));$("#notice").textContent="已保存；云端将自动同步";setTimeout(()=>$("#notice").textContent="",2200)};
-    $("#timer").textContent=fmt(state.seconds);renderMarked();updateProgress();if(![0,1,2,3,"trees","reading"].includes(state.view))state.view=0;changeView(String(state.view));
+    $("#timer").textContent=fmt(state.seconds);renderMarked();updateProgress();updateReadingMarkerControls();if(![0,1,2,3,"trees","reading"].includes(state.view))state.view=0;changeView(String(state.view));
     if(location.hostname==="htmlpreview.github.io"){const source=decodeURIComponent(location.search.slice(1));$(".home").href=location.origin+location.pathname+"?"+source.replace(/\/[^/]+(?:\?.*)?$/,"/index.html")}
   </script>
   <script>(function(){const s=document.createElement("script");s.src=location.hostname==="htmlpreview.github.io"?"https://cdn.jsdelivr.net/gh/yuan17377374946-cpu/honghao-english-learning@main/cloud-sync.js?v=2":"cloud-sync.js";document.body.append(s)})();</script>
