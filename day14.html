@@ -282,7 +282,7 @@
     $("#timerReset").onclick=()=>{if(!confirm("确定把本次有效用时归零吗？"))return;if(timerId){clearInterval(timerId);timerId=null}state.seconds=0;save();$("#timer").textContent=fmt(0);$("#timerToggle").textContent="开始"};
     $("#saveRecord").onclick=()=>{let h=[];try{h=JSON.parse(localStorage.getItem(HISTORY_KEY)||"[]")}catch(e){}h.unshift({date:new Date().toLocaleString("zh-CN",{hour12:false}),day:"Day 14",seconds:state.seconds,assessed:Object.keys(state.assess).length,words:Object.keys(state.marks).length});localStorage.setItem(HISTORY_KEY,JSON.stringify(h.slice(0,12)));$("#notice").textContent="已保存；云端将自动同步";setTimeout(()=>$("#notice").textContent="",2200)};
     $("#timer").textContent=fmt(state.seconds);renderMarked();updateProgress();if(![0,1,2,3,"trees","reading"].includes(state.view))state.view=0;changeView(String(state.view));
-    if(location.hostname==="htmlpreview.github.io"){const source=decodeURIComponent(location.search.slice(1));$(".home").href="?"+source.replace(/\/[^/]+(?:\?.*)?$/,"/index.html")}
+    if(location.hostname==="htmlpreview.github.io"){const source=decodeURIComponent(location.search.slice(1));$(".home").href=location.origin+location.pathname+"?"+source.replace(/\/[^/]+(?:\?.*)?$/,"/index.html")}
   </script>
   <script>(function(){const s=document.createElement("script");s.src=location.hostname==="htmlpreview.github.io"?"https://cdn.jsdelivr.net/gh/yuan17377374946-cpu/honghao-english-learning@main/cloud-sync.js?v=2":"cloud-sync.js";document.body.append(s)})();</script>
 </body>
