@@ -25,7 +25,7 @@
     async function loadWords(){await window.HonghaoCloud.ready;if(!window.HonghaoCloud.isSignedIn()){$("#summary").textContent="等待登录云端账号";$("#empty").textContent="请先点击右下角登录宏浩账号。";$("#empty").hidden=false;$("#wordTable").hidden=true;return}try{vocabulary=await window.HonghaoCloud.listVocabulary();render()}catch(error){$("#empty").textContent=error.message;$("#empty").hidden=false;$("#wordTable").hidden=true}}
     document.querySelectorAll("[data-filter]").forEach(button=>button.onclick=()=>{filter=button.dataset.filter;document.querySelectorAll("[data-filter]").forEach(item=>item.classList.toggle("active",item===button));render()});
     document.addEventListener("honghao:cloud-synced",loadWords);if(window.HonghaoCloud)loadWords();else document.addEventListener("honghao:cloud-ready",loadWords,{once:true});
-    if(location.hostname==="htmlpreview.github.io"){const source=decodeURIComponent(location.search.slice(1));document.querySelector(".home").href="?"+source.replace(/\/[^/]+(?:\?.*)?$/,"/index.html")}
+    if(location.hostname==="htmlpreview.github.io"){const source=decodeURIComponent(location.search.slice(1));document.querySelector(".home").href=location.origin+location.pathname+"?"+source.replace(/\/[^/]+(?:\?.*)?$/,"/index.html")}
   </script>
 </body>
 </html>
