@@ -38,7 +38,7 @@
   function localPageHref(file){
     if(location.hostname!=="htmlpreview.github.io")return file;
     const source=decodeURIComponent((location.search||"").slice(1));
-    return "?"+source.replace(/\/[^/]+(?:\?.*)?$/,"/"+file);
+    return location.origin+location.pathname+"?"+source.replace(/\/[^/]+(?:\?.*)?$/,"/"+file);
   }
   function currentCourse(){const page=currentPage();return /^day\d+$/.test(page)?page:null}
   function currentStateKey(){return COURSE_KEYS[currentCourse()]||null}
