@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#173b67">
+  <meta name="description" content="宏浩英语课堂 Day 14：形式主语、单词树与智慧故事阅读">
+  <title>宏浩英语课堂 · Day 14</title>
+  <style>
+    :root{--navy:#173b67;--deep:#0d294a;--blue:#2f70b7;--sky:#eaf4ff;--ink:#172434;--muted:#657386;--line:#dce5ef;--page:#f4f7fb;--yellow:#ffe37a;--red:#ff9292;--green:#2f8f68;--purple:#7c5bb6;font-family:Inter,"PingFang SC","Microsoft YaHei",system-ui,sans-serif}
+    *{box-sizing:border-box}body{margin:0;min-width:320px;color:var(--ink);background:radial-gradient(circle at 8% 0%,rgba(47,112,183,.12),transparent 28rem),var(--page)}
+    button{font:inherit;cursor:pointer}button:focus-visible,.lookup-word:focus-visible{outline:3px solid rgba(47,112,183,.3);outline-offset:2px}
+    h1,h2,h3,p{margin-top:0}.shell{width:min(1180px,calc(100% - 32px));margin:auto;padding:26px 0 56px}
+    .home{display:inline-flex;margin-bottom:14px;padding:8px 12px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--navy);font-size:.82rem;font-weight:800;text-decoration:none}
+    .topbar,.overview-main,.section-head,.lesson-head,.nav-row,.quiz-foot,.dictionary-head,.timer-actions{display:flex;align-items:center;justify-content:space-between;gap:14px}
+    .eyebrow,.small{margin:0 0 6px;color:var(--blue);font-size:.76rem;font-weight:850;letter-spacing:.08em;text-transform:uppercase}
+    h1{margin:0;color:var(--deep);font-size:clamp(1.8rem,4vw,2.65rem)}h2{margin-bottom:7px;color:var(--deep);font-size:1.35rem}h3{margin-bottom:7px}
+    .timer{display:grid;grid-template-columns:auto auto;align-items:center;gap:7px 16px;min-width:300px;padding:13px 15px;border:1px solid var(--line);border-radius:18px;background:#fff}
+    .timer span{color:var(--muted);font-size:.78rem;font-weight:750}.timer strong{grid-row:span 2;color:var(--navy);font-size:1.7rem;font-variant-numeric:tabular-nums}
+    .btn{min-height:39px;padding:8px 14px;border:1px solid transparent;border-radius:10px;font-weight:800;transition:.15s}.btn:hover{transform:translateY(-1px)}
+    .primary{background:var(--navy);color:#fff}.outline{border-color:var(--line);background:#fff;color:var(--navy)}.quiet{background:#edf2f7;color:var(--muted)}
+    .overview{margin-top:20px;padding:23px;border-radius:24px;background:linear-gradient(120deg,var(--deep),var(--navy));color:#fff;box-shadow:0 18px 45px rgba(27,57,91,.12)}
+    .overview h2{margin:8px 0 6px;color:#fff}.overview p{margin:0;color:#dceaff;font-size:.88rem;line-height:1.6}.badge{display:inline-flex;padding:5px 9px;border:1px solid #ffffff3d;border-radius:999px;background:#ffffff18;font-size:.73rem;font-weight:800}
+    .overview-stat{text-align:right}.overview-stat strong,.overview-stat span{display:block}.overview-stat strong{font-size:1.7rem}.overview-stat span{color:#c8dcf7;font-size:.75rem}
+    .tabs{display:grid;grid-template-columns:repeat(6,1fr);gap:9px;margin:18px 0}.tab{min-height:57px;padding:9px 11px;border:1px solid var(--line);border-radius:13px;background:#fff;color:var(--ink);font-weight:850;text-align:left}.tab span{display:block;margin-top:3px;color:var(--muted);font-size:.7rem;font-weight:650}.tab.active{border-color:var(--blue);background:var(--sky);color:var(--navy)}
+    .panel{padding:clamp(20px,4vw,34px);border:1px solid var(--line);border-radius:24px;background:#fff;box-shadow:0 12px 32px rgba(27,57,91,.06)}.panel[hidden]{display:none}
+    .lesson-layout{display:grid;grid-template-columns:minmax(0,1fr) 290px;gap:18px}.sentence-card{padding:24px;border:1px solid var(--line);border-radius:20px;background:#fbfdff}
+    .sentence{min-height:142px;margin:25px 0 18px;padding:24px;border:1px solid #e4eaf1;border-radius:17px;background:#fff;font:clamp(1.45rem,3vw,2.05rem)/1.8 Georgia,"Times New Roman",serif}
+    .lookup-word{position:relative;display:inline;padding:2px 3px;border-radius:5px;cursor:pointer}.lookup-word:hover{background:#eaf4ff}.lookup-word.uncertain{background:var(--yellow)}.lookup-word.unknown{background:var(--red)}
+    .inline-meaning{position:absolute;top:calc(100% + 4px);left:50%;z-index:30;min-width:max-content;max-width:190px;padding:4px 8px;transform:translateX(-50%);border:1px solid #e47b7b;border-radius:6px;background:#fff;color:#9a3030;box-shadow:0 6px 18px rgba(31,52,79,.16);font:800 .72rem/1.35 Inter,"PingFang SC","Microsoft YaHei",sans-serif;white-space:nowrap}
+    .structure-mark{-webkit-box-decoration-break:clone;box-decoration-break:clone;padding:0 .06em;border-radius:.16em}.structure-subject{background:linear-gradient(transparent 42%,rgba(93,176,255,.55) 42%,rgba(93,176,255,.55) 92%,transparent 92%)}.structure-predicate{background:linear-gradient(transparent 42%,rgba(255,218,76,.78) 42%,rgba(255,218,76,.78) 92%,transparent 92%)}.structure-clause{background:linear-gradient(transparent 42%,rgba(177,142,255,.48) 42%,rgba(177,142,255,.48) 92%,transparent 92%)}
+    .audio-actions{display:flex;flex-wrap:wrap;gap:7px}.audio-btn{min-height:35px;padding:7px 10px;border:1px solid var(--line);border-radius:9px;background:#fff;color:var(--navy);font-size:.76rem;font-weight:800}
+    .dictionary{margin:14px 0;padding:15px;border:1px solid #bfd3e8;border-radius:14px;background:#f2f8ff}.dictionary[hidden]{display:none}.dictionary h3{margin:0;color:var(--deep);font-size:1.18rem}.dictionary .phonetic{color:var(--blue);font-size:.8rem}.dictionary .meaning{margin:8px 0 3px;font-weight:850}.dictionary .hint{margin:0;color:var(--muted);font-size:.76rem}.dictionary-actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}
+    .mark-btn{padding:7px 10px;border:1px solid var(--line);border-radius:9px;background:#fff;font-size:.76rem;font-weight:800}.mark-btn.yellow{background:#fff7cb}.mark-btn.red{background:#ffe5e5}.mark-btn.clear{color:var(--muted)}
+    .assessment{margin:18px 0}.assessment p{margin-bottom:9px;font-size:.84rem;font-weight:800}.choice-row{display:flex;flex-wrap:wrap;gap:7px}.choice-row button{padding:8px 10px;border:1px solid var(--line);border-radius:9px;background:#fff;font-size:.76rem;font-weight:750}.choice-row button.selected{border-color:var(--blue);background:var(--sky);color:var(--navy)}
+    .nav-row{padding-top:17px;border-top:1px solid var(--line)}.dots{display:flex;gap:7px}.dot{width:11px;height:11px;padding:0;border:0;border-radius:50%;background:#dce4ed}.dot.active{background:var(--blue);box-shadow:0 0 0 4px rgba(47,112,183,.12)}.dot.done{background:var(--green)}
+    .side{display:grid;gap:13px}.side-card{padding:17px;border:1px solid var(--line);border-radius:17px;background:#fff}.side-card p{margin-bottom:0;color:var(--muted);font-size:.78rem;line-height:1.55}.side-card strong{color:var(--navy)}.word-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}.word-chip{padding:5px 7px;border-radius:8px;background:#edf3f8;color:var(--navy);font-size:.72rem;font-weight:750}
+    .tree-tabs{display:flex;flex-wrap:wrap;gap:8px;margin:17px 0}.tree-tab{padding:8px 13px;border:1px solid var(--line);border-radius:999px;background:#fff;font-weight:800}.tree-tab.active{border-color:var(--blue);background:var(--sky);color:var(--navy)}
+    .tree-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,.8fr);gap:18px}.tree-nodes{display:grid;grid-template-columns:repeat(2,1fr);gap:11px;padding:20px;border:1px solid var(--line);border-radius:18px;background:#fbfdff}.tree-node{min-height:88px;padding:13px;border:1px solid #b9cee4;border-radius:14px;background:#fff;color:var(--navy);font-weight:850}.tree-node small{display:block;margin-top:5px;color:var(--muted);font-weight:650}.tree-node.active{border-color:var(--blue);background:var(--sky)}
+    .word-detail{padding:21px;border:1px solid var(--line);border-radius:18px;background:#fff}.word-detail h3{margin-bottom:4px;font-size:1.55rem}.word-detail .example{margin-top:15px;padding:12px;border-left:4px solid var(--yellow);background:#fff9df;color:var(--ink)}
+    .quiz{margin-top:20px;padding-top:20px;border-top:1px solid var(--line)}.quiz-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:11px}.question{padding:14px;border:1px solid var(--line);border-radius:14px;background:#fbfdff}.question p{min-height:40px;margin-bottom:10px;font-size:.84rem;font-weight:800;line-height:1.5}.options{display:grid;gap:7px}.option{padding:8px 10px;border:1px solid var(--line);border-radius:9px;background:#fff;text-align:left;font-size:.78rem;font-weight:750}.option.selected{border-color:var(--blue);background:var(--sky)}.option.correct{border-color:#62a987;background:#e8f7ef;color:#176344}.option.wrong{border-color:#d87979;background:#ffeded;color:#922f2f}.explain{margin:9px 0 0;color:var(--muted);font-size:.74rem;line-height:1.5}
+    .quiz-foot{margin-top:14px}.quiz-result{color:var(--muted);font-size:.8rem}.quiz-result strong{color:var(--navy)}
+    .reading-controls{display:flex;flex-wrap:wrap;gap:8px}.reading-layout{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(330px,.95fr);gap:18px;align-items:start;margin-top:18px}.passage-box,.reading-questions{border:1px solid var(--line);border-radius:18px;background:#fbfdff}.passage-box{padding:22px}.passage-text{font:1.08rem/2 Georgia,"Times New Roman",serif}.passage-text p{margin-bottom:1.1em}.passage-text p:last-child{margin-bottom:0}.reading-questions{overflow:hidden;background:#fff}.reading-questions h3{flex:0 0 auto;margin:0;padding:17px 18px;border-bottom:1px solid var(--line);background:#f6f9fc}.reading-question{padding:15px 18px;border-bottom:1px solid var(--line)}.reading-question:last-child{border-bottom:0}.reading-question h4{margin:0 0 9px;font-size:.84rem;line-height:1.5}
+    .translation{margin:12px 0 0;padding:12px;border-radius:11px;background:#edf7f1;color:#176344;font-size:.82rem;line-height:1.7}
+    .footer-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}.notice{min-height:20px;margin-top:9px;color:var(--green);font-size:.76rem}
+    @media(min-width:901px){.reading-questions{position:sticky;top:16px;display:flex;height:min(650px,calc(100vh - 120px));min-height:480px;flex-direction:column}.reading-questions #readingQuiz{min-height:0;overflow-y:auto;overscroll-behavior:contain}.reading-questions>div:last-child{flex:0 0 auto;border-top:1px solid var(--line);background:#fff}}
+    @media(max-width:900px){.lesson-layout,.tree-layout,.reading-layout{grid-template-columns:1fr}.side{grid-template-columns:repeat(3,1fr)}.reading-questions{height:auto}.reading-questions #readingQuiz{overflow:visible}}
+    @media(max-width:700px){.shell{width:calc(100% - 22px);padding-top:16px}.topbar,.overview-main,.section-head,.lesson-head{align-items:stretch;flex-direction:column}.timer{min-width:0}.tabs{display:flex;overflow-x:auto;padding-bottom:4px}.tab{min-width:118px}.side{grid-template-columns:1fr}.quiz-grid{grid-template-columns:1fr}.sentence-card{padding:17px}.sentence{min-height:165px;padding:18px;font-size:1.35rem}.tree-nodes{grid-template-columns:1fr}.overview-stat{text-align:left}}
+    @media(prefers-reduced-motion:reduce){*{transition:none!important}}
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <a class="home" href="index.html">← 返回课程记录</a>
+    <header class="topbar">
+      <div><p class="eyebrow">宏浩英语课堂</p><h1>Day 14 · 形式主语</h1></div>
+      <div class="timer"><span>本次有效用时</span><strong id="timer">00:00</strong><div class="timer-actions"><button id="timerToggle" class="btn primary">开始</button><button id="timerReset" class="btn quiet">归零</button></div></div>
+    </header>
+    <section class="overview">
+      <div class="overview-main">
+        <div><span class="badge">今日课程</span><h2>20个形式主语句子 + 5组单词树 + 2篇阅读</h2><p>掌握 It is + 形容词 + that 从句：蓝色看形式主语，黄色看判断，紫色看真正内容。</p></div>
+        <div class="overview-stat"><strong id="progressText">0 / 20</strong><span>已记录句子理解情况</span></div>
+      </div>
+    </section>
+    <nav class="tabs" aria-label="课程内容">
+      <button class="tab active" data-view="0">第1关<span>句子 1–5</span></button>
+      <button class="tab" data-view="1">第2关<span>句子 6–10</span></button>
+      <button class="tab" data-view="2">第3关<span>句子 11–15</span></button>
+      <button class="tab" data-view="3">第4关<span>句子 16–20</span></button>
+      <button class="tab" data-view="trees">单词树<span>5组词性变化</span></button>
+      <button class="tab" data-view="reading">综合阅读<span>1篇课上 + 1篇课后</span></button>
+    </nav>
+    <main>
+      <section id="lessonPanel" class="panel">
+        <div class="lesson-layout">
+          <article class="sentence-card">
+            <div class="lesson-head">
+              <div><p id="sentenceNo" class="small">句子 1 / 20</p><h2 id="lessonTitle">基础判断</h2></div>
+              <div class="audio-actions"><button class="audio-btn" data-speak="sentence" data-rate="1">🔊 正常</button><button class="audio-btn" data-speak="sentence" data-rate=".72">🐢 慢速</button><button id="structureToggle" class="audio-btn">显示结构</button></div>
+            </div>
+            <div id="sentence" class="sentence"></div>
+            <button id="translationToggle" class="btn outline">查看中文翻译</button>
+            <div id="translation" class="translation" hidden></div>
+            <div id="sentenceLookup" class="dictionary" hidden></div>
+            <div class="assessment">
+              <p>这句话理解得怎么样？</p>
+              <div class="choice-row"><button data-assess="understood">能独立理解</button><button data-assess="prompted">提醒后理解</button><button data-assess="review">需要再讲</button></div>
+            </div>
+            <footer class="nav-row"><button id="prev" class="btn outline">上一句</button><div id="dots" class="dots"></div><button id="next" class="btn primary">下一句</button></footer>
+          </article>
+          <aside class="side">
+            <section class="side-card"><h3>学习方法</h3><p>① It只是形式主语<br>② is＋形容词表达判断<br>③ that后面才是真正内容</p></section>
+            <section class="side-card"><h3>本次生词</h3><p><strong id="markedCount">0个</strong> 已标记</p><div id="markedWords" class="word-list"></div></section>
+            <section class="side-card"><h3>课堂记录</h3><p>本地自动保存；登录宏浩账号后同步到云端。</p><button id="saveRecord" class="btn primary" style="width:100%;margin-top:10px">保存本次记录</button><div id="notice" class="notice"></div></section>
+          </aside>
+        </div>
+      </section>
+      <section id="treePanel" class="panel" hidden>
+        <div class="section-head"><div><p class="small">构词规律</p><h2>5组单词树</h2><p style="color:var(--muted);margin:0;font-size:.82rem">比较动词、名词、形容词和副词的变化；点击单词查看中文、例句和发音。</p></div></div>
+        <div id="treeTabs" class="tree-tabs"></div>
+        <div class="tree-layout"><div id="treeNodes" class="tree-nodes"></div><aside id="wordDetail" class="word-detail"></aside></div>
+        <section class="quiz">
+          <div class="section-head"><div><p class="small">快速检查</p><h2>单词树练习</h2></div></div>
+          <div id="treeQuiz" class="quiz-grid"></div>
+          <div class="quiz-foot"><div id="treeResult" class="quiz-result">完成6题后检查答案。</div><button id="treeSubmit" class="btn primary" disabled>检查答案</button></div>
+        </section>
+      </section>
+      <section id="readingPanel" class="panel" hidden>
+        <div class="section-head">
+          <div><p class="small">今日综合阅读</p><h2 id="readingTitle">课上阅读：Archimedes and the Golden Crown</h2><p style="color:var(--muted);margin:0;font-size:.82rem">第一篇课上完成，第二篇课后完成；点击任意单词会显示中文并加入生词本。</p></div>
+          <div class="reading-controls"><button class="audio-btn" data-speak="reading" data-rate="1">🔊 整篇朗读</button><button class="audio-btn" data-speak="reading" data-rate=".72">🐢 慢速朗读</button><button id="stopSpeak" class="audio-btn">⏹ 停止</button></div>
+        </div>
+        <div id="readingTaskTabs" class="tree-tabs"></div><div class="reading-layout">
+          <article class="passage-box"><div id="passageText" class="passage-text"></div></article>
+          <section class="reading-questions"><h3>选择最合适的答案</h3><div id="readingQuiz"></div><div style="padding:15px 18px"><div id="readingResult" class="quiz-result">完成5题后提交。</div><div class="footer-actions"><button id="readingReset" class="btn outline" hidden>重新作答</button><button id="readingSubmit" class="btn primary" disabled>提交答案</button></div></div></section>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script>
+    const lessons=[
+      {level:"第1关 · 基础判断",parts:["It ","is true ","that water takes up space."],cn:"水会占据空间，这是真的。"},
+      {level:"第1关 · 基础判断",parts:["It ","is clear ","that she needs help."],cn:"很明显，她需要帮助。"},
+      {level:"第1关 · 基础判断",parts:["It ","is important ","that we think carefully."],cn:"认真思考是重要的。"},
+      {level:"第1关 · 基础判断",parts:["It ","is possible ","that he knows the answer."],cn:"他可能知道答案。"},
+      {level:"第1关 · 基础判断",parts:["It ","is strange ","that the box is so light."],cn:"这个盒子这么轻，真奇怪。"},
+      {level:"第2关 · 校园生活",parts:["It ","is important ","that students ask questions in class."],cn:"学生在课堂上提问是重要的。"},
+      {level:"第2关 · 校园生活",parts:["It ","is good ","that our teacher gives us clear examples."],cn:"老师给我们清楚的例子，这很好。"},
+      {level:"第2关 · 校园生活",parts:["It ","is surprising ","that Tom finished the difficult task alone."],cn:"汤姆独自完成了这项难题，令人惊讶。"},
+      {level:"第2关 · 校园生活",parts:["It ","is lucky ","that we found the lost book in time."],cn:"我们及时找到了丢失的书，真幸运。"},
+      {level:"第2关 · 校园生活",parts:["It ","is clear ","that everyone must follow the school rules."],cn:"很明显，每个人都必须遵守校规。"},
+      {level:"第3关 · 皇冠故事",parts:["It ","is true ","that King Hiero asked for a golden crown."],cn:"希罗国王要求制作一顶金冠，这是真的。"},
+      {level:"第3关 · 皇冠故事",parts:["It ","is strange ","that the crown displaced more water than pure gold."],cn:"皇冠排开的水比纯金更多，这很奇怪。"},
+      {level:"第3关 · 皇冠故事",parts:["It ","is clear ","that Archimedes found the answer in the bath."],cn:"很明显，阿基米德在洗澡时找到了答案。"},
+      {level:"第3关 · 皇冠故事",parts:["It ","is important ","that Archimedes tested the crown carefully."],cn:"阿基米德仔细检验皇冠是重要的。"},
+      {level:"第3关 · 皇冠故事",parts:["It ","is certain ","that the crown maker did not tell the truth."],cn:"可以确定，皇冠制造者没有说实话。"},
+      {level:"第4关 · 综合表达",parts:["It ","is surprising ","that a simple bath helped Archimedes solve a difficult problem."],cn:"一次普通的洗澡帮助阿基米德解决了难题，令人惊讶。"},
+      {level:"第4关 · 综合表达",parts:["It ","is clear ","that the crown was not made completely of gold."],cn:"很明显，这顶皇冠不完全是由黄金制成的。"},
+      {level:"第4关 · 综合表达",parts:["It ","is true ","that great ideas sometimes come from daily life."],cn:"伟大的想法有时来自日常生活，这是真的。"},
+      {level:"第4关 · 综合表达",parts:["It ","is important ","that people keep thinking when they meet a difficult problem."],cn:"人们遇到难题时继续思考是重要的。"},
+      {level:"第4关 · 综合表达",parts:["It ","is possible ","that a small question can lead to a great discovery."],cn:"一个小问题可能带来重大发现。"}
+    ];
+    const wordTrees=[
+      {name:"solve",words:[{w:"solve",ipa:"/sɒlv/",pos:"v.",zh:"解决",ex:"Archimedes solved the problem."},{w:"solution",ipa:"/səˈluːʃən/",pos:"n.",zh:"解决办法；答案",ex:"He found a solution."},{w:"solvable",ipa:"/ˈsɒlvəbl/",pos:"adj.",zh:"可以解决的",ex:"The problem is solvable."}]},
+      {name:"complete",words:[{w:"complete",ipa:"/kəmˈpliːt/",pos:"v. / adj.",zh:"完成；完整的",ex:"Please complete the task."},{w:"completion",ipa:"/kəmˈpliːʃən/",pos:"n.",zh:"完成",ex:"The work is near completion."},{w:"completely",ipa:"/kəmˈpliːtli/",pos:"adv.",zh:"完全地",ex:"The crown was not completely gold."}]},
+      {name:"decide",words:[{w:"decide",ipa:"/dɪˈsaɪd/",pos:"v.",zh:"决定",ex:"We must decide carefully."},{w:"decision",ipa:"/dɪˈsɪʒən/",pos:"n.",zh:"决定",ex:"King Solomon made a wise decision."},{w:"decisive",ipa:"/dɪˈsaɪsɪv/",pos:"adj.",zh:"果断的；决定性的",ex:"The king took decisive action."},{w:"decisively",ipa:"/dɪˈsaɪsɪvli/",pos:"adv.",zh:"果断地",ex:"He acted decisively."}]},
+      {name:"satisfy",words:[{w:"satisfy",ipa:"/ˈsætɪsfaɪ/",pos:"v.",zh:"使满意；满足",ex:"The answer satisfied the king."},{w:"satisfied",ipa:"/ˈsætɪsfaɪd/",pos:"adj.",zh:"感到满意的",ex:"The king was satisfied with the crown."},{w:"satisfaction",ipa:"/ˌsætɪsˈfækʃən/",pos:"n.",zh:"满意；满足",ex:"He smiled with satisfaction."}]},
+      {name:"wise",words:[{w:"wise",ipa:"/waɪz/",pos:"adj.",zh:"明智的；智慧的",ex:"Solomon was a wise king."},{w:"wisdom",ipa:"/ˈwɪzdəm/",pos:"n.",zh:"智慧",ex:"Wisdom helps us make good decisions."},{w:"wisely",ipa:"/ˈwaɪzli/",pos:"adv.",zh:"明智地",ex:"Archimedes solved the problem wisely."}]}
+    ];
+    const treeQuestions=[
+      {q:"solve变成名词是______。",opts:["solvable","solution"],a:1,why:"solution是名词，表示“解决办法；答案”。"},
+      {q:"completely的词性是______。",opts:["副词","形容词"],a:0,why:"-ly常构成副词，completely表示“完全地”。"},
+      {q:"decide变成名词是______。",opts:["decision","decisive"],a:0,why:"decision是名词，表示“决定”。"},
+      {q:"satisfied表示______。",opts:["感到满意的","使别人满意"],a:0,why:"satisfied是形容人的感受，表示“感到满意的”。"},
+      {q:"wise变成名词是______。",opts:["wisely","wisdom"],a:1,why:"wisdom是名词，表示“智慧”。"},
+      {q:"选择正确的句子。",opts:["He solved the problem wisely.","He solution the problem wise."],a:0,why:"solved作谓语，wisely用副词修饰动作。"}
+    ];
+    const readingTasks=[
+      {title:"课上阅读：Archimedes and the Golden Crown",kind:"mcq",paragraphs:[
+        "King Hiero of Syracuse asked a crown maker to make him a beautiful golden crown. When the crown was finished, the king was satisfied with its look. However, he began to wonder whether it was made completely of gold. He asked Archimedes to find the truth without breaking the crown.",
+        "Archimedes thought about the problem for many days. One day, when he got into a full bath, some water ran over the side. He suddenly understood that an object pushes away an amount of water equal to its size. It was clear that this idea could help him test the crown.",
+        "Archimedes put a piece of pure gold into water and measured the water it displaced. Then he tested the crown, which had the same weight as the gold. The crown displaced more water. It was clear that the crown was not made completely of gold. The crown maker had used another metal. King Hiero was angry, but he praised Archimedes for solving the problem wisely."
+      ],questions:[
+        {q:"1. Why did King Hiero ask Archimedes for help?",opts:["To make a new crown","To find out whether the crown was pure gold","To break the crown","To give the crown away"],a:1,why:"国王想知道皇冠是否由纯金制成。"},
+        {q:"2. What happened when Archimedes got into the bath?",opts:["The crown fell down","Some water ran over the side","He found gold","The bath became empty"],a:1,why:"第二段说some water ran over the side。"},
+        {q:"3. How did Archimedes test the crown?",opts:["He heated it","He only weighed it","He compared the water it displaced","He asked the crown maker"],a:2,why:"他比较了纯金和皇冠排开的水量。"},
+        {q:"4. What does displaced mean in the story?",opts:["Pushed away","Drank","Cleaned","Heated"],a:0,why:"displaced在这里表示“排开；挤开”。"},
+        {q:"5. What can we learn from the story?",opts:["Gold never enters water","Kings always know the truth","Difficult problems have no answers","Great ideas can come from daily life"],a:3,why:"洗澡这一日常经历启发了阿基米德。"}
+      ]},
+      {title:"课后阅读：King Solomon and the Two Women",kind:"mcq",paragraphs:[
+        "Two women came to King Solomon with a baby boy. Each woman said the baby was hers. No one knew who was telling the truth. Solomon listened carefully and thought about the problem.",
+        "Then he said, ‘Bring me a sword. Cut the baby into two parts, and give each woman half.’ The first woman agreed with this plan. However, the second woman cried, ‘Please do not hurt the child! Give him to the other woman.’ It was clear that she cared more about the baby’s life than about winning the argument.",
+        "Solomon stopped the soldier. He said that the second woman was the real mother because she was willing to lose the baby in order to save him. Everyone was surprised by the king’s wise decision. The first woman was sent away, and the baby was given to his true mother.",
+        "It is true that wisdom is not only about knowing facts. Sometimes it means understanding people’s feelings and making a careful decision."
+      ],questions:[
+        {q:"1. Why did the two women come to King Solomon?",opts:["Both said the baby was theirs","They wanted to work for him","They wanted him to name the baby","They had lost a sword"],a:0,why:"两个女人都说孩子是自己的。"},
+        {q:"2. Why did Solomon ask for a sword?",opts:["To hurt the baby","To punish both women","To test the women’s feelings","To frighten the soldier"],a:2,why:"他用这个办法判断谁真正关心孩子。"},
+        {q:"3. What did the real mother ask Solomon to do?",opts:["Cut the baby in half","Send the baby away","Give her another baby","Give the baby to the other woman"],a:3,why:"为了救孩子，她宁愿把孩子让给另一个女人。"},
+        {q:"4. What does willing mean?",opts:["Ready to do something","Afraid to act","Unable to decide","Angry with someone"],a:0,why:"be willing to表示“愿意做某事”。"},
+        {q:"5. What is the main idea of the story?",opts:["A soldier can solve every problem","A mother should never ask for help","Wisdom includes understanding people’s feelings","Everything should be divided equally"],a:2,why:"所罗门通过理解人的情感作出了明智判断。"}
+      ]}
+    ];
+    let readingTaskIndex=0;
+    const DICT={
+      "wang zhenyi":["/wɑːŋ dʒen jiː/","n.","王贞仪"],"was born":["/wəz bɔːrn/","phrase","出生"],"grew up":["/ɡruː ʌp/","phrase","长大"],"did not stop":["/dɪd nɑːt stɑːp/","phrase","没有停止"],"hard to read":["/hɑːrd tə riːd/","phrase","难以阅读"],"as well as":["/æz wel æz/","phrase","和……一样好"],"twenty-nine":["/ˌtwenti ˈnaɪn/","num.","二十九"],
+      wang:["/wɑːŋ/","n.","王（人名）"],zhenyi:["/dʒen jiː/","n.","贞仪（人名）"],china:["/ˈtʃaɪnə/","n.","中国"],she:["/ʃiː/","pron.","她"],her:["/hɜːr/","pron.","她的；她"],it:["/ɪt/","pron.","它"],one:["/wʌn/","pron. / num.","一个；一"],others:["/ˈʌðərz/","pron.","其他人"],people:["/ˈpiːpəl/","n.","人们"],person:["/ˈpɜːrsən/","n.","人"],woman:["/ˈwʊmən/","n.","女性"],women:["/ˈwɪmɪn/","n.","女性（复数）"],men:["/men/","n.","男性（复数）"],girl:["/ɡɜːrl/","n.","女孩"],man:["/mæn/","n.","男人"],student:["/ˈstuːdənt/","n.","学生"],father:["/ˈfɑːðər/","n.","父亲"],mother:["/ˈmʌðər/","n.","母亲"],grandfather:["/ˈɡrænfɑːðər/","n.","祖父；外祖父"],grandmother:["/ˈɡrænmʌðər/","n.","祖母；外祖母"],friend:["/frend/","n.","朋友"],scientist:["/ˈsaɪəntɪst/","n.","科学家"],writer:["/ˈraɪtər/","n.","作家；写作者"],artist:["/ˈɑːrtɪst/","n.","艺术家"],musician:["/mjuˈzɪʃən/","n.","音乐家"],teacher:["/ˈtiːtʃər/","n.","老师"],
+      a:["/ə/","art.","一个"],an:["/ən/","art.","一个"],the:["/ðə/","art.","定冠词（这个/那个）；在乐器名称前通常不单独翻译"],in:["/ɪn/","prep.","在……里面；在"],on:["/ɑːn/","prep.","在……上"],at:["/æt/","prep.","在"],about:["/əˈbaʊt/","prep.","关于"],after:["/ˈæftər/","prep.","在……之后"],to:["/tə/","prep.","到；为了"],of:["/əv/","prep.","……的"],as:["/æz/","conj.","像；如同"],and:["/ænd/","conj.","和；并且"],but:["/bʌt/","conj.","但是"],so:["/soʊ/","conj.","所以；以便"],when:["/wen/","conj.","当……时"],how:["/haʊ/","adv.","怎样"],that:["/ðæt/","conj.","引导真正主语从句，说明具体内容"],who:["/huː/","pron.","谁"],what:["/wʌt/","pron.","什么"],why:["/waɪ/","adv.","为什么"],more:["/mɔːr/","adj.","更多的"],very:["/ˈveri/","adv.","非常"],also:["/ˈɔːlsoʊ/","adv.","也"],too:["/tuː/","adv.","也"],still:["/stɪl/","adv.","仍然"],only:["/ˈoʊnli/","adv.","仅仅"],many:["/ˈmeni/","adj.","许多"],every:["/ˈevri/","adj.","每一个"],ordinary:["/ˈɔːrdəneri/","adj.","普通的"],simple:["/ˈsɪmpəl/","adj.","简单的"],easy:["/ˈiːzi/","adj.","容易的"],easier:["/ˈiːziər/","adj.","更容易的"],old:["/oʊld/","adj.","古老的；老的"],difficult:["/ˈdɪfɪkəlt/","adj.","困难的"],great:["/ɡreɪt/","adj.","伟大的"],young:["/jʌŋ/","adj.","年轻的"],musical:["/ˈmjuːzɪkəl/","adj.","音乐的"],scientific:["/ˌsaɪənˈtɪfɪk/","adj.","科学的"],artistic:["/ɑːrˈtɪstɪk/","adj.","艺术的"],
+      love:["/lʌv/","v.","爱；喜爱"],loved:["/lʌvd/","v.","喜爱（过去式）"],like:["/laɪk/","v.","喜欢"],liked:["/laɪkt/","v.","喜欢（过去式）"],learn:["/lɜːrn/","v.","学习"],learning:["/ˈlɜːrnɪŋ/","n.","学习"],learned:["/lɜːrnd/","v.","学习（过去式）"],study:["/ˈstʌdi/","v.","学习；研究"],studied:["/ˈstʌdid/","v.","学习；研究（过去式）"],teach:["/tiːtʃ/","v.","教"],taught:["/tɔːt/","v.","教（过去式）"],read:["/riːd/","v.","阅读"],write:["/raɪt/","v.","写"],wrote:["/roʊt/","v.","写（过去式）"],rewrite:["/ˌriːˈraɪt/","v.","重写"],rewrote:["/ˌriːˈroʊt/","v.","重写（过去式）"],make:["/meɪk/","v.","制作；使"],made:["/meɪd/","v.","制作；使（过去式）"],show:["/ʃoʊ/","v.","展示"],showed:["/ʃoʊd/","v.","展示（过去式）"],see:["/siː/","v.","看见"],saw:["/sɔː/","v.","看见（过去式）"],use:["/juːz/","v.","使用"],used:["/juːzd/","v.","使用（过去式）"],explain:["/ɪkˈspleɪn/","v.","解释"],explained:["/ɪkˈspleɪnd/","v.","解释（过去式）"],understand:["/ˌʌndərˈstænd/","v.","理解"],remember:["/rɪˈmembər/","v.","记得"],believe:["/bɪˈliːv/","v.","相信"],believed:["/bɪˈliːvd/","v.","相信（过去式）"],help:["/help/","v.","帮助"],helped:["/helpt/","v.","帮助（过去式）"],happen:["/ˈhæpən/","v.","发生"],happens:["/ˈhæpənz/","v.","发生"],move:["/muːv/","v.","移动"],could:["/kʊd/","modal v.","能够"],did:["/dɪd/","v.","do的过去式"],died:["/daɪd/","v.","去世"],is:["/ɪz/","v.","是"],was:["/wəz/","v.","是（过去式）"],were:["/wɜːr/","v.","是（过去式）"],be:["/biː/","v.","是"],are:["/ɑːr/","v.","是"],can:["/kæn/","modal v.","能"],stop:["/stɑːp/","v.","停止"],said:["/sed/","v.","说（过去式）"],
+      math:["/mæθ/","n.","数学"],science:["/ˈsaɪəns/","n.","科学"],art:["/ɑːrt/","n.","艺术"],music:["/ˈmjuːzɪk/","n.","音乐"],reading:["/ˈriːdɪŋ/","n.","阅读"],stars:["/stɑːrz/","n.","星星"],star:["/stɑːr/","n.","星星"],sun:["/sʌn/","n.","太阳"],earth:["/ɜːrθ/","n.","地球"],moon:["/muːn/","n.","月球"],sky:["/skaɪ/","n.","天空"],eclipse:["/ɪˈklɪps/","n.","日食或月食"],lunar:["/ˈluːnər/","adj.","月球的"],model:["/ˈmɑːdəl/","n.","模型"],garden:["/ˈɡɑːrdən/","n.","花园"],table:["/ˈteɪbəl/","n.","桌子"],lamp:["/læmp/","n.","灯"],mirror:["/ˈmɪrər/","n.","镜子"],book:["/bʊk/","n.","书"],books:["/bʊks/","n.","书（复数）"],poem:["/ˈpoʊəm/","n.","诗"],poems:["/ˈpoʊəmz/","n.","诗（复数）"],words:["/wɜːrdz/","n.","单词；话语"],word:["/wɜːrd/","n.","单词"],ideas:["/aɪˈdiːəz/","n.","想法；知识"],idea:["/aɪˈdiːə/","n.","想法"],things:["/θɪŋz/","n.","事情"],night:["/naɪt/","n.","夜晚"],day:["/deɪ/","n.","一天"],picture:["/ˈpɪktʃər/","n.","图片"],job:["/dʒɑːb/","n.","工作"],writing:["/ˈraɪtɪŋ/","n.","写作"],teaching:["/ˈtiːtʃɪŋ/","n.","教学"],cooking:["/ˈkʊkɪŋ/","n.","烹饪"],running:["/ˈrʌnɪŋ/","n.","跑步"],singing:["/ˈsɪŋɪŋ/","n.","唱歌"],food:["/fuːd/","n.","食物"],family:["/ˈfæməli/","n.","家庭"]
+    };
+    const KEY="honghao-day14-v1",HISTORY_KEY="honghao-history-v1";
+    const defaultState={view:0,index:0,assess:{},marks:{},seconds:0,treeIndex:0,treeWord:"solve",readingAnswersByTask:{},readingSubmittedByTask:{},treeAnswers:{},treeSubmitted:false,readingAnswers:{},readingSubmitted:false};
+    let state;try{state=Object.assign({},defaultState,JSON.parse(localStorage.getItem(KEY)||"{}"))}catch(e){state=Object.assign({},defaultState)}
+    let timerId=null,structureShown=false,translationShown=false;
+    const $=s=>document.querySelector(s),$$=s=>Array.from(document.querySelectorAll(s));
+    const save=()=>localStorage.setItem(KEY,JSON.stringify(state));
+    const lessonText=item=>item.parts.join("");
+    const fmt=s=>String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");
+    const EXTRA_ZH={
+      able:"能够的",accept:"接受",agree:"同意",all:"全部；所有",alone:"独自",always:"总是",animals:"动物",around:"在周围；大约",arrive:"到达",astronomer:"天文学家",astronomy:"天文学",ball:"球",beautiful:"美丽的",become:"变成",beethoven:"贝多芬",begin:"开始",belief:"信念；看法",believable:"可信的",better:"更好的；更好地",born:"出生",bring:"带来",build:"建造",came:"来（come的过去式）",carefully:"仔细地",carry:"携带",center:"中心",change:"改变；变化",changed:"改变了",children:"孩子们",chinese:"中国的；中文",classical:"古典的",classroom:"教室",cleaned:"打扫了",close:"接近的；关闭",color:"颜色",common:"常见的；共同的",composer:"作曲家",computer:"电脑",continued:"继续了",contribute:"贡献",contribution:"贡献",contributions:"贡献（复数）",contributor:"贡献者",copernicus:"哥白尼",country:"国家；乡村",create:"创造",creation:"创造；作品",creative:"有创造力的",different:"不同的",discover:"发现",discoverer:"发现者",discovery:"发现",doctor:"医生",down:"向下",dream:"梦想",dreams:"梦想（复数）",dynasty:"朝代",eating:"吃；进食",education:"教育",english:"英语；英国的",enjoy:"喜欢；享受",even:"甚至",everyone:"每个人",famous:"著名的",farm:"农场",farmer:"农民",fast:"快的；快速地",feeling:"感觉；情感",fields:"田地；领域",fight:"战斗",find:"找到；发现",for:"为了；给；对于",fought:"战斗（fight的过去式）",found:"找到；发现（find的过去式）",four:"四",from:"从；来自",full:"满的；完整的",game:"游戏；比赛",gave:"给（give的过去式）",germany:"德国",get:"得到；变得",give:"给",grew:"成长；变得（grow的过去式）",had:"有（have的过去式）",happened:"发生了",hard:"困难的；努力地",have:"有",he:"他",hearing:"听力；听见",him:"他（宾格）",his:"他的",history:"历史",hope:"希望",hours:"小时（复数）",house:"房子",however:"然而",important:"重要的",keep:"保持；保留",language:"语言",learner:"学习者",life:"生活；生命",live:"生活；居住",lived:"生活过；居住过",long:"长的；长久地",lost:"失去；丢失（lose的过去式）",ludwig:"路德维希（人名）",main:"主要的",malaria:"疟疾",mathematics:"数学",me:"我（宾格）",meal:"一餐；饭",medical:"医学的；医疗的",medicine:"医学；药物",money:"钱",mountains:"山脉",moved:"移动了；搬家了",my:"我的",name:"名字；命名",natural:"自然的",never:"从不",new:"新的",nicolaus:"尼古拉（人名）",ningbo:"宁波",nobel:"诺贝尔",not:"不；没有",notes:"笔记；音符",number:"数字；号码",nurse:"护士",older:"年长的；更老的",or:"或者",other:"其他的",our:"我们的",painted:"画了；涂了",painter:"画家",painting:"绘画；画作",patient:"病人；有耐心的",personal:"个人的",piano:"钢琴",piece:"一件；一首（作品）",pieces:"作品；片；件（复数）",place:"地方；放置",planets:"行星",planted:"种植了",play:"演奏；玩",poland:"波兰",powerful:"强大的",price:"价格；代价",prize:"奖；奖品",problem:"问题",qing:"清朝",question:"问题；题目",rivers:"河流",road:"道路",room:"房间；空间",round:"圆的；围绕",rules:"规则",same:"相同的",scholar:"学者",sea:"海",sell:"出售",serious:"严重的；认真的",should:"应该",sick:"生病的",slowly:"缓慢地",solar:"太阳的",some:"一些",something:"某事；某物",song:"歌曲",sound:"声音；听起来",spent:"花费；度过（spend的过去式）",sports:"体育运动",stopped:"停止了",stopping:"停止",story:"故事",strong:"强壮的；强大的",studying:"学习；研究",system:"系统；体系",take:"拿；花费",takes:"拿；花费（第三人称单数）",teaches:"教（第三人称单数）",team:"团队；队",teenager:"青少年",than:"比",their:"他们的；她们的；它们的",these:"这些",they:"他们；她们；它们",thinking:"思考；想法",this:"这个",through:"通过；穿过",ticket:"票",time:"时间；次数",times:"时代；次数",today:"今天",travel:"旅行",tried:"尝试了",truth:"真相；事实",trying:"尝试；努力",tu:"屠（姓氏）",un:"联合国（UN）",unbelievable:"难以置信的",understood:"理解了（understand的过去式）",up:"向上；完全地",us:"我们（宾格）",useful:"有用的",value:"价值；重视",valued:"重视；珍视（过去式）",van:"文森特·梵高姓名中的van",walking:"步行；走路","wang's":"王贞仪的",wanted:"想要",wash:"洗",watched:"观看了",way:"方式；道路",we:"我们",well:"好；很好",where:"在哪里；……的地方",which:"哪一个；引导定语从句",with:"和；带有；用",without:"没有",won:"赢得（win的过去式）",work:"工作；作品",worked:"工作了",working:"工作；工作的",works:"作品；工作（第三人称单数）",world:"世界","writer's":"作家的",years:"年（复数）",youyou:"呦呦（人名）"
+    };
+    const DAY14_ZH={
+      act:"行动",acted:"行动了",action:"行动",afraid:"害怕的",agreed:"同意了",amount:"数量",angry:"生气的",another:"另一个",answer:"答案；回答",archimedes:"阿基米德",argument:"争论",ask:"询问；请求",asked:"询问了；请求了",away:"离开；给掉",baby:"婴儿",bath:"洗澡；浴缸",became:"变成了",because:"因为",began:"开始了",both:"两者都",box:"盒子",boy:"男孩",break:"打破",breaking:"打破；损坏",by:"被；通过",cared:"关心",careful:"仔细的",certain:"确定的",child:"孩子",class:"课堂；班级",clear:"清楚的；明显的",come:"来；来自",compared:"比较了",complete:"完成；完整的",completely:"完全地",completion:"完成",cried:"哭喊道",crown:"皇冠",cut:"切；砍",daily:"日常的",decide:"决定",decision:"决定",decisive:"果断的；决定性的",decisively:"果断地",displaced:"排开了；挤开了",divided:"分开了",do:"做",does:"做（第三人称单数）",drank:"喝了",each:"每一个",empty:"空的",enters:"进入",equal:"相等的；等于",equally:"平均地；平等地",everything:"一切",example:"例子",fact:"事实",fell:"掉落了",finished:"完成了",first:"第一；首先",follow:"遵守；跟随",frighten:"使害怕",given:"被给；给出的",gold:"黄金",golden:"金制的；金色的",good:"好的",got:"进入；得到",half:"一半",heated:"加热了",hiero:"希罗（国王名）",hurt:"伤害",include:"包括",into:"进入……里面",king:"国王",knew:"知道（过去式）",know:"知道",knowing:"知道；了解",lead:"带来；引向",light:"轻的；光",listened:"倾听了",look:"外观；看",lose:"失去",lucky:"幸运的",maker:"制造者",making:"制作；作出",mean:"意思是",means:"意思是；意味着",measured:"测量了",meet:"遇到",metal:"金属",must:"必须",near:"接近",need:"需要",no:"没有；不",object:"物体",order:"为了；顺序",out:"出去；查明",over:"越过；溢出",plan:"计划",please:"请",possible:"可能的",praised:"表扬了",punish:"惩罚",pure:"纯的",pushed:"推开了",pushes:"推开；排开",put:"放入",ran:"流动（run的过去式）",ready:"愿意的；准备好的",real:"真正的",satisfaction:"满意；满足",satisfied:"感到满意的",satisfy:"使满意；满足",save:"挽救；保存",school:"学校",second:"第二",send:"送走；发送",sent:"被送走；发送了",side:"边；一侧",size:"大小",small:"小的",smiled:"微笑了",soldier:"士兵",solomon:"所罗门",solution:"解决办法；答案",solvable:"可以解决的",solve:"解决",solved:"解决了",solving:"解决",someone:"某人",sometimes:"有时",space:"空间",strange:"奇怪的",suddenly:"突然",surprised:"感到惊讶的",surprising:"令人惊讶的",sword:"剑",syracuse:"叙拉古",task:"任务",tell:"告诉",telling:"讲述；说",test:"检验",tested:"检验了",then:"然后",think:"思考",thought:"思考了；想法",time:"时间；及时",tom:"汤姆",took:"拿；采取（take的过去式）",true:"真实的；正确的",two:"两个",unable:"不能的",understanding:"理解",water:"水",weighed:"称重了",weight:"重量",whether:"是否",willing:"愿意的",winning:"获胜",wisdom:"智慧",wise:"明智的；智慧的",wisely:"明智地",wonder:"想知道"
+    };
+    function findDict(term){const key=term.toLowerCase().replace(/[.,?!]/g,"").replace(/’/g,"'").trim();if(DICT[key])return {key:key,data:DICT[key]};if(DAY14_ZH[key])return {key:key,data:["","词义",DAY14_ZH[key]]};if(EXTRA_ZH[key])return {key:key,data:["","词义",EXTRA_ZH[key]]};const singular=key.endsWith("s")?key.slice(0,-1):key;if(DICT[singular])return {key:singular,data:DICT[singular]};if(DAY14_ZH[singular])return {key:singular,data:["","词义",DAY14_ZH[singular]]};if(EXTRA_ZH[singular])return {key:singular,data:["","词义",EXTRA_ZH[singular]]};return {key:key,data:["","词义","暂未收录中文释义"]}}
+    function tokenize(text,host,source){
+      host.innerHTML="";const phrases=["wang zhenyi","was born","grew up","did not stop","hard to read","as well as","twenty-nine"];
+      const escaped=phrases.map(p=>p.replace(/[-/\\^$*+?.()|[\]{}]/g,"\\$&")).join("|");
+      const regex=new RegExp("("+escaped+"|[A-Za-z]+(?:[-’'][A-Za-z]+)?)","gi");let last=0,match;
+      while((match=regex.exec(text))){host.append(document.createTextNode(text.slice(last,match.index)));const span=document.createElement("span"),term=match[0],key=findDict(term).key;span.className="lookup-word "+(state.marks[key]||"");span.textContent=term;span.tabIndex=0;span.dataset.term=term;span.dataset.source=source;span.onclick=e=>{if(source!=="question")e.stopPropagation();showLookup(term,source,span)};span.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();showLookup(term,source,span)}};host.append(span);last=regex.lastIndex}host.append(document.createTextNode(text.slice(last)))
+    }
+    function markReadingLookup(term){
+      const found=findDict(term);
+      state.marks[found.key]="unknown";
+      save();
+      renderMarked();
+    }
+    function showLookup(term,source,anchor){
+      const found=findDict(term),data=found.data;
+      if(source==="reading"||source==="question"){
+        markReadingLookup(term);
+        if(source==="question"&&(!anchor||anchor.tagName!=="SPAN"))return;
+        const existing=anchor.querySelector(".inline-meaning"),wasOpen=Boolean(existing);
+        $$(".inline-meaning").forEach(item=>item.remove());
+        if(wasOpen)return;
+        const tip=document.createElement("span");tip.className="inline-meaning";tip.textContent=data[2];anchor.append(tip);return;
+      }
+      const host=$("#sentenceLookup");host.hidden=false;host.dataset.key=found.key;host.innerHTML="";
+      const head=document.createElement("div");head.className="dictionary-head";const left=document.createElement("div"),title=document.createElement("h3"),ipa=document.createElement("span");title.textContent=term;ipa.className="phonetic";ipa.textContent=data[0]+" · "+data[1];left.append(title,ipa);const speak=document.createElement("button");speak.className="audio-btn";speak.textContent="🔊 发音";speak.onclick=()=>speakText(term,.82);head.append(left,speak);
+      const meaning=document.createElement("p");meaning.className="meaning";meaning.textContent=data[2];const hint=document.createElement("p");hint.className="hint";hint.textContent="选择熟悉程度后，会加入本次生词记录。";const actions=document.createElement("div");actions.className="dictionary-actions";
+      [["uncertain","有点模糊","yellow"],["unknown","不认识","red"],["","清除标记","clear"]].forEach(item=>{const b=document.createElement("button");b.className="mark-btn "+item[2];b.textContent=item[1];b.onclick=()=>{if(item[0])state.marks[found.key]=item[0];else delete state.marks[found.key];save();renderMarked();renderCurrentText();showLookup(term,source)};actions.append(b)});host.append(head,meaning,hint,actions);host.scrollIntoView({behavior:"smooth",block:"nearest"})
+    }
+    function speakText(text,rate){if(!("speechSynthesis" in window)){alert("当前浏览器不支持朗读功能。");return}window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang="en-US";u.rate=Number(rate)||1;const voices=window.speechSynthesis.getVoices(),voice=voices.find(v=>v.lang&&v.lang.toLowerCase().startsWith("en-us"))||voices.find(v=>v.lang&&v.lang.toLowerCase().startsWith("en"));if(voice)u.voice=voice;window.speechSynthesis.speak(u)}
+    function appendSentenceChunk(text,host,className,title){if(!text)return;const span=document.createElement("span");if(className)span.className=className;if(title)span.title=title;tokenize(text,span,"sentence");host.append(span)}
+    function renderSentence(item){const host=$("#sentence");if(!structureShown){tokenize(lessonText(item),host,"sentence");return}host.innerHTML="";appendSentenceChunk(item.parts[0],host,"structure-mark structure-subject","形式主语 It");appendSentenceChunk(item.parts[1],host,"structure-mark structure-predicate","is + 形容词：表达判断");appendSentenceChunk(item.parts[2],host,"structure-mark structure-clause","that 从句：真正的主语内容")}
+    function renderCurrentText(){if(typeof state.view==="number"){const item=lessons[state.view*5+state.index];renderSentence(item)}else if(state.view==="reading")renderPassage()}
+    function renderLesson(){
+      const id=state.view*5+state.index,item=lessons[id];$("#sentenceNo").textContent="句子 "+(id+1)+" / 20";$("#lessonTitle").textContent=item.level;renderSentence(item);
+      $("#translation").textContent=item.cn;$("#translation").hidden=!translationShown;$("#translationToggle").textContent=translationShown?"隐藏中文翻译":"查看中文翻译";$("#structureToggle").textContent=structureShown?"隐藏结构":"显示结构";
+      $$("[data-assess]").forEach(b=>b.classList.toggle("selected",state.assess[id]===b.dataset.assess));const dots=$("#dots");dots.innerHTML="";for(let i=0;i<5;i++){const b=document.createElement("button"),sid=state.view*5+i;b.className="dot "+(i===state.index?"active ":"")+(state.assess[sid]?"done":"");b.ariaLabel="本关第"+(i+1)+"句";b.onclick=()=>{state.index=i;structureShown=false;translationShown=false;save();renderLesson()};dots.append(b)}updateProgress()
+    }
+    function updateProgress(){const count=Object.keys(state.assess).length;$("#progressText").textContent=count+" / 20"}
+    function renderMarked(){const entries=Object.entries(state.marks),host=$("#markedWords");$("#markedCount").textContent=entries.length+"个";host.innerHTML="";entries.sort().forEach(([w,status])=>{const span=document.createElement("span");span.className="word-chip";span.textContent=w+(status==="unknown"?" · 不认识":" · 模糊");host.append(span)})}
+    function renderTrees(){
+      const tabs=$("#treeTabs"),nodes=$("#treeNodes"),tree=wordTrees[state.treeIndex]||wordTrees[0];tabs.innerHTML="";nodes.innerHTML="";wordTrees.forEach((t,i)=>{const b=document.createElement("button");b.className="tree-tab "+(i===state.treeIndex?"active":"");b.textContent=t.name;b.onclick=()=>{state.treeIndex=i;state.treeWord=wordTrees[i].words[0].w;save();renderTrees()};tabs.append(b)});
+      tree.words.forEach(word=>{const b=document.createElement("button");b.className="tree-node "+(word.w===state.treeWord?"active":"");b.innerHTML=word.w+"<small>"+word.pos+" · "+word.zh+"</small>";b.onclick=()=>{state.treeWord=word.w;save();renderTrees()};nodes.append(b)});
+      const selected=tree.words.find(w=>w.w===state.treeWord)||tree.words[0],detail=$("#wordDetail");detail.innerHTML="";const title=document.createElement("h3");title.textContent=selected.w;const meta=document.createElement("p");meta.className="phonetic";meta.textContent=selected.ipa+" · "+selected.pos;const meaning=document.createElement("p");meaning.className="meaning";meaning.textContent=selected.zh;const example=document.createElement("p");example.className="example";example.textContent="例句："+selected.ex;const actions=document.createElement("div");actions.className="audio-actions";[["🔊 单词",selected.w,.82],["🔊 例句",selected.ex,1],["🐢 慢速例句",selected.ex,.72]].forEach(item=>{const b=document.createElement("button");b.className="audio-btn";b.textContent=item[0];b.onclick=()=>speakText(item[1],item[2]);actions.append(b)});detail.append(title,meta,meaning,example,actions);renderTreeQuiz()
+    }
+    function renderTreeQuiz(){
+      const host=$("#treeQuiz");host.innerHTML="";treeQuestions.forEach((q,i)=>{const card=document.createElement("article");card.className="question";const p=document.createElement("p");p.textContent=(i+1)+". "+q.q;const opts=document.createElement("div");opts.className="options";q.opts.forEach((o,j)=>{const b=document.createElement("button"),picked=Number(state.treeAnswers[i])===j;b.className="option "+(picked?"selected ":"");tokenize(String.fromCharCode(65+j)+". "+o,b,"question");b.disabled=state.treeSubmitted;if(state.treeSubmitted){if(j===q.a)b.classList.add("correct");else if(picked)b.classList.add("wrong")}b.onclick=()=>{state.treeAnswers[i]=j;save();renderTreeQuiz()};opts.append(b)});card.append(p,opts);if(state.treeSubmitted){const e=document.createElement("p");e.className="explain";e.textContent=q.why;card.append(e)}host.append(card)});
+      const answered=Object.keys(state.treeAnswers).length,score=treeQuestions.filter((q,i)=>Number(state.treeAnswers[i])===q.a).length;$("#treeSubmit").disabled=answered<treeQuestions.length&&!state.treeSubmitted;$("#treeSubmit").textContent=state.treeSubmitted?"重新作答":"检查答案";$("#treeResult").innerHTML=state.treeSubmitted?"<strong>答对 "+score+" / 6 题。</strong>":"已完成 "+answered+" / 6 题。"
+    }
+    function currentReading(){return readingTasks[readingTaskIndex]}
+    function renderReadingTaskTabs(){
+      const host=$("#readingTaskTabs");host.innerHTML="";
+      readingTasks.forEach((task,i)=>{const b=document.createElement("button");b.className="tree-tab "+(i===readingTaskIndex?"active":"");b.textContent=(i+1)+". "+task.title;b.onclick=()=>{readingTaskIndex=i;state.readingAnswersByTask[readingTaskIndex]={};state.readingSubmittedByTask[readingTaskIndex]=false;save();renderReadingTaskTabs();renderPassage();renderReadingQuiz()};host.append(b)});
+    }
+    function renderPassage(){
+      const task=currentReading();$("#readingTitle").textContent=task.title;$("#passageText").innerHTML="";
+      task.paragraphs.forEach(text=>{const p=document.createElement("p");tokenize(text,p,"reading");$("#passageText").append(p)});
+    }
+    function renderReadingQuiz(){
+      const task=currentReading(),qs=task.questions;state.readingAnswersByTask[readingTaskIndex]=state.readingAnswersByTask[readingTaskIndex]||{};state.readingSubmittedByTask[readingTaskIndex]=Boolean(state.readingSubmittedByTask[readingTaskIndex]);const answers=state.readingAnswersByTask[readingTaskIndex],submitted=state.readingSubmittedByTask[readingTaskIndex],host=$("#readingQuiz");host.innerHTML="";
+      qs.forEach((q,i)=>{const card=document.createElement("article");card.className="reading-question";const title=document.createElement("h4");tokenize(q.q,title,"question");const opts=document.createElement("div");opts.className="options";
+        q.opts.forEach((o,j)=>{const b=document.createElement("button"),picked=Number(answers[i])===j;b.className="option "+(picked?"selected ":"");tokenize(String.fromCharCode(65+j)+". "+o,b,"question");b.disabled=submitted;if(submitted){if(j===q.a)b.classList.add("correct");else if(picked)b.classList.add("wrong")}b.onclick=()=>{state.readingAnswersByTask[readingTaskIndex][i]=j;save();renderReadingQuiz()};opts.append(b)});
+        card.append(title,opts);if(submitted){const e=document.createElement("p");e.className="explain";e.textContent=q.why;card.append(e)}host.append(card)});
+      const answered=Object.keys(answers).length,score=qs.filter((q,i)=>Number(answers[i])===q.a).length;$("#readingSubmit").disabled=answered<qs.length||submitted;$("#readingSubmit").hidden=submitted;$("#readingReset").hidden=!submitted;$("#readingResult").innerHTML=submitted?"<strong>得分 "+score+" / "+qs.length+"。</strong> 向上查看每题解析。":"已完成 "+answered+" / "+qs.length+" 题。";
+    }
+    function changeView(view){state.view=["trees","reading"].includes(view)?view:Number(view);state.index=0;structureShown=false;translationShown=false;save();$("#lessonPanel").hidden=typeof state.view!=="number";$("#treePanel").hidden=state.view!=="trees";$("#readingPanel").hidden=state.view!=="reading";$$(".tab").forEach(b=>b.classList.toggle("active",b.dataset.view===String(state.view)));if(typeof state.view==="number")renderLesson();else if(state.view==="trees")renderTrees();else{renderReadingTaskTabs();renderPassage();renderReadingQuiz()}}
+    $$("[data-view]").forEach(b=>b.onclick=()=>changeView(b.dataset.view));
+    $$("[data-assess]").forEach(b=>b.onclick=()=>{const id=state.view*5+state.index;state.assess[id]=b.dataset.assess;save();renderLesson()});
+    $$("[data-speak]").forEach(b=>b.onclick=()=>{const text=b.dataset.speak==="reading"?currentReading().paragraphs.join(" "):lessonText(lessons[state.view*5+state.index]);speakText(text,b.dataset.rate)});
+    $("#stopSpeak").onclick=()=>window.speechSynthesis&&window.speechSynthesis.cancel();
+    $("#structureToggle").onclick=()=>{structureShown=!structureShown;renderLesson()};
+    $("#translationToggle").onclick=()=>{translationShown=!translationShown;renderLesson()};
+    $("#prev").onclick=()=>{if(state.index>0)state.index--;else if(state.view>0){state.view--;state.index=4}structureShown=false;translationShown=false;save();renderLesson()};
+    $("#next").onclick=()=>{if(state.index<4)state.index++;else if(state.view<3){state.view++;state.index=0;$$(".tab").forEach(b=>b.classList.toggle("active",b.dataset.view===String(state.view)))}else{changeView("trees");return}structureShown=false;translationShown=false;save();renderLesson()};
+    $("#treeSubmit").onclick=()=>{if(state.treeSubmitted){state.treeAnswers={};state.treeSubmitted=false}else state.treeSubmitted=true;save();renderTreeQuiz()};
+    $("#readingSubmit").onclick=()=>{const qs=currentReading().questions,answers=state.readingAnswersByTask[readingTaskIndex]||{};if(Object.keys(answers).length<qs.length)return;state.readingSubmittedByTask[readingTaskIndex]=true;save();renderReadingQuiz()};
+    $("#readingReset").onclick=()=>{state.readingAnswersByTask[readingTaskIndex]={};state.readingSubmittedByTask[readingTaskIndex]=false;save();renderReadingQuiz()};
+    $("#timerToggle").onclick=()=>{if(timerId){clearInterval(timerId);timerId=null;save()}else timerId=setInterval(()=>{state.seconds++;$("#timer").textContent=fmt(state.seconds);if(state.seconds%5===0)save()},1000);$("#timerToggle").textContent=timerId?"暂停":"开始"};
+    $("#timerReset").onclick=()=>{if(!confirm("确定把本次有效用时归零吗？"))return;if(timerId){clearInterval(timerId);timerId=null}state.seconds=0;save();$("#timer").textContent=fmt(0);$("#timerToggle").textContent="开始"};
+    $("#saveRecord").onclick=()=>{let h=[];try{h=JSON.parse(localStorage.getItem(HISTORY_KEY)||"[]")}catch(e){}h.unshift({date:new Date().toLocaleString("zh-CN",{hour12:false}),day:"Day 14",seconds:state.seconds,assessed:Object.keys(state.assess).length,words:Object.keys(state.marks).length});localStorage.setItem(HISTORY_KEY,JSON.stringify(h.slice(0,12)));$("#notice").textContent="已保存；云端将自动同步";setTimeout(()=>$("#notice").textContent="",2200)};
+    $("#timer").textContent=fmt(state.seconds);renderMarked();updateProgress();if(![0,1,2,3,"trees","reading"].includes(state.view))state.view=0;changeView(String(state.view));
+    if(location.hostname==="htmlpreview.github.io"){const source=decodeURIComponent(location.search.slice(1));$(".home").href="?"+source.replace(/\/[^/]+(?:\?.*)?$/,"/index.html")}
+  </script>
+  <script>(function(){const s=document.createElement("script");s.src=location.hostname==="htmlpreview.github.io"?"https://cdn.jsdelivr.net/gh/yuan17377374946-cpu/honghao-english-learning@main/cloud-sync.js?v=2":"cloud-sync.js";document.body.append(s)})();</script>
+</body>
+</html>
