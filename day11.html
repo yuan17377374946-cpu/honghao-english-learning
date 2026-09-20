@@ -342,7 +342,7 @@
   <script>
     if(location.hostname==="htmlpreview.github.io"){
       const source=decodeURIComponent(location.search.slice(1));
-      document.querySelector(".course-home-link").href=`?${source.replace(/\/[^/]+(?:\?.*)?$/,"/index.html")}`;
+      document.querySelector(".course-home-link").href=`${location.origin}${location.pathname}?${source.replace(/\/[^/]+(?:\?.*)?$/,"/index.html")}`;
     }
   </script>
   <script>(function(){const s=document.createElement("script");s.src=location.hostname==="htmlpreview.github.io"?"https://cdn.jsdelivr.net/gh/yuan17377374946-cpu/honghao-english-learning@main/cloud-sync.js?v=2":"cloud-sync.js";document.body.append(s)})();</script>
