@@ -240,13 +240,15 @@
       host.innerHTML="";const phrases=["wang zhenyi","was born","grew up","did not stop","hard to read","as well as","twenty-nine"];
       const escaped=phrases.map(p=>p.replace(/[-/\\^$*+?.()|[\]{}]/g,"\\$&")).join("|");
       const regex=new RegExp("("+escaped+"|[A-Za-z]+(?:[-’'][A-Za-z]+)?)","gi");let last=0,match;
-      while((match=regex.exec(text))){host.append(document.createTextNode(text.slice(last,match.index)));const span=document.createElement("span"),term=match[0],key=findDict(term).key;span.className="lookup-word "+(state.marks[key]||"");span.textContent=term;span.tabIndex=0;span.dataset.term=term;span.dataset.source=source;span.onclick=e=>{if(source!=="question")e.stopPropagation();showLookup(term,source,span)};span.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();showLookup(term,source,span)}};host.append(span);last=regex.lastIndex}host.append(document.createTextNode(text.slice(last)))
+      while((match=regex.exec(text))){host.append(document.createTextNode(text.slice(last,match.index)));const span=document.createElement("span"),term=match[0],key=findDict(term).key;span.className="lookup-word "+(state.marks[key]||"");span.textContent=term;span.tabIndex=0;span.dataset.term=term;span.dataset.key=key;span.dataset.source=source;span.onclick=e=>{if(source!=="question")e.stopPropagation();showLookup(term,source,span)};span.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();showLookup(term,source,span)}};host.append(span);last=regex.lastIndex}host.append(document.createTextNode(text.slice(last)))
     }
+    function applyWordHighlight(key,status){$$(".lookup-word").forEach(span=>{if(span.dataset.key!==key)return;span.classList.remove("uncertain","unknown");if(status)span.classList.add(status)})}
     function markReadingLookup(term){
       const found=findDict(term);
       state.marks[found.key]="unknown";
       save();
       renderMarked();
+      applyWordHighlight(found.key,"unknown");
     }
     function showLookup(term,source,anchor){
       const found=findDict(term),data=found.data;
