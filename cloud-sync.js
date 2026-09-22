@@ -10,7 +10,8 @@
     day11:"honghao-day11-that-v1",
     day12:"honghao-day12-v1",
     day13:"honghao-day13-v1",
-    day14:"honghao-day14-v1"
+    day14:"honghao-day14-v1",
+    day15:"honghao-day15-v1"
   };
   const HISTORY_KEY="honghao-history-v1";
   const WATCHED_KEYS=new Set([...Object.values(COURSE_KEYS),HISTORY_KEY]);
