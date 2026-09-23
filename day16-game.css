@@ -63,6 +63,8 @@
   cursor: pointer;
   transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease, opacity .35s ease;
 }
+.match-card[data-kind="en"] { border-color: #b9d6ee; background: linear-gradient(145deg, #f7fbff, #e7f3ff); color: #174f83; }
+.match-card[data-kind="zh"] { border-color: #ead2a8; background: linear-gradient(145deg, #fffdf7, #fff2d9); color: #75501f; }
 .match-card:hover { transform: translateY(-2px) scale(1.015); border-color: #91b9e2; }
 .match-card.selected { transform: translateY(-2px) scale(1.025); border-color: #347bc1; background: #e8f3ff; box-shadow: 0 0 0 3px rgba(52, 123, 193, .14); }
 .match-card.correct { border-color: #72b58a; background: #eaf8ef; color: #24683d; animation: match-pop .42s ease; }
