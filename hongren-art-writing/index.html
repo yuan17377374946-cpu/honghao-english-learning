@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="六年级英语特殊疑问句复习与艺术主题作文训练">
+  <title>艺术小作家｜英语写作闯关</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%232d6cdf'/%3E%3Cpath d='M17 45l7-22 9 15 7-19 7 26z' fill='%23ffd766'/%3E%3Ccircle cx='47' cy='16' r='7' fill='%23ff806b'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="page-shell">
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-icon" aria-hidden="true">✦</span>
+        <div><strong>艺术小作家</strong><span>English Writing Lab</span></div>
+      </div>
+      <div class="progress-wrap" aria-label="学习进度">
+        <span id="progressText">第 1 关 / 3</span>
+        <div class="progress"><span id="progressBar"></span></div>
+      </div>
+    </header>
+
+    <main>
+      <section class="stage active" id="stage1" data-stage="1">
+        <div class="stage-heading">
+          <span class="stage-number">1</span>
+          <div><p class="eyebrow">热身 · 昨日复习</p><h1>问对问题，找到答案</h1></div>
+        </div>
+        <p class="lead">根据回答选择正确的特殊疑问词。全部答对，就能进入写作关。</p>
+        <div class="word-bank" aria-label="特殊疑问词词库">
+          <span>What 什么</span><span>Who 谁</span><span>When 什么时候</span>
+          <span>Where 哪里</span><span>Why 为什么</span><span>How 怎样</span>
+        </div>
+        <div class="quiz-grid" id="quizGrid"></div>
+        <div class="action-row">
+          <button class="btn primary" id="checkQuiz">检查答案</button>
+          <p class="result-text" id="quizResult" aria-live="polite"></p>
+        </div>
+      </section>
+
+      <section class="stage" id="stage2" data-stage="2">
+        <div class="stage-heading">
+          <span class="stage-number">2</span>
+          <div><p class="eyebrow">搭积木 · 一问一句</p><h1>选一选，写出自己的内容</h1></div>
+        </div>
+        <p class="lead">先选喜欢的艺术形式，再回答5个问题。每个答案都会变成作文中的一句话。</p>
+
+        <div class="step-label"><span>①</span> What art form do you like?</div>
+        <div class="art-grid" id="artGrid"></div>
+
+        <div class="builder-grid" id="builderFields">
+          <label class="field-card"><span><b>When</b> did you start it?</span>
+            <select id="startTime"><option value="when I was seven">when I was seven</option><option value="when I was eight" selected>when I was eight</option><option value="when I was nine">when I was nine</option><option value="last year">last year</option></select>
+          </label>
+          <label class="field-card"><span><b>Where</b> did you do it last weekend?</span>
+            <select id="place"><option value="in the park">in the park</option><option value="at home">at home</option><option value="at school">at school</option><option value="by the river">by the river</option></select>
+          </label>
+          <label class="field-card"><span><b>Why</b> do you like it?</span>
+            <select id="reason"><option value="share the beauty of nature">share the beauty of nature</option><option value="express my feelings">express my feelings</option><option value="have fun">have fun</option><option value="tell stories">tell stories</option><option value="relax myself">relax myself</option><option value="make people happy">make people happy</option></select>
+          </label>
+          <label class="field-card"><span><b>Who</b> do you do or share it with?</span>
+            <select id="person"><option value="my family">my family</option><option value="my friends">my friends</option><option value="my classmates">my classmates</option><option value="my sister">my sister</option></select>
+          </label>
+          <label class="field-card"><span><b>How</b> does it make you feel?</span>
+            <select id="feeling"><option value="happy">happy</option><option value="relaxed">relaxed</option><option value="excited">excited</option><option value="proud">proud</option></select>
+          </label>
+        </div>
+        <div class="action-row split">
+          <button class="btn ghost" data-back="1">返回复习</button>
+          <button class="btn primary" id="buildEssay">生成我的初稿</button>
+        </div>
+      </section>
+
+      <section class="stage" id="stage3" data-stage="3">
+        <div class="stage-heading">
+          <span class="stage-number">3</span>
+          <div><p class="eyebrow">完成 · 我的作文</p><h1>先读初稿，再独立写一遍</h1></div>
+        </div>
+        <div class="unit-tags"><span>Unit 1 · 一般过去时</span><span>Unit 2 · Art forms</span><span>because · 原因</span></div>
+        <article class="essay-card">
+          <div class="essay-head"><h2>My Favourite Art Form</h2><button class="icon-btn" id="speakEssay" aria-label="朗读作文">🔊 朗读</button></div>
+          <p id="essayPreview"></p>
+          <div class="essay-actions"><button class="btn small" id="copyEssay">复制初稿</button><span id="copyState" aria-live="polite"></span></div>
+        </article>
+
+        <div class="independent-card">
+          <div><p class="eyebrow">关掉“照抄模式”</p><h2>不看初稿，自己再写一遍</h2></div>
+          <button class="btn small ghost" id="toggleDraft">隐藏初稿</button>
+          <textarea id="studentEssay" rows="8" placeholder="My favourite art form is ..."></textarea>
+          <div class="checklist">
+            <label><input type="checkbox"> 有标题</label>
+            <label><input type="checkbox"> 写了过去发生的事</label>
+            <label><input type="checkbox"> 使用了 because</label>
+            <label><input type="checkbox"> 检查大小写和句号</label>
+          </div>
+        </div>
+        <div class="action-row split">
+          <button class="btn ghost" data-back="2">修改答案</button>
+          <button class="btn success" id="finishLesson">完成今天的写作</button>
+        </div>
+        <div class="finish-card" id="finishCard" hidden>
+          <div class="stars">★ ★ ★</div><h2>写作闯关完成！</h2><p>今天不是背范文，而是用自己的答案写出了一篇作文。</p>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
