@@ -35,6 +35,9 @@
 .level-card[data-theme="sports"] { --orb: #3c8ce7; }
 .level-card[data-theme="clothes"] { --orb: #9b72cf; }
 .level-card[data-theme="transportation"] { --orb: #f0a33a; }
+.level-card[data-theme="weather"] { --orb: #58aee8; }
+.level-card[data-theme="places"] { --orb: #7c73d5; }
+.level-card[data-theme="animals"] { --orb: #66ad72; }
 
 .game-back { margin-bottom: 20px; padding: 8px 12px; border: 0; border-radius: 10px; background: #eef5fc; color: #285f99; font-weight: 800; cursor: pointer; }
 .game-head { display: flex; justify-content: space-between; gap: 18px; align-items: flex-end; }

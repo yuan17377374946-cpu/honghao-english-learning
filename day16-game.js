@@ -1,5 +1,5 @@
 (() => {
-  const themes = {
+  const themes = window.WORD_MATCH_THEMES || {
     sports: {
       icon: "🏀", label: "SPORTS", zh: "运动", accent: "篮球 · 球拍 · 赛道",
       words: [

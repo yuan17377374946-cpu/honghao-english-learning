@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#173b67">
+  <meta name="description" content="宏浩英语课堂 Day 17 单词消消乐">
+  <title>宏浩英语课堂 · Day 17</title>
+  <style>
+    :root{font-family:Inter,"PingFang SC","Microsoft YaHei",sans-serif;color:#172434;background:#f4f7fb}*{box-sizing:border-box}body{margin:0;min-width:320px;background:radial-gradient(circle at 8% 0%,#e3f0ff,transparent 28rem),#f4f7fb}button{font:inherit}.shell{width:min(1200px,calc(100% - 24px));margin:auto;padding:25px 0 55px}.home{display:inline-block;margin-bottom:15px;padding:9px 13px;border:1px solid #dce5ef;border-radius:10px;background:#fff;color:#173b67;text-decoration:none;font-weight:800;font-size:.82rem}h1,h2,h3,p{margin-top:0}h1{margin-bottom:18px;color:#0d294a;font-size:clamp(1.8rem,4vw,2.6rem)}h2{color:#0d294a}.eyebrow{margin-bottom:7px;color:#2f70b7;font-size:.78rem;font-weight:850;letter-spacing:.08em}.overview{margin-bottom:18px;padding:23px;border-radius:23px;background:linear-gradient(120deg,#0d294a,#173b67);color:#fff}.overview h2{margin-bottom:6px;color:#fff}.overview p{margin:0;color:#dceaff}.panel{padding:clamp(18px,3vw,30px);border:1px solid #dce5ef;border-radius:22px;background:#fff}
+  </style>
+  <link rel="stylesheet" href="day16-game.css">
+  <script>if(location.hostname==="htmlpreview.github.io")document.currentScript.previousElementSibling.href="https://cdn.jsdelivr.net/gh/yuan17377374946-cpu/honghao-english-learning@main/day16-game.css?v=5";</script>
+</head>
+<body>
+  <main class="shell">
+    <a class="home" href="index.html">← 返回课程记录</a>
+    <p class="eyebrow">宏浩英语课堂</p>
+    <h1>Day 17 · 主题单词消消乐</h1>
+    <section class="overview">
+      <h2>天气 + 地点 + 动物</h2>
+      <p>今天学习76组常见主题词汇。完成整关后，再集中练习最后配对成功的10组单词。</p>
+    </section>
+    <section class="panel game-panel" id="game">
+      <div id="gameHome">
+        <p class="game-kicker">WORD MATCH</p>
+        <h2>选择一个主题关卡</h2>
+        <p class="game-subtitle">英文和中文已经随机混在一起，找出所有正确搭配。</p>
+        <div class="level-grid" id="levelGrid"></div>
+      </div>
+      <div id="gamePlay" hidden>
+        <button class="game-back" id="gameBack" type="button">← 选择其他关卡</button>
+        <div class="game-head">
+          <div><p class="game-kicker" id="gameLabel"></p><h2 id="gameTitle"></h2><p>找到英文和中文的正确搭配</p></div>
+          <div class="score-board"><span>已完成 <strong id="doneCount">0 / 0</strong></span><span>错误 <strong id="errorCount">0</strong></span></div>
+        </div>
+        <div class="game-feedback" id="gameFeedback" aria-live="polite">请选择任意两张卡片</div>
+        <div class="card-board" id="cardBoard"></div>
+        <div class="game-actions"><button class="shuffle-btn" id="shuffleBtn" type="button">🔀 重新洗牌</button><button class="restart-btn" id="restartBtn" type="button">↻ 重新开始</button></div>
+      </div>
+      <div class="clear-modal" id="clearModal" hidden>
+        <div class="clear-card" role="dialog" aria-modal="true" aria-labelledby="clearTitle">
+          <div class="clear-star">⭐</div><p class="game-kicker">LEVEL CLEAR!</p><h2 id="clearTitle">闯关成功</h2>
+          <div class="clear-stats" id="clearStats"></div><div class="late-list" id="lateList"></div><div class="mistake-list" id="mistakeList"></div>
+          <div class="clear-actions"><button id="practiceLastBtn" type="button">🎯 只练最后10组</button><button id="playAgainBtn" type="button">🔄 再玩一次</button><button id="homeBtn" type="button">🏠 返回首页</button></div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script>
+    const key="honghao-day17";
+    let saved={};
+    try{saved=JSON.parse(localStorage.getItem(key)||"{}")}catch(_){saved={}}
+    window.WORD_MATCH_THEMES={
+      weather:{
+        icon:"🌦️",label:"WEATHER",zh:"天气",accent:"晴雨 · 冷暖 · 风雪",
+        words:[
+          ["weather","天气"],["sunny","晴朗的"],["cloudy","多云的"],["rainy","下雨的"],["windy","有风的"],
+          ["snowy","下雪的"],["foggy","有雾的"],["stormy","有暴风雨的"],["hot","炎热的"],["warm","温暖的"],
+          ["cool","凉爽的"],["cold","寒冷的"],["dry","干燥的"],["wet","潮湿的"],["rain","雨"],
+          ["snow","雪"],["wind","风"],["cloud","云"],["storm","暴风雨"],["temperature","温度"]
+        ]
+      },
+      places:{
+        icon:"🏙️",label:"PLACES",zh:"地点",accent:"校园 · 城市 · 公共场所",
+        words:[
+          ["place","地点"],["school","学校"],["classroom","教室"],["library","图书馆"],["hospital","医院"],
+          ["bank","银行"],["post office","邮局"],["police station","警察局"],["supermarket","超市"],["market","市场"],
+          ["shop","商店"],["restaurant","餐馆"],["hotel","酒店"],["cinema","电影院"],["park","公园"],
+          ["zoo","动物园"],["museum","博物馆"],["railway station","火车站"],["airport","机场"],["bus stop","公交车站"],
+          ["subway station","地铁站"],["farm","农场"],["factory","工厂"],["office","办公室"],["bookstore","书店"],["playground","操场"]
+        ]
+      },
+      animals:{
+        icon:"🐾",label:"ANIMALS",zh:"动物",accent:"宠物 · 农场 · 野生动物",
+        words:[
+          ["animal","动物"],["dog","狗"],["cat","猫"],["rabbit","兔子"],["bird","鸟"],["fish","鱼"],
+          ["horse","马"],["cow","奶牛"],["sheep","绵羊"],["pig","猪"],["chicken","鸡"],["duck","鸭子"],
+          ["monkey","猴子"],["tiger","老虎"],["lion","狮子"],["elephant","大象"],["panda","熊猫"],["bear","熊"],
+          ["giraffe","长颈鹿"],["zebra","斑马"],["snake","蛇"],["frog","青蛙"],["turtle","乌龟"],["mouse","老鼠"],
+          ["deer","鹿"],["fox","狐狸"],["wolf","狼"],["kangaroo","袋鼠"],["camel","骆驼"],["dolphin","海豚"]
+        ]
+      }
+    };
+  </script>
+  <script>(function(){const g=document.createElement("script");g.src=location.hostname==="htmlpreview.github.io"?"https://cdn.jsdelivr.net/gh/yuan17377374946-cpu/honghao-english-learning@main/day16-game.js?v=3":"day16-game.js";document.body.append(g);const s=document.createElement("script");s.src=location.hostname==="htmlpreview.github.io"?"https://cdn.jsdelivr.net/gh/yuan17377374946-cpu/honghao-english-learning@main/cloud-sync.js?v=5":"cloud-sync.js";document.body.append(s)})();</script>
+</body>
+</html>
