@@ -185,17 +185,13 @@
       pronunciationAudio.pause();
       pronunciationAudio.currentTime = 0;
     }
-    if (typeof Audio === "undefined") {
-      speakWithBrowser(text);
-      return;
-    }
     let fallbackUsed = false;
     const useFallback = () => {
       if (fallbackUsed) return;
       fallbackUsed = true;
       speakWithBrowser(text);
     };
-    const audio = document.getElementById("wordPronunciationAudio") || new Audio();
+    const audio = document.getElementById("wordPronunciationAudio") || document.createElement("audio");
     if (!audio.id) {
       audio.id = "wordPronunciationAudio";
       audio.hidden = true;
