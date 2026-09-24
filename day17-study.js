@@ -2,6 +2,7 @@
   "use strict";
 
   const storageKey = "honghao-day17";
+  const dictionary = window.DAY17_DICTIONARY || {};
   const lessons = [
     {
       id: "tonight_places", day: "tonight", type: "matching", badge: "信息匹配 · 课堂完成",
@@ -182,6 +183,80 @@
     return loadState().studyTasks?.[id] || { answers: [], submitted: false };
   }
 
+  function normalizeWord(word) {
+    return word.toLowerCase().replace(/’/g, "'").replace(/'s$/, "");
+  }
+
+  function translationFor(word) {
+    const key = normalizeWord(word);
+    const candidates = [key];
+    if (key.endsWith("ies")) candidates.push(`${key.slice(0, -3)}y`);
+    if (key.endsWith("es")) candidates.push(key.slice(0, -2));
+    if (key.endsWith("s")) candidates.push(key.slice(0, -1));
+    if (key.endsWith("ied")) candidates.push(`${key.slice(0, -3)}y`);
+    if (key.endsWith("ed")) candidates.push(key.slice(0, -2), key.slice(0, -1));
+    if (key.endsWith("ing")) candidates.push(key.slice(0, -3), `${key.slice(0, -3)}e`);
+    return candidates.map(candidate => dictionary[candidate]).find(Boolean) || "这篇材料中的专有名词/词形";
+  }
+
+  function saveStudyWord(word) {
+    const state = loadState();
+    state.studyWords ||= {};
+    state.studyWords[word] = true;
+    if (typeof saved !== "undefined") saved.studyWords = state.studyWords;
+    localStorage.setItem(storageKey, JSON.stringify(state));
+  }
+
+  function closeWordTips() {
+    document.querySelectorAll(".study-word-tip").forEach(tip => tip.remove());
+  }
+
+  function markWordEverywhere(word) {
+    document.querySelectorAll(".study-word").forEach(span => {
+      if (span.dataset.word === word) span.classList.add("marked");
+    });
+  }
+
+  function makeWordsClickable(root) {
+    const savedWords = loadState().studyWords || {};
+    root.querySelectorAll(".passage, .match-option, .person-row p").forEach(area => {
+      const walker = document.createTreeWalker(area, NodeFilter.SHOW_TEXT);
+      const textNodes = [];
+      while (walker.nextNode()) {
+        const parent = walker.currentNode.parentElement;
+        if (!parent?.closest("button, .blank-pill, .study-word, script, style")) textNodes.push(walker.currentNode);
+      }
+      textNodes.forEach(node => {
+        const parts = node.nodeValue.split(/([A-Za-z]+(?:[’'][A-Za-z]+)*)/g);
+        if (parts.length === 1) return;
+        const fragment = document.createDocumentFragment();
+        parts.forEach(part => {
+          if (!/^[A-Za-z]+(?:[’'][A-Za-z]+)*$/.test(part)) {
+            fragment.append(document.createTextNode(part));
+            return;
+          }
+          const key = normalizeWord(part);
+          const span = document.createElement("span");
+          span.className = `study-word${savedWords[key] ? " marked" : ""}`;
+          span.dataset.word = key;
+          span.textContent = part;
+          span.addEventListener("click", event => {
+            event.stopPropagation();
+            closeWordTips();
+            saveStudyWord(key);
+            markWordEverywhere(key);
+            const tip = document.createElement("span");
+            tip.className = "study-word-tip";
+            tip.textContent = translationFor(part);
+            span.append(tip);
+          });
+          fragment.append(span);
+        });
+        node.replaceWith(fragment);
+      });
+    });
+  }
+
   function passageHtml(paragraph, answers, result, correctAnswers) {
     return paragraph.replace(/\[\[(\d+)\]\]/g, (_, raw) => {
       const index = Number(raw) - 1;
@@ -212,6 +287,7 @@
         <div class="explanations">${state.submitted ? task.explanations.map((text, i) => `<div class="explanation"><strong>${i + 1}. ${task.answers[i]}</strong>　${text}</div>`).join("") : ""}</div>
       </div>`;
 
+    makeWordsClickable(card);
     card.querySelectorAll(".option-btn").forEach(button => button.addEventListener("click", () => {
       const row = button.closest(".choice-row");
       const index = Number(row.dataset.question);
@@ -242,6 +318,7 @@
         <div class="explanations">${state.submitted ? task.explanations.map((text, i) => `<div class="explanation"><strong>${i + 1}. ${task.answers[i]}</strong>　${text}</div>`).join("") : ""}</div>
       </div>`;
 
+    makeWordsClickable(card);
     card.querySelectorAll(".letter-btn").forEach(button => button.addEventListener("click", () => {
       const index = Number(button.closest(".person-row").dataset.question);
       const letter = button.dataset.letter;
@@ -307,6 +384,8 @@
     document.querySelectorAll(".study-tab").forEach(item => item.classList.toggle("active", item === tab));
     document.querySelectorAll(".study-panel").forEach(panel => { panel.hidden = panel.dataset.day !== tab.dataset.day; });
   }));
+
+  document.addEventListener("click", closeWordTips);
 
   renderPanels();
 })();
