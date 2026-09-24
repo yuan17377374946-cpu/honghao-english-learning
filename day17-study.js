@@ -201,11 +201,13 @@
     card.innerHTML = `
       <header class="task-head"><div><span class="task-badge">${task.badge}</span><h3>${task.title}</h3><p>${task.note}</p></div><span class="done-mark">${state.submitted ? "✓ 已提交" : ""}</span></header>
       <div class="task-body">
-        <div class="passage">${task.paragraphs.map(p => `<p>${passageHtml(p, answers, state.submitted, task.answers)}</p>`).join("")}</div>
-        <div class="choice-list">${task.questions.map((choices, index) => `
+        <div class="grammar-workspace">
+          <div class="passage">${task.paragraphs.map(p => `<p>${passageHtml(p, answers, state.submitted, task.answers)}</p>`).join("")}</div>
+          <div class="choice-list">${task.questions.map((choices, index) => `
           <div class="choice-row" data-question="${index}"><span class="choice-number">${index + 1}</span><div class="choice-buttons">
             ${choices.map(([letter, word]) => `<button type="button" class="option-btn${answers[index] === letter ? " selected" : ""}${state.submitted && letter === task.answers[index] ? " correct" : ""}${state.submitted && answers[index] === letter && letter !== task.answers[index] ? " incorrect" : ""}" data-letter="${letter}">${letter}. ${word}</button>`).join("")}
           </div></div>`).join("")}</div>
+        </div>
         <div class="task-actions"><button type="button" class="submit-task">提交答案</button><button type="button" class="reset-task">重新作答</button><p class="task-result">${state.submitted ? scoreText(task, answers) : ""}</p></div>
         <div class="explanations">${state.submitted ? task.explanations.map((text, i) => `<div class="explanation"><strong>${i + 1}. ${task.answers[i]}</strong>　${text}</div>`).join("") : ""}</div>
       </div>`;
