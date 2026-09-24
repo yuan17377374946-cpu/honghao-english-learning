@@ -20,8 +20,8 @@
     <p class="eyebrow">宏浩英语课堂</p>
     <h1>Day 17 · 主题单词消消乐</h1>
     <section class="overview">
-      <h2>天气 + 地点 + 动物</h2>
-      <p>今天学习76组常见主题词汇。完成整关后，再集中练习最后配对成功的10组单词。</p>
+      <h2>昨日易错词复习 + 天气 + 地点 + 动物</h2>
+      <p>先复习24组昨天不熟的单词，再学习76组新主题词汇。完成整关后，还能集中练习最后配对成功的10组单词。</p>
     </section>
     <section class="panel game-panel" id="game">
       <div id="gameHome">
@@ -68,6 +68,17 @@
     let saved={};
     try{saved=JSON.parse(localStorage.getItem(key)||"{}")}catch(_){saved={}}
     window.WORD_MATCH_THEMES={
+      review:{
+        icon:"🎯",label:"REVIEW",zh:"昨日易错词",accent:"运动 · 服饰 · 交通工具",
+        words:[
+          ["volleyball","排球"],["skiing","滑雪"],["baseball","棒球"],["jumping","跳跃"],
+          ["badminton","羽毛球"],["climbing","攀登"],["gymnastics","体操"],
+          ["scarf","围巾"],["sandals","凉鞋"],["gloves","手套"],["boots","靴子"],
+          ["uniform","校服/制服"],["jeans","牛仔裤"],["tie","领带"],["sweater","毛衣"],["trousers","长裤"],
+          ["train","火车"],["truck","卡车"],["helicopter","直升机"],["scooter","踏板车"],
+          ["subway","地铁"],["transportation","交通工具"],["motorcycle","摩托车"],["van","面包车"]
+        ]
+      },
       weather:{
         icon:"🌦️",label:"WEATHER",zh:"天气",accent:"晴雨 · 冷暖 · 风雪",
         words:[
