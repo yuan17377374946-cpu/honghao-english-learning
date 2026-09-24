@@ -57,6 +57,7 @@
     try {
       const latest = JSON.parse(localStorage.getItem(key) || "{}");
       if (latest.studyTasks) saved.studyTasks = latest.studyTasks;
+      if (latest.studyWords) saved.studyWords = latest.studyWords;
     } catch (_) {}
     localStorage.setItem(key, JSON.stringify(saved));
   }
