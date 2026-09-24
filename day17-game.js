@@ -49,6 +49,7 @@
   let reviewRemaining = [];
   let reviewErrors = 0;
   let reviewWrong = [];
+  let pronunciationAudio = null;
 
   saved.games ||= {};
 
@@ -165,7 +166,7 @@
     updateScore();
   }
 
-  function speakEnglish(text) {
+  function speakWithBrowser(text) {
     if (!("speechSynthesis" in window) || typeof SpeechSynthesisUtterance === "undefined") return;
     window.speechSynthesis.cancel();
     const utterance = new SpeechSynthesisUtterance(text);
@@ -177,6 +178,30 @@
       || voices.find(item => /^en(-|_)/i.test(item.lang));
     if (voice) utterance.voice = voice;
     window.speechSynthesis.speak(utterance);
+  }
+
+  function speakEnglish(text) {
+    if (pronunciationAudio) {
+      pronunciationAudio.pause();
+      pronunciationAudio.currentTime = 0;
+    }
+    if (typeof Audio === "undefined") {
+      speakWithBrowser(text);
+      return;
+    }
+    let fallbackUsed = false;
+    const useFallback = () => {
+      if (fallbackUsed) return;
+      fallbackUsed = true;
+      speakWithBrowser(text);
+    };
+    const audio = new Audio(`https://dict.youdao.com/dictvoice?audio=${encodeURIComponent(text)}&type=2`);
+    pronunciationAudio = audio;
+    audio.preload = "auto";
+    audio.playbackRate = 0.9;
+    audio.addEventListener("error", useFallback, { once: true });
+    const playPromise = audio.play();
+    if (playPromise && typeof playPromise.catch === "function") playPromise.catch(useFallback);
   }
 
   function chooseCard(card) {
