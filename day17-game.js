@@ -195,11 +195,19 @@
       fallbackUsed = true;
       speakWithBrowser(text);
     };
-    const audio = new Audio(`https://dict.youdao.com/dictvoice?audio=${encodeURIComponent(text)}&type=2`);
+    const audio = document.getElementById("wordPronunciationAudio") || new Audio();
+    if (!audio.id) {
+      audio.id = "wordPronunciationAudio";
+      audio.hidden = true;
+      audio.setAttribute("aria-hidden", "true");
+      document.body.append(audio);
+    }
     pronunciationAudio = audio;
     audio.preload = "auto";
     audio.playbackRate = 0.9;
-    audio.addEventListener("error", useFallback, { once: true });
+    audio.onerror = useFallback;
+    audio.src = `https://dict.youdao.com/dictvoice?audio=${encodeURIComponent(text)}&type=2`;
+    audio.load();
     const playPromise = audio.play();
     if (playPromise && typeof playPromise.catch === "function") playPromise.catch(useFallback);
   }
