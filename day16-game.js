@@ -44,6 +44,11 @@
   let activeTheme = null;
   let firstCard = null;
   let locked = false;
+  let reviewMode = false;
+  let reviewPairs = [];
+  let reviewRemaining = [];
+  let reviewErrors = 0;
+  let reviewWrong = [];
 
   saved.games ||= {};
 
@@ -64,7 +69,9 @@
     return {
       remaining: themes[themeKey].words.map((_, index) => index),
       errors: 0,
-      wrong: []
+      wrong: [],
+      completedOrder: [],
+      lastTen: []
     };
   }
 
@@ -75,7 +82,30 @@
       saved.games[themeKey] = freshState(themeKey);
       persist();
     }
-    return saved.games[themeKey];
+    const state = saved.games[themeKey];
+    let changed = false;
+    if (!Array.isArray(state.wrong)) {
+      state.wrong = [];
+      changed = true;
+    }
+    if (!Array.isArray(state.completedOrder)) {
+      state.completedOrder = [];
+      changed = true;
+    }
+    if (!Array.isArray(state.lastTen)) {
+      state.lastTen = [];
+      changed = true;
+    }
+    if (changed) persist();
+    return state;
+  }
+
+  function currentRemaining() {
+    return reviewMode ? reviewRemaining : getState(activeTheme).remaining;
+  }
+
+  function currentErrors() {
+    return reviewMode ? reviewErrors : getState(activeTheme).errors;
   }
 
   function renderLevels() {
@@ -93,6 +123,11 @@
 
   function openTheme(themeKey) {
     activeTheme = themeKey;
+    reviewMode = false;
+    reviewPairs = [];
+    reviewRemaining = [];
+    reviewErrors = 0;
+    reviewWrong = [];
     firstCard = null;
     locked = false;
     const theme = themes[themeKey];
@@ -109,9 +144,8 @@
 
   function renderBoard() {
     const theme = themes[activeTheme];
-    const state = getState(activeTheme);
     const deck = [];
-    state.remaining.forEach(index => {
+    currentRemaining().forEach(index => {
       const [english, chinese] = theme.words[index];
       deck.push({ pair: index, kind: "en", text: english });
       deck.push({ pair: index, kind: "zh", text: chinese });
@@ -164,23 +198,36 @@
     window.setTimeout(() => {
       cardA.classList.add("gone");
       cardB.classList.add("gone");
-      const state = getState(activeTheme);
-      state.remaining = state.remaining.filter(index => index !== pairIndex);
-      persist();
+      if (reviewMode) {
+        reviewRemaining = reviewRemaining.filter(index => index !== pairIndex);
+      } else {
+        const state = getState(activeTheme);
+        state.remaining = state.remaining.filter(index => index !== pairIndex);
+        if (!state.completedOrder.includes(pairIndex)) state.completedOrder.push(pairIndex);
+        persist();
+      }
       firstCard = null;
       locked = false;
       updateScore();
-      if (state.remaining.length === 0) window.setTimeout(showClear, 260);
+      if (currentRemaining().length === 0) window.setTimeout(showClear, 260);
     }, 430);
   }
 
   function handleWrong(cardA, cardB) {
-    const state = getState(activeTheme);
-    state.errors += 1;
-    [Number(cardA.dataset.pair), Number(cardB.dataset.pair)].forEach(index => {
-      if (!state.wrong.includes(index)) state.wrong.push(index);
-    });
-    persist();
+    const wrongPairs = [Number(cardA.dataset.pair), Number(cardB.dataset.pair)];
+    if (reviewMode) {
+      reviewErrors += 1;
+      wrongPairs.forEach(index => {
+        if (!reviewWrong.includes(index)) reviewWrong.push(index);
+      });
+    } else {
+      const state = getState(activeTheme);
+      state.errors += 1;
+      wrongPairs.forEach(index => {
+        if (!state.wrong.includes(index)) state.wrong.push(index);
+      });
+      persist();
+    }
     updateScore();
     cardA.classList.remove("selected");
     cardB.classList.remove("selected");
@@ -197,10 +244,9 @@
 
   function updateScore() {
     if (!activeTheme) return;
-    const total = themes[activeTheme].words.length;
-    const state = getState(activeTheme);
-    document.getElementById("doneCount").textContent = `${total - state.remaining.length} / ${total}`;
-    document.getElementById("errorCount").textContent = String(state.errors);
+    const total = reviewMode ? reviewPairs.length : themes[activeTheme].words.length;
+    document.getElementById("doneCount").textContent = `${total - currentRemaining().length} / ${total}`;
+    document.getElementById("errorCount").textContent = String(currentErrors());
   }
 
   function setFeedback(message, style) {
@@ -222,8 +268,14 @@
 
   function restart() {
     if (!activeTheme) return;
-    saved.games[activeTheme] = freshState(activeTheme);
-    persist();
+    if (reviewMode) {
+      reviewRemaining = [...reviewPairs];
+      reviewErrors = 0;
+      reviewWrong = [];
+    } else {
+      saved.games[activeTheme] = freshState(activeTheme);
+      persist();
+    }
     firstCard = null;
     locked = false;
     clearModal.hidden = true;
@@ -234,18 +286,60 @@
   function showClear() {
     const theme = themes[activeTheme];
     const state = getState(activeTheme);
-    document.getElementById("clearTitle").textContent = `${theme.icon} ${theme.label} · ${theme.zh}`;
-    document.getElementById("clearStats").innerHTML = `<span>完成 ${theme.words.length} 组</span><span>错误 ${state.errors} 次</span>`;
+    const lastTen = reviewMode ? reviewPairs : state.completedOrder.slice(-10);
+    const errors = reviewMode ? reviewErrors : state.errors;
+    const wrong = reviewMode ? reviewWrong : state.wrong;
+    if (!reviewMode) {
+      state.lastTen = [...lastTen];
+      persist();
+    }
+    document.getElementById("clearTitle").textContent = reviewMode
+      ? `${theme.icon} 最后10组复习完成`
+      : `${theme.icon} ${theme.label} · ${theme.zh}`;
+    const completedTotal = reviewMode ? lastTen.length : theme.words.length;
+    document.getElementById("clearStats").innerHTML = `<span>完成 ${completedTotal} 组</span><span>错误 ${errors} 次</span>`;
+    const lateList = document.getElementById("lateList");
+    if (lastTen.length) {
+      const items = lastTen.map(index => `<li><strong>${theme.words[index][0]}</strong><span>${theme.words[index][1]}</span></li>`).join("");
+      lateList.hidden = false;
+      lateList.innerHTML = `<h3>${reviewMode ? "本次重点练习词" : "本轮最后完成的10组"}</h3>${reviewMode ? "" : "<p>这些单词完成得比较晚，建议再单独练一遍。</p>"}<ul>${items}</ul>`;
+    } else {
+      lateList.hidden = true;
+      lateList.innerHTML = "";
+    }
     const mistakeList = document.getElementById("mistakeList");
-    if (state.wrong.length) {
-      const items = state.wrong.map(index => `<li><strong>${theme.words[index][0]}</strong> — ${theme.words[index][1]}</li>`).join("");
+    if (wrong.length) {
+      const items = wrong.map(index => `<li><strong>${theme.words[index][0]}</strong> — ${theme.words[index][1]}</li>`).join("");
       mistakeList.className = "mistake-list";
-      mistakeList.innerHTML = `<h3>本关易错词</h3><ul>${items}</ul>`;
+      mistakeList.innerHTML = `<h3>${reviewMode ? "重点练习中的易错词" : "本关易错词"}</h3><ul>${items}</ul>`;
     } else {
       mistakeList.className = "mistake-list clean";
       mistakeList.innerHTML = "全部一次配对成功，没有易错词！";
     }
+    const practiceButton = document.getElementById("practiceLastBtn");
+    practiceButton.hidden = lastTen.length === 0;
+    practiceButton.textContent = reviewMode ? "🎯 再练这10组" : `🎯 只练这${lastTen.length}组`;
     clearModal.hidden = false;
+  }
+
+  function practiceLastTen() {
+    if (!activeTheme) return;
+    const state = getState(activeTheme);
+    const pairs = reviewMode ? reviewPairs : (state.lastTen.length ? state.lastTen : state.completedOrder.slice(-10));
+    if (!pairs.length) return;
+    reviewMode = true;
+    reviewPairs = [...pairs];
+    reviewRemaining = [...pairs];
+    reviewErrors = 0;
+    reviewWrong = [];
+    firstCard = null;
+    locked = false;
+    clearModal.hidden = true;
+    const theme = themes[activeTheme];
+    document.getElementById("gameLabel").textContent = `${theme.icon} 重点复习`;
+    document.getElementById("gameTitle").textContent = `${theme.label} · 最后${pairs.length}组`;
+    setFeedback("只练本轮最后完成的单词", "");
+    renderBoard();
   }
 
   function backToLevels() {
@@ -253,6 +347,9 @@
     gamePlay.hidden = true;
     gameHome.hidden = false;
     activeTheme = null;
+    reviewMode = false;
+    reviewPairs = [];
+    reviewRemaining = [];
     firstCard = null;
     locked = false;
   }
@@ -262,5 +359,6 @@
   document.getElementById("shuffleBtn").addEventListener("click", reshuffle);
   document.getElementById("restartBtn").addEventListener("click", restart);
   document.getElementById("playAgainBtn").addEventListener("click", restart);
+  document.getElementById("practiceLastBtn").addEventListener("click", practiceLastTen);
   renderLevels();
 })();
