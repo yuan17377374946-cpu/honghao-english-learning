@@ -165,8 +165,23 @@
     updateScore();
   }
 
+  function speakEnglish(text) {
+    if (!("speechSynthesis" in window) || typeof SpeechSynthesisUtterance === "undefined") return;
+    window.speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = "en-US";
+    utterance.rate = 0.82;
+    utterance.pitch = 1;
+    const voices = window.speechSynthesis.getVoices();
+    const voice = voices.find(item => /^en(-|_)/i.test(item.lang) && /Google|Microsoft|Samantha|Daniel/i.test(item.name))
+      || voices.find(item => /^en(-|_)/i.test(item.lang));
+    if (voice) utterance.voice = voice;
+    window.speechSynthesis.speak(utterance);
+  }
+
   function chooseCard(card) {
     if (locked || card.classList.contains("gone")) return;
+    if (card.dataset.kind === "en") speakEnglish(card.textContent);
     if (card === firstCard) {
       card.classList.remove("selected");
       firstCard = null;
