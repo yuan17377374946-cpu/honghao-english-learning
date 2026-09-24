@@ -4,13 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#173b67">
-  <meta name="description" content="宏浩英语课堂 Day 17 单词消消乐">
+  <meta name="description" content="宏浩英语课堂 Day 17 单词消消乐与假期练习">
   <title>宏浩英语课堂 · Day 17</title>
   <style>
     :root{font-family:Inter,"PingFang SC","Microsoft YaHei",sans-serif;color:#172434;background:#f4f7fb}*{box-sizing:border-box}body{margin:0;min-width:320px;background:radial-gradient(circle at 8% 0%,#e3f0ff,transparent 28rem),#f4f7fb}button{font:inherit}.shell{width:min(1200px,calc(100% - 24px));margin:auto;padding:25px 0 55px}.home{display:inline-block;margin-bottom:15px;padding:9px 13px;border:1px solid #dce5ef;border-radius:10px;background:#fff;color:#173b67;text-decoration:none;font-weight:800;font-size:.82rem}h1,h2,h3,p{margin-top:0}h1{margin-bottom:18px;color:#0d294a;font-size:clamp(1.8rem,4vw,2.6rem)}h2{color:#0d294a}.eyebrow{margin-bottom:7px;color:#2f70b7;font-size:.78rem;font-weight:850;letter-spacing:.08em}.overview{margin-bottom:18px;padding:23px;border-radius:23px;background:linear-gradient(120deg,#0d294a,#173b67);color:#fff}.overview h2{margin-bottom:6px;color:#fff}.overview p{margin:0;color:#dceaff}.panel{padding:clamp(18px,3vw,30px);border:1px solid #dce5ef;border-radius:22px;background:#fff}
   </style>
   <link rel="stylesheet" href="day16-game.css">
   <script>if(location.hostname==="htmlpreview.github.io")document.currentScript.previousElementSibling.href="https://cdn.jsdelivr.net/gh/yuan17377374946-cpu/honghao-english-learning@main/day16-game.css?v=5";</script>
+  <link rel="stylesheet" href="day17-study.css">
+  <script>if(location.hostname==="htmlpreview.github.io")document.currentScript.previousElementSibling.href="https://cdn.jsdelivr.net/gh/yuan17377374946-cpu/honghao-english-learning@e73865a9e29c8600c13a3e8d5c880a919d6b5430/day17-study.css";</script>
 </head>
 <body>
   <main class="shell">
@@ -45,6 +47,20 @@
           <div class="clear-actions"><button id="practiceLastBtn" type="button">🎯 只练最后10组</button><button id="playAgainBtn" type="button">🔄 再玩一次</button><button id="homeBtn" type="button">🏠 返回首页</button></div>
         </div>
       </div>
+    </section>
+    <section class="study-section" id="studyTasks">
+      <div class="study-heading">
+        <p class="eyebrow">课堂练习 + 三天假期作业</p>
+        <h2>5篇中考题型练习</h2>
+        <p>今晚完成2篇，假期每天完成1篇。语法填空先从 A、B、C 三选一开始，提交后再看解析。</p>
+      </div>
+      <nav class="study-tabs" id="studyTabs" aria-label="练习日期">
+        <button class="study-tab active" type="button" data-day="tonight">🌙 今晚课堂 <span>2篇</span></button>
+        <button class="study-tab" type="button" data-day="holiday1">☀️ 假期第1天 <span>1篇</span></button>
+        <button class="study-tab" type="button" data-day="holiday2">🌤️ 假期第2天 <span>1篇</span></button>
+        <button class="study-tab" type="button" data-day="holiday3">⭐ 假期第3天 <span>1篇</span></button>
+      </nav>
+      <div id="studyPanels"></div>
     </section>
   </main>
   <script>
@@ -83,6 +99,11 @@
       }
     };
   </script>
-  <script>(function(){const g=document.createElement("script");g.src=location.hostname==="htmlpreview.github.io"?"https://cdn.jsdelivr.net/gh/yuan17377374946-cpu/honghao-english-learning@8e379cd86a7f3123f14f5f27275da2489d49883e/day17-game.js":"day17-game.js";document.body.append(g);const s=document.createElement("script");s.src=location.hostname==="htmlpreview.github.io"?"https://cdn.jsdelivr.net/gh/yuan17377374946-cpu/honghao-english-learning@main/cloud-sync.js?v=5":"cloud-sync.js";document.body.append(s)})();</script>
+  <script>(function(){
+    const remote=location.hostname==="htmlpreview.github.io";
+    const g=document.createElement("script");g.src=remote?"https://cdn.jsdelivr.net/gh/yuan17377374946-cpu/honghao-english-learning@e73865a9e29c8600c13a3e8d5c880a919d6b5430/day17-game.js":"day17-game.js";document.body.append(g);
+    const h=document.createElement("script");h.src=remote?"https://cdn.jsdelivr.net/gh/yuan17377374946-cpu/honghao-english-learning@e73865a9e29c8600c13a3e8d5c880a919d6b5430/day17-study.js":"day17-study.js";document.body.append(h);
+    const s=document.createElement("script");s.src=remote?"https://cdn.jsdelivr.net/gh/yuan17377374946-cpu/honghao-english-learning@main/cloud-sync.js?v=5":"cloud-sync.js";document.body.append(s);
+  })();</script>
 </body>
 </html>
