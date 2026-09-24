@@ -54,6 +54,10 @@
   saved.games ||= {};
 
   function persist() {
+    try {
+      const latest = JSON.parse(localStorage.getItem(key) || "{}");
+      if (latest.studyTasks) saved.studyTasks = latest.studyTasks;
+    } catch (_) {}
     localStorage.setItem(key, JSON.stringify(saved));
   }
 
