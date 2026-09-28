@@ -37,7 +37,7 @@
         <div class="eyebrow">UNIT 2 · ART STUDIO</div>
         <h2>收集颜料，完成你的单元复习画作</h2>
         <p>从单词到句子，从语法到阅读。每次只专心完成一个小任务，做错了也没关系，看懂提示再试一次。</p>
-        <div class="start-row"><button class="primary" id="continueBtn">开始第1关</button><button class="secondary" id="quickBtn">综合挑战</button></div>
+        <div class="start-row"><button class="primary" id="continueBtn">开始第1关</button><button class="secondary" id="quickBtn">综合挑战</button><button class="secondary" id="testBtn">100分综合测评</button></div>
       </div>
       <div class="stats">
         <div class="stat-title"><span>总进度</span><span id="overallText">0%</span></div><div class="progress"><i id="overallBar"></i></div>
@@ -172,7 +172,7 @@ function checkAnswer(){if(attempted)return;const item=getItem(),q=item.q;let ok=
 function nextQuestion(){const len=mode==='quick'?window.quickQs.length:modules[currentModule].qs.length;if(currentQ<len-1){currentQ++;renderQuestion()}else finishModule()}
 function finishModule(){const totalQ=mode==='quick'?window.quickQs.length:modules[currentModule].qs.length;if(mode==='module'){state.done[modules[currentModule].id]={score:moduleCorrect,total:totalQ};save()}show('result');const pct=Math.round(moduleCorrect/totalQ*100);$('#result').innerHTML=`<div class="result-icon">${pct>=85?'🏆':pct>=60?'🎨':'🌱'}</div><h2>${pct>=85?'这一关掌握得很棒！':pct>=60?'完成啦，再巩固一下':'完成了，错题再练一遍'}</h2><p>${mode==='quick'?'综合挑战':modules[currentModule].name}</p><div class="score-ring" style="--score:${pct*3.6}deg"><b>${pct}%</b></div><p>答对 <b>${moduleCorrect}</b> / ${totalQ} 题</p><div class="result-actions"><button class="primary" id="again">再练一次</button><button class="secondary" id="homeBtn">返回关卡</button></div>`;$('#again').onclick=()=>mode==='quick'?startQuick():startModule(currentModule);$('#homeBtn').onclick=()=>show('home')}
 function showWrong(){show('result');const list=state.wrong.length?state.wrong.map((w,i)=>`<details><summary>${i+1}. ${w.module}｜${w.p}</summary><p>${w.e}</p></details>`).join(''):'<p>现在还没有错题，继续保持！</p>';$('#result').innerHTML=`<div class="result-icon">📝</div><h2>我的错题本</h2><p>最多保留最近 40 道错题</p><div class="wrong-list">${list}</div><div class="result-actions"><button class="primary" id="homeBtn">返回关卡</button></div>`;$('#homeBtn').onclick=()=>show('home')}
-$('#backBtn').onclick=()=>show('home');$('#wrongBtn').onclick=showWrong;$('#quickBtn').onclick=startQuick;$('#continueBtn').onclick=()=>{const i=modules.findIndex(m=>!state.done[m.id]);startModule(i<0?0:i)};$('#resetBtn').onclick=()=>{if(confirm('确定清除全部学习进度和错题吗？')){localStorage.removeItem('unit2ArtState');location.reload()}};updateStats();
+$('#backBtn').onclick=()=>show('home');$('#wrongBtn').onclick=showWrong;$('#quickBtn').onclick=startQuick;$('#testBtn').onclick=()=>location.href='assessment.html';$('#continueBtn').onclick=()=>{const i=modules.findIndex(m=>!state.done[m.id]);startModule(i<0?0:i)};$('#resetBtn').onclick=()=>{if(confirm('确定清除全部学习进度和错题吗？')){localStorage.removeItem('unit2ArtState');location.reload()}};updateStats();
 </script>
 </body>
 </html>
