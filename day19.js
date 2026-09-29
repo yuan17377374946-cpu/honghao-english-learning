@@ -7,6 +7,7 @@
   saved.games ||= {};
   saved.classwork ||= { cloze: {}, grammar: {} };
   saved.knowledge ||= {};
+  saved.marks ||= {};
   const persist = () => localStorage.setItem(STORAGE_KEY, JSON.stringify(saved));
 
   const unit1 = [
@@ -265,7 +266,8 @@
     });
     updateGameScore();
   }
-  function speak(text) {
+  let pronunciationAudio = null;
+  function speakWithBrowser(text) {
     if (!("speechSynthesis" in window)) return;
     window.speechSynthesis.cancel();
     const utterance = new SpeechSynthesisUtterance(text.replaceAll("…", " "));
@@ -273,6 +275,19 @@
     const voices = window.speechSynthesis.getVoices();
     utterance.voice = voices.find(voice => /^en/i.test(voice.lang)) || null;
     window.speechSynthesis.speak(utterance);
+  }
+  function speak(text) {
+    const cleanText = text.replaceAll("…", " ").trim();
+    if (pronunciationAudio) { pronunciationAudio.pause(); pronunciationAudio.currentTime = 0; }
+    let fallbackUsed = false;
+    const fallback = () => { if (!fallbackUsed) { fallbackUsed = true; speakWithBrowser(cleanText); } };
+    const audio = document.getElementById("day19Pronunciation") || document.createElement("audio");
+    if (!audio.id) { audio.id = "day19Pronunciation"; audio.hidden = true; document.body.append(audio); }
+    pronunciationAudio = audio; audio.preload = "auto"; audio.playbackRate = .9; audio.onerror = fallback;
+    audio.src = `https://dict.youdao.com/dictvoice?audio=${encodeURIComponent(cleanText)}&type=2`;
+    audio.load();
+    const playPromise = audio.play();
+    if (playPromise && typeof playPromise.catch === "function") playPromise.catch(fallback);
   }
   function chooseCard(card) {
     if (gameLocked || card.classList.contains("gone")) return;
@@ -337,6 +352,75 @@
     const state = gameState(activeTheme); reviewRemaining = state.completedOrder.slice(-10); reviewTotal = reviewRemaining.length; reviewMode = true; reviewErrors = 0; firstCard = null; gameLocked = false; gameClearModal.hidden = true; renderBoard();
   });
 
+  // Clickable meanings in the two reading passages
+  const readingDictionary = {
+    a:"一个",able:"能够的",achievement:"成就",after:"在……以后",afraid:"害怕的",also:"也",an:"一个",and:"和；并且",another:"另一个",answer:"答案；回答",archimedes:"阿基米德",asked:"询问；请求",astronomy:"天文学",at:"在",bath:"洗澡；浴缸",be:"是；成为",became:"成为",been:"已经；曾经",book:"书",books:"书（复数）",breaking:"打破；破坏",because:"因为",by:"通过；被",calculation:"计算",careful:"仔细的",chinese:"中国的；中文",clear:"清楚的",clearer:"更清楚的",compared:"比较",continues:"继续",could:"能够",crater:"环形山",created:"创造",crown:"王冠",difficult:"困难的",different:"不同的",dynasty:"朝代",education:"教育",example:"例子",family:"家庭",for:"为了；对于",from:"从；来自",full:"满的",gave:"给",goal:"目标",gold:"黄金",golden:"金色的；黄金制的",great:"伟大的；很棒的",grew:"成长",had:"有（过去式）",have:"有",he:"他",her:"她的；她",hiero:"希伦国王",his:"他的",history:"历史",idea:"想法",important:"重要的",in:"在……里面",into:"进入",is:"是",it:"它；形式主语",kept:"保持；保留",king:"国王",know:"知道",later:"后来",learning:"学习",looking:"看；观察",made:"制作；使得",maker:"制造者",mathematics:"数学",maths:"数学",metal:"金属",method:"方法",mind:"头脑；心里",mixed:"混合",more:"更多；更加",naming:"命名",not:"不",object:"物体",observation:"观察",of:"……的",on:"在……上；关于",one:"一个；一",only:"仅仅",ordinary:"普通的",out:"出去；向外",over:"越过；溢出",people:"人们",poetry:"诗歌",pot:"容器；锅",problem:"问题",pushed:"推动；排开",put:"放置",qing:"清朝",realized:"意识到",rewrite:"重写",same:"相同的",scholar:"学者",scholars:"学者（复数）",science:"科学",she:"她",should:"应该",simpler:"更简单的",simply:"仅仅；简单地",so:"所以；如此",solving:"解决",some:"一些",stayed:"保持；停留",studied:"学习；研究",taking:"进行；拿取",talent:"天赋",test:"检验；测试",that:"那个；引导从句",the:"这个；那个（特指）",this:"这个",through:"通过",to:"去；向；用于不定式",today:"今天；如今",truth:"真相；真理",understand:"理解",up:"向上；完全",valued:"重视",venus:"金星",wang:"王",wanted:"想要",was:"是（过去式）",water:"水",way:"方式；道路",weight:"重量",when:"当……时",whether:"是否",while:"当……的时候",with:"和；用；带有",without:"没有",woman:"女性；女人",women:"女性（复数）",work:"工作；作品",zhenyi:"贞仪",
+    outstanding:"杰出的；优秀的","old-fashioned":"老式的；过时的",classical:"古典的",lamp:"灯",poet:"诗人",convinced:"确信的",philosopher:"哲学家",dramatist:"剧作家",judgement:"判断；评价",evaluation:"评价；评估",consider:"认为；考虑",considered:"认为；被认为",background:"背景",significant:"重要的；意义重大的",significance:"重要性；意义",significantly:"显著地；重要地",milestone:"里程碑",manage:"设法做到；管理",managed:"设法做到了",impact:"影响",concentrated:"专心的",belief:"信念",firm:"坚定的；牢固的",ignorance:"无知",application:"应用；申请",fancy:"精美的；花哨的",satisfied:"满意的",satisfy:"使满意",satisfying:"令人满意的",prince:"王子",displace:"排开；取代",displaces:"排开",displaced:"排开了；被取代",displacing:"排开；取代",fool:"欺骗；愚弄",fooled:"欺骗了",prison:"监狱",wire:"金属丝；电线",prove:"证明",proved:"证明了",proving:"证明",hardly:"几乎不",balanced:"平衡的",reject:"拒绝",rejected:"拒绝了",thus:"因此",complete:"完全的；完成",completely:"完全地",completion:"完成",runs:"流动；跑",ran:"流动了；跑了",running:"流动；跑步",sent:"送；派（过去式）",what:"什么；多么",which:"哪一个",instead:"代替；反而",addition:"增加；附加",accident:"意外；偶然",whole:"整体",fond:"喜欢的",reached:"伸手；到达"
+  };
+
+  [...unit1, ...unit2].forEach(([english, chinese]) => {
+    const key = english.toLowerCase();
+    if (/^[a-z-]+$/.test(key) && !readingDictionary[key]) readingDictionary[key] = chinese;
+  });
+
+  function normalizeWord(word) { return String(word || "").toLowerCase().replace(/’/g, "'").replace(/^[^a-z]+|[^a-z'-]+$/g, ""); }
+  function lookupMeaning(word) {
+    const key = normalizeWord(word);
+    if (readingDictionary[key]) return readingDictionary[key];
+    const candidates = [];
+    if (key.endsWith("'s")) candidates.push(key.slice(0, -2));
+    if (key.endsWith("ies")) candidates.push(key.slice(0, -3) + "y");
+    if (key.endsWith("ing")) candidates.push(key.slice(0, -3), key.slice(0, -3) + "e");
+    if (key.endsWith("ed")) candidates.push(key.slice(0, -2), key.slice(0, -1));
+    if (key.endsWith("es")) candidates.push(key.slice(0, -2), key.slice(0, -1));
+    if (key.endsWith("s")) candidates.push(key.slice(0, -1));
+    const base = candidates.find(candidate => readingDictionary[candidate]);
+    return base ? readingDictionary[base] : "暂未收录释义";
+  }
+
+  const meaningToast = document.createElement("div");
+  meaningToast.className = "meaning-toast"; meaningToast.hidden = true;
+  meaningToast.innerHTML = '<strong id="meaningWord"></strong><span id="meaningText"></span><button type="button" aria-label="关闭中文释义">×</button>';
+  document.body.append(meaningToast);
+  meaningToast.querySelector("button").addEventListener("click", () => { meaningToast.hidden = true; });
+
+  function sameWordButtons(key) { return [...document.querySelectorAll(".reading-word")].filter(button => button.dataset.wordKey === key); }
+  function showMeaning(button) {
+    const key = button.dataset.wordKey; const wasMarked = button.classList.contains("marked");
+    sameWordButtons(key).forEach(item => item.classList.toggle("marked", !wasMarked));
+    if (wasMarked) {
+      delete saved.marks[key]; meaningToast.hidden = true;
+    } else {
+      saved.marks[key] = "unknown";
+      meaningToast.querySelector("#meaningWord").textContent = button.textContent;
+      meaningToast.querySelector("#meaningText").textContent = `中文：${lookupMeaning(key)}`;
+      meaningToast.hidden = false; speak(button.textContent);
+    }
+    persist();
+  }
+
+  function makePassageWordsClickable(root) {
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode(node) {
+        if (!node.nodeValue || !/[A-Za-z]/.test(node.nodeValue)) return NodeFilter.FILTER_REJECT;
+        if (node.parentElement && node.parentElement.closest(".reading-word")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    });
+    const nodes = []; while (walker.nextNode()) nodes.push(walker.currentNode);
+    nodes.forEach(node => {
+      const fragment = document.createDocumentFragment();
+      node.nodeValue.split(/([A-Za-z]+(?:[’'][A-Za-z]+)?(?:-[A-Za-z]+)?)/g).forEach(piece => {
+        if (!/^[A-Za-z]/.test(piece)) { fragment.append(document.createTextNode(piece)); return; }
+        const key = normalizeWord(piece); const button = document.createElement("button");
+        button.type = "button"; button.className = "reading-word"; button.textContent = piece; button.dataset.wordKey = key;
+        button.title = "点击查看中文意思"; button.classList.toggle("marked", Boolean(saved.marks[key]));
+        button.addEventListener("click", () => showMeaning(button)); fragment.append(button);
+      });
+      node.replaceWith(fragment);
+    });
+  }
+
   // Classwork passages
   function renderClasswork(section, data) {
     const answers = saved.classwork[section] ||= {};
@@ -347,6 +431,7 @@
     const result = document.getElementById(`${section}Result`);
     const blankValue = number => answers[number] || "_____";
     passage.innerHTML = data.paragraphs.map(paragraph => `<p>${paragraph.replace(/\{\{(\d+)\}\}/g, (_, number) => `<span class="inline-blank ${answers[number] ? "" : "empty"}" data-blank="${number}">${blankValue(number)}</span>`)}</p>`).join("");
+    makePassageWordsClickable(passage);
     questionHost.innerHTML = "";
     data.items.forEach((item, index) => {
       const row = document.createElement("div"); row.className = "choice-row"; row.dataset.number = String(index + 1);
@@ -359,8 +444,8 @@
           row.querySelectorAll("button").forEach(itemButton => itemButton.classList.toggle("selected", itemButton === button));
           row.querySelector(".explanation").hidden = true;
           row.querySelectorAll("button").forEach(itemButton => itemButton.classList.remove("answer-correct","answer-wrong"));
-          passage.querySelector(`[data-blank="${index + 1}"]`).textContent = option;
-          passage.querySelector(`[data-blank="${index + 1}"]`).classList.remove("empty");
+          const blank = passage.querySelector(`[data-blank="${index + 1}"]`);
+          blank.textContent = option; blank.classList.remove("empty"); makePassageWordsClickable(blank);
           result.textContent = ""; persist(); updateClassworkProgress(section, data);
         });
         row.querySelector(".choice-buttons").append(button);
