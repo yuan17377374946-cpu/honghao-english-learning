@@ -1,3 +1,5 @@
+[day19 f181ec4] Load Day 19 script once
+ 1 file changed, 5 insertions(+), 6 deletions(-)
 <!doctype html>
 <html lang="zh-CN">
 <head>
@@ -92,14 +94,13 @@
     </section>
   </div>
 
-  <script src="day19.js"></script>
   <script>
-    if(location.hostname==="htmlpreview.github.io"){
-      const local=document.querySelector('script[src="day19.js"]');
-      local.remove();
-      const app=document.createElement("script");app.src="https://cdn.jsdelivr.net/gh/yuan17377374946-cpu/honghao-english-learning@0fa4954239d77640c21538daaabef07fe00ba72e/day19.js";document.body.append(app);
-    }
+    const app=document.createElement("script");
+    app.async=false;
+    app.src=location.hostname==="htmlpreview.github.io"?"https://cdn.jsdelivr.net/gh/yuan17377374946-cpu/honghao-english-learning@0fa4954239d77640c21538daaabef07fe00ba72e/day19.js":"day19.js";
+    document.body.append(app);
     const cloud=document.createElement("script");
+    cloud.async=false;
     cloud.src=location.hostname==="htmlpreview.github.io"?"https://cdn.jsdelivr.net/gh/yuan17377374946-cpu/honghao-english-learning@main/cloud-sync.js?v=6":"cloud-sync.js";
     document.body.append(cloud);
   </script>
