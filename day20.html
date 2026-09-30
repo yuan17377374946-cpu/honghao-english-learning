@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#173b67">
+  <meta name="description" content="宏浩英语课堂 Day 20：用第一、第二单元熟词学习自然拼读和单词拼写">
+  <title>宏浩英语课堂 · Day 20</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23173b67'/%3E%3Cpath d='M15 18h34v28H15z' rx='4' fill='%23fff'/%3E%3Cpath d='M21 27h22M21 36h14' stroke='%23f0b429' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="day20.css">
+</head>
+<body>
+  <main class="shell">
+    <a class="home" href="index.html">← 返回课程记录</a>
+
+    <header class="hero">
+      <div>
+        <p class="eyebrow">宏浩英语课堂 · DAY 20</p>
+        <h1>听声音，拼单词</h1>
+        <p class="hero-copy">使用第一、第二单元已经学过的单词，把发音和字母组合连起来。先听、再拆、最后拼。</p>
+      </div>
+      <div class="hero-score" aria-label="课程进度">
+        <strong id="overallProgress">0 / 4</strong>
+        <span>完成模块</span>
+      </div>
+      <div class="progress-track"><i id="progressBar"></i></div>
+      <div class="hero-stats">
+        <span><strong>12</strong>个熟词</span>
+        <span><strong>4</strong>组发音规律</span>
+        <span><strong>5</strong>词最后听写</span>
+      </div>
+    </header>
+
+    <nav class="tabs" aria-label="学习模块">
+      <button class="tab active" type="button" data-tab="learn"><b>1</b><span>听音拆词</span></button>
+      <button class="tab" type="button" data-tab="letters"><b>2</b><span>听音补字母</span></button>
+      <button class="tab" type="button" data-tab="chunks"><b>3</b><span>词块拼写</span></button>
+      <button class="tab" type="button" data-tab="dictation"><b>4</b><span>5词听写</span></button>
+    </nav>
+
+    <section class="panel" id="learn">
+      <div class="section-heading">
+        <div>
+          <p class="section-kicker">STEP 1 · SOUND TO SPELLING</p>
+          <h2>一个声音，可以由一个或几个字母表示</h2>
+          <p class="muted">点击单词听发音，再观察彩色字母块。完成一组后，选择自己是否已经会按声音拼写。</p>
+        </div>
+        <button class="secondary" id="playAll" type="button">🔊 依次听12词</button>
+      </div>
+
+      <div class="sound-map" aria-label="发音和拼写对应关系">
+        <div><span class="sound">/æ/</span><i>↔</i><span class="letters">a</span><small>lamp</small></div>
+        <div><span class="sound">/iː/</span><i>↔</i><span class="letters">ie</span><small>belief</small></div>
+        <div><span class="sound">/uː/</span><i>↔</i><span class="letters">oo</span><small>fool</small></div>
+        <div><span class="sound">/eɪ/</span><i>↔</i><span class="letters">a_e</span><small>displace</small></div>
+        <div><span class="sound">/ʃən/</span><i>↔</i><span class="letters">tion</span><small>application</small></div>
+      </div>
+
+      <div id="ruleGroups" class="rule-groups"></div>
+    </section>
+
+    <section class="panel" id="letters" hidden>
+      <div class="section-heading">
+        <div>
+          <p class="section-kicker">STEP 2 · COMPLETE THE WORD</p>
+          <h2>听发音，补上缺少的字母</h2>
+          <p class="muted">每题都有三个选项。不要先看中文，先听声音，再判断缺少哪一组字母。</p>
+        </div>
+        <div class="score-chip"><strong id="letterCounter">0 / 12</strong><span>已选择</span></div>
+      </div>
+      <div id="letterQuiz" class="quiz-list"></div>
+      <div class="action-bar">
+        <button class="primary" id="submitLetters" type="button" disabled>提交答案</button>
+        <button class="secondary" id="retryLetters" type="button" hidden>只重做错题</button>
+        <p id="letterResult" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <section class="panel" id="chunks" hidden>
+      <div class="section-heading">
+        <div>
+          <p class="section-kicker">STEP 3 · BUILD WITH CHUNKS</p>
+          <h2>不要一个字母一个字母背</h2>
+          <p class="muted">先听单词，再按正确顺序点击词块。点错可以重来，六个单词全部拼对即完成。</p>
+        </div>
+        <div class="score-chip"><strong id="chunkCounter">0 / 6</strong><span>已拼正确</span></div>
+      </div>
+      <div id="chunkQuiz" class="chunk-grid"></div>
+    </section>
+
+    <section class="panel" id="dictation" hidden>
+      <div class="section-heading">
+        <div>
+          <p class="section-kicker">STEP 4 · FINAL CHECK</p>
+          <h2>听写5个单词</h2>
+          <p class="muted">可以反复听。第一次先自己拼，想不起来时再打开词块提示。</p>
+        </div>
+        <div class="score-chip"><strong id="dictationCounter">0 / 5</strong><span>已写正确</span></div>
+      </div>
+      <div id="dictationList" class="dictation-list"></div>
+      <div id="finalSummary" class="final-summary" hidden></div>
+    </section>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+  <script src="day20.js"></script>
+  <script>(function(){const s=document.createElement("script");s.src=location.hostname==="htmlpreview.github.io"?"https://cdn.jsdelivr.net/gh/yuan17377374946-cpu/honghao-english-learning@main/cloud-sync.js?v=7":"cloud-sync.js";document.body.append(s)})();</script>
+</body>
+</html>
