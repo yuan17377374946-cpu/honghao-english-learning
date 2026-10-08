@@ -17,25 +17,26 @@
       <div>
         <p class="eyebrow">宏浩英语课堂 · DAY 20</p>
         <h1>听声音，拼单词</h1>
-        <p class="hero-copy">使用第一、第二单元已经学过的单词，把发音和字母组合连起来。先听、再拆、最后拼。</p>
+        <p class="hero-copy">先用课本词看懂规律，再用同规律新词反复练习。听声音、找词块、按顺序组合，最后独立拼写。</p>
       </div>
       <div class="hero-score" aria-label="课程进度">
-        <strong id="overallProgress">0 / 4</strong>
+        <strong id="overallProgress">0 / 5</strong>
         <span>完成模块</span>
       </div>
       <div class="progress-track"><i id="progressBar"></i></div>
       <div class="hero-stats">
-        <span><strong>12</strong>个熟词</span>
-        <span><strong>4</strong>组发音规律</span>
+        <span><strong>60+</strong>个同规律词</span>
+        <span><strong>8</strong>组拼写规律</span>
         <span><strong>5</strong>词最后听写</span>
       </div>
     </header>
 
     <nav class="tabs" aria-label="学习模块">
-      <button class="tab active" type="button" data-tab="learn"><b>1</b><span>听音拆词</span></button>
-      <button class="tab" type="button" data-tab="letters"><b>2</b><span>听音补字母</span></button>
-      <button class="tab" type="button" data-tab="chunks"><b>3</b><span>词块拼写</span></button>
-      <button class="tab" type="button" data-tab="dictation"><b>4</b><span>5词听写</span></button>
+      <button class="tab active" type="button" data-tab="learn"><b>1</b><span>规律讲解</span></button>
+      <button class="tab" type="button" data-tab="select"><b>2</b><span>听音选块</span></button>
+      <button class="tab" type="button" data-tab="chunks"><b>3</b><span>排列词块</span></button>
+      <button class="tab" type="button" data-tab="fill"><b>4</b><span>补全词块</span></button>
+      <button class="tab" type="button" data-tab="dictation"><b>5</b><span>独立拼写</span></button>
     </nav>
 
     <section class="panel" id="learn">
@@ -57,22 +58,33 @@
       </div>
 
       <div id="ruleGroups" class="rule-groups"></div>
+
+      <section class="similar-section">
+        <div class="section-heading compact">
+          <div>
+            <p class="section-kicker">SIMILAR WORD BANK</p>
+            <h2>同规律词库</h2>
+            <p class="muted">不要求一次背完。打开一组，点击单词听音，观察相同的拼写部分。</p>
+          </div>
+        </div>
+        <div id="similarBank" class="similar-bank"></div>
+      </section>
     </section>
 
-    <section class="panel" id="letters" hidden>
+    <section class="panel" id="select" hidden>
       <div class="section-heading">
         <div>
-          <p class="section-kicker">STEP 2 · COMPLETE THE WORD</p>
-          <h2>听发音，补上缺少的字母</h2>
-          <p class="muted">每题都有三个选项。不要先看中文，先听声音，再判断缺少哪一组字母。</p>
+          <p class="section-kicker">STEP 2 · HEAR AND CHOOSE</p>
+          <h2>听发音，选择正确词块</h2>
+          <p class="muted">先听完整单词，再判断声音应该由哪组词块组成。选项中有相似的干扰词块。</p>
         </div>
-        <div class="score-chip"><strong id="letterCounter">0 / 12</strong><span>已选择</span></div>
+        <div class="score-chip"><strong id="selectCounter">0 / 10</strong><span>已选择</span></div>
       </div>
-      <div id="letterQuiz" class="quiz-list"></div>
+      <div id="selectQuiz" class="quiz-list"></div>
       <div class="action-bar">
-        <button class="primary" id="submitLetters" type="button" disabled>提交答案</button>
-        <button class="secondary" id="retryLetters" type="button" hidden>只重做错题</button>
-        <p id="letterResult" aria-live="polite"></p>
+        <button class="primary" id="submitSelect" type="button" disabled>提交答案</button>
+        <button class="secondary" id="retrySelect" type="button" hidden>只重做错题</button>
+        <p id="selectResult" aria-live="polite"></p>
       </div>
     </section>
 
@@ -81,19 +93,36 @@
         <div>
           <p class="section-kicker">STEP 3 · BUILD WITH CHUNKS</p>
           <h2>不要一个字母一个字母背</h2>
-          <p class="muted">先听单词，再按正确顺序点击词块。点错可以重来，六个单词全部拼对即完成。</p>
+          <p class="muted">先听单词，再按正确顺序点击词块。这里使用的是与课本词规律相同的新词。</p>
         </div>
-        <div class="score-chip"><strong id="chunkCounter">0 / 6</strong><span>已拼正确</span></div>
+        <div class="score-chip"><strong id="chunkCounter">0 / 10</strong><span>已拼正确</span></div>
       </div>
       <div id="chunkQuiz" class="chunk-grid"></div>
+    </section>
+
+    <section class="panel" id="fill" hidden>
+      <div class="section-heading">
+        <div>
+          <p class="section-kicker">STEP 4 · COMPLETE THE CHUNK</p>
+          <h2>听发音，补全缺少的词块</h2>
+          <p class="muted">先听，再补。注意一个声音可能由一个字母，也可能由多个字母表示。</p>
+        </div>
+        <div class="score-chip"><strong id="fillCounter">0 / 10</strong><span>已选择</span></div>
+      </div>
+      <div id="fillQuiz" class="quiz-list"></div>
+      <div class="action-bar">
+        <button class="primary" id="submitFill" type="button" disabled>提交答案</button>
+        <button class="secondary" id="retryFill" type="button" hidden>只重做错题</button>
+        <p id="fillResult" aria-live="polite"></p>
+      </div>
     </section>
 
     <section class="panel" id="dictation" hidden>
       <div class="section-heading">
         <div>
-          <p class="section-kicker">STEP 4 · FINAL CHECK</p>
-          <h2>听写5个单词</h2>
-          <p class="muted">可以反复听。第一次先自己拼，想不起来时再打开词块提示。</p>
+          <p class="section-kicker">STEP 5 · TRANSFER CHECK</p>
+          <h2>用规律独立拼写5个新词</h2>
+          <p class="muted">这些词没有在前面的题目中重点练过。先听声音、自己拆词块，再输入完整单词。</p>
         </div>
         <div class="score-chip"><strong id="dictationCounter">0 / 5</strong><span>已写正确</span></div>
       </div>
