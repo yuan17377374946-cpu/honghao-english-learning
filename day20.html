@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#173b67">
-  <meta name="description" content="宏浩英语课堂 Day 20：用第一、第二单元熟词学习自然拼读和单词拼写">
+  <meta name="description" content="宏浩英语课堂 Day 20：自然拼读、词块拼写、第三单元完形填空与语法填空">
   <title>宏浩英语课堂 · Day 20</title>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23173b67'/%3E%3Cpath d='M15 18h34v28H15z' rx='4' fill='%23fff'/%3E%3Cpath d='M21 27h22M21 36h14' stroke='%23f0b429' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
-  <link rel="stylesheet" href="day20.css?v=2">
+  <link rel="stylesheet" href="day20.css?v=4">
 </head>
 <body>
   <main class="shell">
@@ -20,7 +20,7 @@
         <p class="hero-copy">先用课本词看懂规律，再用同规律新词反复练习。听声音、找词块、按顺序组合，最后独立拼写。</p>
       </div>
       <div class="hero-score" aria-label="课程进度">
-        <strong id="overallProgress">0 / 5</strong>
+        <strong id="overallProgress">0 / 7</strong>
         <span>完成模块</span>
       </div>
       <div class="progress-track"><i id="progressBar"></i></div>
@@ -28,6 +28,7 @@
         <span><strong>60+</strong>个同规律词</span>
         <span><strong>8</strong>组拼写规律</span>
         <span><strong>5</strong>词最后听写</span>
+        <span><strong>2</strong>篇第三单元练习</span>
       </div>
     </header>
 
@@ -37,6 +38,8 @@
       <button class="tab" type="button" data-tab="chunks"><b>3</b><span>排列词块</span></button>
       <button class="tab" type="button" data-tab="fill"><b>4</b><span>补全词块</span></button>
       <button class="tab" type="button" data-tab="dictation"><b>5</b><span>独立拼写</span></button>
+      <button class="tab" type="button" data-tab="cloze"><b>6</b><span>完形填空</span></button>
+      <button class="tab" type="button" data-tab="grammar"><b>7</b><span>语法填空</span></button>
     </nav>
 
     <section class="panel" id="learn">
@@ -129,10 +132,52 @@
       <div id="dictationList" class="dictation-list"></div>
       <div id="finalSummary" class="final-summary" hidden></div>
     </section>
+
+    <section class="panel" id="cloze" hidden>
+      <div class="section-heading">
+        <div>
+          <p class="section-kicker">STEP 6 · UNIT 3 CLOZE</p>
+          <h2>A Tradition of Caring</h2>
+          <p class="muted">先完整读文章，再根据上下文选择。遇到不认识的词先圈出来，不要只看空格前后两个词。</p>
+        </div>
+        <div class="score-chip"><strong id="clozeCounter">0 / 10</strong><span>已选择</span></div>
+      </div>
+      <div class="reading-layout">
+        <article class="reading-passage" id="clozePassage"></article>
+        <section class="reading-questions" id="clozeQuiz"></section>
+      </div>
+      <div class="action-bar">
+        <button class="primary" id="submitCloze" type="button" disabled>提交完形答案</button>
+        <button class="secondary" id="retryCloze" type="button" hidden>只重做错题</button>
+        <p id="clozeResult" aria-live="polite"></p>
+      </div>
+      <div class="reading-task"><strong>做完后口头回答：</strong>林家的传统是什么？Jason 为什么改变了想法？</div>
+    </section>
+
+    <section class="panel" id="grammar" hidden>
+      <div class="section-heading">
+        <div>
+          <p class="section-kicker">STEP 7 · GRAMMAR IN CONTEXT</p>
+          <h2>Sunday at Grandma's Home</h2>
+          <p class="muted">先判断句子需要什么形式，再从三个选项中选择。提交后会显示每题的判断方法。</p>
+        </div>
+        <div class="score-chip"><strong id="grammarCounter">0 / 10</strong><span>已选择</span></div>
+      </div>
+      <div class="reading-layout">
+        <article class="reading-passage" id="grammarPassage"></article>
+        <section class="reading-questions" id="grammarQuiz"></section>
+      </div>
+      <div class="action-bar">
+        <button class="primary" id="submitGrammar" type="button" disabled>提交语法答案</button>
+        <button class="secondary" id="retryGrammar" type="button" hidden>只重做错题</button>
+        <p id="grammarResult" aria-live="polite"></p>
+      </div>
+    </section>
   </main>
 
   <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
-  <script src="day20.js?v=2"></script>
+  <script src="day20.js?v=4"></script>
   <script>(function(){const s=document.createElement("script");s.src=location.hostname==="htmlpreview.github.io"?"https://cdn.jsdelivr.net/gh/yuan17377374946-cpu/honghao-english-learning@main/cloud-sync.js?v=7":"cloud-sync.js";document.body.append(s)})();</script>
 </body>
 </html>
+

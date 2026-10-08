@@ -5,7 +5,9 @@
   const state = Object.assign({
     tab: "learn", groupStatus: {}, selectAnswers: {}, selectSubmitted: false,
     selectWrongOnly: false, chunkSolved: {}, chunkBuilds: {}, fillAnswers: {},
-    fillSubmitted: false, fillWrongOnly: false, dictation: {}, hints: {}
+    fillSubmitted: false, fillWrongOnly: false, dictation: {}, hints: {},
+    clozeAnswers: {}, clozeSubmitted: false, clozeWrongOnly: false,
+    grammarAnswers: {}, grammarSubmitted: false, grammarWrongOnly: false
   }, readState());
 
   const groups = [
@@ -126,6 +128,42 @@
     {word:"unhappy",display:"un_____",answer:"happy",options:["hapy","happy","happe"],note:"unhappy 由 un + happy 组成。"}
   ];
   const dictationWords = ["plan","chief","spoon","hope","education"];
+
+  const clozePassage = [
+    `For the Lin family, the first Saturday of every winter vacation is special. {{1}} sleeping late, they get up early and prepare hot meals for older people who live alone.`,
+    `The tradition {{2}} five years ago. Mrs Lin learned that an old neighbour had no family nearby, so she cooked a meal for him. Later, helping others became a family {{3}}. At first, Jason only joined {{4}} his parents asked him to. This year, he wanted to watch a basketball {{5}} instead. His mother let him make his own choice.`,
+    `While the family packed the meals, Jason watched his little sister {{6}} the food boxes carefully. He changed his {{7}} and went with them. At the first home, an elderly man opened the door. When he received the meal, his eyes filled with {{8}}. The soup was still {{9}} and warm, but the visit made him even happier. Jason finally understood the tradition. Now he plans to {{10}} it in the future.`
+  ];
+  const clozeQuestions = [
+    {id:1,options:["Instead of","Because of","Such as"],answer:"Instead of",note:"Instead of 后接 doing，表示“没有……而是……”。"},
+    {id:2,options:["begins","began","has begun"],answer:"began",note:"five years ago 是一般过去时标志，用 began。"},
+    {id:3,options:["shame","repetition","practice"],answer:"practice",note:"family practice 在这里表示“家庭中长期坚持的做法”。"},
+    {id:4,options:["because","although","unless"],answer:"because",note:"后半句说明他参加的原因，用 because。"},
+    {id:5,options:["match","decision","vacation"],answer:"match",note:"basketball match 表示“篮球比赛”。"},
+    {id:6,options:["remove","fold","folding"],answer:"folding",note:"watch somebody doing 表示看见某人正在做某事。"},
+    {id:7,options:["mind","way","side"],answer:"mind",note:"change one's mind 表示“改变主意”。"},
+    {id:8,options:["laughter","tears","matches"],answer:"tears",note:"eyes filled with tears 表示“眼里充满泪水”。"},
+    {id:9,options:["fresh","lower","awkward"],answer:"fresh",note:"fresh and warm 都可以形容刚做好的食物。"},
+    {id:10,options:["continue","continued","continuing"],answer:"continue",note:"plan to do，to 后接动词原形 continue。"}
+  ];
+
+  const grammarPassage = [
+    `Every Sunday, my family visits my grandparents. Last Sunday, we {{1}} there earlier than usual because Grandma needed help. Dad suggested {{2}} some fresh fruit and vegetables with us.`,
+    `When we arrived, Grandpa {{3}} the flowers in the garden. I helped him {{4}} two heavy boxes. In the kitchen, my younger brother cut the carrots by {{5}}. Before dinner, Grandma told us {{6}} this family tradition started many years ago. She said that if everyone {{7}} the work, the family would have more time to talk.`,
+    `After dinner, we {{8}} the dishes while our grandparents rested. It was {{9}} ordinary family meal, but it made all of us {{10}} close and happy. I hope we can keep this simple tradition.`
+  ];
+  const grammarQuestions = [
+    {id:1,options:["go","went","goes"],answer:"went",note:"Last Sunday 表示过去，用 go 的过去式 went。"},
+    {id:2,options:["take","taking","took"],answer:"taking",note:"suggest doing，suggest 后接动词-ing。"},
+    {id:3,options:["waters","was watering","watered"],answer:"was watering",note:"我们到达时，爷爷正在浇花，用过去进行时。"},
+    {id:4,options:["carry","carried","carrying"],answer:"carry",note:"help somebody do，help 后可接动词原形。"},
+    {id:5,options:["him","himself","his"],answer:"himself",note:"弟弟自己切菜，用反身代词 himself。"},
+    {id:6,options:["that","what","where"],answer:"that",note:"told us that...，that 引出完整的陈述内容。"},
+    {id:7,options:["shares","shared","will share"],answer:"shares",note:"if 条件句中，用一般现在时表示将来条件。"},
+    {id:8,options:["wash","washed","are washing"],answer:"washed",note:"全文讲 Last Sunday，用一般过去时 washed。"},
+    {id:9,options:["a","an","the"],answer:"an",note:"ordinary 以元音音素开头，用 an。"},
+    {id:10,options:["feel","felt","feeling"],answer:"feel",note:"make somebody do，make 后接动词原形。"}
+  ];
 
   let pronunciationAudio = null;
   let playAllTimer = null;
@@ -306,6 +344,70 @@
     if (correct === dictationWords.length) summary.innerHTML = `<h3>迁移拼写完成</h3><p>这5个词没有在前面的题目中重点练过。能够拼出来，说明已经开始把发音规律用到新词上。</p>`;
   }
 
+  function renderReading(kind, passages, questions) {
+    const answers = state[`${kind}Answers`];
+    const submitted = state[`${kind}Submitted`];
+    const wrongOnly = state[`${kind}WrongOnly`];
+    const visible = wrongOnly ? questions.filter(q => answers[q.id] !== q.answer) : questions;
+    const questionMap = Object.fromEntries(questions.map(q => [q.id, q]));
+    const passageHtml = passages.map(paragraph => `<p>${paragraph.replace(/\{\{(\d+)\}\}/g, (_, rawId) => {
+      const id = Number(rawId); const question = questionMap[id];
+      const shown = submitted ? question.answer : answers[id];
+      return `<span class="reading-blank ${shown ? "" : "empty"}">${shown ? escapeHtml(shown) : `(${id})`}</span>`;
+    })}</p>`).join("");
+    $(`#${kind}Passage`).innerHTML = passageHtml;
+
+    const host = $(`#${kind}Quiz`); host.innerHTML = "";
+    visible.forEach(question => {
+      const selected = answers[question.id];
+      const card = document.createElement("article"); card.className = "reading-question";
+      card.innerHTML = `<h3>${question.id}. 选择最合适的答案</h3><div class="reading-options"></div><p class="reading-explain"></p>`;
+      const options = card.querySelector(".reading-options");
+      question.options.forEach((option, index) => {
+        const button = document.createElement("button"); button.type = "button";
+        button.className = `reading-option ${selected === option ? "selected" : ""}`;
+        button.textContent = `${String.fromCharCode(65 + index)}. ${option}`;
+        if (submitted) {
+          if (option === question.answer) button.classList.add("correct");
+          else if (option === selected) button.classList.add("wrong");
+          button.disabled = true;
+        }
+        button.onclick = () => { answers[question.id] = option; save(); renderReading(kind, passages, questions); };
+        options.append(button);
+      });
+      const explain = card.querySelector(".reading-explain");
+      if (submitted) {
+        const correct = selected === question.answer;
+        explain.className = `reading-explain ${correct ? "good" : "bad"}`;
+        explain.textContent = `${correct ? "✓ 正确。" : `正确答案：${question.answer}。`}${question.note}`;
+      } else {
+        explain.textContent = kind === "cloze" ? "先联系上下文，再确定词义和形式。" : "先判断句子需要的词性、时态或固定搭配。";
+      }
+      host.append(card);
+    });
+
+    const answered = visible.filter(q => answers[q.id]).length;
+    $(`#${kind}Counter`).textContent = `${answered} / ${visible.length}`;
+    const submit = $(`#submit${kind[0].toUpperCase() + kind.slice(1)}`);
+    const retry = $(`#retry${kind[0].toUpperCase() + kind.slice(1)}`);
+    const result = $(`#${kind}Result`);
+    submit.disabled = answered < visible.length || submitted; submit.hidden = submitted;
+    const wrong = questions.filter(q => answers[q.id] !== q.answer);
+    retry.hidden = !submitted || !wrong.length;
+    if (submitted) {
+      const score = questions.length - wrong.length;
+      result.textContent = `得分 ${score} / ${questions.length}${score === questions.length ? "，全部正确！" : `，还有 ${wrong.length} 题需要重新判断。`}`;
+      result.className = score === questions.length ? "perfect" : "";
+    } else { result.textContent = ""; result.className = ""; }
+  }
+  const renderCloze = () => renderReading("cloze", clozePassage, clozeQuestions);
+  const renderGrammar = () => renderReading("grammar", grammarPassage, grammarQuestions);
+  function submitReading(kind, render) { state[`${kind}Submitted`] = true; state[`${kind}WrongOnly`] = false; save(); render(); }
+  function retryReading(kind, questions, render) {
+    questions.filter(q => state[`${kind}Answers`][q.id] !== q.answer).forEach(q => delete state[`${kind}Answers`][q.id]);
+    state[`${kind}Submitted`] = false; state[`${kind}WrongOnly`] = true; save(); render();
+  }
+
   function escapeHtml(value) { const div = document.createElement("div"); div.textContent = value; return div.innerHTML; }
   function moduleDone(tab) {
     if (tab === "learn") return groups.every(group => state.groupStatus[group.id]);
@@ -313,20 +415,23 @@
     if (tab === "chunks") return chunkQuestions.every(q => state.chunkSolved[q.word]);
     if (tab === "fill") return state.fillSubmitted;
     if (tab === "dictation") return dictationWords.every(word => state.dictation[word]?.correct);
+    if (tab === "cloze") return state.clozeSubmitted && clozeQuestions.every(q => state.clozeAnswers[q.id] === q.answer);
+    if (tab === "grammar") return state.grammarSubmitted && grammarQuestions.every(q => state.grammarAnswers[q.id] === q.answer);
     return false;
   }
   function updateProgress() {
-    const tabs = ["learn","select","chunks","fill","dictation"]; const done = tabs.filter(moduleDone).length;
+    const tabs = ["learn","select","chunks","fill","dictation","cloze","grammar"]; const done = tabs.filter(moduleDone).length;
     $("#overallProgress").textContent = `${done} / ${tabs.length}`; $("#progressBar").style.width = `${done / tabs.length * 100}%`;
     $$(".tab").forEach(button => button.classList.toggle("done", moduleDone(button.dataset.tab)));
   }
   function showTab(tab) {
-    if (!["learn","select","chunks","fill","dictation"].includes(tab)) tab = "learn";
+    if (!["learn","select","chunks","fill","dictation","cloze","grammar"].includes(tab)) tab = "learn";
     state.tab = tab; save();
-    ["learn","select","chunks","fill","dictation"].forEach(id => { $("#" + id).hidden = id !== tab; });
+    ["learn","select","chunks","fill","dictation","cloze","grammar"].forEach(id => { $("#" + id).hidden = id !== tab; });
     $$(".tab").forEach(button => button.classList.toggle("active", button.dataset.tab === tab));
     if (tab === "select") renderSelectQuiz(); if (tab === "chunks") renderChunkQuiz();
     if (tab === "fill") renderFillQuiz(); if (tab === "dictation") renderDictation();
+    if (tab === "cloze") renderCloze(); if (tab === "grammar") renderGrammar();
     window.scrollTo({top:0,behavior:"smooth"});
   }
   function toast(message, warning = false) {
@@ -345,6 +450,10 @@
   $("#retrySelect").onclick = () => retryChoice("select", selectQuestions, renderSelectQuiz);
   $("#submitFill").onclick = () => submitChoice("fill", renderFillQuiz);
   $("#retryFill").onclick = () => retryChoice("fill", fillQuestions, renderFillQuiz);
+  $("#submitCloze").onclick = () => submitReading("cloze", renderCloze);
+  $("#retryCloze").onclick = () => retryReading("cloze", clozeQuestions, renderCloze);
+  $("#submitGrammar").onclick = () => submitReading("grammar", renderGrammar);
+  $("#retryGrammar").onclick = () => retryReading("grammar", grammarQuestions, renderGrammar);
   $("#playAll").onclick = () => {
     if (playAllTimer) { clearTimeout(playAllTimer); playAllTimer = null; $("#playAll").textContent = "🔊 依次听12词"; return; }
     let index = 0; $("#playAll").textContent = "⏹ 停止朗读";
@@ -355,6 +464,7 @@
     next();
   };
 
-  renderLearn(); renderSelectQuiz(); renderChunkQuiz(); renderFillQuiz(); renderDictation();
+  renderLearn(); renderSelectQuiz(); renderChunkQuiz(); renderFillQuiz(); renderDictation(); renderCloze(); renderGrammar();
   showTab(state.tab || "learn"); updateProgress();
 })();
+
