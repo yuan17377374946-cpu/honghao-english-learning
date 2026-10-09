@@ -36,7 +36,7 @@
 (() => {
 'use strict';
 const KEY='honghao-day21-v1';
-const defaults=()=>({tab:'dictation',dictation:{},fill:{},learn:{},sentencesAnswers:{},clozeAnswers:{},sentencesSubmitted:false,clozeSubmitted:false,sentencesWrongOnly:false,clozeWrongOnly:false,dictationWrongOnly:false,fillWrongOnly:false,optionHints:{},marks:{}});
+const defaults=()=>({tab:'dictation',dictation:{},fill:{},learn:{},sentencesAnswers:{},clozeAnswers:{},sentencesSubmitted:false,clozeSubmitted:false,sentencesWrongOnly:false,clozeWrongOnly:false,dictationWrongOnly:false,fillWrongOnly:false,optionHints:{},backups:{},marks:{}});
 function read(){try{return Object.assign(defaults(),JSON.parse(localStorage.getItem(KEY)||'{}'));}catch{return defaults();}}
 let state=read(),currentAudio=null,toastTimer=null,dialogWord='',lastWordFocus=null;
 const $=id=>document.getElementById(id), esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -156,6 +156,7 @@ for(const [id,next,label] of [['dictation','learn','学习新字母组合'],['le
 for(const kind of ['sentences','cloze']){const cap=kind==='sentences'?'Sentences':'Cloze';const button=document.createElement('button');button.id='showAll'+cap;button.type='button';button.className='secondary';button.textContent='查看全部题目';button.hidden=true;$('submit'+cap).parentElement.append(button);button.onclick=()=>{state[kind+'WrongOnly']=false;save();renderQuestions(kind);};}
 const ready=document.createElement('div');ready.className='ready-card';ready.innerHTML='<p><strong>今晚先做好三件事：</strong>复习10个词，认会3组组合，读完1篇短文。</p><p>不会时先尝试，再用提示。各部分可以自由切换，不需要一次全部做对。</p>';$('dictationList').before(ready);
 function renderAll(){renderSpelling('dictation');renderLearn();renderSpelling('fill');renderQuestions('sentences');renderQuestions('cloze');setTab(state.tab);}
+for(const kind of ['dictation','fill','sentences','cloze']){const container=$(kind).querySelector('.bar');const redo=document.createElement('button'),undo=document.createElement('button');redo.type=undo.type='button';redo.className=undo.className='secondary';redo.dataset.redo=kind;undo.dataset.undo=kind;redo.textContent='重新练习本部分';undo.textContent='撤销重新练习';undo.hidden=!state.backups[kind];container.append(redo,undo);const keys=kind==='dictation'||kind==='fill'?[kind,kind+'WrongOnly']:[kind+'Answers',kind+'Submitted',kind+'WrongOnly'];redo.onclick=()=>{const backup={};for(const key of keys)backup[key]=state[key];state.backups[kind]=backup;for(const key of keys)state[key]=key.endsWith('Only')||key.endsWith('Submitted')?false:{};undo.hidden=false;save();renderAll();notify('已重新开始本部分；可点击“撤销重新练习”恢复。');};undo.onclick=()=>{if(!state.backups[kind])return;Object.assign(state,state.backups[kind]);delete state.backups[kind];undo.hidden=true;save();renderAll();notify('已恢复重新练习前的记录。');};}
 renderAll();
 document.addEventListener('honghao:cloud-synced',()=>{state=read();renderAll();});
 })();
