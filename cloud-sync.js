@@ -16,7 +16,8 @@
     day17:"honghao-day17",
     day18:"honghao-day18",
     day19:"honghao-day19",
-    day21:"honghao-day21-v1"
+    day21:"honghao-day21-v1",
+    "month-test":"honghao-month-test-v1"
   };
   const HISTORY_KEY="honghao-history-v1";
   const WATCHED_KEYS=new Set([...Object.values(COURSE_KEYS),HISTORY_KEY]);
@@ -36,17 +37,17 @@
   function saveMeta(){writeNative(META_KEY,JSON.stringify(meta))}
   function saveSession(next){session=next;if(next)writeNative(SESSION_KEY,JSON.stringify(next));else removeNative(SESSION_KEY);updateAccountUI()}
   function currentPage(){
-    const direct=(location.pathname.match(/(day\d+|index|vocabulary)\.html$/i)||[])[1];
+    const direct=(location.pathname.match(/(day\d+|month-test|index|vocabulary)\.html$/i)||[])[1];
     if(direct)return direct.toLowerCase();
     const preview=decodeURIComponent((location.search||"").slice(1));
-    return ((preview.match(/\/(day\d+|index|vocabulary)\.html/i)||[])[1]||"index").toLowerCase();
+    return ((preview.match(/\/(day\d+|month-test|index|vocabulary)\.html/i)||[])[1]||"index").toLowerCase();
   }
   function localPageHref(file){
     if(location.hostname!=="htmlpreview.github.io")return file;
     const source=decodeURIComponent((location.search||"").slice(1));
     return location.origin+location.pathname+"?"+source.replace(/\/[^/]+(?:\?.*)?$/,"/"+file);
   }
-  function currentCourse(){const page=currentPage();return /^day\d+$/.test(page)?page:null}
+  function currentCourse(){const page=currentPage();return COURSE_KEYS[page]?page:null}
   function currentStateKey(){return COURSE_KEYS[currentCourse()]||null}
   function formatError(payload,status){
     const text=payload&&(payload.msg||payload.message||payload.error_description||payload.error);
