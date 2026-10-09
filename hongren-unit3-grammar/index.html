@@ -14,10 +14,363 @@
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
 @media print{header button,.nav,.pager,.speak,.homeguide,footer,.hero-scene{display:none}body{background:#fff}.card{box-shadow:none;break-inside:avoid}.shell{max-width:none}.homegrid{display:block}.level{margin-bottom:20px}.hero{background:#fff;color:#182c48;min-height:0;display:block}.hero-description{color:#526580}.hero h2 em{color:#182c48}.hero-chips{display:none}.dashboard{display:none}.level:before{display:none}}
 
+.diagnostic-entry{margin:0 0 28px;border:1px solid #cfddf2;background:linear-gradient(115deg,#fff,#eef4ff)}.diagnostic-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.diagnostic-actions .pill{background:#e1eafb;color:#345780}.diagnostic-breakdown{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:22px}.dot.recorded{background:#739acb}@media(max-width:680px){.diagnostic-actions{width:100%;margin-top:9px}.diagnostic-actions .primary{flex:1}.diagnostic-breakdown{grid-template-columns:1fr}.diagnostic-entry h2{font-size:22px!important}.diagnostic-entry .muted{font-size:13px}.diagnostic-entry .small{font-size:12px}}
 </style></head>
 <body><header><div class="head"><div class="brand"><div class="brandmark" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none"><path d="M10 21C10 10 18 5 26 5C26 13 22 20 11 22Z" fill="currentColor"/><circle cx="21" cy="10" r="3" fill="#a9d6ff"/><path d="M10 14L5 17V24L11 21M17 22L14 27H7L10 21" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M6 26L3 29M9 28L7 30" stroke="#e6a343" stroke-width="2" stroke-linecap="round"/></svg></div><div><div class="eyebrow">Hongren's Space Mission</div><h1>第三单元 · 语法闯关</h1></div></div><div class="head-actions"><span class="pilot-id"><i></i>六年级探险员 · 宏仁</span><button id="homeBtn">任务地图</button></div></div></header><main class="shell" id="app"></main><footer>宏仁专属 · 单词听写在句乐部完成。进度仅保存在当前设备、当前浏览器；离线也可练习。朗读使用设备语音。</footer><div id="toast" role="status" aria-live="polite"></div>
 <script>
 const DATA=[{"name": "can 和 should", "short": "能、会、可以与应该", "color": "#2557b9", "words": [["can", "能、会；也可以表示允许", "I can swim. / You can use my pen."], ["should", "应该：给建议", "You should warm up first."], ["can’t / cannot", "不能、不会；有时表示不允许", "I can’t swim."], ["shouldn’t / should not", "不应该：劝别人别这样做", "You shouldn’t run when you are tired."]], "intro": "先看意思，再看结构。can 和 should 放在动作前面；后面的动作都用原形。", "lessons": [{"title": "01 先分清：本领、允许、建议", "rule": "can 可以说“会做”，也可以说“允许做”。should 是“应该”，给建议。看完整的意思，不要只盯一个词。", "examples": [{"en": "I can swim.", "cn": "我会游泳。", "note": "说本领：我有这个能力。", "source": "补充例句"}, {"en": "You can use my pen.", "cn": "你可以用我的笔。", "note": "说允许：我同意你用。", "source": "补充例句"}, {"en": "You should warm up first.", "cn": "你应该先热身。", "note": "说建议：这样做更好、更安全。", "source": "补充例句"}]}, {"title": "02 回课文：can 后面可以连两个动作", "rule": "先认词组 get into the water（进入水中），再认 swim（游泳）。can 管着这两个动作，它们都用原形。", "examples": [{"en": "Finally, you can get into the water and swim.", "cn": "最后，你可以进入水中游泳。", "note": "Finally（最后） / you（主语） / can get into the water and swim（谓语部分）。", "source": "课文原句 · p27"}]}, {"title": "03 不加 to，不加 s", "rule": "记住骨架：谁＋can / should＋动作原形。换成 he 或 she，动作也不加 s。", "examples": [{"en": "We should wear safety equipment when we do sport.", "cn": "我们运动时应该穿戴安全装备。", "note": "We（主语） / should wear（谓语） / safety equipment（宾语）；后面说明“什么时候”。主干是主谓宾。", "source": "课文原句 · p36"}, {"en": "He should wear a helmet.", "cn": "他应该戴头盔。", "note": "He / should wear / a helmet。wear 不加 s，也不加 to。", "source": "补充例句"}, {"en": "She can swim.", "cn": "她会游泳。", "note": "即使主语是 she，can 后仍然是 swim。", "source": "补充例句"}]}, {"title": "04 否定：把 not 放在情态动词后", "rule": "can not 通常写成一个词 cannot，也可以缩成 can’t。should not 可以缩成 shouldn’t。后面的动作仍用原形。", "examples": [{"en": "I can’t swim.", "cn": "我不会游泳。", "note": "I can swim. 加上否定，变成 I can’t swim.", "source": "补充例句"}, {"en": "You shouldn’t run when you are tired.", "cn": "你累的时候不应该跑步。", "note": "shouldn’t 是“不应该”，不是“不会”。", "source": "补充例句"}]}, {"title": "05 提问：把 can / should 搬到前面", "rule": "谁＋can＋动作 → Can＋谁＋动作？不用再加 do / does。should 也一样。", "examples": [{"en": "Can you swim?", "cn": "你会游泳吗？", "note": "Yes, I can. / No, I can’t. 问 you，回答自己的情况用 I。", "source": "补充例句"}, {"en": "Should we wear helmets?", "cn": "我们应该戴头盔吗？", "note": "Yes, we should. / No, we shouldn’t.", "source": "补充例句"}, {"en": "How should we protect ourselves?", "cn": "我们应该怎样保护自己？", "note": "How（怎样）＋should＋we＋protect＋ourselves。它要回答具体方法，不能只回答 Yes。", "source": "课文原句 · 单元主题"}]}, {"title": "06 看懂句子，再自己表达", "rule": "先找“谁”，再选 can / should，最后接动作原形。主语、动作、对象分别是谁或什么？", "examples": [{"en": "We should learn some first aid skills.", "cn": "我们应该学习一些急救技能。", "note": "We（主语） / should learn（谓语） / some first aid skills（宾语）。主谓宾。", "source": "课文原句 · p36"}, {"en": "He can help me.", "cn": "他能帮助我。", "note": "He（谁） / can help（能做什么） / me（帮助谁）。", "source": "补充例句"}]}], "check": [{"type": "choice", "tag": "认词检查", "prompt": "can 在 I can swim. 中是什么意思？", "options": ["会，有这个本领", "应该", "昨天"], "answer": "会，有这个本领", "explain": "can 在这里说能力。", "id": "0-0"}, {"type": "choice", "tag": "认词检查", "prompt": "你想给朋友一个建议：“你应该先热身。”选哪个词？", "options": ["can", "should"], "answer": "should", "explain": "should 表示“应该”。", "id": "0-1"}, {"type": "choice", "tag": "认词检查", "prompt": "shouldn’t 的意思是？", "options": ["不会", "应该", "不应该"], "answer": "不应该", "explain": "should 加 not，意思变成“不应该”。", "id": "0-2"}, {"type": "choice", "tag": "规则检查", "prompt": "He can ___ .", "options": ["swim", "swims", "to swim"], "answer": "swim", "explain": "can 后面用动词原形。", "id": "0-3"}], "questions": [{"type": "choice", "tag": "理解意思", "prompt": "“她会游泳。” She ___ swim.", "options": ["can", "should"], "answer": "can", "explain": "中文说的是本领，所以选 can。", "id": "0-4"}, {"type": "choice", "tag": "理解意思", "prompt": "“我们应该先热身。” We ___ warm up first.", "options": ["can", "should"], "answer": "should", "explain": "中文明确说“应该”，用 should。", "id": "0-5"}, {"type": "choice", "tag": "理解意思", "prompt": "You can use my pen. 这里 can 表示什么？", "options": ["允许你用", "建议你用", "你以前用过"], "answer": "允许你用", "explain": "can 也能表示允许，不只是“会”。", "id": "0-6"}, {"type": "choice", "tag": "理解意思", "prompt": "“你不应该在累的时候跑步。” You ___ run when you are tired.", "options": ["can’t", "shouldn’t", "can"], "answer": "shouldn’t", "explain": "这里是劝别人别这样做，用 shouldn’t。", "id": "0-7"}, {"type": "choice", "tag": "动词原形", "prompt": "He should ___ a helmet.", "options": ["wears", "to wear", "wear"], "answer": "wear", "explain": "should 后接 wear，不加 to，不加 s。", "id": "0-8"}, {"type": "choice", "tag": "动词原形", "prompt": "She can ___ me.", "options": ["help", "helps", "helped"], "answer": "help", "explain": "主语是 she，can 后也用原形 help。", "id": "0-9"}, {"type": "choice", "tag": "动词原形", "prompt": "We shouldn’t ___ here.", "options": ["running", "run", "to run"], "answer": "run", "explain": "否定不改变后面动词的形式，仍用原形。", "id": "0-10"}, {"type": "choice", "tag": "动词原形", "prompt": "You can get into the water and ___.", "options": ["swims", "swimming", "swim"], "answer": "swim", "explain": "can 后连接的两个动作都用原形。", "id": "0-11"}, {"type": "text", "tag": "改否定句", "prompt": "把 I can swim. 改成否定句。", "answer": ["I can't swim.", "I cannot swim."], "explain": "在 can 后加 not，动作 swim 不变。", "hint": "保留 I 和 swim，只改“能不能”。", "id": "0-12"}, {"type": "text", "tag": "改否定句", "prompt": "把 He can help me. 改成否定句。", "answer": ["He can't help me.", "He cannot help me."], "explain": "can’t / cannot 放在 help 前。", "hint": "", "id": "0-13"}, {"type": "text", "tag": "改否定句", "prompt": "把 We should run here. 改成否定句。", "answer": ["We shouldn't run here.", "We should not run here."], "explain": "shouldn’t 表示“不应该”。", "hint": "", "id": "0-14"}, {"type": "text", "tag": "改否定句", "prompt": "把 She should wear this hat. 改成否定句。", "answer": ["She shouldn't wear this hat.", "She should not wear this hat."], "explain": "should 后加 not，wear 不变。", "hint": "", "id": "0-15"}, {"type": "text", "tag": "变疑问句", "prompt": "把 You can swim. 改成一般疑问句。", "answer": ["Can you swim?"], "explain": "把 can 移到 you 前，不要添加 do。", "hint": "", "id": "0-16"}, {"type": "text", "tag": "变疑问句", "prompt": "把 We should wear helmets. 改成一般疑问句。", "answer": ["Should we wear helmets?"], "explain": "should 放到 we 前面。", "hint": "", "id": "0-17"}, {"type": "choice", "tag": "简短回答", "prompt": "Can she swim? 用肯定回答。", "options": ["Yes, she can.", "Yes, she does.", "Yes, I can."], "answer": "Yes, she can.", "explain": "问 can she，答 she can。", "id": "0-18"}, {"type": "choice", "tag": "简短回答", "prompt": "Should we run here? 用否定回答。", "options": ["No, we can't.", "No, we shouldn't.", "No, we don’t."], "answer": "No, we shouldn't.", "explain": "问 should，答 shouldn’t；主语保持 we。", "id": "0-19"}, {"type": "order", "tag": "组成句子", "prompt": "组成“他会游泳”。", "tokens": ["swim.", "can", "He"], "answer": "He can swim.", "explain": "谁＋can＋动作原形。", "id": "0-20"}, {"type": "order", "tag": "组成句子", "prompt": "组成“我们应该先热身”。", "tokens": ["first.", "warm up", "We", "should"], "answer": "We should warm up first.", "explain": "先找到主语 We，再放 should 和 warm up。", "id": "0-21"}, {"type": "order", "tag": "组成句子", "prompt": "组成“你会帮助她吗？”", "tokens": ["her?", "help", "you", "Can"], "answer": "Can you help her?", "explain": "Can＋主语＋动作＋对象？", "id": "0-22"}, {"type": "text", "tag": "找错改正", "prompt": "整句改正：He can swims.", "answer": ["He can swim."], "explain": "can 后的 swims 去掉 s，变成 swim。", "hint": "", "id": "0-23"}, {"type": "text", "tag": "找错改正", "prompt": "整句改正：She should to wear a helmet.", "answer": ["She should wear a helmet."], "explain": "should 后不加 to。", "hint": "", "id": "0-24"}, {"type": "text", "tag": "找错改正", "prompt": "整句改正：Does he can help you?", "answer": ["Can he help you?"], "explain": "can 自己可以提问，不需要 does。", "hint": "", "id": "0-25"}]}, {"name": "谁的“自己”", "short": "认识全部反身代词", "color": "#2c8164", "words": [["I → myself", "我 → 我自己", "I protect myself."], ["you → yourself", "你 → 你自己", "You protect yourself."], ["he → himself", "他 → 他自己", "He protects himself."], ["she → herself", "她 → 她自己", "She protects herself."], ["it → itself", "它 → 它自己", "The cat cleans itself."], ["we → ourselves", "我们 → 我们自己", "We protect ourselves."], ["you → yourselves", "你们 → 你们自己", "You two protect yourselves."], ["they → themselves", "他们 / 她们 / 它们 → 自己", "They protect themselves."]], "intro": "反身代词就是“自己”。先找出这个“自己”指谁，再选择对应的词；不要看到主语就机械地填。", "lessons": [{"title": "01 做动作的人，也是动作涉及的人", "rule": "I hurt myself. 是“我弄伤了我自己”。I 和 myself 指同一个人。I hurt him. 则是“我弄伤了他”，是两个人。", "examples": [{"en": "I hurt myself.", "cn": "我弄伤了我自己。", "note": "I（主语） / hurt（谓语） / myself（宾语）。主谓宾。", "source": "补充例句"}, {"en": "I hurt him.", "cn": "我弄伤了他。", "note": "him 是他，myself 是我自己，意思不同。", "source": "补充例句"}]}, {"title": "02 同一个人，换不同的“自己”", "rule": "把“我”换成“他”，我自己也要换成他自己。在有 should 的句子里，protect 一直用原形。", "examples": [{"en": "I should protect myself.", "cn": "我应该保护我自己。", "note": "I 对应 myself。", "source": "补充例句"}, {"en": "He should protect himself.", "cn": "他应该保护他自己。", "note": "He 对应 himself；should 后的 protect 不加 s。", "source": "补充例句"}, {"en": "She should protect herself.", "cn": "她应该保护她自己。", "note": "She 对应 herself。", "source": "补充例句"}]}, {"title": "03 回课文：我们保护我们自己", "rule": "先认 protect（保护）和 ourselves（我们自己）。单元主题里的 we 和 ourselves 指同一群人。", "examples": [{"en": "How should we protect ourselves?", "cn": "我们应该怎样保护自己？", "note": "还原主干：We should protect ourselves. 主语 We，谓语 should protect，宾语 ourselves。", "source": "课文原句 · 单元主题"}, {"en": "They should protect themselves.", "cn": "他们应该保护他们自己。", "note": "we 换成 they，ourselves 跟着换成 themselves。", "source": "补充例句"}]}, {"title": "04 一个“你”和一群“你们”", "rule": "you 既能说“你”，也能说“你们”。只有一个人用 yourself；两个人或更多人用 yourselves。单数常见 self，复数是 selves。", "examples": [{"en": "Tom, protect yourself.", "cn": "汤姆，保护好你自己。", "note": "只对汤姆一个人说话。", "source": "补充例句"}, {"en": "Tom and Lily, protect yourselves.", "cn": "汤姆和莉莉，保护好你们自己。", "note": "对两个人说话，要用 yourselves。", "source": "补充例句"}, {"en": "The cat cleans itself.", "cn": "这只猫清洁它自己。", "note": "一只猫，用 itself。", "source": "补充例句"}]}, {"title": "05 先判断是“自己”，还是别人", "rule": "不是每句有 he 就一定用 himself。要看动作涉及的人是不是他自己。", "examples": [{"en": "He hurt himself.", "cn": "他弄伤了他自己。", "note": "做动作的和受伤的是同一个人。", "source": "补充例句"}, {"en": "He hurt me.", "cn": "他弄伤了我。", "note": "一个是他，一个是我。", "source": "补充例句"}, {"en": "We should help them.", "cn": "我们应该帮助他们。", "note": "我们帮助别人，这里不是 ourselves。", "source": "补充例句"}]}], "check": [{"type": "choice", "tag": "认词检查", "prompt": "“它自己”是哪一个？", "options": ["itself", "himself", "themselves"], "answer": "itself", "explain": "it 对应 itself。", "id": "1-0"}, {"type": "choice", "tag": "认词检查", "prompt": "“你们自己”是哪一个？", "options": ["yourself", "yourselves", "ourselves"], "answer": "yourselves", "explain": "多个“你”要用 yourselves。", "id": "1-1"}, {"type": "choice", "tag": "理解检查", "prompt": "He hurt me. 受伤的是谁？", "options": ["我", "他自己"], "answer": "我", "explain": "me 指我，不是他自己。", "id": "1-2"}, {"type": "choice", "tag": "理解检查", "prompt": "We protect ourselves. 中 ourselves 指谁？", "options": ["我们自己", "他们", "我自己"], "answer": "我们自己", "explain": "we 和 ourselves 指同一群人。", "id": "1-3"}], "questions": [{"type": "choice", "tag": "认识对应", "prompt": "“我自己”选哪个？", "options": ["me", "myself", "himself"], "answer": "myself", "explain": "myself 是我自己，me 只是我。", "id": "1-4"}, {"type": "choice", "tag": "认识对应", "prompt": "“她自己”选哪个？", "options": ["himself", "itself", "herself"], "answer": "herself", "explain": "she 对应 herself。", "id": "1-5"}, {"type": "choice", "tag": "认识对应", "prompt": "“它自己”选哪个？", "options": ["itself", "themselves", "ourselves"], "answer": "itself", "explain": "it 对应 itself。", "id": "1-6"}, {"type": "choice", "tag": "认识对应", "prompt": "“你们自己”选哪个？", "options": ["yourself", "yourselves", "themselves"], "answer": "yourselves", "explain": "you 指多人时，对应 yourselves。", "id": "1-7"}, {"type": "choice", "tag": "理解句意", "prompt": "He hurt himself. 的意思是？", "options": ["他弄伤了我", "我弄伤了他", "他弄伤了他自己"], "answer": "他弄伤了他自己", "explain": "he 和 himself 指同一个人。", "id": "1-8"}, {"type": "choice", "tag": "理解句意", "prompt": "He hurt me. 的意思是？", "options": ["他弄伤了我", "他弄伤了他自己", "我弄伤了我自己"], "answer": "他弄伤了我", "explain": "me 是我，和 he 不同。", "id": "1-9"}, {"type": "choice", "tag": "理解句意", "prompt": "We should protect ourselves. 要保护谁？", "options": ["他们", "我们自己", "她自己"], "answer": "我们自己", "explain": "ourselves 是我们自己。", "id": "1-10"}, {"type": "choice", "tag": "理解句意", "prompt": "They should help us. 他们要帮助谁？", "options": ["他们自己", "你自己", "我们"], "answer": "我们", "explain": "us 是我们；这里帮助的是别人。", "id": "1-11"}, {"type": "choice", "tag": "选“自己”", "prompt": "“我应该保护我自己。” I should protect ___.", "options": ["myself", "yourself", "himself"], "answer": "myself", "explain": "主语 I，保护的也是自己，用 myself。", "id": "1-12"}, {"type": "choice", "tag": "选“自己”", "prompt": "“他应该保护他自己。” He should protect ___.", "options": ["herself", "himself", "themselves"], "answer": "himself", "explain": "he 对应 himself。", "id": "1-13"}, {"type": "choice", "tag": "选“自己”", "prompt": "“她应该保护她自己。” She should protect ___.", "options": ["myself", "itself", "herself"], "answer": "herself", "explain": "she 对应 herself。", "id": "1-14"}, {"type": "choice", "tag": "选“自己”", "prompt": "“我们应该保护我们自己。” We should protect ___.", "options": ["ourselves", "themselves", "myself"], "answer": "ourselves", "explain": "we 对应 ourselves。", "id": "1-15"}, {"type": "choice", "tag": "选“自己”", "prompt": "“他们应该保护他们自己。” They should protect ___.", "options": ["himself", "themselves", "ourselves"], "answer": "themselves", "explain": "they 对应 themselves。", "id": "1-16"}, {"type": "choice", "tag": "选“自己”", "prompt": "Tom，这是对你一个人说：“你应该保护你自己。” You should protect ___.", "options": ["yourselves", "myself", "yourself"], "answer": "yourself", "explain": "只有一个“你”，用 yourself。", "id": "1-17"}, {"type": "text", "tag": "换主语", "prompt": "把 We should protect ourselves. 改成“他应该保护他自己”。", "answer": ["He should protect himself."], "explain": "We → He；ourselves → himself；protect 不变。", "hint": "", "id": "1-18"}, {"type": "text", "tag": "换主语", "prompt": "把 He should protect himself. 改成“他们应该保护他们自己”。", "answer": ["They should protect themselves."], "explain": "He → They；himself → themselves。", "hint": "", "id": "1-19"}, {"type": "text", "tag": "换主语", "prompt": "把 I should protect myself. 改成“你们应该保护你们自己”。", "answer": ["You should protect yourselves."], "explain": "多个“你”用 yourselves。", "hint": "", "id": "1-20"}, {"type": "text", "tag": "找错改正", "prompt": "意思是“她应该保护她自己”。整句改正：She should protect himself.", "answer": ["She should protect herself."], "explain": "她自己用 herself，不是 himself。", "hint": "", "id": "1-21"}, {"type": "text", "tag": "找错改正", "prompt": "意思是“他们应该保护他们自己”。整句改正：They should protect himself.", "answer": ["They should protect themselves."], "explain": "多人 they，要用 themselves。", "hint": "", "id": "1-22"}, {"type": "text", "tag": "找错改正", "prompt": "对 Tom 和 Lily 两个人说。整句改正：You should protect yourself.", "answer": ["You should protect yourselves."], "explain": "这里 you 是你们，要用复数 yourselves。", "hint": "", "id": "1-23"}]}, {"name": "直接提醒别人", "short": "祈使句与 Don’t", "color": "#9c4b16", "words": [["choose a safe place", "选择一个安全的地方", "choose＝选择；safe＝安全的"], ["warm up", "热身", "运动前做的准备活动"], ["follow the sports rules", "遵守运动规则", "follow 在这里是遵守；rules＝规则"], ["take a break", "休息一下", "作为整个词组理解"], ["drink some water", "喝一些水", "drink＝喝"], ["Don’t", "不要……", "放在动作原形前"], ["be careful", "小心", "careful 是形容词，前面用 be"], ["be afraid", "害怕", "Don’t be afraid. 别害怕。"]], "intro": "先把动作词组认清，再学怎么发出提醒。“祈使句”就是直接告诉别人做什么或不要做什么。", "lessons": [{"title": "01 动词原形开头，通常省略 you", "rule": "直接对别人说话，通常不写 you。动作从 choose、follow 这些原形开始。", "examples": [{"en": "Choose a safe place.", "cn": "选择一个安全的地方。", "note": "省略的主语是 you；Choose 是谓语，a safe place 是宾语。主谓宾。", "source": "课文原句 · p29"}, {"en": "Follow the sports rules.", "cn": "遵守运动规则。", "note": "先看懂 follow the sports rules，再理解这是一个指令。", "source": "课文原句 · p29"}]}, {"title": "02 先认词组，再加其他信息", "rule": "warm up 是一个动作词组；first 说明先做，always 表示一定要 / 总是。不要把词组拆散。", "examples": [{"en": "Always warm up first.", "cn": "一定要先热身。", "note": "省略 you；warm up 是谓语部分，always 和 first 补充说明。", "source": "课文原句 · p29"}, {"en": "Take a break when you are tired.", "cn": "你累的时候休息一下。", "note": "先抓住 Take a break，再理解后半句说明什么时候。", "source": "课文原句 · p29"}, {"en": "Drink some water.", "cn": "喝一些水。", "note": "Drink（谓语）＋some water（宾语）。", "source": "课文原句 · p29"}]}, {"title": "03 不让别人做：Don’t＋动词原形", "rule": "肯定的 Run here. 是“在这里跑”。加 Don’t 就是“别在这里跑”。转换会把意思变成相反。", "examples": [{"en": "Don’t run here.", "cn": "别在这里跑。", "note": "Don’t＋run，不是 Don’t runs。", "source": "补充例句"}, {"en": "Don’t push others.", "cn": "不要推别人。", "note": "others 是别人；push 用原形。", "source": "补充例句"}]}, {"title": "04 小心、害怕：用 be 带着形容词", "rule": "careful（小心的）和 afraid（害怕的）不是动作动词。说“小心”，用 Be careful.；说“别害怕”，用 Don’t be afraid.", "examples": [{"en": "Be careful.", "cn": "小心。", "note": "省略 you；Be 是系动词，careful 是表语。主系表。", "source": "补充例句"}, {"en": "Don’t be afraid.", "cn": "别害怕。", "note": "否定时保留原形 be。", "source": "补充例句"}]}, {"title": "05 同一件事，换一种说法", "rule": "You should… 是给建议；直接用动作原形开头，是提醒或指令。两种说法表达相近的行动建议，但语气不同。", "examples": [{"en": "Choose a safe place.", "cn": "选择一个安全的地方。", "note": "直接提醒。", "source": "课文原句 · p29"}, {"en": "You should choose a safe place.", "cn": "你应该选择一个安全的地方。", "note": "把 should 建议换成直接提醒时，去掉 You should。", "source": "补充例句"}, {"en": "You shouldn’t run here.", "cn": "你不应该在这里跑。", "note": "直接提醒可以说 Don’t run here.", "source": "补充例句"}]}], "check": [{"type": "choice", "tag": "认词检查", "prompt": "take a break 是什么？", "options": ["休息一下", "打破东西", "跑步"], "answer": "休息一下", "explain": "词组要作为整体认识。", "id": "2-0"}, {"type": "choice", "tag": "认词检查", "prompt": "follow the sports rules 是什么？", "options": ["跟着运动员", "遵守运动规则", "制定规则"], "answer": "遵守运动规则", "explain": "follow 在这里表示遵守。", "id": "2-1"}, {"type": "choice", "tag": "认词检查", "prompt": "Don’t 表示什么？", "options": ["应该", "能", "不要"], "answer": "不要", "explain": "Don’t＋动作原形。", "id": "2-2"}, {"type": "choice", "tag": "规则检查", "prompt": "“小心。”选哪句？", "options": ["Be careful.", "Carefuls.", "To be careful."], "answer": "Be careful.", "explain": "careful 前用原形 be。", "id": "2-3"}], "questions": [{"type": "choice", "tag": "看懂指令", "prompt": "Choose a safe place. 是让你做什么？", "options": ["离开这个地方", "选择安全的地方", "不要去任何地方"], "answer": "选择安全的地方", "explain": "choose＝选择；safe place＝安全的地方。", "id": "2-4"}, {"type": "choice", "tag": "看懂指令", "prompt": "Always warm up first. 要先做什么？", "options": ["喝水", "休息", "热身"], "answer": "热身", "explain": "warm up 是热身，first 是先。", "id": "2-5"}, {"type": "choice", "tag": "看懂指令", "prompt": "Take a break when you are tired. 什么时候休息？", "options": ["累的时候", "任何时候都不休息", "运动结束后才允许"], "answer": "累的时候", "explain": "when you are tired＝你累的时候。", "id": "2-6"}, {"type": "choice", "tag": "看懂指令", "prompt": "Don’t push others. 的意思是？", "options": ["推别人", "不要推别人", "别人不能推你"], "answer": "不要推别人", "explain": "Don’t 表示不要，others 是别人。", "id": "2-7"}, {"type": "choice", "tag": "动词形式", "prompt": "___ a safe place.", "options": ["Chooses", "Choosing", "Choose"], "answer": "Choose", "explain": "祈使句用动词原形开头。", "id": "2-8"}, {"type": "choice", "tag": "动词形式", "prompt": "Don’t ___ here.", "options": ["run", "runs", "to run"], "answer": "run", "explain": "Don’t 后接原形 run。", "id": "2-9"}, {"type": "choice", "tag": "动词形式", "prompt": "___ careful.", "options": ["Is", "Be", "Are"], "answer": "Be", "explain": "这里是直接提醒，用原形 Be。", "id": "2-10"}, {"type": "choice", "tag": "动词形式", "prompt": "Don’t ___ afraid.", "options": ["is", "are", "be"], "answer": "be", "explain": "Don’t 后也用 be 原形。", "id": "2-11"}, {"type": "text", "tag": "改否定指令", "prompt": "把 Run here. 改成“不要在这里跑”。", "answer": ["Don't run here."], "explain": "句首加 Don’t，run 不变。", "hint": "", "id": "2-12"}, {"type": "text", "tag": "改否定指令", "prompt": "把 Push others. 改成“不要推别人”。", "answer": ["Don't push others."], "explain": "Don’t＋push＋others。", "hint": "", "id": "2-13"}, {"type": "text", "tag": "改肯定指令", "prompt": "把 Don’t drink water here. 改成肯定指令。", "answer": ["Drink water here."], "explain": "去掉 Don’t；这是反向练习，意思变成“在这里喝水”。", "hint": "", "id": "2-14"}, {"type": "text", "tag": "改否定指令", "prompt": "把 Be afraid. 改成“别害怕”。", "answer": ["Don't be afraid."], "explain": "在 be 前加 Don’t，不要丢掉 be。", "hint": "", "id": "2-15"}, {"type": "order", "tag": "组成指令", "prompt": "组成“遵守运动规则”。", "tokens": ["the sports rules.", "Follow"], "answer": "Follow the sports rules.", "explain": "Follow＋宾语 the sports rules。", "id": "2-16"}, {"type": "order", "tag": "组成指令", "prompt": "组成“一定要先热身”。", "tokens": ["first.", "warm up", "Always"], "answer": "Always warm up first.", "explain": "Always 在前，warm up 是完整词组，first 在最后。", "id": "2-17"}, {"type": "order", "tag": "组成指令", "prompt": "组成“不要推别人”。", "tokens": ["others.", "push", "Don't"], "answer": "Don't push others.", "explain": "Don’t＋动作原形＋对象。", "id": "2-18"}, {"type": "text", "tag": "换句型", "prompt": "把 You should choose a safe place. 改成直接提醒。", "answer": ["Choose a safe place."], "explain": "省略 You should，直接用 Choose 开头。", "hint": "", "id": "2-19"}, {"type": "text", "tag": "换句型", "prompt": "把 You shouldn’t run here. 改成“别在这里跑”的直接提醒。", "answer": ["Don't run here."], "explain": "用 Don’t＋run，不保留 You shouldn’t。", "hint": "", "id": "2-20"}, {"type": "text", "tag": "情境表达", "prompt": "朋友准备运动。用祈使句说“先热身”。", "answer": ["Warm up first."], "explain": "warm up＝热身；first＝先。", "hint": "给你的词组：warm up / first", "id": "2-21"}]}, {"name": "把步骤说清楚", "short": "First · Next · Then · Finally", "color": "#6a4ab0", "words": [["First", "首先：开始的步骤", "First, find the right place."], ["Next", "接着：连接下一步", "Next, wait for the train."], ["Then", "然后：连接后面的步骤", "Then, put on your goggles."], ["Finally", "最后：结束的步骤", "Finally, get on the train."], ["find the right place", "找到正确的地方", "find＝找到；right 在这里是正确的"], ["wait for the train", "等候列车", "wait for＝等候"], ["behind the yellow line", "在黄线后面", "behind＝在……后面"], ["get on the train", "上列车", "get on＝上（车）"], ["in your size", "适合你的尺码", "先选合适的头盔"], ["make sure it will not fall", "确保它不会掉落", "把这条作为步骤词组理解，不展开新的情态动词"]], "intro": "先认识连接词和步骤词组。First 是开始，Finally 是最后；Next 和 Then 都可以连接中间步骤，不是所有事情都只有四步。", "lessons": [{"title": "01 先用中文理解“先、接着、最后”", "rule": "就像收拾书包：先放书，接着放笔袋，最后拉上拉链。三个步骤也能说清楚，不必硬凑四步。", "examples": [{"en": "First, put the books in the bag.", "cn": "首先，把书放进书包。", "note": "First 说明这是开始的一步。", "source": "补充例句"}, {"en": "Next, put the pencil case in the bag.", "cn": "接着，把笔袋放进书包。", "note": "这里 Next 也可以换成 Then。", "source": "补充例句"}, {"en": "Finally, close the bag.", "cn": "最后，合上书包。", "note": "Finally 放在最后一步。", "source": "补充例句"}]}, {"title": "02 回课文：乘地铁的三个步骤", "rule": "先理解动作词组，再看顺序词。顺序词之后接一个指令，通常用逗号隔开。", "examples": [{"en": "First, find the right place.", "cn": "首先，找到正确的地方。", "note": "First＋逗号＋find… 指令。", "source": "课文原句 · p31"}, {"en": "Next, wait for the train behind the yellow line.", "cn": "接着，在黄线后面等候列车。", "note": "wait for the train 是动作；behind the yellow line 说明位置。", "source": "课文原句 · p31"}, {"en": "Finally, get on the train when it arrives.", "cn": "最后，列车到达时上车。", "note": "先抓 get on the train，再看 when it arrives。", "source": "课文原句 · p31"}]}, {"title": "03 看懂步骤，再把指令连起来", "rule": "戴头盔按教材顺序：选尺码、检查、戴上、确认不会掉。课本示例中间用 Next 和 Then；自己的合理表达中两者都能连接中间步骤。", "examples": [{"en": "Choose a helmet in your size.", "cn": "选择适合你尺码的头盔。", "note": "第1步。", "source": "教材步骤原文 · p31"}, {"en": "Check the helmet.", "cn": "检查头盔。", "note": "第2步。", "source": "教材步骤原文 · p31"}, {"en": "Put on the helmet.", "cn": "戴上头盔。", "note": "第3步。", "source": "教材步骤原文 · p31"}, {"en": "Make sure it will not fall.", "cn": "确保它不会掉落。", "note": "第4步；整条理解即可。", "source": "教材步骤原文 · p31"}]}], "check": [{"type": "choice", "tag": "认词检查", "prompt": "First 表示什么？", "options": ["首先", "最后", "也许"], "answer": "首先", "explain": "开始的一步用 First。", "id": "3-0"}, {"type": "choice", "tag": "认词检查", "prompt": "Finally 表示什么？", "options": ["然后", "最后", "总是"], "answer": "最后", "explain": "结束的一步用 Finally。", "id": "3-1"}, {"type": "choice", "tag": "理解检查", "prompt": "中间步骤可以用哪个连接词？", "options": ["只能用 Finally", "必须一直用 First", "Next 或 Then 都可以"], "answer": "Next 或 Then 都可以", "explain": "Next 和 Then 都可以承接中间步骤。", "id": "3-2"}, {"type": "choice", "tag": "词组检查", "prompt": "get on the train 是什么意思？", "options": ["上列车", "等列车", "下列车"], "answer": "上列车", "explain": "get on 是上车，wait for 是等候。", "id": "3-3"}], "questions": [{"type": "choice", "tag": "理解词义", "prompt": "哪一个表示“首先”？", "options": ["Finally", "First", "Then"], "answer": "First", "explain": "First 是开始。", "id": "3-4"}, {"type": "choice", "tag": "理解词义", "prompt": "哪一个表示“最后”？", "options": ["Next", "First", "Finally"], "answer": "Finally", "explain": "Finally 是最后。", "id": "3-5"}, {"type": "choice", "tag": "理解步骤", "prompt": "课文乘地铁的开始步骤是？", "options": ["Find the right place.", "Get on the train.", "Wait for the train."], "answer": "Find the right place.", "explain": "课文首先说 First, find the right place.", "id": "3-6"}, {"type": "choice", "tag": "理解步骤", "prompt": "课文要求在哪里等列车？", "options": ["On the train.", "Behind the yellow line.", "In the water."], "answer": "Behind the yellow line.", "explain": "behind the yellow line＝在黄线后面。", "id": "3-7"}, {"type": "choice", "tag": "理解步骤", "prompt": "按教材戴头盔步骤，戴上后还要做什么？", "options": ["Check the helmet again as step two.", "Choose the size as step one.", "Make sure it will not fall."], "answer": "Make sure it will not fall.", "explain": "最后要确认头盔不会掉落。", "id": "3-8"}, {"type": "order", "tag": "步骤排序", "prompt": "按课文乘地铁的顺序点击。", "tokens": ["Get on the train when it arrives.", "Find the right place.", "Wait for the train behind the yellow line."], "answer": "Find the right place. Wait for the train behind the yellow line. Get on the train when it arrives.", "explain": "找到地方 → 黄线后候车 → 列车到达后上车。", "id": "3-9"}, {"type": "order", "tag": "步骤排序", "prompt": "按教材戴头盔的步骤点击。", "tokens": ["Put on the helmet.", "Make sure it will not fall.", "Choose a helmet in your size.", "Check the helmet."], "answer": "Choose a helmet in your size. Check the helmet. Put on the helmet. Make sure it will not fall.", "explain": "选尺码 → 检查 → 戴上 → 确认不会掉。", "id": "3-10"}, {"type": "text", "tag": "填顺序词", "prompt": "这是第一步：___, find the right place. 只填连接词。", "answer": ["First"], "explain": "开始的一步用 First。", "hint": "", "id": "3-11"}, {"type": "text", "tag": "填顺序词", "prompt": "这是中间一步：___, check the helmet. 只填连接词。", "answer": ["Next", "Then"], "explain": "中间步骤可以用 Next 或 Then，这两种都接受。", "hint": "", "id": "3-12"}, {"type": "text", "tag": "填顺序词", "prompt": "这是最后一步：___, make sure it will not fall. 只填连接词。", "answer": ["Finally"], "explain": "最后一步用 Finally。", "hint": "", "id": "3-13"}, {"type": "order", "tag": "综合表达", "prompt": "组成“首先，我们应该热身”。", "tokens": ["warm up.", "we", "First,", "should"], "answer": "First, we should warm up.", "explain": "First 引出开始步骤；we should＋动作原形。", "id": "3-14"}, {"type": "text", "tag": "综合表达", "prompt": "用“最后”开头，把“我们应该保护我们自己”写成完整句子。", "answer": ["Finally, we should protect ourselves."], "explain": "Finally＋we should＋protect＋ourselves。", "hint": "给你的词：Finally / we / should / protect / ourselves", "id": "3-15"}]}];
+const TEST={
+  "name": "七句背诵检测",
+  "short": "p26—27 · 词组、句意与运用",
+  "color": "#2557b9",
+  "questions": [
+    {
+      "id": "sentence-test-01",
+      "type": "choice",
+      "group": "词组",
+      "tag": "词组 · p26 B",
+      "prompt": "We should warm up before doing exercise.\n这里的 warm up 是什么意思？",
+      "options": [
+        "运动后休息",
+        "做热身活动",
+        "穿上运动服",
+        "开始正式比赛"
+      ],
+      "answer": "做热身活动",
+      "explain": "warm up 在运动情境中表示热身，让身体为运动做好准备。"
+    },
+    {
+      "id": "sentence-test-02",
+      "type": "choice",
+      "group": "词组",
+      "tag": "词组 · p26 B",
+      "prompt": "before doing exercise 的意思是：",
+      "options": [
+        "在运动之后",
+        "在运动过程中",
+        "直到运动结束",
+        "在运动之前"
+      ],
+      "answer": "在运动之前",
+      "explain": "before 表示在……之前；doing exercise 表示做运动，合起来是“在运动之前”。"
+    },
+    {
+      "id": "sentence-test-03",
+      "type": "choice",
+      "group": "词组",
+      "tag": "词组 · p26 B",
+      "prompt": "When someone gets hurt, we should try to help.\n这里的 gets hurt 是什么意思？",
+      "options": [
+        "受伤",
+        "帮助别人",
+        "开始运动",
+        "感到疲倦"
+      ],
+      "answer": "受伤",
+      "explain": "get hurt 表示受伤；someone 在这里按单数处理，所以用 gets。"
+    },
+    {
+      "id": "sentence-test-04",
+      "type": "choice",
+      "group": "词组",
+      "tag": "词组 · p26 B",
+      "prompt": "try to help 最合适的意思是：",
+      "options": [
+        "等待别人来帮助自己",
+        "拒绝帮助别人",
+        "尽力帮助别人",
+        "保证能解决所有问题"
+      ],
+      "answer": "尽力帮助别人",
+      "explain": "try to help 表示尝试或尽力提供帮助，并不保证一定成功。"
+    },
+    {
+      "id": "sentence-test-05",
+      "type": "choice",
+      "group": "词组",
+      "tag": "词组 · p27 C",
+      "prompt": "Here are some swimming tips for you.\n这里的 swimming tips 指什么？",
+      "options": [
+        "游泳比赛的成绩",
+        "一些游泳建议",
+        "游泳用品的价格",
+        "游泳训练的时间"
+      ],
+      "answer": "一些游泳建议",
+      "explain": "swimming tips 是游泳方面的建议，后面的短文介绍准备步骤。"
+    },
+    {
+      "id": "sentence-test-06",
+      "type": "choice",
+      "group": "词组",
+      "tag": "词组 · p27 C",
+      "prompt": "哪一组运动用品与中文对应正确？",
+      "options": [
+        "swimsuit＝泳帽；swimming cap＝泳衣；swimming goggles＝泳镜",
+        "swimsuit＝泳衣；swimming cap＝泳镜；swimming goggles＝泳帽",
+        "swimsuit＝泳镜；swimming cap＝泳帽；swimming goggles＝泳衣",
+        "swimsuit＝泳衣；swimming cap＝泳帽；swimming goggles＝泳镜"
+      ],
+      "answer": "swimsuit＝泳衣；swimming cap＝泳帽；swimming goggles＝泳镜",
+      "explain": "swimsuit＝泳衣；swimming cap＝泳帽；swimming goggles＝泳镜。检查自己能否单独认出每个词组。"
+    },
+    {
+      "id": "sentence-test-07",
+      "type": "choice",
+      "group": "词组",
+      "tag": "词组 · p27 C",
+      "prompt": "Finally, you can get into the water and swim.\n这里的 get into the water 是什么意思？",
+      "options": [
+        "进入水中",
+        "离开水中",
+        "把水喝下去",
+        "让水进入眼睛"
+      ],
+      "answer": "进入水中",
+      "explain": "get into the water 指人进入水中，也就是下水；本句的主语是 you。"
+    },
+    {
+      "id": "sentence-test-08",
+      "type": "choice",
+      "group": "句意",
+      "tag": "句意 · p27 C",
+      "prompt": "Here are some swimming tips for you.\n哪个翻译最准确？",
+      "options": [
+        "你应该在这里参加游泳比赛。",
+        "这些游泳用品全部都是你的。",
+        "这里有一些给你的游泳建议。",
+        "你已经学会了所有游泳技巧。"
+      ],
+      "answer": "这里有一些给你的游泳建议。",
+      "explain": "some swimming tips＝一些游泳建议；for you＝给你的。本句是短文的开头介绍句。"
+    },
+    {
+      "id": "sentence-test-09",
+      "type": "choice",
+      "group": "句意",
+      "tag": "句意 · p26 B",
+      "prompt": "按照 We should warm up before doing exercise. 的意思，哪种做法符合建议？",
+      "options": [
+        "先热身，再正式运动。",
+        "先正式运动，结束后再热身。",
+        "只要穿好运动服，就可以省去热身。",
+        "只有受伤以后，才需要热身。"
+      ],
+      "answer": "先热身，再正式运动。",
+      "explain": "before doing exercise 说明热身发生在正式运动之前：先热身，再运动。"
+    },
+    {
+      "id": "sentence-test-10",
+      "type": "choice",
+      "group": "句意",
+      "tag": "句意 · p26 B",
+      "prompt": "When someone gets hurt, we should try to help.\n这句话在建议什么？",
+      "options": [
+        "我们受伤时，应该要求所有人帮助。",
+        "有人受伤时，应该让他继续运动。",
+        "有人帮助我们时，我们应该去运动。",
+        "有人受伤时，我们应该尽力帮助。"
+      ],
+      "answer": "有人受伤时，我们应该尽力帮助。",
+      "explain": "when 引出有人受伤的情境，后半句建议我们尽力帮助。看清楚谁受伤、谁提供帮助。"
+    },
+    {
+      "id": "sentence-test-11",
+      "type": "choice",
+      "group": "句意",
+      "tag": "句意 · p27 C",
+      "prompt": "First, put on your swimsuit and swimming cap.\n这一步要求做哪两件事？",
+      "options": [
+        "戴泳镜，并做热身运动。",
+        "穿泳衣，并戴上泳帽。",
+        "脱下泳衣，并摘下泳帽。",
+        "戴泳帽，并立即下水。"
+      ],
+      "answer": "穿泳衣，并戴上泳帽。",
+      "explain": "put on 表示穿上或戴上，同时连接 swimsuit 和 swimming cap：穿泳衣，戴泳帽。"
+    },
+    {
+      "id": "sentence-test-12",
+      "type": "choice",
+      "group": "句意",
+      "tag": "句意 · p27 C",
+      "prompt": "Then, put on your swimming goggles, so the water does not get into your eyes.\n为什么要戴泳镜？",
+      "options": [
+        "为了让水更容易进入眼睛。",
+        "为了代替前面的热身活动。",
+        "为了防止水进入眼睛。",
+        "为了不用再穿泳衣和戴泳帽。"
+      ],
+      "answer": "为了防止水进入眼睛。",
+      "explain": "so 后面说明结果：水不会进入眼睛。注意 does not 是否定，不能把意思理解反。"
+    },
+    {
+      "id": "sentence-test-13",
+      "type": "choice",
+      "group": "句意",
+      "tag": "句意 · p27 C",
+      "prompt": "Finally, you can get into the water and swim.\n哪个理解最准确？",
+      "options": [
+        "首先，你应该下水，再准备游泳用品。",
+        "最后，你不能下水，也不能游泳。",
+        "最后，你应该离开水中，停止游泳。",
+        "最后，你可以下水并游泳。"
+      ],
+      "answer": "最后，你可以下水并游泳。",
+      "explain": "Finally＝最后；can＝可以；get into the water and swim＝下水并游泳。"
+    },
+    {
+      "id": "sentence-test-14",
+      "type": "choice",
+      "group": "句意",
+      "tag": "句意 · p27 C",
+      "prompt": "按照游泳建议短文，哪一个顺序正确？",
+      "options": [
+        "穿泳衣、戴泳帽 → 热身 → 戴泳镜 → 下水游泳",
+        "穿泳衣、戴泳帽 → 下水游泳 → 热身 → 戴泳镜",
+        "戴泳镜 → 下水游泳 → 穿泳衣、戴泳帽 → 热身",
+        "热身 → 戴泳镜 → 下水游泳 → 穿泳衣、戴泳帽"
+      ],
+      "answer": "穿泳衣、戴泳帽 → 热身 → 戴泳镜 → 下水游泳",
+      "explain": "课文顺序：First 穿泳衣、戴泳帽；Next 热身；Then 戴泳镜；Finally 下水游泳。"
+    },
+    {
+      "id": "sentence-test-15",
+      "type": "choice",
+      "group": "运用",
+      "tag": "运用 · p26 B",
+      "prompt": "选择正确的词：\nWe should ___ before doing exercise.",
+      "options": [
+        "to warm up",
+        "warming up",
+        "warm up",
+        "warms up"
+      ],
+      "answer": "warm up",
+      "explain": "should 后接动词原形：不加 to，不加 s，也不用 ing 形式，所以用 warm up。"
+    },
+    {
+      "id": "sentence-test-16",
+      "type": "choice",
+      "group": "运用",
+      "tag": "运用 · 补充练习 · 根据p26 B",
+      "prompt": "把“我们应该先热身”换成“他应该先热身”，哪句正确？",
+      "options": [
+        "He should warms up first.",
+        "He should warm up first.",
+        "He should to warm up first.",
+        "He should warming up first."
+      ],
+      "answer": "He should warm up first.",
+      "explain": "即使主语换成 he，should 后面仍接动词原形 warm up，不加 s 或 to。"
+    },
+    {
+      "id": "sentence-test-17",
+      "type": "choice",
+      "group": "运用",
+      "tag": "运用 · p26 B",
+      "prompt": "选择正确形式：\nWe should warm up before ___ exercise.",
+      "options": [
+        "do",
+        "does",
+        "to do",
+        "doing"
+      ],
+      "answer": "doing",
+      "explain": "before 在这里后接动作时用 ing 形式：before doing exercise。注意它与 should 后接原形的规则不同。"
+    },
+    {
+      "id": "sentence-test-18",
+      "type": "choice",
+      "group": "运用",
+      "tag": "运用 · p26 B",
+      "prompt": "选择正确形式：\nWhen someone ___ hurt, we should try to help.",
+      "options": [
+        "gets",
+        "get",
+        "getting",
+        "to get"
+      ],
+      "answer": "gets",
+      "explain": "someone 在这里按单数处理，一般现在时用 gets hurt。这里没有 can 或 should 管着 get。"
+    },
+    {
+      "id": "sentence-test-19",
+      "type": "choice",
+      "group": "运用",
+      "tag": "运用 · p27 C",
+      "prompt": "选择正确形式：\nThe water does not ___ into your eyes.",
+      "options": [
+        "gets",
+        "to get",
+        "get",
+        "getting"
+      ],
+      "answer": "get",
+      "explain": "does not 后面接动词原形 get。does 已经承担第三人称单数变化，后面的动词不再加 s。"
+    },
+    {
+      "id": "sentence-test-20",
+      "type": "choice",
+      "group": "运用",
+      "tag": "运用 · p27 C",
+      "prompt": "选择正确形式：\nFinally, you can ___ into the water and ___.",
+      "options": [
+        "get；swims",
+        "get；swim",
+        "gets；swim",
+        "to get；to swim"
+      ],
+      "answer": "get；swim",
+      "explain": "can 同时管着 get 和由 and 连接的 swim，两个动作都用原形，不加 s 或 to。"
+    }
+  ],
+  "words": [],
+  "lessons": [],
+  "check": [],
+  "sources": [
+    [
+      "p26 · B Read and complete（空格补全后）",
+      [
+        [
+          "We should warm up before doing exercise.",
+          "我们应该在运动前热身。"
+        ],
+        [
+          "When someone gets hurt, we should try to help.",
+          "当有人受伤时，我们应该尽力帮助。"
+        ]
+      ]
+    ],
+    [
+      "p27 · C Read and order｜游泳建议短文",
+      [
+        [
+          "Here are some swimming tips for you.",
+          "这里有一些给你的游泳建议。"
+        ],
+        [
+          "First, put on your swimsuit and swimming cap.",
+          "首先，穿上泳衣，戴上泳帽。"
+        ],
+        [
+          "Next, do warm-up exercises.",
+          "接着，做热身运动。"
+        ],
+        [
+          "Then, put on your swimming goggles, so the water does not get into your eyes.",
+          "然后，戴上泳镜，这样水就不会进入你的眼睛。"
+        ],
+        [
+          "Finally, you can get into the water and swim.",
+          "最后，你可以下水游泳。"
+        ]
+      ]
+    ]
+  ]
+};
+const CORE=DATA.slice();
+DATA.push(TEST);
 const KEY='hongren-unit3-grammar-v1';
 const $=s=>document.querySelector(s);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -38,7 +391,8 @@ const MISSIONS=[
  {planet:'01 · 能量补给星',name:'能量徽章',symbol:'⚡',pale:'#eef3ff'},
  {planet:'02 · 分身训练星',name:'分身徽章',symbol:'✦',pale:'#eef8f2'},
  {planet:'03 · 指令控制星',name:'指令徽章',symbol:'⌘',pale:'#fff3eb'},
- {planet:'04 · 航线探索星',name:'航线徽章',symbol:'★',pale:'#f2effc'}
+ {planet:'04 · 航线探索星',name:'航线徽章',symbol:'★',pale:'#f2effc'},
+ {planet:'特别任务 · p26—27',name:'理解徽章',symbol:'✦',pale:'#eef3ff'}
 ];
 function icon(type){const paths={star:'<path d="m16 3 4 8 9 1-6.5 6.5 1.5 9L16 23l-8 4.5 1.5-9L3 12l9-1Z"/>',flag:'<path d="M7 28V5m1 1c6-4 11 5 17 0v14c-6 5-11-4-17 0"/>',rocket:'<path d="M11 21C11 11 18 5 27 5c0 9-6 16-16 16Zm0 0-4 4M10 15l-5 3v7l6-4m6 1-3 5H7"/><circle cx="21" cy="11" r="3"/>'};return `<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths[type]}</svg>`}
 function robot(){return `<svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M24 6v6" stroke="#6688bd" stroke-width="3"/><circle cx="24" cy="5" r="3" fill="#efbb63"/><rect x="7" y="12" width="34" height="29" rx="11" fill="#fff" stroke="#98b4d8" stroke-width="2"/><rect x="13" y="20" width="22" height="11" rx="5" fill="#244570"/><circle cx="19" cy="25" r="2" fill="#94e6cb"/><circle cx="29" cy="25" r="2" fill="#94e6cb"/><path d="M20 35h8M3 24v7m42-7v7" stroke="#6688bd" stroke-width="3" stroke-linecap="round"/></svg>`}
@@ -47,17 +401,18 @@ function spaceScene(){return `<div class="hero-scene" aria-hidden="true"><svg vi
 
 function home(){
  stage='home';document.documentElement.style.setProperty('--accent','#2557b9');
- const n=DATA.map(nums),total=n.reduce((a,v)=>a+v.done,0),cleared=n.filter((v,i)=>v.mastered===DATA[i].questions.length).length;
+ const n=CORE.map(nums),total=n.reduce((a,v)=>a+v.done,0),cleared=n.filter((v,i)=>v.mastered===CORE[i].questions.length).length;
  $('#app').innerHTML=`<section class="hero"><div class="hero-copy"><span class="mission-kicker">UNIT 03 / GRAMMAR EXPEDITION</span><h2>宏仁，准备出发！<br>开启你的<em>语法星际任务</em></h2><p class="hero-description">先认词，再学规则。把课文里的句子变成你的本领，一起点亮四颗语法星球。</p><div class="hero-chips"><span>4 颗任务星球</span><span>72 道练习</span><span>随时继续挑战</span></div></div>${spaceScene()}</section>
- <div class="dashboard"><div class="stat-card"><span class="stat-icon">${icon('flag')}</span><div><div class="stat-value">${cleared}<small> / 4</small></div><div class="stat-label">已练熟的星球</div></div></div><div class="stat-card"><span class="stat-icon">${icon('rocket')}</span><div><div class="stat-value">${total}<small> / 72</small></div><div class="stat-label">已完成的练习</div></div></div><div class="stat-card badge-stat"><div><div class="stat-value" style="font-size:17px">我的探险徽章</div><div class="stat-label">练熟一关，点亮一枚</div></div><div class="badge-row">${MISSIONS.map((m,i)=>`<span class="mini-badge ${n[i].mastered===DATA[i].questions.length?'earned':''}" title="${esc(m.name)}${n[i].mastered===DATA[i].questions.length?'：已获得':'：本关全部练熟后获得'}" aria-label="${esc(m.name)}，${n[i].mastered===DATA[i].questions.length?'已获得':'未获得'}">${m.symbol}</span>`).join('')}</div></div></div>
+ <div class="dashboard"><div class="stat-card"><span class="stat-icon">${icon('flag')}</span><div><div class="stat-value">${cleared}<small> / 4</small></div><div class="stat-label">已练熟的星球</div></div></div><div class="stat-card"><span class="stat-icon">${icon('rocket')}</span><div><div class="stat-value">${total}<small> / 72</small></div><div class="stat-label">已完成的练习</div></div></div><div class="stat-card badge-stat"><div><div class="stat-value" style="font-size:17px">我的探险徽章</div><div class="stat-label">练熟一关，点亮一枚</div></div><div class="badge-row">${MISSIONS.slice(0,4).map((m,i)=>`<span class="mini-badge ${n[i].mastered===CORE[i].questions.length?'earned':''}" title="${esc(m.name)}${n[i].mastered===CORE[i].questions.length?'：已获得':'：本关全部练熟后获得'}" aria-label="${esc(m.name)}，${n[i].mastered===CORE[i].questions.length?'已获得':'未获得'}">${m.symbol}</span>`).join('')}</div></div></div>
+ <section class="card diagnostic-entry"><div class="flex between"><div><div class="mission-no">特别任务 / 昨天的七句背诵</div><h2 style="margin:0;font-size:24px">七句背诵检测</h2><p class="muted" style="margin:7px 0 0">p26 · B Read and complete　｜　p27 · C Read and order</p><p class="small" style="margin:7px 0 0">20 道选择题：词组 7 题 · 句意 7 题 · 运用 6 题。先独立作答，结束后看答案。</p></div><div class="diagnostic-actions"><span class="pill">已答 ${nums(TEST).done}/20</span><button id="sentenceTestBtn" class="primary">${nums(TEST).done===20?'查看检测结果':nums(TEST).done?'继续检测 →':'开始检测 →'}</button>${nums(TEST).wrong&&nums(TEST).done===20?`<button id="sentenceWrongBtn">再练错题 ${nums(TEST).wrong}</button>`:''}</div></div></section>
  <div class="section-head"><div><h2>选择你的下一站</h2><p>四关都可以直接打开，按课堂进度慢慢练。</p></div><span class="map-caption">MISSION MAP / 01—04</span></div><div class="homeguide"><span>① 整体认词</span><span>② 看例子、学规则</span><span>③ 不计分小检查</span><span>④ 独立练习</span></div>
- <div class="homegrid">${DATA.map((l,i)=>{const v=n[i],m=MISSIONS[i],won=v.mastered===l.questions.length;return `<article class="card level" style="--accent:${l.color};--planet-pale:${m.pale}"><div class="planet-head"><div><div class="mission-no">${esc(m.planet)}</div><h3>${esc(l.name)}</h3><p class="muted">${esc(l.short)}</p></div>${planet(i)}</div><div class="mission-status"><span>练习进度 · ${v.done}/${l.questions.length}</span><b>${won?'★ 徽章已点亮':v.done?'探索进行中':'等待出发'}</b></div><div class="bar"><span style="width:${v.done/l.questions.length*100}%"></span></div><p class="small">首次答对 ${v.first} 题 · 当前掌握 ${v.mastered} 题</p><div class="flex"><button class="primary enter" data-i="${i}">先学词语 →</button><button class="resume" data-i="${i}">进入练习</button>${v.wrong?`<button class="wrongbtn" data-i="${i}">再练错题 · ${v.wrong} 题</button>`:''}</div></article>`}).join('')}</div>
+ <div class="homegrid">${CORE.map((l,i)=>{const v=n[i],m=MISSIONS[i],won=v.mastered===l.questions.length;return `<article class="card level" style="--accent:${l.color};--planet-pale:${m.pale}"><div class="planet-head"><div><div class="mission-no">${esc(m.planet)}</div><h3>${esc(l.name)}</h3><p class="muted">${esc(l.short)}</p></div>${planet(i)}</div><div class="mission-status"><span>练习进度 · ${v.done}/${l.questions.length}</span><b>${won?'★ 徽章已点亮':v.done?'探索进行中':'等待出发'}</b></div><div class="bar"><span style="width:${v.done/l.questions.length*100}%"></span></div><p class="small">首次答对 ${v.first} 题 · 当前掌握 ${v.mastered} 题</p><div class="flex"><button class="primary enter" data-i="${i}">先学词语 →</button><button class="resume" data-i="${i}">进入练习</button>${v.wrong?`<button class="wrongbtn" data-i="${i}">再练错题 · ${v.wrong} 题</button>`:''}</div></article>`}).join('')}</div>
  <div class="mission-help">${robot()}<div><strong>小助手提醒：学懂，比冲得快更重要。</strong><p>单词听写先在句乐部完成。每关先说清楚意思，再自己造句；没做完的题，下次可以继续。</p></div></div>
- <details class="teacher"><summary>教师课堂提示与学习记录</summary><p>先在句乐部听写。每关认词时抽查含义，讲例句时让学生指出“谁、动作、对象”。选择题答对后仍要说出句意；改句、排序题检查是否能独立运用。</p><p>72题是一套完整练习，不用一节课做完。错题重练不会覆盖首次成绩；重新练整关会开始新一轮记录。全部题目练熟后获得本关徽章，重新练整关时徽章也会重新计算。</p><p>${DATA.map((l,i)=>`${i+1}. ${l.name}：首答 ${n[i].first}/${n[i].done}，当前 ${n[i].mastered}/${l.questions.length}。`).join('<br>')}</p><button id="resetAll" class="danger">清空全部学习记录</button></details>`;
- document.querySelectorAll('.enter').forEach(b=>b.onclick=()=>open(+b.dataset.i,'words'));document.querySelectorAll('.resume').forEach(b=>b.onclick=()=>open(+b.dataset.i,'practice'));document.querySelectorAll('.wrongbtn').forEach(b=>b.onclick=()=>open(+b.dataset.i,'practice','wrong'));$('#resetAll').onclick=()=>{if(confirm('确定清空四关的全部记录？')){state={records:{},seen:{},last:null};save();home()}}
+ <details class="teacher"><summary>教师课堂提示与学习记录</summary><p>先在句乐部听写。每关认词时抽查含义，讲例句时让学生指出“谁、动作、对象”。选择题答对后仍要说出句意；改句、排序题检查是否能独立运用。</p><p>72题是一套完整练习，不用一节课做完。错题重练不会覆盖首次成绩；重新练整关会开始新一轮记录。全部题目练熟后获得本关徽章，重新练整关时徽章也会重新计算。</p><p>${CORE.map((l,i)=>`${i+1}. ${l.name}：首答 ${n[i].first}/${n[i].done}，当前 ${n[i].mastered}/${l.questions.length}。`).join('<br>')}</p><button id="resetAll" class="danger">清空全部学习记录</button></details>`;
+ $('#sentenceTestBtn').onclick=()=>open(4,'practice');if($('#sentenceWrongBtn'))$('#sentenceWrongBtn').onclick=()=>open(4,'practice','wrong');document.querySelectorAll('.enter').forEach(b=>b.onclick=()=>open(+b.dataset.i,'words'));document.querySelectorAll('.resume').forEach(b=>b.onclick=()=>open(+b.dataset.i,'practice'));document.querySelectorAll('.wrongbtn').forEach(b=>b.onclick=()=>open(+b.dataset.i,'practice','wrong'));$('#resetAll').onclick=()=>{if(confirm('确定清空四关的全部记录？')){state={records:{},seen:{},last:null};save();home()}}
 }
 function open(i,s,m='normal'){li=i;stage=s;mode=m;teachIndex=0;selected=null;tiles=[];cacheQuiz=null;const last=state.last?.[i];position=0;if(s==='practice'&&m==='normal'){const qs=DATA[i].questions;const first=qs.findIndex(q=>!record(q));position=first<0?qs.length:first}render();window.scrollTo({top:0,behavior:'instant'})}
-function frame(body){const l=DATA[li];document.documentElement.style.setProperty('--accent',l.color);$('#app').innerHTML=`<div class="level-heading"><div class="level-title">${planet(li)}<div><div class="mission-no">${esc(MISSIONS[li].planet)}</div><h2>${esc(l.name)}</h2></div></div><span class="pill">${l.questions.length} 道练习</span></div><nav class="nav" aria-label="关卡学习环节">${[['words','1 先认词'],['teach','2 看例子'],['check','3 小检查'],['practice','4 闯关练习']].map(([s,t])=>`<button data-stage="${s}" class="${stage===s?'active':''}" ${stage===s?'aria-current="step"':''}>${t}</button>`).join('')}</nav>${body}`;document.querySelectorAll('[data-stage]').forEach(b=>b.onclick=()=>{stage=b.dataset.stage;mode='normal';position=0;selected=null;tiles=[];cacheQuiz=null;render()});wireAudio()}
+function frame(body){const l=DATA[li];document.documentElement.style.setProperty('--accent',l.color);$('#app').innerHTML=`<div class="level-heading"><div class="level-title">${planet(li===4?0:li)}<div><div class="mission-no">${esc(MISSIONS[li].planet)}</div><h2>${esc(l.name)}</h2></div></div><span class="pill">${l.questions.length} 道练习</span></div>${li===4?'<div class="notice space small">出处：p26 B Read and complete；p27 C Read and order（游泳建议短文）。请先合上课本，独立作答；答案与解析在检测结束后显示。</div>':`<nav class="nav" aria-label="关卡学习环节">${[['words','1 先认词'],['teach','2 看例子'],['check','3 小检查'],['practice','4 闯关练习']].map(([s,t])=>`<button data-stage="${s}" class="${stage===s?'active':''}" ${stage===s?'aria-current="step"':''}>${t}</button>`).join('')}</nav>`}${body}`;document.querySelectorAll('[data-stage]').forEach(b=>b.onclick=()=>{stage=b.dataset.stage;mode='normal';position=0;selected=null;tiles=[];cacheQuiz=null;render()});wireAudio()}
 function render(){state.last??={};state.last[li]={stage,position};save();if(stage==='words')words();else if(stage==='teach')teach();else if(stage==='check'||stage==='practice')quiz()}
 function words(){const l=DATA[li];frame(`<section class="card"><div class="flex between"><h3 style="margin:0">把这一关的词整体认识一遍</h3><button id="toggleCN">${hideCN?'显示中文':'遮住中文，自己说'}</button></div><p class="space">${esc(l.intro)}</p><div class="wordgrid">${l.words.map(([en,cn,s])=>`<div class="word"><div class="flex between"><div class="en">${esc(en)}</div>${audio(en.includes('→')?en.split('→')[1]:en.split('/')[0])}</div><div class="cn ${hideCN?'hide':''}">${esc(cn)}</div><div class="sample">${esc(s)}</div></div>`).join('')}</div><div class="notice space">先读英文，再说中文。遮住中文后还能解释意思，就可以看例句了。</div><div class="pager"><button id="toTeach" class="primary">看例子，学规则</button></div></section>`);$('#toggleCN').onclick=()=>{hideCN=!hideCN;words()};$('#toTeach').onclick=()=>{stage='teach';render()}}
 function teach(){const l=DATA[li],t=l.lessons[teachIndex];frame(`<section class="card"><div class="flex between"><span class="pill">讲解 ${teachIndex+1} / ${l.lessons.length}</span><span class="muted">课文原句与补充例句分别标注</span></div><h2 class="space">${esc(t.title)}</h2><div class="notice">${esc(t.rule)}</div>${t.examples.map(e=>`<article class="example"><div class="flex between"><span class="source">${esc(e.source)}</span>${audio(e.en)}</div><div class="en space">${esc(e.en)}</div><div>${esc(e.cn)}</div><div class="note">${esc(e.note)}</div></article>`).join('')}<details class="teacher"><summary>老师怎么检查理解</summary><p>先问“这几个词是什么意思？”再问“谁在做？动作是什么？涉及谁或什么？”让学生解释本页例句，再口头换一个主语或情境说一句。</p></details><div class="pager"><button id="prevTeach" ${teachIndex===0?'disabled':''}>上一组例子</button><button id="nextTeach" class="primary">${teachIndex===l.lessons.length-1?'做不计分小检查':'下一组例子'}</button></div></section>`);$('#prevTeach').onclick=()=>{teachIndex--;teach()};$('#nextTeach').onclick=()=>{if(teachIndex<l.lessons.length-1){teachIndex++;teach()}else{stage='check';position=0;cacheQuiz=null;render()}window.scrollTo({top:0,behavior:'instant'})}}
@@ -67,9 +422,14 @@ if(mode==='wrong')r=q._submitted?record(q):null;
 const submitted=!!r;const currentAnswer=r?.value;const answered=list.filter(x=>record(x)).length;
 let controls='';if(q.type==='choice'){controls=`<div class="options">${q.options.map((o,i)=>`<button class="option ${(!submitted&&selected===i)||(submitted&&currentAnswer===o)?'selected':''}" data-choice="${i}" ${submitted?'disabled':''}><span class="letter">${String.fromCharCode(65+i)}</span><span>${esc(o)}</span></button>`).join('')}</div>`}else if(q.type==='text'){controls=`<label class="small" for="answerInput">${q.prompt.includes('只填')?'输入单词':'输入完整英文句子（大小写和句末标点不影响评分）'}</label><textarea id="answerInput" class="answerbox" spellcheck="false" autocapitalize="off" ${submitted?'disabled':''} placeholder="${q.prompt.includes('只填')?'写出连接词':'在这里写英文…'}">${submitted?esc(currentAnswer):''}</textarea>${q.hint?`<details><summary>需要一点提示</summary><p>${esc(q.hint)}</p></details>`:''}`}else{controls=`<p class="muted">依次点击词块或步骤；点击上方已选的块可撤回。</p><div class="assembly" aria-label="已排好的答案">${submitted?`<div class="en">${esc(currentAnswer)}</div>`:tiles.length?tiles.map((idx,j)=>`<button data-remove="${j}">${esc(q.tokens[idx])}</button>`).join(''):'<span class="muted">答案会排在这里</span>'}</div><div class="tokenbank">${q.tokens.map((t,i)=>`<button data-token="${i}" ${submitted||tiles.includes(i)?'disabled':''}>${esc(t)}</button>`).join('')}</div>`}
 const correctLabel=q.type==='text'?q.answer.join(' / '):q.answer;
-const fb=submitted?`<div class="feedback ${r.correct?'ok':'bad'}" role="status"><strong>${r.correct?'答对了，读出完整意思。':'先看清楚原因，再练一遍。'}</strong><p class="space"><b>参考答案：</b>${esc(correctLabel)}</p><p>${esc(q.explain)}</p></div>`:'';
-frame(`<section class="card"><div class="flex between"><span class="pill">${stage==='check'?'不计分检查':mode==='wrong'?'错题重练':'正式练习'} · ${position+1}/${list.length}</span><span class="muted">${esc(q.tag)}</span></div><div class="bar"><span style="width:${(position+1)/list.length*100}%"></span></div><div class="prompt">${esc(q.prompt)}</div>${controls}${fb}<div class="pager"><button id="prevQ" ${position===0?'disabled':''}>上一题</button>${submitted?`<button id="nextQ" class="primary">${position===list.length-1?'查看本关结果':'下一题'}</button>`:'<button id="submit" class="primary">确认答案</button>'}</div><div class="questiondots" aria-label="练习进度">${list.map((x,i)=>`<span class="dot ${record(x)?record(x).correct?'good':'wrong':''} ${position===i?'current':''}"></span>`).join('')}</div><details class="teacher"><summary>课堂提示</summary><p>选择后请学生解释意思。若答错，先让他指出是哪一个词或结构不理解，再看讲解。错题重练保留首次成绩。</p></details></section>`);
+const fb=submitted&&li===4?'<div class="notice space small" role="status">答案已记录。完成这一轮后统一查看解析。</div>':submitted?`<div class="feedback ${r.correct?'ok':'bad'}" role="status"><strong>${r.correct?'答对了，读出完整意思。':'先看清楚原因，再练一遍。'}</strong><p class="space"><b>参考答案：</b>${esc(correctLabel)}</p><p>${esc(q.explain)}</p></div>`:'';
+frame(`<section class="card"><div class="flex between"><span class="pill">${stage==='check'?'不计分检查':mode==='wrong'?'错题重练':li===4?'背诵检测':'正式练习'} · ${position+1}/${list.length}</span><span class="muted">${esc(q.tag)}</span></div><div class="bar"><span style="width:${(position+1)/list.length*100}%"></span></div><div class="prompt">${esc(q.prompt)}</div>${controls}${fb}<div class="pager"><button id="prevQ" ${position===0?'disabled':''}>上一题</button>${submitted?`<button id="nextQ" class="primary">${position===list.length-1?'查看本关结果':'下一题'}</button>`:'<button id="submit" class="primary">确认答案</button>'}</div><div class="questiondots" aria-label="练习进度">${list.map((x,i)=>`<span class="dot ${record(x)?li===4?'recorded':record(x).correct?'good':'wrong':''} ${position===i?'current':''}"></span>`).join('')}</div><details class="teacher"><summary>课堂提示</summary><p>${li===4?'先让学生独立完成检测。结束后抽查答对题的理由，检查是否理解；错题再回到对应页码讲解。错题重练保留首次成绩。':'选择后请学生解释意思。若答错，先让他指出是哪一个词或结构不理解，再看讲解。错题重练保留首次成绩。'}</p></details></section>`);
 document.querySelectorAll('[data-choice]').forEach(b=>b.onclick=()=>{selected=+b.dataset.choice;quiz()});document.querySelectorAll('[data-token]').forEach(b=>b.onclick=()=>{tiles.push(+b.dataset.token);quiz()});document.querySelectorAll('[data-remove]').forEach(b=>b.onclick=()=>{tiles.splice(+b.dataset.remove,1);quiz()});$('#prevQ').onclick=()=>{position--;selected=null;tiles=[];render()};if($('#nextQ'))$('#nextQ').onclick=()=>{position++;selected=null;tiles=[];render();window.scrollTo({top:0,behavior:'instant'})};if($('#submit'))$('#submit').onclick=()=>{let value;if(q.type==='choice'){if(selected===null){toast('先选一个答案。');return}value=q.options[selected]}else if(q.type==='order'){if(tiles.length!==q.tokens.length){toast('请把所有词块或步骤排完整。');return}value=tiles.map(i=>q.tokens[i]).join(' ')}else{value=$('#answerInput').value.trim();if(!value){toast('先写下你的答案。');return}}const accepted=q.type==='text'?q.answer:[q.answer],correct=accepted.some(a=>norm(a)===norm(value));const old=record(q);state.records[q.id]={value,correct,first:old?old.first:correct,attempts:(old?.attempts||0)+1};if(mode==='wrong')q._submitted=true;save();quiz()}}
-function result(list){const l=DATA[li];const checks=stage==='check';const complete=list.every(q=>record(q));const right=list.filter(q=>record(q)?.correct).length;const n=nums(l);const wrong=(checks?list:l.questions).filter(q=>record(q)&&!record(q).correct);frame(`<section class="card"><span class="pill">${checks?'认词与规则检查':'本关学习记录'}</span><h2 class="space">${complete?'这一轮完成了':'还有题目等你完成'}</h2>${!checks&&n.mastered===l.questions.length?`<div class="badge-award"><div class="award-icon" aria-hidden="true">${MISSIONS[li].symbol}</div><div><strong>${esc(MISSIONS[li].name)}已点亮！</strong><p>这一关的题目都练熟了。试着换一个情境，自己说一句英文吧。</p></div></div>`:''}<div class="resultgrid"><div><div class="score">${checks?right:n.first}<span style="font-size:22px;color:var(--muted)"> / ${checks?list.length:n.done}</span></div><div>${checks?'当前答对':'首次答对 / 已答题数'}</div></div><div><div class="score">${checks?wrong.length:n.mastered}<span style="font-size:22px;color:var(--muted)">${checks?'题':' / '+l.questions.length}</span></div><div>${checks?'需要再理解':'当前掌握（含重练后答对）'}</div></div></div><p>${checks?'能选对也能说清楚意思，就可以进入正式练习。':`已答 ${n.done}/${l.questions.length}；还需巩固 ${n.wrong}题。分数之外，也要能解释句意、自己组成句子。`}</p><div class="flex">${checks?'<button id="practiceNext" class="primary">进入正式练习</button>':''}${wrong.length?'<button id="retryWrong" class="primary">重练本关错题</button>':''}<button id="restart">${checks?'再做一次小检查':'新一轮练整关'}</button><button id="homeResult">回四关总览</button></div>${wrong.length?`<h3 class="space">先看错因，再去重练</h3>${wrong.map(q=>{const r=record(q);return `<article class="review"><span class="pill">${esc(q.tag)}</span><p class="space"><b>题目：</b>${esc(q.prompt)}</p><p><b>你的答案：</b>${esc(r.value)}</p><p><b>参考答案：</b>${esc(q.type==='text'?q.answer.join(' / '):q.answer)}</p><p><b>怎么改：</b>${esc(q.explain)}</p></article>`}).join('')}`:'<div class="notice space">本轮已答题目都答对了。再口头换一个句子试试，看看能不能独立说出来。</div>'}</section>`);if($('#practiceNext'))$('#practiceNext').onclick=()=>open(li,'practice');$('#homeResult').onclick=home;$('#restart').onclick=()=>{if(!confirm('开始新一轮会清除这一环节的答题记录，确定吗？'))return;for(const q of checks?l.check:l.questions){delete state.records[q.id];delete q._submitted}save();open(li,checks?'check':'practice')};if($('#retryWrong'))$('#retryWrong').onclick=()=>{if(checks){for(const q of wrong)delete state.records[q.id];open(li,'check')}else{for(const q of l.questions)delete q._submitted;open(li,'practice','wrong')}}}
+
+function diagnosticReport(){
+ return `<div class="diagnostic-breakdown">${['词组','句意','运用'].map(g=>{const qs=TEST.questions.filter(q=>q.group===g),done=qs.filter(q=>record(q)).length,first=qs.filter(q=>record(q)?.first).length,now=qs.filter(q=>record(q)?.correct).length;return `<div class="word"><strong>${g}</strong><div class="stat-value">${first}<small> / ${qs.length}</small></div><div class="small muted">首次答对 · 已答 ${done} 题<br>当前答对 ${now} 题</div></div>`}).join('')}</div><p class="small muted space">先看哪一类题需要再练，再让学生口头解释两三道答对题。选择题成绩需要结合口头解释一起判断。</p>${nums(TEST).done===20?`<details><summary>查看全部 20 题答案与解析</summary>${TEST.questions.map((q,i)=>`<article class="review"><span class="pill">${i+1} · ${esc(q.tag)}</span><p class="space">${esc(q.prompt)}</p><p><b>参考答案：</b>${esc(q.answer)}</p><p>${esc(q.explain)}</p></article>`).join('')}</details><details><summary>核对七句原文与出处（p26—27）</summary>${TEST.sources.map(([title,lines])=>`<h3 class="space">${esc(title)}</h3>${lines.map(([en,cn])=>`<article class="example"><div class="en">${esc(en)}</div><div>${esc(cn)}</div></article>`).join('')}`).join('')}</details>`:''}`
+}
+
+function result(list){const l=DATA[li];const checks=stage==='check';const complete=list.every(q=>record(q));const right=list.filter(q=>record(q)?.correct).length;const n=nums(l);const wrong=(checks?list:l.questions).filter(q=>record(q)&&!record(q).correct);frame(`<section class="card"><span class="pill">${checks?'认词与规则检查':li===4?'七句背诵检测结果':'本关学习记录'}</span><h2 class="space">${complete?'这一轮完成了':'还有题目等你完成'}</h2>${li!==4&&!checks&&n.mastered===l.questions.length?`<div class="badge-award"><div class="award-icon" aria-hidden="true">${MISSIONS[li].symbol}</div><div><strong>${esc(MISSIONS[li].name)}已点亮！</strong><p>这一关的题目都练熟了。试着换一个情境，自己说一句英文吧。</p></div></div>`:''}${li===4?diagnosticReport():''}<div class="resultgrid"><div><div class="score">${checks?right:n.first}<span style="font-size:22px;color:var(--muted)"> / ${checks?list.length:n.done}</span></div><div>${checks?'当前答对':'首次答对 / 已答题数'}</div></div><div><div class="score">${checks?wrong.length:n.mastered}<span style="font-size:22px;color:var(--muted)">${checks?'题':' / '+l.questions.length}</span></div><div>${checks?'需要再理解':'当前掌握（含重练后答对）'}</div></div></div><p>${checks?'能选对也能说清楚意思，就可以进入正式练习。':`已答 ${n.done}/${l.questions.length}；还需巩固 ${n.wrong}题。分数之外，也要能解释句意、自己组成句子。`}</p><div class="flex">${checks?'<button id="practiceNext" class="primary">进入正式练习</button>':''}${wrong.length?'<button id="retryWrong" class="primary">重练本关错题</button>':''}<button id="restart">${checks?'再做一次小检查':'新一轮练整关'}</button><button id="homeResult">回任务地图</button></div>${wrong.length?`<h3 class="space">先看错因，再去重练</h3>${wrong.map(q=>{const r=record(q);return `<article class="review"><span class="pill">${esc(q.tag)}</span><p class="space"><b>题目：</b>${esc(q.prompt)}</p><p><b>你的答案：</b>${esc(r.value)}</p><p><b>参考答案：</b>${esc(q.type==='text'?q.answer.join(' / '):q.answer)}</p><p><b>怎么改：</b>${esc(q.explain)}</p></article>`}).join('')}`:'<div class="notice space">本轮已答题目都答对了。再口头换一个句子试试，看看能不能独立说出来。</div>'}</section>`);if($('#practiceNext'))$('#practiceNext').onclick=()=>open(li,'practice');$('#homeResult').onclick=home;$('#restart').onclick=()=>{if(!confirm('开始新一轮会清除这一环节的答题记录，确定吗？'))return;for(const q of checks?l.check:l.questions){delete state.records[q.id];delete q._submitted}save();open(li,checks?'check':'practice')};if($('#retryWrong'))$('#retryWrong').onclick=()=>{if(checks){for(const q of wrong)delete state.records[q.id];open(li,'check')}else{for(const q of l.questions)delete q._submitted;open(li,'practice','wrong')}}}
 $('#homeBtn').onclick=()=>{if('speechSynthesis'in window)speechSynthesis.cancel();home()};home();
 </script></body></html>
