@@ -17,6 +17,7 @@
     day18:"honghao-day18",
     day19:"honghao-day19",
     day21:"honghao-day21-v1",
+    day22:"honghao-day22-v1",
     "month-test":"honghao-month-test-v1"
   };
   const HISTORY_KEY="honghao-history-v1";
@@ -212,3 +213,4 @@
   window.HonghaoCloud={ready,signIn,signUp,signOut,syncAll,trackWord,listVocabulary,isSignedIn:()=>Boolean(session),getUser:()=>session&&session.user};
   if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init,{once:true});else init();
 })();
+
