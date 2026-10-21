@@ -1,12 +1,31 @@
 (()=>{'use strict';
 const $=id=>document.getElementById(id),L=window.PARABOLA_LESSONS,Q=window.PARABOLA_QUESTIONS,M=window.ParabolaMath,KEY='parabola-classroom-v1';let state={version:1,lesson:'meaning',question:Q[0].id,records:{},large:false,focus:false},filter='lesson',step=0,answer=false,graphShown=false;
+
+const tonight=[
+ {name:'配方读图',minutes:4,lesson:'forms'},
+ {name:'五点法画图',minutes:8,lesson:'plot'},
+ {name:'改变a、h、k',minutes:7,lesson:'vertex'},
+ {name:'平移与轴对称',minutes:6,lesson:'translation'},
+ {name:'对称与增减',minutes:7,lesson:'compare'},
+ {name:'最值与范围',minutes:4,lesson:'extrema'},
+ {name:'横轴交点',minutes:4,lesson:'roots'},
+ {name:'课末检查',minutes:5,lesson:'vertex',exit:true}
+];
+const exitTitles=['直接读顶点式','从y = x²开始平移','求一个点的对称点','跨过对称轴比较','区间全部在顶点右侧','两个横轴交点'];
+const exitIDs=exitTitles.map(title=>Q.find(q=>q.title===title).id);let routeAt=-1;
+function drawRoute(){
+ $('tonightRoute').innerHTML=`<div class="routeHeading"><div><span class="eyebrow">今晚主线 · 约45分钟</span><h2>把一条抛物线，讲清楚</h2></div><button id="routeStart" class="primary">${routeAt<0?'从第一环节开始':'从头讲一遍'}</button></div><div class="routeStops">${tonight.map((r,i)=>`<button data-route="${i}" class="${routeAt===i?'active':''}" aria-current="${routeAt===i?'step':'false'}"><small>${String(i+1).padStart(2,'0')}</small><span>${r.name}</span><em>${r.minutes}分</em></button>`).join('')}</div>`;
+ $('routeStart').onclick=()=>startTonight(0);document.querySelectorAll('[data-route]').forEach(b=>b.onclick=()=>startTonight(Number(b.dataset.route)));
+ $('routeTransport').hidden=routeAt<0;$('routePosition').textContent=routeAt<0?'':`${routeAt+1} / ${tonight.length} · ${tonight[routeAt].name}`;$('routePrev').disabled=routeAt<=0;$('routeNext').disabled=routeAt===tonight.length-1;
+}
+function startTonight(i){if(!tonight[i])return;window.ParabolaStudio.stop();routeAt=i;const r=tonight[i];goLesson(r.lesson,false,true);window.ParabolaStudio.go(L.find(l=>l.id===r.lesson).studio,true);if(r.exit){filter='exit';$('practiceFilter').value='exit';state.question=exitIDs[0];step=0;answer=false;graphShown=false;save();drawPractice();document.body.classList.remove('studioFocus');$('studioExpand').setAttribute('aria-pressed','false');$('studioExpand').textContent='放大图像区';$('practice').scrollIntoView({behavior:'smooth'});}else{$('studio').scrollIntoView({behavior:'smooth'});}drawRoute();}
 try{const data=JSON.parse(localStorage.getItem(KEY));if(data?.version===1&&data.records&&typeof data.records==='object'&&!Array.isArray(data.records))state={...state,...data};}catch{}
 if(!L.some(l=>l.id===state.lesson))state.lesson='meaning';if(!Q.some(q=>q.id===state.question))state.question=Q[0].id;
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function save(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch{toast('当前浏览器未能保存记录，可导出后留存。');}}
 function toast(t){$('toast').textContent=t;$('toast').classList.add('visible');setTimeout(()=>$('toast').classList.remove('visible'),2800);}
-function list(){return Q.filter(q=>filter==='all'||filter==='review'?filter==='all'||state.records[q.id]?.current==='还要再练':q.topic===state.lesson);}
-function goLesson(id,scroll=true){state.lesson=id;filter='lesson';$('practiceFilter').value=filter;state.question=Q.find(q=>q.topic===id).id;step=0;answer=false;graphShown=false;save();drawLesson();drawPractice();window.ParabolaStudio.go(L.find(l=>l.id===id).studio);document.body.classList.remove('mapOpen');$('mapToggle').setAttribute('aria-expanded','false');location.hash=id;if(scroll)$('lesson').scrollIntoView({behavior:'smooth'});}
+function list(){if(filter==='exit')return exitIDs.map(id=>Q.find(q=>q.id===id));return Q.filter(q=>filter==='all'||(filter==='review'?state.records[q.id]?.current==='还要再练':q.topic===state.lesson));}
+function goLesson(id,scroll=true,keepRoute=false){if(!keepRoute){routeAt=-1;drawRoute();}state.lesson=id;filter='lesson';$('practiceFilter').value=filter;state.question=Q.find(q=>q.topic===id).id;step=0;answer=false;graphShown=false;save();drawLesson();drawPractice();window.ParabolaStudio.go(L.find(l=>l.id===id).studio);document.body.classList.remove('mapOpen');$('mapToggle').setAttribute('aria-expanded','false');location.hash=id;if(scroll)$('lesson').scrollIntoView({behavior:'smooth'});}
 function drawLesson(){const at=L.findIndex(l=>l.id===state.lesson),l=L[at];$('topicCount').textContent=L.length+'个模块';$('lessonNav').innerHTML=L.map((v,i)=>`<button data-lesson="${v.id}" class="${v.id===state.lesson?'active':''}" aria-current="${v.id===state.lesson?'step':'false'}"><small>${String(i+1).padStart(2,'0')}</small><span>${v.name}</span></button>`).join('');document.querySelectorAll('[data-lesson]').forEach(b=>b.onclick=()=>goLesson(b.dataset.lesson));$('lessonTag').textContent=l.tag;$('lessonPosition').textContent=`${at+1} / ${L.length} · 本模块${Q.filter(q=>q.topic===l.id).length}题`;$('lessonTitle').textContent=l.name;$('lessonLead').textContent=l.lead;$('knowledgeCards').innerHTML=l.rules.map(([name,desc])=>`<article><h3>${name}</h3><p>${desc}</p></article>`).join('');$('oralPrompt').textContent=l.ask;$('previousLesson').disabled=at===0;$('nextLesson').disabled=at===L.length-1;$('bottomNext').disabled=at===L.length-1;const records=Object.values(state.records);$('recordSummary').textContent=`已记录${records.length} / ${Q.length}题 · 待再练${records.filter(r=>r.current==='还要再练').length}题。`;
 }
 function stepHTML(s,i){return `<article class="workedStep"><span>步骤 ${i+1}</span><h4>${s.name}</h4><div class="math">${s.math}</div><p>${s.note}</p></article>`;}
@@ -22,7 +41,11 @@ function displayPrefs(){document.body.classList.toggle('largeType',state.large);
 $('fontToggle').onclick=()=>{state.large=!state.large;save();displayPrefs();};$('focusToggle').onclick=()=>{state.focus=!state.focus;save();displayPrefs();$('lesson').scrollIntoView({behavior:'smooth'});};$('mapToggle').onclick=()=>{const open=document.body.classList.toggle('mapOpen');$('mapToggle').setAttribute('aria-expanded',String(open));};
 $('practiceFilter').onchange=()=>{filter=$('practiceFilter').value;step=0;answer=false;graphShown=false;drawPractice();};
 const next=()=>{const at=L.findIndex(l=>l.id===state.lesson);if(at<L.length-1)goLesson(L[at+1].id);};$('nextLesson').onclick=next;$('bottomNext').onclick=next;$('previousLesson').onclick=()=>{const at=L.findIndex(l=>l.id===state.lesson);if(at>0)goLesson(L[at-1].id);};
-$('startGraphs').onclick=()=>{goLesson('vertex',false);$('studio').scrollIntoView({behavior:'smooth'});};$('startLesson').onclick=()=>goLesson('meaning');$('exportRecords').onclick=()=>{const blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='二次函数-课堂记录.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1500);};
+$('startGraphs').onclick=()=>startTonight(0);$('startLesson').onclick=()=>goLesson('meaning');$('exportRecords').onclick=()=>{const blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='二次函数-课堂记录.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1500);};
+
+$('routePrev').onclick=()=>{if(routeAt>0)startTonight(routeAt-1);};$('routeNext').onclick=()=>{if(routeAt<tonight.length-1)startTonight(routeAt+1);};
+$('studioExpand').onclick=()=>{window.ParabolaStudio.stop();const expanded=document.body.classList.toggle('studioFocus');$('studioExpand').textContent=expanded?'退出放大':'放大图像区';$('studioExpand').setAttribute('aria-pressed',String(expanded));$('studio').scrollIntoView({behavior:'smooth'});};
+drawRoute();
 const hash=location.hash.slice(1);if(L.some(l=>l.id===hash))state.lesson=hash;drawLesson();drawPractice();displayPrefs();window.ParabolaStudio.go(L.find(l=>l.id===state.lesson).studio);if(hash==='studio'){$('studio').scrollIntoView();window.ParabolaStudio.go('vertex');}else if(L.some(l=>l.id===hash))$('lesson').scrollIntoView();
-window.ParabolaClass={goLesson,jumpQuestion,getState:()=>state,getList:list};
+window.ParabolaClass={goLesson,jumpQuestion,startTonight,getRoute:()=>({at:routeAt,stops:tonight,exitIDs}),getState:()=>state,getList:list};
 })();
