@@ -2,35 +2,78 @@
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#0c6b58"><meta name="description" content="第一章分数除法、第二章圆：今晚只练6道核心应用题。">
-<title>今晚核心6题 · 分数除法与圆</title>
+<meta name="theme-color" content="#0c6b58"><meta name="description" content="第一章分数除法、第二章圆：6道需要画图分析的两步及综合应用题。">
+<title>画图理解6题 · 分数除法与圆</title>
 <link rel="stylesheet" href="style.css?v=20261021">
 <style>
 body{background:#fff}main{max-width:none;padding:28px 5vw 50px}.topbar{background:#fffffff5}.lesson-heading h1{margin:5px 0;font-size:32px}.tonight-intro{margin:0 0 22px;color:var(--muted)}.core-nav{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:24px 0}.chapter-box{border:1px solid var(--line);border-radius:12px;padding:15px 18px;background:#f9fbf7}.chapter-box h2{font-size:17px;margin:0 0 10px;color:var(--muted)}.chapter-links{display:flex;gap:8px;flex-wrap:wrap}.chapter-links a{padding:8px 14px;border:1px solid var(--line);background:#fff;border-radius:8px;font-size:18px}.chapter-links a[aria-current=page]{background:var(--green);border-color:var(--green);color:#fff}.chapter-links .recorded:after{content:' ✓'}.core-label{display:flex;align-items:center;justify-content:space-between;gap:15px;margin:0 0 12px;color:var(--green)}.core-label h2{font-size:25px;margin:0}.core-label span{white-space:nowrap;font-size:16px}.problem-card{margin-bottom:18px}.problem-text{margin-bottom:15px}.core-prompt{font-size:21px;color:var(--muted);padding-top:14px;border-top:1px solid var(--line)}.support{margin-bottom:18px;border:1px solid var(--line);border-radius:12px;padding:15px 24px;background:#f8faf5}.support>summary{font-size:20px;color:var(--green);cursor:pointer}.support .diagram-surface{margin-top:12px;min-height:0}.support .diagram-caption{font-size:21px;min-height:0}.support button{margin-top:10px}.answer>summary{font-size:22px;min-height:0;padding:16px 24px}.core-record{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:20px}.core-record span{font-size:16px;color:var(--muted)}.core-record button{font-size:17px;border:1px solid var(--line);background:#fff;padding:8px 16px}.core-record button.selected{background:#e9f2e8;border-color:var(--green);color:var(--green)}.pager button{font-size:19px}.done-note{background:#edf5eb;color:var(--green);padding:12px 18px;border-radius:10px;font-size:21px}.course-note{font-size:14px;color:var(--muted)}footer{font-size:13px}.topbar .brand small{font-size:13px}@media(max-width:780px){main{padding:20px 15px 40px}.core-nav{grid-template-columns:1fr;gap:10px;margin:18px 0}.chapter-box{padding:12px}.chapter-links a{font-size:16px;padding:7px 10px}.lesson-heading h1{font-size:27px}.core-label h2{font-size:22px}.support{padding:14px 18px}.problem-text{font-size:calc(var(--font) + 2px)}.topbar{gap:8px}.core-prompt{font-size:20px}.top-actions{margin-left:auto}.core-label{align-items:flex-start}.core-label span{font-size:14px}}@media print{.core-nav,.core-record,.pager,.size-controls{display:none!important}}
-</style>
-<script defer src="data.js?v=20261021"></script><script defer src="diagrams.js?v=20261021b"></script>
+@keyframes reveal{from{opacity:.35}to{opacity:1}}.diagram-surface svg{animation:reveal .25s ease-out}.support{background:#f7faf3}.support .diagram-caption{margin-top:10px}button:disabled{opacity:.6;cursor:default}</style>
+
 </head>
 <body>
 <header class="topbar"><a class="brand" href="#core/1"><span class="brand-mark">6</span><span>今晚核心6题<small>第一章分数除法 · 第二章圆</small></span></a><div class="top-actions"><div class="size-controls"><button id="fontDown" aria-label="缩小文字">A−</button><button id="fontUp" aria-label="放大文字">A＋</button></div></div></header>
 <main>
 <div class="lesson-heading"><div><div class="eyebrow">今晚只练最关键的</div><h1>两章，各3题。</h1></div><span class="badge" id="progress">共6题</span></div>
-<p class="tonight-intro">第一章先说清为什么乘、为什么除；第二章先分清求周长还是面积。</p>
+<p class="tonight-intro">先自己画图、标条件，再找图里藏着的数量关系。每章3题，每题都需要转一步。</p>
 <nav class="core-nav" id="coreNav" aria-label="今晚6道核心题"></nav>
 <div id="lesson"></div>
 <p class="course-note">本页为自编配套题；圆的近似计算统一取 π ≈ 3.14。学习记录保存在当前浏览器。</p>
-</main><footer>今晚精简版 · 6道题讲清楚，就结束。</footer>
+</main><footer>画图理解版 · 6道题，重点讲清数量关系。</footer>
 <script>
 document.addEventListener('DOMContentLoaded',()=>{
 'use strict';
-const course=window.WORD_COURSE, $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const course={id:'bnu6a-diagram-core-20261021'};
 const core=[
-{id:'f03',title:'已知整体，求部分',short:'1. 求部分',prompt:'全部图书是单位“1”。整体已知，求其中一部分，该乘还是除？'},
-{id:'f04',title:'已知部分，求整体',short:'2. 求整体',prompt:'和上一题对比：这次已知的是哪一部分？单位“1”是已知还是未知？'},
-{id:'f05',title:'已知剩余，求原来',short:'3. 剩余问题',prompt:'18米对应用去的2/5，还是剩下的几分之几？先说清楚再列式。'},
-{id:'c02',title:'圆的周长',short:'4. 圆周长',prompt:'围一圈求的是周长。题目给的是半径，还是直径？'},
-{id:'c05',title:'半圆的周长',short:'5. 半圆周长',prompt:'用手沿整个边界指一圈：除了弯曲部分，还要算哪一条直边？'},
-{id:'c08',title:'圆的面积',short:'6. 圆面积',prompt:'求覆盖多大的地方，用周长还是面积？答案的单位是什么？'}
-].map(item=>({...item,g:course.groups.find(g=>g.id===item.id)}));
+{title:'人数差藏着几份？',short:'1. 数量差',prompt:'先把男生和女生画成两条线段。多出的12人，对应全班的几分之几？',text:'六（1）班男生占全班人数的3/5，其余都是女生。男生比女生多12人。全班一共有多少人？',given:['男生占全班3/5','女生是其余部分','男生比女生多12人'],answerText:'60',unit:'人',relation:'全班人数 ×（男生占比 − 女生占比）= 人数差',steps:['全班人数是单位“1”。平均分成5份，男生占3份，女生占2份。','男生多出的1份，就是12人；这1份占全班的1/5。','全班人数：12÷(3/5−2/5)=12÷1/5=60（人）。','检验：男生36人，女生24人，相差12人。'],captions:['把全班看成同一个整体，比较两条线段。','全班分成5份：男生3份，女生是剩下的2份。','对齐左端，多出来的1份对应12人。','先找到“差”对应1/5，再用12÷1/5求全班。']},
+{title:'第二次的分数，是谁的几分之几？',short:'2. 连续变化',prompt:'两次说的整体一样吗？先划去第一次用的，再从剩下的里面分。',text:'一袋大米，第一天用去原来总量的1/3，第二天用去第一天剩余量的1/4，最后还剩18千克。这袋大米原来有多少千克？',given:['第一天用原来的1/3','第二天用余下的1/4','最后剩18千克'],answerText:'36',unit:'千克',relation:'原来总量 ×（1−1/3）×（1−1/4）= 最后剩余量',steps:['先把原来的总量画成12份。第一天用去4份，还剩8份。','第二天把剩下的8份看作新的整体，用去它的1/4，也就是2份。不能把第二次的1/4当成原来总量的1/4。','最后剩6份，占原来总量的(1−1/3)×(1−1/4)=1/2。','原来总量：18÷1/2=36（千克）。检验：第一天用12千克，第二天用6千克，最后剩18千克。'],captions:['三行线段都表示原来那一袋米，长度相同。','第一天划去原来的1/3，留下2/3。','只把剩下部分平均分成4份，第二天用其中1份。','最后剩原来的1/2，对应18千克；18÷1/2=36。']},
+{title:'14页应该放在线段的哪一段？',short:'3. 剩余关系',prompt:'一条线段同时标出第一天读的、第二天读的和最后剩的，14页对应哪部分？',text:'小宁读一本书，第一天读了全书的2/5，第二天又读了14页，这时还剩全书的1/4没有读。这本书一共有多少页？',given:['第一天读全书2/5','第二天读14页','最后剩全书1/4'],answerText:'40',unit:'页',relation:'全书页数 ×（1−2/5−1/4）= 第二天读的14页',steps:['把全书页数看成单位“1”，它由第一天读的、第二天读的、最后剩的三段组成。','把整条线段分成20份：第一天读8份，最后剩5份，中间第二天读7份。','第二天的14页占全书的1−2/5−1/4=7/20。全书页数：14÷7/20=40（页）。','检验：第一天读16页，第二天读14页，最后剩10页，正好是全书的1/4。'],captions:['整条线段表示全书，先不要把14页当成剩余页数。','左边是第一天读的2/5，右边是最后剩的1/4。','中间那一段才是第二天读的14页。','14页对应1−2/5−1/4=7/20，所以全书有40页。']},
+{title:'总长不等于直道长',short:'4. 跑道边界',prompt:'先沿外边界描一圈。整个长20米，里面的直道也长20米吗？',text:'一个运动场由中间的长方形和两端的半圆组成。整个运动场从最左端到最右端长20米，宽8米。沿运动场外边缘围一圈，需要围栏约多少米？',given:['整个运动场总长20米','宽8米','两端各一个半圆'],answerText:'49.12',unit:'米',relation:'外边界长度 = 2×（总长−宽）+ π×宽',steps:['宽8米就是半圆的直径。左右两端各向外伸出一个半径，合起来占8米。','中间长方形的长（直道长）=20−8=12（米）。','两端的半圆弧合成一个整圆的周长：3.14×8=25.12（米）。图内两条直径不在外边界上，不能加入。','围栏长≈12×2+25.12=49.12（米）。'],captions:['沿运动场最外面看一圈，虚线不是外边界。','宽8米就是半圆直径，两端各伸出一个半径。','总长扣掉两个半径，才是中间的直道长。','直道长20−8=12米；外边界=两条直道+两段半圆弧。']},
+{title:'剪开后，周长多在哪里？',short:'5. 剪开增周长',prompt:'先画原来的圆，再把两个半圆分开。哪些边原来没有，剪开以后才出现？',text:'一张直径12厘米的圆形纸片，沿一条直径剪成两个半圆。两个半圆的周长加起来约是多少厘米？',given:['原圆直径12厘米','沿直径剪成两个半圆','求两个半圆周长的和'],answerText:'61.68',unit:'厘米',relation:'两个半圆周长之和 = 原圆周长 + 2条直径',steps:['两个半圆的弯曲部分合起来，仍然是原来圆的一整圈：3.14×12=37.68（厘米）。','剪开后，每个半圆都新增一条长12厘米的直边，一共新增2条。','两个半圆周长之和≈37.68+12×2=61.68（厘米）。','不能只算原圆周长，也不能只加一条直径；要把两个半圆的边界分别数完整。'],captions:['虚线是剪开的地方。原来这条线在圆的内部。','分成两个半圆后，各自都要算完整边界。','红色是新出现的两条直边，每条都是12厘米。','两段弧合为原圆周长，再加2条直径，得到61.68厘米。']},
+{title:'最大的圆由哪条边决定？',short:'6. 剪圆剩面积',prompt:'先把圆画进长方形里。圆再大一点会先碰到哪两条边？',text:'一张长12厘米、宽8厘米的长方形纸片，从中剪去一个尽可能大的圆。剩下纸片的面积约是多少平方厘米？',given:['长方形长12厘米、宽8厘米','剪去能容纳的最大圆','求剩余纸片面积'],answerText:'45.76',unit:'平方厘米',relation:'剩余面积 = 长方形面积 − 最大圆面积',steps:['最大圆要完整放进纸片。圆的直径由较短的边决定，是8厘米，不能用长12厘米作直径。','半径=8÷2=4（厘米），圆面积≈3.14×4×4=50.24（平方厘米）。','长方形面积=12×8=96（平方厘米）。剩余面积≈96−50.24=45.76（平方厘米）。','检验：剪掉的圆和橙色剩余部分拼起来，正好是原来的长方形。'],captions:['长方形长12厘米、宽8厘米，先想圆怎样放得下。','最大圆碰到上下两条边，所以直径由宽8厘米决定。','橙色是保留下来的纸，白色圆是剪去的部分。','先算半径4厘米，再用长方形面积减圆面积。']}
+].map((item,n)=>({...item,g:{items:[{...item,id:'diagram-core-'+(n+1),n}]}}));
+const svgText=(x,y,s,fill='#183d33',size=25)=>`<text x="${x}" y="${y}" text-anchor="middle" fill="${fill}" font-size="${size}">${s}</text>`;
+const line=(x1,y1,x2,y2,color='#8ba89b',dash='')=>`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${color}" stroke-width="3" ${dash?'stroke-dasharray="'+dash+'"':''}/>`;
+const rect=(x,y,w,h,fill='#f0f4ee')=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${fill}" stroke="#597e6a" stroke-width="2"/>`;
+function bracket(x1,x2,y,label,color='#183d33'){return line(x1,y,x2,y,color)+line(x1,y-7,x1,y+7,color)+line(x2,y-7,x2,y+7,color)+svgText((x1+x2)/2,y+34,label,color,24)}
+function cells(x,y,n,w,colors){return Array.from({length:n},(_,i)=>rect(x+i*w,y,w,42,colors[i]||'#f0f4ee')).join('')}
+function drawCore(q,phase){
+const p=Math.round(phase),blue='#a8cce1',green='#b8d7b4',gold='#f5cf89',red='#bf593d';let body='',height=400;
+if(q.n===0){
+body=svgText(520,35,'全班人数是单位“1”')+bracket(250,850,65,'全班共5份，人数未知')+svgText(150,181,'男生')+svgText(150,281,'女生');
+body+=cells(250,150,3,120,[blue,blue,blue])+cells(250,250,2,120,[green,green]);body+=svgText(430,135,'全班的3/5')+svgText(370,235,p>=1?'全班的2/5':'其余');
+if(p>=2){body+=rect(490,250,120,42,gold)+svgText(550,278,'多出',red,22)+bracket(490,610,315,p>=3?'1/5 ↔ 12人':'12人',red)}
+}else if(q.n===1){
+height=460;body=svgText(520,35,'每一行都画同样长：表示原来一整袋米')+svgText(115,109,'原来')+cells(220,80,12,55,[])+svgText(550,65,'原来多少千克？');
+body+=svgText(115,229,'第一天后')+cells(220,200,12,55,Array.from({length:12},(_,i)=>p>=1&&i<4?blue:'#f0f4ee'));
+if(p>=1)body+=svgText(330,190,'用原来的1/3', '#355d78',23)+bracket(440,880,257,'第一天剩下的，作为第二次的整体');
+body+=svgText(115,367,'第二天后')+cells(220,338,12,55,Array.from({length:12},(_,i)=>p<2?'#f0f4ee':i<4?blue:i<6?gold:green));
+if(p>=2)body+=svgText(495,325,'用余下的1/4','#96602a',23)+bracket(550,880,397,p>=3?'剩原来1/2 ↔ 18千克':'最后剩18千克');
+}else if(q.n===2){
+body=svgText(520,45,'全书 = 第一天读的 + 第二天读的 + 最后剩的')+cells(200,160,20,34,Array.from({length:20},(_,i)=>p<1?'#f0f4ee':i<8?blue:i>=15?green:p>=2?gold:'#fff'));
+if(p>=1)body+=bracket(200,472,220,'第一天 2/5')+bracket(710,880,220,'最后剩 1/4');
+if(p>=2)body+=bracket(472,710,110,p>=3?'第二天 7/20 ↔ 14页':'第二天 14页',red);
+body+=svgText(540,340,p>=3?'中间的份数 = 20 − 8 − 5 = 7':'把全书等分成20份，找出14页对应的那一段。');
+}else if(q.n===3){
+body=`<path d="M344 86 H656 A104 104 0 0 1 656 294 H344 A104 104 0 0 1 344 86 Z" fill="#eef5e9" stroke="#0c6b58" stroke-width="5"/>`+bracket(240,760,330,'整个长20米')+line(810,86,810,294)+svgText(875,198,'宽8米');
+if(p>=1)body+=line(344,86,344,294,'#899e91','8 6')+line(656,86,656,294,'#899e91','8 6');
+if(p>=2)body+=line(240,190,344,190,red)+line(656,190,760,190,red)+svgText(292,175,'r',red)+svgText(708,175,'r',red)+line(344,86,656,86,'#427baf')+line(344,294,656,294,'#427baf');
+if(p>=3)body+=svgText(500,70,'直道长 = 20 − 8 = 12米','#355d78')+svgText(500,202,'内侧虚线不围栏', '#53695e',23);
+}else if(q.n===4){
+body=`<circle cx="185" cy="185" r="90" fill="#eaf3e6" stroke="#0c6b58" stroke-width="4"/>`+line(95,185,275,185,red,'7 5')+svgText(185,315,'原圆：直径12厘米');
+body+=svgText(355,190,'剪开 →');
+if(p>=1)body+=`<path d="M450 195 A90 90 0 0 1 630 195 Z" fill="#eaf3e6" stroke="#0c6b58" stroke-width="4"/><path d="M735 195 A90 90 0 0 0 915 195 Z" fill="#eaf3e6" stroke="#0c6b58" stroke-width="4"/>`+svgText(540,80,'第一个半圆')+svgText(825,80,'第二个半圆');
+if(p>=2)body+=line(450,195,630,195,red)+line(735,195,915,195,red)+svgText(540,230,'新增12厘米',red,23)+svgText(825,165,'新增12厘米',red,23);
+if(p>=3)body+=svgText(680,350,'弧长合为原来的一圈，另有2条新直边。');
+}else{
+height=510;body=rect(240,110,540,360,p>=2?gold:'#f6f8f2')+bracket(240,780,60,'长12厘米')+line(835,110,835,470)+svgText(905,294,'宽8厘米');
+if(p>=1)body+=`<circle cx="510" cy="290" r="180" fill="${p>=2?'#fff':'#e0efe2'}" stroke="#0c6b58" stroke-width="4"/>`+line(510,110,510,470,'#688c75','8 6');
+if(p>=2)body+=svgText(510,265,'剪去圆')+svgText(510,310,p>=3?'半径4厘米':'直径8厘米')+svgText(288,150,'剩','#956020',23)+svgText(733,432,'剩','#956020',23);
+}
+return {svg:`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 ${height}" role="img" aria-label="${q.title}，${q.captions[p]}" style="font-family:inherit">${body}</svg>`,caption:q.captions[p]};
+}
+window.drawProblem=drawCore;
+
 let records={},font=25,raf=0;
 try{records=JSON.parse(localStorage.getItem(course.id)||'{}');font=Math.max(20,Math.min(36,Number(localStorage.getItem(course.id+'-font'))||25))}catch(e){}
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -43,13 +86,14 @@ cancelAnimationFrame(raf);const n=index(),item=core[n],q=item.g.items[0];
 $('#progress').textContent='已记录 '+core.filter(c=>records[c.g.items[0].id]?.mark).length+' / 6 题';
 $('#coreNav').innerHTML=[0,1].map(c=>`<section class="chapter-box"><h2>第${c===0?'一':'二'}章 · ${c===0?'分数除法':'圆'}</h2><div class="chapter-links">${core.slice(c*3,c*3+3).map((x,j)=>{const k=c*3+j;return `<a href="#core/${k+1}" ${k===n?'aria-current="page"':''} class="${records[x.g.items[0].id]?.mark?'recorded':''}">${x.short}</a>`}).join('')}</div></section>`).join('');
 $('#lesson').innerHTML=`<div class="core-label"><h2>${n+1}. ${item.title}</h2><span>第 ${n+1} / 6 题</span></div>
-<section class="card problem-card"><p class="problem-text">${math(q.text)}</p><div class="core-prompt">先说一句：${math(item.prompt)}</div></section>
-<details class="support"><summary>需要时，打开图示讲解</summary><div class="diagram-surface" id="diagram"></div><div class="diagram-caption" id="diagramCaption"></div><button class="secondary" id="play">▶ 演示画图</button></details>
-<details class="answer"><summary>答案与解析 · 随时可看</summary><div class="answer-body"><div class="answer-value">${math(q.answerText)}${esc(q.unit)}</div><ol>${q.steps.map(s=>`<li>${math(s)}</li>`).join('')}</ol><div class="formula">${math(q.relation)}</div>${n===4?'<p class="trap">半圆周长 = 半个圆周长 + 一条直径；不能直接把整圆周长除以2。</p>':''}</div></details>
+<section class="card problem-card"><p class="problem-text">${math(q.text)}</p><div class="core-prompt">先想一想：${math(item.prompt)}</div></section>
+<details class="support" open><summary>画图找关系 · 先自己画，再逐步核对</summary><div class="diagram-surface" id="diagram"></div><div class="diagram-caption" id="diagramCaption"></div><button class="secondary" id="play">下一步：标条件</button> <button class="plain" id="reset">重看原图</button></details>
+<details class="answer"><summary>答案与解析 · 随时可看</summary><div class="answer-body"><div class="answer-value">${math(q.answerText)}${esc(q.unit)}</div><ol>${q.steps.map(s=>`<li>${math(s)}</li>`).join('')}</ol><div class="formula">${math(q.relation)}</div></div></details>
 <div class="core-record"><span>做完记一下：</span><button data-mark="independent">能独立讲清并做对</button><button data-mark="retry">还需再练</button></div>
 <nav class="pager" aria-label="上一题下一题">${n?`<a href="#core/${n}">← 上一题</a>`:'<span></span>'}${n<5?`<a class="primary" href="#core/${n+2}">下一题 →</a>`:'<span class="done-note">6题到这里，今晚结束。</span>'}</nav>`;
-function draw(phase){const d=window.drawProblem(q,phase);$('#diagram').innerHTML=d.svg;$('#diagramCaption').innerHTML=math(phase<1?'先看图，找到已知和所求。':phase<2?'已知：'+q.given.join('；'):d.caption)}draw(0);
-$('#play').onclick=()=>{cancelAnimationFrame(raf);if(matchMedia('(prefers-reduced-motion: reduce)').matches){draw(3);return}const start=performance.now();let last=0;function frame(t){if(t-last>60){draw(Math.min(3,(t-start)/1500));last=t}if(t-start<4500)raf=requestAnimationFrame(frame)}raf=requestAnimationFrame(frame)};
+let stage=0;
+function draw(){const d=window.drawProblem(q,stage);$('#diagram').innerHTML=d.svg;$('#diagramCaption').innerHTML=math(d.caption);$('#play').textContent=['下一步：标条件','下一步：找隐藏关系','下一步：列出关系','关系已找到'][stage];$('#play').disabled=stage===3}draw();
+$('#play').onclick=()=>{stage=Math.min(3,stage+1);draw()};$('#reset').onclick=()=>{stage=0;draw()};
 $$('[data-mark]').forEach(b=>{b.classList.toggle('selected',records[q.id]?.mark===b.dataset.mark);b.setAttribute('aria-pressed',records[q.id]?.mark===b.dataset.mark);b.onclick=()=>{records[q.id]={...records[q.id],mark:b.dataset.mark,updated:new Date().toISOString()};try{localStorage.setItem(course.id,JSON.stringify(records))}catch(e){}$$('[data-mark]').forEach(x=>{x.classList.toggle('selected',x===b);x.setAttribute('aria-pressed',x===b)});$('#progress').textContent='已记录 '+core.filter(c=>records[c.g.items[0].id]?.mark).length+' / 6 题';const currentLink=$('#coreNav a[aria-current=page]');if(currentLink)currentLink.classList.add('recorded')}});
 }
 window.addEventListener('hashchange',()=>{render();window.scrollTo({top:0,behavior:'instant'})});render();
