@@ -26,10 +26,10 @@ function diagram(q,p){
   [[m.capA,m.usedA,95,'大船','a'],[m.capB,m.usedB,225,'小船','b']].forEach(([cap,used,y,name,letter])=>{s+=T(80,y+30,name)+grid(160,y,cap,48,Array.from({length:cap},(_,i)=>p>=1&&i<used?blue:'#fff'));s+=T(740,y+28,letter+'条');if(p>=1)s+=T(340,y-15,`每条可坐${cap}人，已坐${used}人`);if(p>=2)s+=B(160+used*48,160+cap*48,y+55,`每条还空${cap-used}个`,red)});
   if(p===3)s+=T(450,377,`${m.capA-m.usedA}a + ${m.capB-m.usedB}b = ${q.answers[0].value}个`,green,27);
  }else if(m.type==='sticks'){
-  s=T(450,30,'先画前4个图形，寻找共同规律');
-  for(let i=0;i<4;i++){
-   if(m.shape==='square'){const x=220+i*100;s+=R(x,120,100,100,'#fff');if(p>=1&&i>0)s+=reveal(L(x,120,x,220,red),i)}
-   else{const x=220+i*60,a=i%2?120:224,b=i%2?224:120;s+=`<polygon points="${x},${a} ${x+60},${b} ${x+120},${a}" fill="#fff" stroke="${green}" stroke-width="3"/>`;if(p>=1&&i>0)s+=reveal(L(x,a,x+60,b,red),i)}
+  s=T(450,30,'先画前3个图形，寻找共同规律');
+  for(let i=0;i<3;i++){
+   if(m.shape==='square'){const x=300+i*100;s+=R(x,120,100,100,'#fff');if(p>=1&&i>0)s+=reveal(L(x,120,x,220,red),i)}
+   else{const x=330+i*60,a=i%2?120:224,b=i%2?224:120;s+=`<polygon points="${x},${a} ${x+60},${b} ${x+120},${a}" fill="#fff" stroke="${green}" stroke-width="3"/>`;if(p>=1&&i>0)s+=reveal(L(x,a,x+60,b,red),i)}
   }
   if(p>=1)s+=T(450,272,'红色为共用边：只计算一次',red);
   if(p>=2)s+=T(450,317,`第一个${m.first}根，后面每个增加${m.add}根`);
