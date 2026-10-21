@@ -1,10 +1,58 @@
 <!doctype html>
 <html lang="zh-CN">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#0c6b58"><meta name="description" content="北师大版六年级上册前两单元应用题专项：分数除法与圆，分步画图、数量关系分析、对应变式，答案解析直接查看。"><title>应用题课堂 · 分数除法与圆</title><link rel="stylesheet" href="style.css?v=20261021"><script defer src="data.js?v=20261021"></script><script defer src="diagrams.js?v=20261021b"></script><script defer src="app.js?v=20261021"></script></head>
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0c6b58"><meta name="description" content="第一章分数除法、第二章圆：今晚只练6道核心应用题。">
+<title>今晚核心6题 · 分数除法与圆</title>
+<link rel="stylesheet" href="style.css?v=20261021">
+<style>
+body{background:#fff}main{max-width:none;padding:28px 5vw 50px}.topbar{background:#fffffff5}.lesson-heading h1{margin:5px 0;font-size:32px}.tonight-intro{margin:0 0 22px;color:var(--muted)}.core-nav{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:24px 0}.chapter-box{border:1px solid var(--line);border-radius:12px;padding:15px 18px;background:#f9fbf7}.chapter-box h2{font-size:17px;margin:0 0 10px;color:var(--muted)}.chapter-links{display:flex;gap:8px;flex-wrap:wrap}.chapter-links a{padding:8px 14px;border:1px solid var(--line);background:#fff;border-radius:8px;font-size:18px}.chapter-links a[aria-current=page]{background:var(--green);border-color:var(--green);color:#fff}.chapter-links .recorded:after{content:' ✓'}.core-label{display:flex;align-items:center;justify-content:space-between;gap:15px;margin:0 0 12px;color:var(--green)}.core-label h2{font-size:25px;margin:0}.core-label span{white-space:nowrap;font-size:16px}.problem-card{margin-bottom:18px}.problem-text{margin-bottom:15px}.core-prompt{font-size:21px;color:var(--muted);padding-top:14px;border-top:1px solid var(--line)}.support{margin-bottom:18px;border:1px solid var(--line);border-radius:12px;padding:15px 24px;background:#f8faf5}.support>summary{font-size:20px;color:var(--green);cursor:pointer}.support .diagram-surface{margin-top:12px;min-height:0}.support .diagram-caption{font-size:21px;min-height:0}.support button{margin-top:10px}.answer>summary{font-size:22px;min-height:0;padding:16px 24px}.core-record{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:20px}.core-record span{font-size:16px;color:var(--muted)}.core-record button{font-size:17px;border:1px solid var(--line);background:#fff;padding:8px 16px}.core-record button.selected{background:#e9f2e8;border-color:var(--green);color:var(--green)}.pager button{font-size:19px}.done-note{background:#edf5eb;color:var(--green);padding:12px 18px;border-radius:10px;font-size:21px}.course-note{font-size:14px;color:var(--muted)}footer{font-size:13px}.topbar .brand small{font-size:13px}@media(max-width:780px){main{padding:20px 15px 40px}.core-nav{grid-template-columns:1fr;gap:10px;margin:18px 0}.chapter-box{padding:12px}.chapter-links a{font-size:16px;padding:7px 10px}.lesson-heading h1{font-size:27px}.core-label h2{font-size:22px}.support{padding:14px 18px}.problem-text{font-size:calc(var(--font) + 2px)}.topbar{gap:8px}.core-prompt{font-size:20px}.top-actions{margin-left:auto}.core-label{align-items:flex-start}.core-label span{font-size:14px}}@media print{.core-nav,.core-record,.pager,.size-controls{display:none!important}}
+</style>
+<script defer src="data.js?v=20261021"></script><script defer src="diagrams.js?v=20261021b"></script>
+</head>
 <body>
-<header class="topbar"><button class="outline" id="menu" aria-expanded="false">☰ 题型目录</button><a class="brand" href="#f03/0"><span class="brand-mark">图</span><span>应用题课堂<small>六年级上册 · 第一、二单元</small></span></a><div class="top-actions"><div class="size-controls" aria-label="调整课堂字号"><button id="fontDown" aria-label="缩小文字">A−</button><button id="fontUp" aria-label="放大文字">A＋</button></div><button class="outline" id="focus">专注上课</button><a class="back" href="../math6a-chapters1-3/">教材课堂 ↗</a></div></header>
-<aside id="drawer" class="drawer" aria-label="题型目录"><div class="drawer-top"><h2>选择题型</h2><button class="icon" id="closeMenu" aria-label="关闭目录">×</button></div><label class="search-label">搜索题型<input id="search" type="search" placeholder="如：剩余、半圆、周长"></label><div class="catalog-filters"><button data-catalog="all" class="selected">全部</button><button data-catalog="1">分数除法</button><button data-catalog="2">圆</button></div><div id="catalog"></div><a class="drawer-back" href="../math6a-chapters1-3/">返回教材知识课堂 ↗</a></aside><button class="scrim" id="scrim" aria-label="关闭题型目录" hidden></button>
-<main id="main"></main>
-<footer>依据北师大版六年级上册前两单元知识编写 · 本页例题与变式均为自编配套题<br>学习记录保存在当前浏览器，可导出备份；所有题目、答案解析均可直接查看。</footer>
-<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<header class="topbar"><a class="brand" href="#core/1"><span class="brand-mark">6</span><span>今晚核心6题<small>第一章分数除法 · 第二章圆</small></span></a><div class="top-actions"><div class="size-controls"><button id="fontDown" aria-label="缩小文字">A−</button><button id="fontUp" aria-label="放大文字">A＋</button></div></div></header>
+<main>
+<div class="lesson-heading"><div><div class="eyebrow">今晚只练最关键的</div><h1>两章，各3题。</h1></div><span class="badge" id="progress">共6题</span></div>
+<p class="tonight-intro">第一章先说清为什么乘、为什么除；第二章先分清求周长还是面积。</p>
+<nav class="core-nav" id="coreNav" aria-label="今晚6道核心题"></nav>
+<div id="lesson"></div>
+<p class="course-note">本页为自编配套题；圆的近似计算统一取 π ≈ 3.14。学习记录保存在当前浏览器。</p>
+</main><footer>今晚精简版 · 6道题讲清楚，就结束。</footer>
+<script>
+document.addEventListener('DOMContentLoaded',()=>{
+'use strict';
+const course=window.WORD_COURSE, $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const core=[
+{id:'f03',title:'已知整体，求部分',short:'1. 求部分',prompt:'全部图书是单位“1”。整体已知，求其中一部分，该乘还是除？'},
+{id:'f04',title:'已知部分，求整体',short:'2. 求整体',prompt:'和上一题对比：这次已知的是哪一部分？单位“1”是已知还是未知？'},
+{id:'f05',title:'已知剩余，求原来',short:'3. 剩余问题',prompt:'18米对应用去的2/5，还是剩下的几分之几？先说清楚再列式。'},
+{id:'c02',title:'圆的周长',short:'4. 圆周长',prompt:'围一圈求的是周长。题目给的是半径，还是直径？'},
+{id:'c05',title:'半圆的周长',short:'5. 半圆周长',prompt:'用手沿整个边界指一圈：除了弯曲部分，还要算哪一条直边？'},
+{id:'c08',title:'圆的面积',short:'6. 圆面积',prompt:'求覆盖多大的地方，用周长还是面积？答案的单位是什么？'}
+].map(item=>({...item,g:course.groups.find(g=>g.id===item.id)}));
+let records={},font=25,raf=0;
+try{records=JSON.parse(localStorage.getItem(course.id)||'{}');font=Math.max(20,Math.min(36,Number(localStorage.getItem(course.id+'-font'))||25))}catch(e){}
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const math=s=>esc(s).replace(/(\d+)\/(\d+)/g,'<span class="frac" aria-label="$2分之$1"><span>$1</span><span>$2</span></span>');
+function setFont(){document.documentElement.style.setProperty('--font',font+'px');try{localStorage.setItem(course.id+'-font',font)}catch(e){}}
+$('#fontDown').onclick=()=>{font=Math.max(20,font-2);setFont()};$('#fontUp').onclick=()=>{font=Math.min(36,font+2);setFont()};setFont();
+function index(){const m=location.hash.match(/^#core\/([1-6])$/);return m?Number(m[1])-1:0}
+function render(){
+cancelAnimationFrame(raf);const n=index(),item=core[n],q=item.g.items[0];
+$('#progress').textContent='已记录 '+core.filter(c=>records[c.g.items[0].id]?.mark).length+' / 6 题';
+$('#coreNav').innerHTML=[0,1].map(c=>`<section class="chapter-box"><h2>第${c===0?'一':'二'}章 · ${c===0?'分数除法':'圆'}</h2><div class="chapter-links">${core.slice(c*3,c*3+3).map((x,j)=>{const k=c*3+j;return `<a href="#core/${k+1}" ${k===n?'aria-current="page"':''} class="${records[x.g.items[0].id]?.mark?'recorded':''}">${x.short}</a>`}).join('')}</div></section>`).join('');
+$('#lesson').innerHTML=`<div class="core-label"><h2>${n+1}. ${item.title}</h2><span>第 ${n+1} / 6 题</span></div>
+<section class="card problem-card"><p class="problem-text">${math(q.text)}</p><div class="core-prompt">先说一句：${math(item.prompt)}</div></section>
+<details class="support"><summary>需要时，打开图示讲解</summary><div class="diagram-surface" id="diagram"></div><div class="diagram-caption" id="diagramCaption"></div><button class="secondary" id="play">▶ 演示画图</button></details>
+<details class="answer"><summary>答案与解析 · 随时可看</summary><div class="answer-body"><div class="answer-value">${math(q.answerText)}${esc(q.unit)}</div><ol>${q.steps.map(s=>`<li>${math(s)}</li>`).join('')}</ol><div class="formula">${math(q.relation)}</div>${n===4?'<p class="trap">半圆周长 = 半个圆周长 + 一条直径；不能直接把整圆周长除以2。</p>':''}</div></details>
+<div class="core-record"><span>做完记一下：</span><button data-mark="independent">能独立讲清并做对</button><button data-mark="retry">还需再练</button></div>
+<nav class="pager" aria-label="上一题下一题">${n?`<a href="#core/${n}">← 上一题</a>`:'<span></span>'}${n<5?`<a class="primary" href="#core/${n+2}">下一题 →</a>`:'<span class="done-note">6题到这里，今晚结束。</span>'}</nav>`;
+function draw(phase){const d=window.drawProblem(q,phase);$('#diagram').innerHTML=d.svg;$('#diagramCaption').innerHTML=math(phase<1?'先看图，找到已知和所求。':phase<2?'已知：'+q.given.join('；'):d.caption)}draw(0);
+$('#play').onclick=()=>{cancelAnimationFrame(raf);if(matchMedia('(prefers-reduced-motion: reduce)').matches){draw(3);return}const start=performance.now();let last=0;function frame(t){if(t-last>60){draw(Math.min(3,(t-start)/1500));last=t}if(t-start<4500)raf=requestAnimationFrame(frame)}raf=requestAnimationFrame(frame)};
+$$('[data-mark]').forEach(b=>{b.classList.toggle('selected',records[q.id]?.mark===b.dataset.mark);b.setAttribute('aria-pressed',records[q.id]?.mark===b.dataset.mark);b.onclick=()=>{records[q.id]={...records[q.id],mark:b.dataset.mark,updated:new Date().toISOString()};try{localStorage.setItem(course.id,JSON.stringify(records))}catch(e){}$$('[data-mark]').forEach(x=>{x.classList.toggle('selected',x===b);x.setAttribute('aria-pressed',x===b)});$('#progress').textContent='已记录 '+core.filter(c=>records[c.g.items[0].id]?.mark).length+' / 6 题';const currentLink=$('#coreNav a[aria-current=page]');if(currentLink)currentLink.classList.add('recorded')}});
+}
+window.addEventListener('hashchange',()=>{render();window.scrollTo({top:0,behavior:'instant'})});render();
+});
+</script>
 </body></html>
