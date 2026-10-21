@@ -1,0 +1,34 @@
+(()=>{'use strict';
+const near=(a,b=0)=>Math.abs(a-b)<1e-8;
+function f(n){if(near(n))return '0';if(near(n,Math.round(n)))return String(Math.round(n)).replace('-','−');for(let d=2;d<=1000;d++)if(near(n*d,Math.round(n*d)))return `${Math.round(n*d)}/${d}`.replace('-','−');return Number(n.toFixed(3)).toString().replace('-','−');}
+function term(v,s,first=false){if(near(v))return '';const n=Math.abs(v),co=near(n,1)&&s?'':f(n).includes('/')&&s?'('+f(n)+')':f(n);return `${v<0?'−':first?'':'+'}${first&&v>=0?'':' '}${co}${s}`;}
+const eq=r=>([term(r[0],'x',true),term(r[1],'y',near(r[0]))].filter(Boolean).join(' ')||'0')+' = '+f(r[2]);
+const system=rows=>'<div class="system">'+rows.map(r=>`<div>${eq(r)}</div>`).join('')+'</div>';
+function type(r){return near(r[0])&&near(r[1])?(near(r[2])?'identity':'impossible'):'line';}
+function solve(rows){const [u,v]=rows,tu=type(u),tv=type(v);if(tu==='impossible'||tv==='impossible')return {kind:'none'};if(tu==='identity'||tv==='identity')return {kind:'infinite',basis:tu==='line'?u:tv==='line'?v:null};const [a,b,c]=u,[d,e,g]=v,D=a*e-b*d;if(!near(D))return {kind:'unique',x:(c*e-b*g)/D,y:(a*g-c*d)/D};return near(a*g-c*d)&&near(b*g-c*e)?{kind:'infinite',basis:u}:{kind:'none'};}
+function clip(r,bounds=[-4,10,-4,10]){const [a,b,c]=r,[xmin,xmax,ymin,ymax]=bounds,points=[];const add=(x,y)=>{if(x>=xmin-1e-7&&x<=xmax+1e-7&&y>=ymin-1e-7&&y<=ymax+1e-7&&!points.some(p=>near(p[0],x)&&near(p[1],y)))points.push([x,y]);};if(!near(b)){add(xmin,(c-a*xmin)/b);add(xmax,(c-a*xmax)/b);}if(!near(a)){add((c-b*ymin)/a,ymin);add((c-b*ymax)/a,ymax);}return points.slice(0,2);}
+function graph({rows=[],points=[],bounds=[-4,10,-4,10],reveal=1,ghost=[],title='方程与直线的坐标图',project=true}={}){const [xmin,xmax,ymin,ymax]=bounds,W=700,H=620,S=520,L=74,T=35,X=x=>L+(x-xmin)/(xmax-xmin)*S,Y=y=>T+(ymax-y)/(ymax-ymin)*S,colors=['#54dfd0','#ffb774','#b6a0ff'];let grid='',labels='';const span=Math.max(xmax-xmin,ymax-ymin),power=10**Math.floor(Math.log10(span/14)),raw=span/14/power,tick=(raw<=1?1:raw<=2?2:raw<=5?5:10)*power;for(let x=Math.ceil(xmin/tick)*tick;x<=xmax+1e-8;x+=tick){grid+=`<line x1="${X(x)}" x2="${X(x)}" y1="${T}" y2="${T+S}" stroke="${Math.round(x/tick)%2===0?'#293d55':'#213148'}"/>`;if(Math.round(x/tick)%2===0&&!near(x))labels+=`<text x="${X(x)}" y="${Y(0)+25}" text-anchor="middle">${f(x)}</text>`;}for(let y=Math.ceil(ymin/tick)*tick;y<=ymax+1e-8;y+=tick){grid+=`<line x1="${L}" x2="${L+S}" y1="${Y(y)}" y2="${Y(y)}" stroke="${Math.round(y/tick)%2===0?'#293d55':'#213148'}"/>`;if(Math.round(y/tick)%2===0&&!near(y))labels+=`<text x="${X(0)-15}" y="${Y(y)+6}" text-anchor="end">${f(y)}</text>`;}
+ const line=(r,i,dashed=false)=>{const p=clip(r,bounds);if(p.length<2)return '';const end=[p[0][0]+(p[1][0]-p[0][0])*reveal,p[0][1]+(p[1][1]-p[0][1])*reveal];return `<line x1="${X(p[0][0])}" y1="${Y(p[0][1])}" x2="${X(end[0])}" y2="${Y(end[1])}" stroke="${colors[i%3]}" stroke-width="${dashed?2:4}" ${dashed?'stroke-dasharray="8 8" opacity=".36"':''} stroke-linecap="round"/>`;};
+ const marks=points.map((p,i)=>{const [x,y]=p;if(x<xmin||x>xmax||y<ymin||y>ymax)return '';const color=p[3]||'#fff',px=X(x),py=Y(y),label=p[2]||`(${f(x)}, ${f(y)})`,ly=py<T+55?py+31:py-24,tx=Math.max(L+65,Math.min(L+S-65,px));return `${project?`<path d="M${X(0)} ${py}H${px}V${Y(0)}" stroke="${color}" stroke-dasharray="5 6" opacity=".38" fill="none"/>`:''}<circle cx="${px}" cy="${py}" r="13" fill="${color}" opacity=".1"/><circle cx="${px}" cy="${py}" r="6" fill="${color}" stroke="#102035" stroke-width="2"/><text x="${tx}" y="${ly}" text-anchor="middle" fill="${color}" font-size="20" paint-order="stroke" stroke="#102035" stroke-width="7" stroke-linejoin="round">${label}</text>`;}).join('');
+ return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" role="img" aria-label="${title}"><title>${title}</title><rect width="700" height="620" rx="22" fill="#102035"/><g>${grid}</g><path d="M${L} ${Y(0)}H${L+S+13}m-9-5 9 5-9 5M${X(0)} ${T+S}V${T-12}m-5 9 5-9 5 9" fill="none" stroke="#869bb2" stroke-width="1.6"/><g fill="#8da3bb" font-family="Arial,sans-serif" font-size="17">${labels}<text x="${X(0)-17}" y="${Y(0)+25}">O</text><text x="${L+S+24}" y="${Y(0)+6}">x</text><text x="${X(0)-6}" y="${T-21}">y</text></g>${ghost.map((r,i)=>line(r,i,true)).join('')}${rows.map((r,i)=>line(r,i)).join('')}${marks}<text x="350" y="598" text-anchor="middle" fill="#8da3bb" font-family="Arial,sans-serif" font-size="15">${xmin} ≤ x ≤ ${xmax} · ${ymin} ≤ y ≤ ${ymax}</text></svg>`;
+}
+function solveSteps(rows,method='elimination'){const [u,v]=rows,[a,b,c]=u,[d,e,g]=v,s=solve(rows);if(s.kind!=='unique')return[{name:'比较两条方程',math:system(rows),note:'先整理，再看两条方程是否描述同一条直线。'},{name:'判断公共解',math:s.kind==='none'?'没有公共解':'有无穷多组公共解',note:s.kind==='none'?'系数成比例但常数不成比例，直线平行；或整理后出现矛盾等式。':'一条方程可以由另一条同乘非零数得到；或存在恒等式。'}];
+ const steps=[{name:'整理并编号',math:system(rows),note:'把x、y和常数分别对齐，方便检查符号。'}];
+ if(method==='substitution'&&!near(b)){
+ const k=-a/b,t=c/b,coef=d+e*k,rhs=g-e*t;
+ steps.push({name:'用一个未知数表示另一个',math:`由①得 y = ${[term(k,'x',true),term(t,'',near(k))].filter(Boolean).join(' ')||'0'}`,note:'移项要变号；如果还要除以系数，等号右边的每一项都要除。'},
+ {name:'代入另一条方程',math:`${term(d,'x',true)||'0'} + (${f(e)}) × [${f(k)}x + (${f(t)})] = ${f(g)}`,note:'代入②，不是代回刚刚用来变形的①；把整个表达式放进括号。'},
+ {name:'解一元一次方程',math:`${f(coef)}x = ${f(rhs)} → x = ${f(s.x)}`,note:'去括号、合并同类项，再求出x。'});
+ }else{
+ let m=d,n=-a;if(near(a)&&near(d)){m=e;n=-b;}const combined=u.map((value,i)=>m*value+n*v[i]);
+ steps.push({name:'把某个未知数的系数配成相反数',math:`① × (${f(m)})：${eq(u.map(n=>n*m))}<br>② × (${f(n)})：${eq(v.map(t=>t*n))}`,note:'同乘一个数时，每一项都要乘；相反数相加为0。'},
+ {name:'两式相加，消去一个未知数',math:eq(combined),note:'对齐后逐项相加。这个新方程要与一条原方程联立，不能只保留它。'},
+ {name:'解剩下的一元一次方程',math:!near(combined[1])?`y = ${f(combined[2])} ÷ (${f(combined[1])}) = ${f(s.y)}`:`x = ${f(combined[2])} ÷ (${f(combined[0])}) = ${f(s.x)}`,note:'最后除以系数，留意负号与分数。'});
+ }
+ const foundX=method==='substitution'&&!near(b),back=rows.find(r=>!near(r[foundX?1:0])),[ba,bb,bc]=back;
+ steps.push({name:'回代，求另一个未知数',math:foundX?`把x = ${f(s.x)}代入原方程：${f(ba)} × (${f(s.x)}) + ${f(bb)}y = ${f(bc)} → y = ${f(s.y)}`:`把y = ${f(s.y)}代入原方程：${f(ba)}x + ${f(bb)} × (${f(s.y)}) = ${f(bc)} → x = ${f(s.x)}`,note:'方程组的解是一组x、y的值，要把两个都写全。'},
+ {name:'同时代回两个原方程检查',math:`①：${f(a)} × (${f(s.x)}) + ${f(b)} × (${f(s.y)}) = ${f(c)}<br>②：${f(d)} × (${f(s.x)}) + ${f(e)} × (${f(s.y)}) = ${f(g)}`,note:`所以方程组的解为 x = ${f(s.x)}，y = ${f(s.y)}。这也是两条直线的交点坐标。`});return steps;
+}
+function fitBounds(rows,points=[]){const values=[0,...points.flatMap(p=>p.slice(0,2))];for(const [a,b,c]of rows){if(!near(a))values.push(c/a);if(!near(b))values.push(c/b);}const lo=Math.min(0,...values),hi=Math.max(6,...values),pad=Math.max(2,(hi-lo)*.12);return [lo-pad,hi+pad,lo-pad,hi+pad];}
+window.LinearMath={fitBounds,near,f,term,eq,system,type,solve,clip,graph,solveSteps};
+})();
