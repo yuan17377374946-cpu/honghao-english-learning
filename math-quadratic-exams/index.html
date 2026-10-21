@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="深圳二次函数专题练习：37道原题，逐题标明年份、真题或模拟题来源，保留图文和可展开解析。">
+  <meta name="theme-color" content="#164e45">
+  <title>深圳二次函数专题练习</title>
+  <link rel="stylesheet" href="style.css"><script src="app.js" defer></script>
+</head>
+<body>
+<header class="topbar"><div class="wrap top-inner">
+  <a class="brand" href="#"><span class="brand-icon" aria-hidden="true">ƒ</span><span>深圳数学<span class="brand-light"> / 专题练习</span></span></a>
+  <nav aria-label="主导航"><button class="nav-link active" id="libraryNav">全部题目</button><button class="nav-link" id="mistakesNav">我的错题 <span id="mistakesCount">0</span></button></nav>
+  <button class="print-btn" id="printBtn"><span aria-hidden="true">↗</span> 打印题目</button>
+</div></header>
+<main class="wrap">
+<section class="hero" aria-labelledby="page-title">
+  <div class="hero-copy"><p class="eyebrow"><span></span> JUNIOR MATH · SHENZHEN</p>
+  <h1 id="page-title">二次函数<span>专题练习</span></h1>
+  <p class="intro">从图象与性质，到真实情境中的应用。<br>原题、配图与解析，按年份和考点整理在一起。</p>
+  <div class="hero-stats"><div><strong>37<span>道</span></strong><small>精选原题</small></div><div><strong>3<span>道</span></strong><small>标注中考真题</small></div><div><strong>2022<span>—</span>2024</strong><small>题目年份范围</small></div></div>
+  </div>
+  <div class="formula-card"><div class="formula-top"><span>从顶点开始理解</span><span class="chapter-no">01 / 函数</span></div>
+  <div class="formula">y = a(x − h)<sup>2</sup> + k</div>
+  <svg class="graph" viewBox="0 0 400 180" role="img" aria-label="开口向上的抛物线，顶点为h,k，对称轴为x等于h">
+    <defs><pattern id="grid" width="25" height="25" patternUnits="userSpaceOnUse"><path d="M 25 0 L 0 0 0 25" fill="none" stroke="#dce5da" stroke-width=".8"/></pattern></defs>
+    <rect width="400" height="180" fill="url(#grid)"/>
+    <path d="M18 148 H385 M77 170 V12" fill="none" stroke="#9aac9e"/><path d="m380 144 5 4-5 4m-307-135 4-5 4 5" fill="none" stroke="#9aac9e"/>
+    <path d="M225 15 V163" stroke="#a8b7a7" stroke-dasharray="4 5"/>
+    <path d="M99 18 Q225 251 351 18" fill="none" stroke="#1b6556" stroke-width="3.5"/>
+    <circle cx="225" cy="134.5" r="5.5" fill="#d8724a" stroke="#fff" stroke-width="2"/>
+    <text x="240" y="127" fill="#164e45" font-size="16">(h, k)</text><text x="233" y="27" fill="#859785" font-size="13">x = h</text><text x="388" y="163" fill="#859785" font-size="12">x</text><text x="62" y="16" fill="#859785" font-size="12">y</text>
+  </svg>
+  <div class="formula-bottom"><span>顶点 <b>(h, k)</b></span><span>对称轴 <b>x = h</b></span></div></div>
+</section>
+<div class="source-strip"><span class="info-icon">i</span><p>年份与来源按原汇编标注。<b>中考真题、模拟题、期中题已分别标明</b>，不会将模拟题写成当年真题。</p></div>
+<section class="workspace" id="practice" aria-label="练习题库">
+<aside class="sidebar">
+  <div class="side-heading">筛选题目 <button id="resetFilters">重置</button></div>
+  <div class="filter-group"><h2>题目来源</h2><div id="typeFilters" class="filter-list"></div></div>
+  <div class="filter-group"><h2>年份</h2><div id="yearFilters" class="year-list"></div></div>
+  <div class="filter-group"><h2>考点分类</h2><div id="categoryFilters" class="filter-list"></div></div>
+  <div class="study-progress"><span class="progress-title">我的练习进度 <b id="progressFraction">0 / 37</b></span><div class="progress-track"><i id="progressBar"></i></div><p>做完后标记“已掌握”，下次接着练。</p></div>
+</aside>
+<div class="question-area">
+  <div class="question-toolbar"><div><p class="eyebrow small">QUESTION COLLECTION</p><h2 id="resultHeading">全部题目 <span id="resultCount">37</span></h2></div><label class="sort-label"><span class="sr-only">题目排序</span><select id="sortSelect"><option value="exam">中考真题优先</option><option value="book">按原书顺序</option><option value="year">按年份从新到旧</option></select></label></div>
+  <div class="search-row"><label class="search-box"><span aria-hidden="true">⌕</span><span class="sr-only">搜索题目、来源或考点</span><input id="searchInput" placeholder="搜索题目、学校、考点…" type="search"></label><button id="unlearnedBtn" class="unlearned-btn" aria-pressed="false">只看未掌握</button></div>
+  <div class="active-filter-line"><span id="filterSummary">从基础到综合，按自己的节奏练习。</span><span>页码为原书页脚页码</span></div>
+  <div id="questionList" aria-live="polite"><div class="loading">正在加载题目…</div></div>
+  <div id="emptyState" class="empty-state" hidden><div>∅</div><h3>没有符合条件的题目</h3><p id="emptyMessage">换个关键词，或清除筛选后继续查看。</p><button id="clearEmpty" class="primary-btn">查看全部题目</button></div>
+  <p class="list-footer" id="listFooter">每道题保留原汇编图文 · 解析默认收起 · 练习记录保存在当前浏览器</p>
+</div>
+</section>
+<footer><span>深圳数学 / 二次函数专题练习</span><span>来源：深圳中考数学真题分类汇编 · 教师版</span></footer>
+</main>
+<dialog id="imageDialog"><button id="closeDialog" aria-label="关闭放大图">×</button><p id="imageCaption"></p><img id="zoomImage" alt=""></dialog>
+<div class="toast" id="toast" role="status"></div>
+<noscript><p class="wrap">请启用 JavaScript 以浏览题目和筛选题库。</p></noscript>
+</body></html>
