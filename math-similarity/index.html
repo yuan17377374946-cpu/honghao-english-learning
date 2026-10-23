@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="zh-CN">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#ffffff"><title>相似三角形 · 八大模型互动课堂</title><link rel="stylesheet" href="style.css?v=1"></head>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#ffffff"><title>相似三角形 · 八大模型互动课堂</title><link rel="stylesheet" href="style.css?v=1"><link rel="stylesheet" href="exams.css?v=3"></head>
 <body>
 <header class="top"><a href="../math-calculation/">← 数学课堂</a><span>宏浩 · 几何专题</span><select id="quickModels" aria-label="切换模型"><option value="0">01 A字模型</option><option value="1">02 8字模型</option><option value="2">03 一线三等角</option><option value="3">04 射影定理</option><option value="4">05 飞鱼模型</option><option value="5">06 手拉手模型</option><option value="6">07 十字架模型</option><option value="7">08 对角互补模型</option></select><button id="focus">进入讲课大屏</button></header>
 <main>
@@ -13,9 +13,10 @@
 <div class="studio"><section class="figurePanel"><div class="figureTop"><b>图形观察</b><button id="resetFigure">恢复图形</button></div><svg id="diagram" viewBox="0 0 700 470" role="img" aria-label="当前模型几何图"></svg><div id="sliderControls"></div><p id="figureNote" class="figureNote"></p><div id="correspondence" class="correspondence"></div></section>
 <section class="proofPanel"><div class="proofTop"><b>分步板书</b><span id="stepCount"></span></div><p id="given" class="given"></p><div id="steps" aria-live="polite"></div><div class="stepActions"><button id="prev">← 上一步</button><button id="next" class="primary">下一步 →</button><button id="all">全部展示</button></div><p class="keyTip">键盘 ← / → 控制步骤；按 Esc 退出讲课大屏。</p></section></div>
 <div id="pitfall" class="pitfall"></div>
+<section id="examPractice" class="examPractice" aria-label="对应模型的中考真题"></section>
 <section class="practice"><div class="practiceHead"><div><p class="eyebrow">SAY IT, THEN CHECK IT</p><h3>当堂口答与练习</h3></div><span>直接点开详细解析</span></div><div id="exercises"></div></section>
 <div class="bottomNav"><button id="previousModel">← 上一个模型</button><span id="learnedCount"></span><button id="nextModel">下一个模型 →</button></div>
 </section>
-<footer>模型结构参考《专题01 相似三角形的八大模型（学生版）》第1—5页；判定方法结合北师大版九年级上册第三章。练习包含资料题改写与自编题，分别标明来源，不标作深圳中考真题。</footer>
-</main><script src="models.js?v=2"></script><script src="app.js?v=2"></script>
+<footer>模型结构参考《专题01 相似三角形的八大模型（学生版）》第1—5页；判定方法结合北师大版九年级上册第三章。每个模型配一道中考真题：6道深圳题、2道外地题，均标明来源。课堂加问、原题节选与资料改写题分别注明。</footer>
+</main><script src="models.js?v=2"></script><script src="exams.js?v=3"></script><script src="app.js?v=3"></script>
 </body></html>
