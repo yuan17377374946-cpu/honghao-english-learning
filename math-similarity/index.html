@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#ffffff"><title>相似三角形 · 八大模型互动课堂</title><link rel="stylesheet" href="style.css?v=1"></head>
+<body>
+<header class="top"><a href="../math-calculation/">← 数学课堂</a><span>宏浩 · 几何专题</span><select id="quickModels" aria-label="切换模型"><option value="0">01 A字模型</option><option value="1">02 8字模型</option><option value="2">03 一线三等角</option><option value="3">04 射影定理</option><option value="4">05 飞鱼模型</option><option value="5">06 手拉手模型</option><option value="6">07 十字架模型</option><option value="7">08 对角互补模型</option></select><button id="focus">进入讲课大屏</button></header>
+<main>
+<section class="hero"><div><p class="eyebrow">SIMILAR TRIANGLES / 01—08</p><h1>看清图形，<br>把证明一步步说出来<span>。</span></h1><p>八种模型，同一个出发点：先找相等角，再确定对应关系。</p></div><div class="route"><b>今晚 45 分钟建议</b><p>5分钟 · 对应顶点与判定<br>15分钟 · A字与8字<br>15分钟 · 一线三等角与射影<br>10分钟 · 口述证明、两题巩固</p><small>其余模型已配齐，可按学校进度切换。</small></div></section>
+<details class="basics"><summary>课前速查：判定与对应关系</summary><div class="basicsGrid"><p><b>AA</b> 两角分别相等。<br><b>SAS</b> 两边成比例，且夹角相等。<br><b>SSS</b> 三边分别成比例。</p><p>若 ΔABC ∼ ΔDEF：<br>A↔D，B↔E，C↔F。<br>AB/DE = BC/EF = AC/DF。<br>周长比为 k，面积比为 k²。</p><p><b>证明的四句话</b><br>① 哪两个角相等？为什么？<br>② 哪两个三角形相似？<br>③ 顶点顺序对应了吗？<br>④ 哪个比例能求出目标？</p></div></details>
+<nav id="modelNav" aria-label="八个模型"></nav>
+<section id="lesson" class="lesson" aria-label="模型课堂">
+<div class="lessonHead"><div><p id="modelNum" class="eyebrow"></p><h2 id="title"></h2><p id="subtitle"></p></div><button id="mark" aria-pressed="false">标记已学</button></div>
+<div id="variants" class="variants"></div>
+<div class="studio"><section class="figurePanel"><div class="figureTop"><b>图形观察</b><button id="resetFigure">恢复图形</button></div><svg id="diagram" viewBox="0 0 700 470" role="img" aria-label="当前模型几何图"></svg><div id="sliderControls"></div><p id="figureNote" class="figureNote"></p><div id="correspondence" class="correspondence"></div></section>
+<section class="proofPanel"><div class="proofTop"><b>分步板书</b><span id="stepCount"></span></div><p id="given" class="given"></p><div id="steps" aria-live="polite"></div><div class="stepActions"><button id="prev">← 上一步</button><button id="next" class="primary">下一步 →</button><button id="all">全部展示</button></div><p class="keyTip">键盘 ← / → 控制步骤；按 Esc 退出讲课大屏。</p></section></div>
+<div id="pitfall" class="pitfall"></div>
+<section class="practice"><div class="practiceHead"><div><p class="eyebrow">SAY IT, THEN CHECK IT</p><h3>当堂口答与练习</h3></div><span>直接点开详细解析</span></div><div id="exercises"></div></section>
+<div class="bottomNav"><button id="previousModel">← 上一个模型</button><span id="learnedCount"></span><button id="nextModel">下一个模型 →</button></div>
+</section>
+<footer>模型结构参考《专题01 相似三角形的八大模型（学生版）》第1—5页；判定方法结合北师大版九年级上册第三章。练习包含资料题改写与自编题，分别标明来源，不标作深圳中考真题。</footer>
+</main><script src="models.js?v=1"></script><script src="app.js?v=1"></script>
+</body></html>
