@@ -8,10 +8,10 @@ function meet(a,b,c,d){const u=[b[0]-a[0],b[1]-a[1]],v=[d[0]-c[0],d[1]-c[1]],w=[
 const S=(tag,math,reason)=>({tag,math,reason});
 const Q=(question,answer)=>({question,answer});
 const models=[
-{id:'a',name:'A字模型',sub:'同一个公共角，可能有两种对应顺序。',variants:['正A · 平行型','斜A · 反向对应'],slider:{label:'截取位置',min:30,max:80,value:55,unit:'%'},note:'拖动截取位置；正A保持 DE ∥ BC，斜A保持两对对应角相等。',
-given:v=>v?'D在AB上、E在AC上，∠ADE = ∠ACB。':'D在AB上、E在AC上，DE ∥ BC。',
+{id:'a',name:'A字模型',sub:'同一个公共角，可能有两种对应顺序。',variants:['正A · 平行型','斜A · 反向对应'],slider:{label:'截取位置',min:30,max:100,value:55,unit:'%'},note:'拖动截取位置，D可沿AB移到B。正A中DE平行于BC（端点时重合）；斜A保持两对对应角相等。',
+given:(v,t)=>!v&&t===100?'D与B重合、E与C重合，ΔADE与ΔABC重合。':v?'D在AB上、E在AC上，∠ADE = ∠ACB。':'D在AB上、E在AC上，DE ∥ BC。',
 pair:v=>v?['ADE','ACB']:['ADE','ABC'],
-steps:v=>[S('找角','∠DAE = ∠BAC','AD与AB同向，AE与AC同向，这是公共角。'),S('再找一对',v?'∠ADE = ∠ACB':'∠ADE = ∠ABC',v?'由题设得到；斜A不能按左右位置配对。':'DE ∥ BC，同位角相等。'),S('判定相似',v?'ΔADE ∼ ΔACB':'ΔADE ∼ ΔABC','两角分别相等，用AA判定。先把对应顶点写对。'),S('写对应边',v?'AD/AC = DE/CB = AE/AB':'AD/AB = DE/BC = AE/AC','每一个分子都属于前一个三角形，分母属于后一个三角形。'),S('连接面积','S小/S大 = k²','k是对应边的比。先开平方得到边长比，再求边长。')],
+steps:(v,t)=>[S('找角','∠DAE = ∠BAC','AD与AB同向，AE与AC同向，这是公共角。'),S('再找一对',v?'∠ADE = ∠ACB':'∠ADE = ∠ABC',v?'由题设得到；斜A不能按左右位置配对。':t===100?'此时D与B、E与C重合，所以这两个角重合。':'DE ∥ BC，同位角相等。'),S('判定相似',v?'ΔADE ∼ ΔACB':'ΔADE ∼ ΔABC','两角分别相等，用AA判定。先把对应顶点写对。'),S('写对应边',v?'AD/AC = DE/CB = AE/AB':'AD/AB = DE/BC = AE/AC','每一个分子都属于前一个三角形，分母属于后一个三角形。'),S('连接面积','S小/S大 = k²','k是对应边的比。先开平方得到边长比，再求边长。')],
 pitfall:'正A：D↔B、E↔C。斜A：D↔C、E↔B。先看角，不能看到“A字”就套同一个比例。',
 geometry(v,t){const A=[0,5],B=[-3,0],C=[4,0],k=t/100,D=mix(A,B,k),E=mix(A,C,v?k*34/41:k);return{p:{A,B,C,D,E},edges:['AB','AC','BC','DE'],tri:v?['ADE','ACB']:['ADE','ABC'],angles:[['D','A','E',0],v?['A','D','E',1]:['A','D','E',1],v?['A','C','B',1]:['A','B','C',1]],aux:[],right:[]};},
 questions:[Q('正A中，DE ∥ BC，AD = 3，AB = 5，DE = 6。求BC。',['DE ∥ BC，所以∠ADE = ∠ABC；∠DAE = ∠BAC。','由AA可得 ΔADE ∼ ΔABC。','AD/AB = DE/BC，即 3/5 = 6/BC。','交叉相乘：3BC = 30，所以 <b>BC = 10</b>。']),Q('切换到斜A。已知∠ADE = ∠ACB，AD = 3，小三角形ADE面积为9，四边形DBCE面积为16。求AC。',['∠DAE = ∠BAC，且∠ADE = ∠ACB，所以 ΔADE ∼ ΔACB。','大三角形ABC面积 = 9 + 16 = 25。','相似比 AD/AC = √(9/25) = 3/5。','3/AC = 3/5，所以 <b>AC = 5</b>。注意AD对应AC。'])]},
