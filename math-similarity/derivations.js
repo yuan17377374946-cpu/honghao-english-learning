@@ -9,7 +9,7 @@ models[4].diagram=(v,m,s)=>({
  angles:s===3?[mark('B','A','F',0,'',23),mark('A','B','F',1,'β'),mark('A','C','G',1,'β')]:s>=4?[mark('G','D','C',0,'α',32),mark('F','D','E',0,'α',32),mark('D','G','C',1,'β'),mark('D','F','E',1,'β')]:[],
  right:[],
  emphasis:s===1?['AC','CE']:s===2?['CG','DG']:s>=5?['AF','FD','DG']:[],
- labels:s===3?[{edge:'AF',text:'x',dx:27,dy:10},{edge:'AG',text:(m+1)+'x',dx:34,dy:0}]:s>=4?[{edge:'AF',text:'x',dx:29,dy:9},{edge:'FD',text:'y',dx:31,dy:5},{edge:'DG',text:'3y',dx:33,dy:10}]:[],
+ labels:s===3?[{edge:'AF',text:'AF=x',dx:45,dy:10}]:s>=4?[{edge:'AF',text:'AF=x',dx:45,dy:9},{edge:'FD',text:'DF=y',dx:49,dy:5},{edge:'DG',text:'DG=3y',dx:54,dy:10}]:[],
  caption:['先观察：AB∶BC=1∶'+m+'，DE∶CD=1∶3。','分段换整体：AC=(m+1)AB，DC=3DE。','辅助线：CG∥BE；A、F、D、G依次共线。','第一组：△ABF∼△ACG，A↔A，B↔C，F↔G。','第二组：△DGC∼△DFE，D↔D，G↔F，C↔E。','沿直线拼接：AG=AF+FD+DG=x+y+3y。','两式联立：(m+1)x=x+4y，得到AF/DF=4/m。'][s],
  formula:s===0?'AB∶BC=1∶'+m+'　|　DE∶CD=1∶3':s===1?'AC=(m+1)AB　|　DC=3DE':s===2?'CG∥BF∥FE':s===3?'AB/AC=AF/AG=1/'+(m+1):s===4?'DG/DF=DC/DE=3':s===5?'AG=x+4y':'AF/DF=4/'+m,
 });
