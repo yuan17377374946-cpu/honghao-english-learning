@@ -2,12 +2,13 @@
 const motionState={angle:-70,fold:100,point:60,e:2,align:100,side:0};
 const motionActive=()=>mode==='practice'&&[2,4,6,7].includes(index);
 function motionGeometry(q){
+ const diagramStage=diagramStep();
  if(!motionActive())return q;
  q={...q,p:{...q.p},labels:[...q.labels],angles:[]};
- if(index===2){const a=motionState.angle*Math.PI/180;q.p.E=rot([.7,0],a);q.p.F=rot([-.7,0],a);q.p.D=rot([0,-s3*.7],a);q.frame=[[-1.5,-1.9],[1.5,1.5]];if(step>=3)q.angles=[['A','O','D',0,'α'],['B','O','E',1,'α',35]];}
- if(index===4){const t=motionState.fold/100,A=q.p.A,B=q.p.B,N=q.p.N,dx=N[0]-B[0],dy=N[1]-B[1],u=((A[0]-B[0])*dx+(A[1]-B[1])*dy)/(dx*dx+dy*dy),H=[B[0]+u*dx,B[1]+u*dy];q.p.T=[H[0]+(A[0]-H[0])*Math.cos(Math.PI*t),H[1]+(A[1]-H[1])*Math.cos(Math.PI*t)];q.pointNames={T:t===1?'M':'A′'};q.edges=['AB','BC','CD','DA','BN','BT','NT'];q.frame=[[-.5,-.5],[4.6,5.5]];if(t<1){q.pairAt=99;q.right=[];}else{delete q.p.T;q.edges=['AB','BC','CD','DA','BN','BM','MN'];}if(step>=3&&t===1)q.angles=[['D','N','M',0,'α'],['B','M','C',1,'α']];}
- if(index===6){const t=motionState.point/100,x=4*t,y=3*(1-t);q.p.P=[x,y];q.p.E=[0,y-x/4];q.p.F=[x+y/4,0];q.p.M=[-.5,y-(x+.5)/4];q.p.N=[x+(y+1)/4,-1];q.p.Q=[0,y];q.p.R=[x,0];q.frame=[[-.8,-1.3],[4.5,3.5]];q.hiddenPoints=step<3?['R']:[];q.aux=step<2?[]:step===2?['PQ']:['PQ','PR'];q.right=[['A','B','C'],['M','P','N']];if(step>=2)q.right.push(['P','Q','A']);if(step>=3)q.right.push(['P','R','B']);if(motionState.point!==60){q.labels=q.labels.filter(l=>!['PE','PQ','AP'].includes(l.edge));q.labels.push(L('PE','PE/PF≈'+(x/y).toFixed(2),0,0,-24));q.pairAt=3;q.pairs=[['QPE','RPF']];q.switchAt=99;}else if(step>=3)q.angles=[['Q','P','E',0,'α'],['R','P','F',1,'α']];}
- if(index===7){q.p.E=[0,motionState.e];q.p.F=[6-motionState.e,0];q.frame=[[-.6,-.5],[6.6,6.6]];if(step>=2)q.angles=[['A','D','E',0,'α'],['C','D','F',1,'α']];q.labels.push(L('CF','CF=AE',4,0,26));}
+ if(index===2){const a=motionState.angle*Math.PI/180;q.p.E=rot([.7,0],a);q.p.F=rot([-.7,0],a);q.p.D=rot([0,-s3*.7],a);q.frame=[[-1.5,-1.9],[1.5,1.5]];if(diagramStage>=3)q.angles=[['A','O','D',0,'α'],['B','O','E',1,'α',35]];}
+ if(index===4){const t=motionState.fold/100,A=q.p.A,B=q.p.B,N=q.p.N,dx=N[0]-B[0],dy=N[1]-B[1],u=((A[0]-B[0])*dx+(A[1]-B[1])*dy)/(dx*dx+dy*dy),H=[B[0]+u*dx,B[1]+u*dy];q.p.T=[H[0]+(A[0]-H[0])*Math.cos(Math.PI*t),H[1]+(A[1]-H[1])*Math.cos(Math.PI*t)];q.pointNames={T:t===1?'M':'A′'};q.edges=['AB','BC','CD','DA','BN','BT','NT'];q.frame=[[-.5,-.5],[4.6,5.5]];if(t<1){q.pairAt=99;q.right=[];}else{delete q.p.T;q.edges=['AB','BC','CD','DA','BN','BM','MN'];}if(diagramStage>=3&&t===1)q.angles=[['D','N','M',0,'α'],['B','M','C',1,'α']];}
+ if(index===6){const t=motionState.point/100,x=4*t,y=3*(1-t);q.p.P=[x,y];q.p.E=[0,y-x/4];q.p.F=[x+y/4,0];q.p.M=[-.5,y-(x+.5)/4];q.p.N=[x+(y+1)/4,-1];q.p.Q=[0,y];q.p.R=[x,0];q.frame=[[-.8,-1.3],[4.5,3.5]];q.hiddenPoints=diagramStage<3?['R']:[];q.aux=diagramStage<2?[]:diagramStage===2?['PQ']:['PQ','PR'];q.right=[['A','B','C'],['M','P','N']];if(diagramStage>=2)q.right.push(['P','Q','A']);if(diagramStage>=3)q.right.push(['P','R','B']);if(motionState.point!==60){q.labels=q.labels.filter(l=>!['PE','PQ','AP'].includes(l.edge));q.labels.push(L('PE','PE/PF≈'+(x/y).toFixed(2),0,0,-24));q.pairAt=3;q.pairs=[['QPE','RPF']];q.switchAt=99;}else if(diagramStage>=3)q.angles=[['Q','P','E',0,'α'],['R','P','F',1,'α']];}
+ if(index===7){q.p.E=[0,motionState.e];q.p.F=[6-motionState.e,0];q.frame=[[-.6,-.5],[6.6,6.6]];if(diagramStage>=2)q.angles=[['A','D','E',0,'α'],['C','D','F',1,'α']];q.labels.push(L('CF','CF=AE',4,0,26));}
  return q;
 }
 function setupMotion(){
@@ -20,7 +21,7 @@ function renderMotion(q){
  const observing=index===6&&motionState.point!==60,folding=index===4&&motionState.fold!==100;
  if(observing)$('caption').textContent='观察模式：此时AP='+ (5*motionState.point/100).toFixed(2)+'；PE/PF≈'+(q.p.P[0]/q.p.P[1]).toFixed(2)+'。回到题设位置后再求原题答案。';if(folding)$('caption').textContent='沿BN翻折的平面投影；完全折好后A与M重合。';
  if(observing||folding){$('proof').innerHTML='<div class="motionHint">'+(observing?'当前为拖动观察模式，PE/PF≈'+(q.p.P[0]/q.p.P[1]).toFixed(2)+'，不满足原题PE=2PF。可观察垂线和第一组相似；点击“回到题设位置”再继续原题解析。':'先看A怎样绕折痕BN翻到M。B、N在折痕上保持不动，BA对应BM，NA对应NM。点击“完全折好”后继续证明。')+'</div>';$('next').disabled=true;$('prev').disabled=true;$('all').disabled=true;$('tip').hidden=true;}else $('all').disabled=false;
- const s=onlyOriginal?0:step,ps=pair(q,s),ready=s>=q.pairAt&&!observing&&!folding;
+ const s=diagramStep(),ps=pair(q,s),ready=s>=q.pairAt&&!observing&&!folding;
  if(!ready){box.innerHTML='<p class="motionHint">'+(index===4?'折痕BN固定，A与M是对应点；折叠保持长度与角度。':index===6?'第2步先画PQ，第3步补出PR。先找两个直角，再看互余的锐角。':index===7?'先连CD，再观察两对垂直线。讲到第3步时，可把两个三角形取出对照。':'先连接AO、DO，再找两组边的倍率与夹角。讲到第4步时，可把两个三角形取出对照。')+'</p>';return;}
  const edgeNames=[...ps[0]].map((k,i)=>k+ps[0][(i+1)%3]+' ↔ '+ps[1][i]+ps[1][(i+1)%3]);
  box.innerHTML='<h4>把两个三角形单独拿出来看</h4><p>同一颜色的顶点互相对应。拖动滑块，把右图转到相同方向；两图各自缩放，仅用于看对应关系。</p><svg id="compareSvg" viewBox="0 0 560 240" role="img" aria-label="对应三角形单独对照"></svg><label for="alignSlider">转到相同方向</label><input id="alignSlider" type="range" min="0" max="100" step="1" value="'+motionState.align+'"><div class="motionPairs">'+edgeNames.map((t,i)=>'<button data-side="'+i+'" class="'+(motionState.side===i?'selected':'')+'">'+t+'</button>').join('')+'</div><p>'+(q.pairSymbol==='≌'?'全等：对应边相等。':'相似：按同一顺序列对应边的比。')+' '+[...ps[0]].map((k,i)=>k+'↔'+ps[1][i]).join('，')+'</p>';
@@ -42,9 +43,10 @@ function motionOverlay(q,xy,s){if(!motionActive())return '';let out='';const lin
 function installMotionEvents(){
  $('modelControls').addEventListener('input',e=>{if(e.target.id!=='motionSlider')return;const k=e.target.dataset.key;motionState[k]=+e.target.value;$('motionValue').textContent=e.target.value+({angle:'°',fold:'%',point:'%',e:''}[k]);onlyOriginal=false;renderStep();});
  $('modelControls').addEventListener('click',e=>{const b=e.target.closest('[data-motion]');if(!b)return;const a=b.dataset.motion;if(a==='reset'){if(index===2)motionState.angle=-70;if(index===4)motionState.fold=100;if(index===6)motionState.point=60;if(index===7)motionState.e=2;}if(a==='unfold')motionState.fold=0;if(a==='fold')motionState.fold=100;setupMotion();renderStep();});
- $('motionCompare').addEventListener('input',e=>{if(e.target.id==='alignSlider'){motionState.align=+e.target.value;drawComparison(current(),pair(current(),step));}});
+ $('motionCompare').addEventListener('input',e=>{if(e.target.id==='alignSlider'){motionState.align=+e.target.value;drawComparison(current(),pair(current(),diagramStep()));}});
  $('motionCompare').addEventListener('click',e=>{const b=e.target.closest('[data-side]');if(!b)return;motionState.side=+b.dataset.side;renderStep();});
  const svg=$('diagram');let dragging=false;
  function drag(e){if(!dragging)return;const q=current(),vals=q.frame,sc=Math.min(390/(vals[1][0]-vals[0][0]),265/(vals[1][1]-vals[0][1])),pt=svg.createSVGPoint();pt.x=e.clientX;pt.y=e.clientY;const z=pt.matrixTransform(svg.getScreenCTM().inverse()),x=(z.x-280)/sc+(vals[0][0]+vals[1][0])/2,y=(185-z.y)/sc+(vals[0][1]+vals[1][1])/2,t=(4*x-3*(y-3))/25;motionState.point=Math.max(40,Math.min(70,Math.round(t*100)));setupMotion();renderStep();}
  svg.addEventListener('pointerdown',e=>{if(!e.target.closest('[data-draggable]'))return;dragging=true;svg.setPointerCapture(e.pointerId);drag(e);e.preventDefault();});svg.addEventListener('pointermove',drag);svg.addEventListener('pointerup',()=>dragging=false);svg.addEventListener('pointercancel',()=>dragging=false);
 }
+
