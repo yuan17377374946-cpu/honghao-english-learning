@@ -1,7 +1,7 @@
 (()=>{'use strict';
 const $=s=>document.querySelector(s),all=window.VARIATIONS,core=['v12','v15','v09','v07','v14','v18'],KEY='fraction-variation-lesson-20261028';
 let saved={};try{saved=JSON.parse(localStorage.getItem(KEY)||'{}')||{}}catch{}
-let scope=saved.scope==='all'?'all':'core',id=all.some(q=>q.id===saved.id)?saved.id:'v12',records=saved.records&&typeof saved.records==='object'&&!Array.isArray(saved.records)?saved.records:{},sub=0,revealed=0,final=false,pen=false,color='#c44635',size=24;
+let scope=saved.scope==='all'?'all':'core',id=all.some(q=>q.id===saved.id)?saved.id:'v12',records=saved.records&&typeof saved.records==='object'&&!Array.isArray(saved.records)?saved.records:{},sub=0,revealed=0,final=false,pen=false,color='#c44635',size=32;
 let coachIndex=0,hintLevel=0,selectedChoice='',solo=false,isRetest=false,returnTarget=null,modelPart='',modelCase=0,equationStage=0,tick=Number(saved.tick)||0;
 let queue=Array.isArray(saved.queue)?saved.queue.filter(e=>all.some(q=>q.id===e.id)&&Number.isInteger(e.sub)&&e.sub>=0&&e.sub<6&&typeof e.key==='string'&&Number.isFinite(e.due)):[];
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -121,7 +121,7 @@ $('#modelBody').onclick=e=>{const part=e.target.closest('[data-model]'),which=e.
 $('#pen').onclick=()=>{pen=!pen;$('#pen').setAttribute('aria-pressed',pen);$('#pen').textContent=pen?'正在圈画 · 结束':'圈画题目';$('#ink').classList.toggle('enabled',pen)};$('#undoInk').onclick=()=>ink.undo();$('#clearInk').onclick=()=>ink.clear();$('#undoScratch').onclick=()=>scratch.undo();$('#clearScratch').onclick=()=>scratch.clear();
 $('#scratchFold').ontoggle=()=>{if($('#scratchFold').open)requestAnimationFrame(scratch.resize)};
 document.querySelectorAll('[data-color]').forEach(b=>b.onclick=()=>{color=b.dataset.color;document.querySelectorAll('[data-color]').forEach(c=>c.setAttribute('aria-pressed',b===c))});
-$('#smaller').onclick=()=>{size=Math.max(18,size-2);document.documentElement.style.setProperty('--question-size',size+'px')};$('#larger').onclick=()=>{size=Math.min(36,size+2);document.documentElement.style.setProperty('--question-size',size+'px')};
+$('#smaller').onclick=()=>{size=Math.max(22,parseFloat(getComputedStyle($('#question')).fontSize)-2);document.documentElement.style.setProperty('--question-size',size+'px')};$('#larger').onclick=()=>{size=Math.min(48,parseFloat(getComputedStyle($('#question')).fontSize)+2);document.documentElement.style.setProperty('--question-size',size+'px')};
 $('#focus').onclick=()=>{document.body.classList.toggle('focus');$('#focus').textContent=document.body.classList.contains('focus')?'退出专注':'专注上课';requestAnimationFrame(ink.resize)};
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){$('#queuePanel').hidden=true;$('#troublePanel').hidden=true;$('#trouble').setAttribute('aria-expanded','false')}if(['TEXTAREA','INPUT','SELECT','BUTTON','SUMMARY'].includes(e.target.tagName)||e.ctrlKey||e.metaKey||e.altKey)return;if(e.key==='ArrowRight'){e.preventDefault();move(1)}if(e.key==='ArrowLeft'){e.preventDefault();move(-1)}});
 const hash=location.hash.slice(1);if(all.some(q=>q.id===hash)){id=hash;if(!core.includes(hash))scope='all'}render();
