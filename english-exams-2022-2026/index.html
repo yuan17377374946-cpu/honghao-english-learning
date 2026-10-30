@@ -3475,7 +3475,7 @@ render();
 (()=>{
  'use strict';
  const modules={tonight:{label:'今晚课堂',path:'../english-20261030/'},exams:{label:'中考真题',path:'./'},questions:{label:'疑问句专项',path:'../english-questions/'},phonics:{label:'自然拼读',path:'../phonics-combinations/'},writing:{label:'简单句写作',path:'../simple-writing/'}};
- let active='exams';const savedScroll={};const frames={};
+ let active='exams';const savedScroll={};const frames={};const pendingHashes={};
  const buttons=[...document.querySelectorAll('[data-classroom-tab]')];
  const moduleFromUrl=()=>{const m=new URL(location.href).searchParams.get('module');return Object.prototype.hasOwnProperty.call(modules,m)?m:'exams'};
  function stopAudio(){try{window.speechSynthesis?.cancel()}catch{}for(const frame of Object.values(frames)){try{frame.contentWindow.speechSynthesis?.cancel()}catch{}}}
@@ -3493,15 +3493,15 @@ render();
     if(!target)return;event.preventDefault();let key=target[0];const desired=url.searchParams.get('module');if(key==='exams'&&Object.prototype.hasOwnProperty.call(modules,desired))key=desired;
     const nextUrl=new URL(location.href);if(key==='exams')nextUrl.searchParams.delete('module');else nextUrl.searchParams.set('module',key);
     const requestedPaper=url.searchParams.get('paper');if(key==='exams'&&requestedPaper&&mById(requestedPaper))nextUrl.searchParams.set('paper',requestedPaper);
-    history.pushState(null,'',nextUrl);selectModule(key);if(key!=='exams'&&url.hash&&frames[key])frames[key].contentWindow.location.hash=url.hash;
+    if(key!=='exams'&&url.hash)pendingHashes[key]=url.hash;history.pushState(null,'',nextUrl);selectModule(key);if(key!=='exams'&&url.hash&&frames[key]&&document.getElementById('hub-'+key).dataset.ready==='true'){frames[key].contentWindow.location.hash=url.hash;delete pendingHashes[key];}
    });
    doc.addEventListener('keydown',event=>{if(event.key==='Escape')stopAudio()});
-   const panel=document.getElementById('hub-'+id);panel.dataset.ready='true';panel.querySelector('.hub-loading').hidden=true;
+   const panel=document.getElementById('hub-'+id);panel.dataset.ready='true';panel.querySelector('.hub-loading').hidden=true;if(pendingHashes[id]){const requestedHash=pendingHashes[id];delete pendingHashes[id];frame.contentWindow.location.hash=requestedHash;}
   }catch{document.getElementById('hub-'+id).querySelector('.hub-loading').hidden=true}
  }
  function ensureFrame(id){
   if(frames[id])return;
-  const panel=document.getElementById('hub-'+id),frame=document.createElement('iframe');frame.title=modules[id].label+'课堂';frame.dataset.classroomFrame=id;frame.allow='autoplay';frame.addEventListener('load',()=>adaptFrame(frame,id));
+  const panel=document.getElementById('hub-'+id),frame=document.createElement('iframe');frame.title=modules[id].label.endsWith('课堂')?modules[id].label:modules[id].label+'课堂';frame.dataset.classroomFrame=id;frame.allow='autoplay';frame.addEventListener('load',()=>adaptFrame(frame,id));
   frame.src=new URL(modules[id].path,location.href).href;frames[id]=frame;panel.append(frame);
  }
  function selectModule(id,updateUrl=false){
