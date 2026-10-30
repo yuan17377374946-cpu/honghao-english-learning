@@ -3474,7 +3474,7 @@ render();
 </script><script>/* One entrance, existing module records and sessions stay in place. */
 (()=>{
  'use strict';
- const modules={tonight:{label:'今晚课堂',path:'../english-20261030/?v=20261030-2'},exams:{label:'中考真题',path:'./'},questions:{label:'疑问句专项',path:'../english-questions/'},phonics:{label:'自然拼读',path:'../phonics-combinations/'},writing:{label:'简单句写作',path:'../simple-writing/'}};
+ const modules={tonight:{label:'今晚课堂',path:'../english-20261030/?v=20261030-audio3'},exams:{label:'中考真题',path:'./'},questions:{label:'疑问句专项',path:'../english-questions/'},phonics:{label:'自然拼读',path:'../phonics-combinations/'},writing:{label:'简单句写作',path:'../simple-writing/'}};
  let active='exams';const savedScroll={};const frames={};const pendingHashes={};
  const buttons=[...document.querySelectorAll('[data-classroom-tab]')];
  const moduleFromUrl=()=>{const m=new URL(location.href).searchParams.get('module');return Object.prototype.hasOwnProperty.call(modules,m)?m:'exams'};
