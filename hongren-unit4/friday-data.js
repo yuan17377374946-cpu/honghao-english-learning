@@ -1749,10 +1749,10 @@ window.FRIDAY_DATA = {
     },
     {
       "id": "e2",
-      "prompt": "It is difficult to move the box.\n理解：这个箱子移动得很困难。",
-      "task": "这句中文有没有准确表达英文重点？改成更准确的中文。",
+      "prompt": "It is difficult to move the box.\n理解：这个箱子很容易搬动。",
+      "task": "下面的中文翻译对吗？找出译错的地方，写出正确的中文。",
       "model": "移动这个箱子很困难。",
-      "why": "原句评价的是“移动箱子”这件事的难易，不是在描述箱子自身移动的方式。"
+      "why": "difficult表示“困难的”，不是“容易的”。这句话应理解为“移动这个箱子很困难”或“这个箱子很难搬动”。"
     },
     {
       "id": "e3",
