@@ -190,37 +190,37 @@
 <label class="record-label">存在问题<textarea id="record-problems" rows="3" placeholder="具体写在哪一步卡住，例如：会设式，但负数代入或平方计算出错。"></textarea></label><label class="record-label">实际布置的课后任务<textarea id="record-homework" rows="2" placeholder="按今晚表现填写，不默认布置未讲内容。"></textarea></label><label class="record-label">明天优先处理什么<textarea id="record-next" rows="2" placeholder="课后根据实际表现填写，明天的具体教案再设计。"></textarea></label><p id="record-status" class="small muted" aria-live="polite">尚未填写课堂记录。</p><div class="toolbar"><button class="primary" id="record-build">生成记录文字</button><button id="record-copy">复制记录文字</button></div><textarea id="record-report" rows="9" readonly aria-label="生成的课堂记录" placeholder="填写后点击生成，可复制发回聊天，用来设计明天的课。"></textarea><p class="small muted">记录保存在当前设备、当前浏览器；不会自动上传。复制后可发回聊天继续备课。</p></div>
 </section>
 <section class="panel" id="panel-10" role="tabpanel" aria-labelledby="tab-10" hidden><div class="section-head"><div><p class="eyebrow">11月3日 · 接着昨天练</p><h2>二次函数单元检测 · 基础篇</h2><p>24 道原题，逐题保留图表；教师解析默认收起。</p></div><span class="tag">选择10 · 填空6 · 解答8</span></div><div class="note"><b>先巩固三种形式，再做综合应用</b><p>建议先做第1—4、11—12、15、17—20题。第10、16、24题可留到基础熟练后讲。尚未完成的昨天内容，可从上方章节继续。</p></div><div class="toolbar"><label>筛选 <select id="basic-filter"><option value="all">全部24题</option><option value="today">三种形式优先练习</option><option value="choice">选择题</option><option value="fill">填空题</option><option value="written">解答题</option><option value="redo">待重做</option></select></label><button id="basic-open">展开本节解析</button><button id="basic-close">收起本节解析</button><span id="basic-progress" class="small muted"></span></div><div id="basic-jumps" class="basic-jumps" aria-label="题号导航"></div><details class="card answer" id="vieta-proof" style="margin:24px 0;scroll-margin-top:95px"><summary>韦达定理的两种推导：求根公式法＋因式展开比较系数法</summary>
-<div class="note"><b>适用前提</b><p>一元二次方程 Ax²+Bx+C=0，A≠0，且有两个实数根 x₁、x₂（可以相等），也就是 Δ=B²−4AC≥0。这里用大写 A、B、C 表示系数，避免与第10题中的字母混淆。</p></div>
+<div class="note"><b>适用前提</b><p>一元二次方程 ax²+bx+c=0，a≠0，且有两个实数根 x₁、x₂（可以相等），也就是 Δ=b²−4ac≥0。下面统一用小写 a、b、c，分别表示二次项系数、一次项系数和常数项。</p></div>
 <section id="vieta-formula-method" class="spacer" aria-labelledby="vieta-formula-heading">
 <h3 id="vieta-formula-heading">方法一：用求根公式推导</h3>
-<p>先写出两个根，再相加、相乘。设 Δ=B²−4AC≥0，则：</p>
-<div class="formula">x₁ = <span class="frac"><span>−B+√Δ</span><span>2A</span></span>，　x₂ = <span class="frac"><span>−B−√Δ</span><span>2A</span></span></div>
+<p>先写出两个根，再相加、相乘。设 Δ=b²−4ac≥0，则：</p>
+<div class="formula">x₁ = <span class="frac"><span>−b+√Δ</span><span>2a</span></span>，　x₂ = <span class="frac"><span>−b−√Δ</span><span>2a</span></span></div>
 <div class="card spacer"><h4>① 两根之和：同分母相加，根号项抵消</h4>
-<div class="formula">x₁+x₂<br>= <span class="frac"><span>−B+√Δ</span><span>2A</span></span> + <span class="frac"><span>−B−√Δ</span><span>2A</span></span><br>= <span class="frac"><span>(−B+√Δ)+(−B−√Δ)</span><span>2A</span></span><br>= <span class="frac"><span>−B+√Δ−B−√Δ</span><span>2A</span></span><br>= <span class="frac"><span>−2B</span><span>2A</span></span><br><strong class="blue">= <span class="frac"><span>−B</span><span>A</span></span></strong></div>
-<p>两个分母相同，分母仍是 2A，只把分子相加；+√Δ 与 −√Δ 互相抵消。最后分子、分母同时约去 2。</p></div>
+<div class="formula">x₁+x₂<br>= <span class="frac"><span>−b+√Δ</span><span>2a</span></span> + <span class="frac"><span>−b−√Δ</span><span>2a</span></span><br>= <span class="frac"><span>(−b+√Δ)+(−b−√Δ)</span><span>2a</span></span><br>= <span class="frac"><span>−b+√Δ−b−√Δ</span><span>2a</span></span><br>= <span class="frac"><span>−2b</span><span>2a</span></span><br><strong class="blue">= <span class="frac"><span>−b</span><span>a</span></span></strong></div>
+<p>两个分母相同，分母仍是 2a，只把分子相加；+√Δ 与 −√Δ 互相抵消。最后分子、分母同时约去 2。</p></div>
 <div class="card spacer"><h4>② 两根之积：分子用平方差公式</h4>
-<div class="note"><p>先回顾：(u+v)(u−v)=u²−v²。这里 u=−B，v=√Δ。</p></div>
-<div class="formula">x₁x₂<br>= <span class="frac"><span>−B+√Δ</span><span>2A</span></span> × <span class="frac"><span>−B−√Δ</span><span>2A</span></span><br>= <span class="frac"><span>(−B+√Δ)(−B−√Δ)</span><span>(2A)(2A)</span></span><br>= <span class="frac"><span>(−B)²−(√Δ)²</span><span>4A²</span></span><br>= <span class="frac"><span>B²−Δ</span><span>4A²</span></span><br>= <span class="frac"><span>B²−(B²−4AC)</span><span>4A²</span></span><br>= <span class="frac"><span>B²−B²+4AC</span><span>4A²</span></span><br>= <span class="frac"><span>4AC</span><span>4A²</span></span><br><strong class="teal">= <span class="frac"><span>C</span><span>A</span></span></strong></div>
-<p>注意三个地方：① (−B)²=B²；② (√Δ)²=Δ；③ 去括号时，−(B²−4AC)=−B²+4AC。最后利用 A≠0，约去分子、分母中的 4A。</p></div>
-<div class="note"><b>方法一得到：</b><div class="formula">x₁+x₂=−B/A，　x₁x₂=C/A。</div></div>
+<div class="note"><p>先回顾：(u+v)(u−v)=u²−v²。这里 u=−b，v=√Δ。</p></div>
+<div class="formula">x₁x₂<br>= <span class="frac"><span>−b+√Δ</span><span>2a</span></span> × <span class="frac"><span>−b−√Δ</span><span>2a</span></span><br>= <span class="frac"><span>(−b+√Δ)(−b−√Δ)</span><span>(2a)(2a)</span></span><br>= <span class="frac"><span>(−b)²−(√Δ)²</span><span>4a²</span></span><br>= <span class="frac"><span>b²−Δ</span><span>4a²</span></span><br>= <span class="frac"><span>b²−(b²−4ac)</span><span>4a²</span></span><br>= <span class="frac"><span>b²−b²+4ac</span><span>4a²</span></span><br>= <span class="frac"><span>4ac</span><span>4a²</span></span><br><strong class="teal">= <span class="frac"><span>c</span><span>a</span></span></strong></div>
+<p>注意三个地方：① (−b)²=b²；② (√Δ)²=Δ；③ 去括号时，−(b²−4ac)=−b²+4ac。最后利用 a≠0，约去分子、分母中的 4a。</p></div>
+<div class="note"><b>方法一得到：</b><div class="formula">x₁+x₂=−b/a，　x₁x₂=c/a。</div></div>
 </section>
 <section id="vieta-factor-method" class="spacer" aria-labelledby="vieta-factor-heading"><h3 id="vieta-factor-heading">方法二：展开因式，比较系数</h3><p>这一次从两个根对应的因式出发，展开后与一般式逐项对照。</p><h4>① 有两个根，为什么能写成两个因式相乘？</h4>
-<p>若 x₁ 是一个根，那么多项式含有因式 (x−x₁)；另一个根 x₂ 对应因式 (x−x₂)。原式的二次项系数为 A，所以必须保留外面的 A：</p>
-<div class="formula blue">Ax²+Bx+C = A(x−x₁)(x−x₂)</div>
-<p class="small muted">若两根相等，右边就是 A(x−x₁)²，此时规律仍然成立。</p>
+<p>若 x₁ 是一个根，那么多项式含有因式 (x−x₁)；另一个根 x₂ 对应因式 (x−x₂)。原式的二次项系数为 a，所以必须保留外面的 a：</p>
+<div class="formula blue">ax²+bx+c = a(x−x₁)(x−x₂)</div>
+<p class="small muted">若两根相等，右边就是 a(x−x₁)²，此时规律仍然成立。</p>
 <h4 class="spacer">② 四次乘法逐项展开，先别跳步</h4>
 <div class="formula">(x−x₁)(x−x₂)<br>= x·x + x·(−x₂) + (−x₁)·x + (−x₁)·(−x₂)<br>= x²−x₂x−x₁x+x₁x₂<br>= x²−(x₁+x₂)x+x₁x₂</div>
-<p>中间两项都有 x，合并时提出 x；最后一项是负数相乘，符号变成正号。再把外面的 A 分配给每一项：</p>
-<div class="formula teal">A(x−x₁)(x−x₂)<br>= Ax²−A(x₁+x₂)x+Ax₁x₂</div>
+<p>中间两项都有 x，合并时提出 x；最后一项是负数相乘，符号变成正号。再把外面的 a 分配给每一项：</p>
+<div class="formula teal">a(x−x₁)(x−x₂)<br>= ax²−a(x₁+x₂)x+ax₁x₂</div>
 <h4 class="spacer">③ 比较一次项系数，得到“两根之和”</h4>
-<p>上面展开式与 Ax²+Bx+C 是同一个多项式，因此对应项的系数相等：</p>
-<div class="table-scroll"><table><thead><tr><th>对应的项</th><th>一般式中的系数</th><th>因式相乘展开后的系数</th></tr></thead><tbody><tr><td>x² 项</td><td>A</td><td>A</td></tr><tr><td>x 项</td><td>B</td><td>−A(x₁+x₂)</td></tr><tr><td>常数项</td><td>C</td><td>Ax₁x₂</td></tr></tbody></table></div>
-<div class="formula">B = −A(x₁+x₂)<br>−B = A(x₁+x₂)<br><strong class="blue">x₁+x₂ = <span class="frac"><span>−B</span><span>A</span></span></strong></div>
+<p>上面展开式与 ax²+bx+c 是同一个多项式，因此对应项的系数相等：</p>
+<div class="table-scroll"><table><thead><tr><th>对应的项</th><th>一般式中的系数</th><th>因式相乘展开后的系数</th></tr></thead><tbody><tr><td>x² 项</td><td>a</td><td>a</td></tr><tr><td>x 项</td><td>b</td><td>−a(x₁+x₂)</td></tr><tr><td>常数项</td><td>c</td><td>ax₁x₂</td></tr></tbody></table></div>
+<div class="formula">b = −a(x₁+x₂)<br>−b = a(x₁+x₂)<br><strong class="blue">x₁+x₂ = <span class="frac"><span>−b</span><span>a</span></span></strong></div>
 <p>这就是两根之和：一次项系数的相反数，除以二次项系数。</p>
 <h4 class="spacer">④ 比较常数项，得到“两根之积”</h4>
-<p>一般式的常数项为 C，展开后的常数项为 Ax₁x₂。令它们相等，再除以 A：</p>
-<div class="formula">C = Ax₁x₂<br><strong class="teal">x₁x₂ = <span class="frac"><span>C</span><span>A</span></span></strong></div>
-<div class="note"><b>韦达定理</b><div class="formula">x₁+x₂ = −B/A，　x₁x₂ = C/A</div><p>写回熟悉的小写形式：对 ax²+bx+c=0，两根之和为 −b/a，两根之积为 c/a。</p><p><b>“和带负号，积不带负号”指公式的写法，不代表根的和一定为负、积一定为正。必须连同系数本身的符号计算。</b></p></div>
+<p>一般式的常数项为 c，展开后的常数项为 ax₁x₂。令它们相等，再除以 a：</p>
+<div class="formula">c = ax₁x₂<br><strong class="teal">x₁x₂ = <span class="frac"><span>c</span><span>a</span></span></strong></div>
+<div class="note"><b>韦达定理</b><div class="formula">x₁+x₂ = −b/a，　x₁x₂ = c/a</div><p>对 ax²+bx+c=0，两根之和为 −b/a，两根之积为 c/a。</p><p><b>“和带负号，积不带负号”指公式的写法，不代表根的和一定为负、积一定为正。必须连同系数本身的符号计算。</b></p></div>
 </section><div class="note"><b>两种方法，得到同一个规律</b><p>方法一：根的表达式相加、相乘 → 化简。<br>方法二：两个一次因式相乘 → 展开 → 比较系数。</p></div><h3 class="spacer">用具体数字核对：外面的系数不能丢</h3>
 <div class="formula">2x²−10x+12 = 2(x−2)(x−3)</div>
 <p>两个根是 2、3，所以两根之和为 5，两根之积为 6。由系数计算：</p>
@@ -229,9 +229,9 @@
 <h3 class="spacer">回到基础检测第10题：一次项系数要带上负号</h3>
 <p>两个图象的交点满足 a(x−h)²+k=mx+n，按顺序展开、移项：</p>
 <div class="formula">ax²−2ahx+ah²+k = mx+n<br>ax²−2ahx−mx+ah²+k−n = 0<br>ax²−(2ah+m)x+ah²+k−n = 0</div>
-<p>与 Ax²+Bx+C=0 对照，本题中的 A=a，B=−(2ah+m)，C=ah²+k−n。</p>
-<div class="formula">x₁+x₂ = −B/A<br>= −[−(2ah+m)]/a<br>= (2ah+m)/a<br><strong class="blue">= 2h+m/a</strong></div>
-<div class="formula">x₁x₂ = C/A = (ah²+k−n)/a</div>
+<p>与一般式 ax²+bx+c=0 对照：本题的二次项系数是 a，一次项系数 b=−(2ah+m)，常数项 c=ah²+k−n。</p>
+<div class="formula">x₁+x₂ = −b/a<br>= −[−(2ah+m)]/a<br>= (2ah+m)/a<br><strong class="blue">= 2h+m/a</strong></div>
+<div class="formula">x₁x₂ = c/a = (ah²+k−n)/a</div>
 <p>第10题只用两根之和：a&lt;0、m&lt;0 时，m/a&gt;0，所以 x₁+x₂&gt;2h，选 A。两根之积虽然也能求出，但本题不需要使用。</p>
 <div class="toolbar"><button type="button" id="vieta-back">回到第10题</button></div>
 
