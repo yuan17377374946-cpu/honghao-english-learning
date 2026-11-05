@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>宏浩 · 听力信息获取</title>
+<meta name="description" content="26段对话52题，特殊疑问句与一般疑问句混合训练，点击播放、逐题作答、查看解析。">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top"><a class="brand" href="#">H<span>·</span> ENGLISH</a><span class="student">宏浩的英语课堂</span><div class="top-progress"><span id="total-progress">已答 0 / 52</span><div class="track"><i id="progress-fill"></i></div></div></header>
+<div class="shell">
+<aside><p class="eyebrow">LISTEN & UNDERSTAND</p><h1>听清问题，<br>找到答案。</h1><p class="intro">信息获取 · 听选信息<br>26段对话 / 52道题</p><div class="section-label">选择对话 <span id="nav-count">01 / 26</span></div><nav id="passage-nav" aria-label="选择对话"></nav><div class="legend"><i></i> 本段已作答</div><details class="settings"><summary>播放设置</summary><label for="voice-select">英语语音</label><select id="voice-select"><option value="">自动选择英语语音</option></select><label class="check-label"><input type="checkbox" id="read-questions" checked> 对话后朗读问题</label><p>每段对话播放两遍，读完每个问题后留8秒作答。可随时停止或重听。</p><button id="test-voice" class="plain">试听语音</button></details><button class="plain reset" id="reset">清空本次作答</button></aside>
+<main>
+<div class="lesson-header"><div><p class="eyebrow" id="passage-number">DIALOGUE 01</p><h2 id="lesson-title">听第1段对话</h2><p id="question-range">回答第1—2题</p></div><span class="pill">问句混合练习</span></div>
+<section class="player" aria-label="听力播放器"><div class="player-top"><span class="headphones" aria-hidden="true">♪</span><div><strong>先看问题，再听对话</strong><p id="play-status" role="status" aria-live="polite">准备好后，点击播放</p></div><span class="equalizer" id="equalizer" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div><div class="play-controls"><button class="primary" id="play-twice">▶ 播放两遍</button><button class="secondary" id="play-once">只听一遍</button><button class="stop" id="stop" disabled>■ 停止</button><label class="speed">语速 <select id="speed"><option value="0.75">0.75× 慢速</option><option value="0.9" selected>0.9× 稍慢</option><option value="1">1.0× 正常</option><option value="1.15">1.15×</option></select></label></div><div class="error" id="audio-error" role="alert" hidden></div></section>
+<form id="questions" aria-label="听力题目"></form>
+<div class="answer-actions"><button class="primary" id="check">核对本段答案</button><button class="plain" id="show-transcript" aria-expanded="false">显示听力原文</button><span id="check-summary" role="status"></span></div>
+<section id="transcript" class="transcript" hidden><p class="eyebrow">LISTENING SCRIPT</p><h3>听力原文</h3><div id="script-lines"></div></section>
+<div class="bottom-nav"><button id="previous" class="secondary">← 上一段</button><span id="bottom-count">1 / 26</span><button id="next" class="secondary">下一段 →</button></div>
+<p class="note">只练信息获取：听对话，从三个备选信息中选出答案。作答进度保存在当前浏览器。</p>
+</main></div>
+<script src="app.js"></script>
+</body></html>

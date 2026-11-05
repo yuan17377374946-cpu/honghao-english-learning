@@ -1,0 +1,1224 @@
+[
+  {
+    "lines": [
+      "Girl: This swimming pool is twenty metres long. How wide is it?",
+      "Man: Ten metres wide.",
+      "Girl: How deep is it?",
+      "Man: One metre deep at this end. It is safe for beginners here."
+    ],
+    "qs": [
+      {
+        "text": "How deep is the pool at this end?",
+        "tag": "how deep",
+        "answer": "One metre.",
+        "choices": [
+          "Twenty metres.",
+          "One metre.",
+          "Ten metres."
+        ],
+        "clue": "One metre deep at this end.",
+        "reasons": {
+          "Ten metres.": "ten metres 是宽度，不是深度。",
+          "Twenty metres.": "twenty metres 是长度，不是深度。"
+        },
+        "point": "how deep 问深度；at this end 限定为泳池这一端。",
+        "n": 1,
+        "key": "B"
+      },
+      {
+        "text": "How wide is the swimming pool?",
+        "tag": "how wide",
+        "answer": "Ten metres.",
+        "choices": [
+          "One metre.",
+          "Ten metres.",
+          "Twenty metres."
+        ],
+        "clue": "Ten metres wide.",
+        "reasons": {
+          "Twenty metres.": "twenty metres 是长度，不是宽度。",
+          "One metre.": "one metre 是这一端的深度。"
+        },
+        "point": "how wide 问宽度；区分 long、wide、deep。",
+        "n": 2,
+        "key": "B"
+      }
+    ],
+    "id": 1
+  },
+  {
+    "lines": [
+      "Girl: Ben, will you buy some apples today?",
+      "Boy: No. I will buy them tomorrow.",
+      "Girl: How many apples will you buy?",
+      "Boy: Six. Three for Mum and three for Dad."
+    ],
+    "qs": [
+      {
+        "text": "How many apples will Ben buy?",
+        "tag": "how many",
+        "answer": "Six.",
+        "choices": [
+          "Two.",
+          "Three.",
+          "Six."
+        ],
+        "clue": "Six. Three for Mum and three for Dad.",
+        "reasons": {
+          "Three.": "three 只是给其中一人的数量，合计为 six。",
+          "Two.": "有两位收礼人，不是两个苹果。"
+        },
+        "point": "how many 问可数数量；注意总数和部分数量。",
+        "n": 3,
+        "key": "C"
+      },
+      {
+        "text": "Will Ben buy the apples today?",
+        "tag": "will",
+        "answer": "No, he will buy them tomorrow.",
+        "choices": [
+          "No, he will buy them tomorrow.",
+          "No, he bought them yesterday.",
+          "Yes, he will buy them today."
+        ],
+        "clue": "No. I will buy them tomorrow.",
+        "reasons": {
+          "Yes, he will buy them today.": "today 被明确否定。",
+          "No, he bought them yesterday.": "原文说 tomorrow，还没有购买。"
+        },
+        "point": "Will 开头问将来的安排；区分 today 和 tomorrow。",
+        "n": 4,
+        "key": "A"
+      }
+    ],
+    "id": 2
+  },
+  {
+    "lines": [
+      "Boy: I would like a bottle of water, please.",
+      "Woman: This small bottle is two yuan. The big one is four yuan.",
+      "Boy: I will take the big one. How much water is in it?",
+      "Woman: One litre."
+    ],
+    "qs": [
+      {
+        "text": "How much water is in the big bottle?",
+        "tag": "how much:amount",
+        "answer": "One litre.",
+        "choices": [
+          "One litre.",
+          "Half a litre.",
+          "Two litres."
+        ],
+        "clue": "One litre.",
+        "reasons": {
+          "Half a litre.": "原文没有说 half a litre。",
+          "Two litres.": "two 是小瓶价格的数字，不是大瓶水量。"
+        },
+        "point": "how much + 不可数名词问数量；water 的量用容量单位。",
+        "n": 5,
+        "key": "A"
+      },
+      {
+        "text": "How much does the big bottle of water cost?",
+        "tag": "how much:price",
+        "answer": "Four yuan.",
+        "choices": [
+          "Two yuan.",
+          "Four yuan.",
+          "One yuan."
+        ],
+        "clue": "The big one is four yuan.",
+        "reasons": {
+          "Two yuan.": "two yuan 是小瓶的价格。",
+          "One yuan.": "one 是水量对应的数字，不是价格。"
+        },
+        "point": "how much + cost 问价格；核对 big 和 small。",
+        "n": 6,
+        "key": "B"
+      }
+    ],
+    "id": 3
+  },
+  {
+    "lines": [
+      "Boy: How heavy is your new bike, May?",
+      "Girl: It is twelve kilograms. My old bike was fifteen kilograms.",
+      "Boy: How fast do you usually ride the new bike?",
+      "Girl: About ten kilometres an hour."
+    ],
+    "qs": [
+      {
+        "text": "How heavy is May's new bike?",
+        "tag": "how heavy",
+        "answer": "12 kilograms.",
+        "choices": [
+          "12 kilograms.",
+          "10 kilograms.",
+          "15 kilograms."
+        ],
+        "clue": "It is twelve kilograms.",
+        "reasons": {
+          "15 kilograms.": "15 kilograms 是旧自行车的重量。",
+          "10 kilograms.": "ten 是速度中的数字，不是重量。"
+        },
+        "point": "how heavy 问重量；区分 new 和 old。",
+        "n": 7,
+        "key": "A"
+      },
+      {
+        "text": "How fast does May usually ride her new bike?",
+        "tag": "how fast",
+        "answer": "About 10 kilometres an hour.",
+        "choices": [
+          "About 10 kilometres an hour.",
+          "About 12 kilometres an hour.",
+          "About 15 kilometres an hour."
+        ],
+        "clue": "About ten kilometres an hour.",
+        "reasons": {
+          "About 12 kilometres an hour.": "12 是新车重量，不是骑行速度。",
+          "About 15 kilometres an hour.": "15 是旧车重量，不是骑行速度。"
+        },
+        "point": "how fast 问速度；注意 kilometres an hour 这个单位。",
+        "n": 8,
+        "key": "A"
+      }
+    ],
+    "id": 4
+  },
+  {
+    "lines": [
+      "Boy: Were you and your sister at the zoo yesterday, Nina?",
+      "Girl: No. We were at home for her birthday.",
+      "Boy: How old is your sister now?",
+      "Girl: She is eight. I am fifteen."
+    ],
+    "qs": [
+      {
+        "text": "Were Nina and her sister at the zoo yesterday?",
+        "tag": "were",
+        "answer": "No, they were at home.",
+        "choices": [
+          "Yes, they were at the zoo.",
+          "No, they were at school.",
+          "No, they were at home."
+        ],
+        "clue": "No. We were at home for her birthday.",
+        "reasons": {
+          "Yes, they were at the zoo.": "zoo 被明确否定。",
+          "No, they were at school.": "地点是 home，不是 school。"
+        },
+        "point": "Were 开头问过去复数主语的状态或位置。",
+        "n": 9,
+        "key": "C"
+      },
+      {
+        "text": "How old is Nina's sister now?",
+        "tag": "how old",
+        "answer": "Eight.",
+        "choices": [
+          "Fifteen.",
+          "Seven.",
+          "Eight."
+        ],
+        "clue": "She is eight. I am fifteen.",
+        "reasons": {
+          "Fifteen.": "fifteen 是 Nina 的年龄。",
+          "Seven.": "妹妹现在 eight，不是 seven。"
+        },
+        "point": "how old 问年龄；注意 she 和 I 指不同的人。",
+        "n": 10,
+        "key": "C"
+      }
+    ],
+    "id": 5
+  },
+  {
+    "lines": [
+      "Boy: May I join your birthday party, Kate?",
+      "Girl: Of course! All my friends are welcome.",
+      "Boy: What is the date of your party?",
+      "Girl: November twelfth. My birthday is on November tenth."
+    ],
+    "qs": [
+      {
+        "text": "May the boy join Kate's party?",
+        "tag": "may",
+        "answer": "Yes, he may join the party.",
+        "choices": [
+          "No, only her family can come.",
+          "Yes, he may join the party.",
+          "No, he must wait until next year."
+        ],
+        "clue": "Of course! All my friends are welcome.",
+        "reasons": {
+          "No, only her family can come.": "Kate 说欢迎朋友，不是只邀请家人。",
+          "No, he must wait until next year.": "没有说要等明年。"
+        },
+        "point": "May 开头问许可；Of course 表示同意。",
+        "n": 11,
+        "key": "B"
+      },
+      {
+        "text": "What is the date of Kate's party?",
+        "tag": "what date",
+        "answer": "November 12th.",
+        "choices": [
+          "November 10th.",
+          "November 12th.",
+          "December 12th."
+        ],
+        "clue": "November twelfth.",
+        "reasons": {
+          "November 10th.": "November 10th 是生日日期，不是聚会日期。",
+          "December 12th.": "月份是 November，不是 December。"
+        },
+        "point": "问日期要听月份和日子；生日与聚会不一定在同一天。",
+        "n": 12,
+        "key": "B"
+      }
+    ],
+    "id": 6
+  },
+  {
+    "lines": [
+      "Boy: Lucy, do you walk to school?",
+      "Girl: No. I take the bus every morning.",
+      "Boy: Where do you catch the bus?",
+      "Girl: In front of the park, near my home."
+    ],
+    "qs": [
+      {
+        "text": "Where does Lucy catch the bus?",
+        "tag": "where",
+        "answer": "In front of the park.",
+        "choices": [
+          "In front of the park.",
+          "Behind the park.",
+          "In front of the school."
+        ],
+        "clue": "In front of the park, near my home.",
+        "reasons": {
+          "In front of the school.": "school 是目的地，不是上车地点。",
+          "Behind the park.": "原文是 in front of，不是 behind。"
+        },
+        "point": "where 问地点；听清方位词。",
+        "n": 13,
+        "key": "A"
+      },
+      {
+        "text": "Does Lucy walk to school?",
+        "tag": "does",
+        "answer": "No, she goes by bus.",
+        "choices": [
+          "Yes, she walks every day.",
+          "No, she goes by bike.",
+          "No, she goes by bus."
+        ],
+        "clue": "No. I take the bus every morning.",
+        "reasons": {
+          "Yes, she walks every day.": "Lucy 明确说 No，没有步行。",
+          "No, she goes by bike.": "交通方式是 bus，没有提到骑车。"
+        },
+        "point": "Does 开头问是否；先判断肯否，再核对交通方式。",
+        "n": 14,
+        "key": "C"
+      }
+    ],
+    "id": 7
+  },
+  {
+    "lines": [
+      "Boy: Would you like to go to the park with me, Lily?",
+      "Girl: Yes, I would love to.",
+      "Boy: Which gate shall we meet at, the east gate or the west gate?",
+      "Girl: The west gate. It is near my home."
+    ],
+    "qs": [
+      {
+        "text": "Which gate will they meet at?",
+        "tag": "which",
+        "answer": "The west gate.",
+        "choices": [
+          "The west gate.",
+          "The east gate.",
+          "The north gate."
+        ],
+        "clue": "The west gate.",
+        "reasons": {
+          "The east gate.": "east 只是提问时给出的另一选择。",
+          "The north gate.": "没有选择 north gate。"
+        },
+        "point": "which 问在范围内选哪一个；以最终选择为准。",
+        "n": 15,
+        "key": "A"
+      },
+      {
+        "text": "Would Lily like to go to the park?",
+        "tag": "would",
+        "answer": "Yes, she would love to.",
+        "choices": [
+          "Yes, she would love to.",
+          "No, she wants to stay at home.",
+          "No, she wants to go shopping."
+        ],
+        "clue": "Yes, I would love to.",
+        "reasons": {
+          "No, she wants to stay at home.": "Lily 接受邀请，没有说留在家。",
+          "No, she wants to go shopping.": "没有说想去购物。"
+        },
+        "point": "Would ... like to ...? 问意愿；would love to 表示愿意。",
+        "n": 16,
+        "key": "A"
+      }
+    ],
+    "id": 8
+  },
+  {
+    "lines": [
+      "Boy: Who is that man beside your father, Amy?",
+      "Girl: He is my uncle, Mr Green.",
+      "Boy: Is he a doctor like your father?",
+      "Girl: No. He is a teacher at my school."
+    ],
+    "qs": [
+      {
+        "text": "Who is the man beside Amy's father?",
+        "tag": "who",
+        "answer": "Her uncle.",
+        "choices": [
+          "Her uncle.",
+          "Her brother.",
+          "Her teacher's father."
+        ],
+        "clue": "He is my uncle, Mr Green.",
+        "reasons": {
+          "Her brother.": "原文是 uncle，不是 brother。",
+          "Her teacher's father.": "没有说他是老师的父亲。"
+        },
+        "point": "who 问人物；不要把职业和亲属关系混淆。",
+        "n": 17,
+        "key": "A"
+      },
+      {
+        "text": "Is Amy's uncle a doctor?",
+        "tag": "is",
+        "answer": "No, he is a teacher.",
+        "choices": [
+          "No, he is a teacher.",
+          "No, he is a driver.",
+          "Yes, he is a doctor."
+        ],
+        "clue": "No. He is a teacher at my school.",
+        "reasons": {
+          "Yes, he is a doctor.": "doctor 是父亲的职业，叔叔是 teacher。",
+          "No, he is a driver.": "原文没有说 driver。"
+        },
+        "point": "Is 开头问身份或状态；注意不同人物的职业。",
+        "n": 18,
+        "key": "A"
+      }
+    ],
+    "id": 9
+  },
+  {
+    "lines": [
+      "Girl: Dad, what will we do this afternoon?",
+      "Man: We will make a cake for Mum.",
+      "Girl: Shall I buy some eggs now?",
+      "Man: Yes, please. There are no eggs at home."
+    ],
+    "qs": [
+      {
+        "text": "Shall the girl buy some eggs now?",
+        "tag": "shall",
+        "answer": "Yes, there are no eggs at home.",
+        "choices": [
+          "No, there are enough eggs at home.",
+          "Yes, there are no eggs at home.",
+          "No, her father bought eggs this morning."
+        ],
+        "clue": "Yes, please. There are no eggs at home.",
+        "reasons": {
+          "No, there are enough eggs at home.": "原文说没有鸡蛋，不是足够。",
+          "No, her father bought eggs this morning.": "没有说父亲早上买过。"
+        },
+        "point": "Shall 开头在此征求意见；there are no 表示没有。",
+        "n": 19,
+        "key": "B"
+      },
+      {
+        "text": "What will the girl and her father do this afternoon?",
+        "tag": "what",
+        "answer": "Make a cake.",
+        "choices": [
+          "Buy a cake.",
+          "Cook some noodles.",
+          "Make a cake."
+        ],
+        "clue": "We will make a cake for Mum.",
+        "reasons": {
+          "Buy a cake.": "make 是制作，不是买成品蛋糕。",
+          "Cook some noodles.": "没有说煮面条。"
+        },
+        "point": "what 问活动内容；听动词和宾语。",
+        "n": 20,
+        "key": "C"
+      }
+    ],
+    "id": 10
+  },
+  {
+    "lines": [
+      "Woman: Have you found the shoes you want, Lisa?",
+      "Girl: Not yet. These size thirty-six shoes are too small.",
+      "Woman: What size do you need?",
+      "Girl: Size thirty-seven, please."
+    ],
+    "qs": [
+      {
+        "text": "What size shoes does Lisa need?",
+        "tag": "what size",
+        "answer": "Size 37.",
+        "choices": [
+          "Size 36.",
+          "Size 38.",
+          "Size 37."
+        ],
+        "clue": "Size thirty-seven, please.",
+        "reasons": {
+          "Size 36.": "size 36 太小，是已试过的尺码。",
+          "Size 38.": "没有说 size 38。"
+        },
+        "point": "what size 问尺码；too small 的尺码不是最终所需。",
+        "n": 21,
+        "key": "C"
+      },
+      {
+        "text": "Have Lisa and the woman found the right shoes for Lisa?",
+        "tag": "have",
+        "answer": "No, they have not found them yet.",
+        "choices": [
+          "Yes, the size 36 shoes are right.",
+          "Yes, the size 38 shoes are right.",
+          "No, they have not found them yet."
+        ],
+        "clue": "Not yet. These size thirty-six shoes are too small.",
+        "reasons": {
+          "Yes, the size 36 shoes are right.": "36 码太小，不合适。",
+          "Yes, the size 38 shoes are right.": "没有找到或试穿 38 码的线索。"
+        },
+        "point": "Have 开头问是否已经完成；not yet 表示还没有。",
+        "n": 22,
+        "key": "C"
+      }
+    ],
+    "id": 11
+  },
+  {
+    "lines": [
+      "Girl: Why are you staying at home today, Sam?",
+      "Boy: I have a cold.",
+      "Girl: Should I bring your homework to you?",
+      "Boy: Yes, please. Thank you for helping me."
+    ],
+    "qs": [
+      {
+        "text": "Why is Sam staying at home?",
+        "tag": "why",
+        "answer": "Because he has a cold.",
+        "choices": [
+          "Because he has a cold.",
+          "Because he has no homework.",
+          "Because it is raining."
+        ],
+        "clue": "I have a cold.",
+        "reasons": {
+          "Because it is raining.": "没有提到下雨。",
+          "Because he has no homework.": "原文有人帮忙送作业，不是因为没有作业。"
+        },
+        "point": "why 问原因；have a cold 表示感冒。",
+        "n": 23,
+        "key": "A"
+      },
+      {
+        "text": "Should the girl bring Sam's homework to him?",
+        "tag": "should",
+        "answer": "Yes, he wants her to bring it.",
+        "choices": [
+          "No, he will go to school now.",
+          "No, he has already finished it.",
+          "Yes, he wants her to bring it."
+        ],
+        "clue": "Yes, please. Thank you for helping me.",
+        "reasons": {
+          "No, he has already finished it.": "Sam 接受帮忙，没有说作业已完成。",
+          "No, he will go to school now.": "他因感冒在家，没有说现在去学校。"
+        },
+        "point": "Should 开头在此询问是否需要帮忙；Yes, please 表示接受。",
+        "n": 24,
+        "key": "C"
+      }
+    ],
+    "id": 12
+  },
+  {
+    "lines": [
+      "Boy: Mum, must I finish my homework before dinner?",
+      "Woman: No, you needn't. You can finish it after dinner.",
+      "Boy: How soon will dinner be ready?",
+      "Woman: In ten minutes."
+    ],
+    "qs": [
+      {
+        "text": "How soon will dinner be ready?",
+        "tag": "how soon",
+        "answer": "In ten minutes.",
+        "choices": [
+          "In twenty minutes.",
+          "In an hour.",
+          "In ten minutes."
+        ],
+        "clue": "In ten minutes.",
+        "reasons": {
+          "In twenty minutes.": "原文是 ten，不是 twenty。",
+          "In an hour.": "没有说还要一小时。"
+        },
+        "point": "how soon 问多久以后；常用 in + 一段时间回答。",
+        "n": 25,
+        "key": "C"
+      },
+      {
+        "text": "Must the boy finish his homework before dinner?",
+        "tag": "must",
+        "answer": "No, he can finish it after dinner.",
+        "choices": [
+          "No, he does not need to do it at all.",
+          "Yes, he must finish it before dinner.",
+          "No, he can finish it after dinner."
+        ],
+        "clue": "No, you needn't. You can finish it after dinner.",
+        "reasons": {
+          "Yes, he must finish it before dinner.": "母亲否定了“必须饭前做完”。",
+          "No, he does not need to do it at all.": "只是可以饭后完成，不是不用做作业。"
+        },
+        "point": "Must 问是否必须；No, needn't 表示不必，不表示禁止。",
+        "n": 26,
+        "key": "C"
+      }
+    ],
+    "id": 13
+  },
+  {
+    "lines": [
+      "Girl: Do you play basketball every day, Peter?",
+      "Boy: No. I only play on Tuesday and Friday.",
+      "Girl: So you play twice a week?",
+      "Boy: That is right. I play with my friends."
+    ],
+    "qs": [
+      {
+        "text": "Do Peter and his friends play basketball every day?",
+        "tag": "do",
+        "answer": "No, they play twice a week.",
+        "choices": [
+          "No, they play once a month.",
+          "Yes, they play every day.",
+          "No, they play twice a week."
+        ],
+        "clue": "No. I only play on Tuesday and Friday. / I play with my friends.",
+        "reasons": {
+          "Yes, they play every day.": "不是每天都打球。",
+          "No, they play once a month.": "没有说每月一次。"
+        },
+        "point": "Do 开头问是否；区分 every day 和每周两次。",
+        "n": 27,
+        "key": "C"
+      },
+      {
+        "text": "How often does Peter play basketball?",
+        "tag": "how often",
+        "answer": "Twice a week.",
+        "choices": [
+          "Once a week.",
+          "Every day.",
+          "Twice a week."
+        ],
+        "clue": "I only play on Tuesday and Friday. / twice a week",
+        "reasons": {
+          "Every day.": "every day 在对话中被否定。",
+          "Once a week.": "每周有两天，不是一次。"
+        },
+        "point": "how often 问频率；twice a week 表示每周两次。",
+        "n": 28,
+        "key": "C"
+      }
+    ],
+    "id": 14
+  },
+  {
+    "lines": [
+      "Boy: Has Emma finished her picture?",
+      "Girl: Yes. Look, it is on the table.",
+      "Boy: What colour is the bird in her picture?",
+      "Girl: It is yellow. The tree beside it is green."
+    ],
+    "qs": [
+      {
+        "text": "What colour is the bird in Emma's picture?",
+        "tag": "what colour",
+        "answer": "Yellow.",
+        "choices": [
+          "Yellow.",
+          "Blue.",
+          "Green."
+        ],
+        "clue": "It is yellow.",
+        "reasons": {
+          "Green.": "green 是树的颜色。",
+          "Blue.": "没有说鸟是 blue。"
+        },
+        "point": "what colour 问颜色；把颜色与对应物品匹配。",
+        "n": 29,
+        "key": "A"
+      },
+      {
+        "text": "Has Emma finished her picture?",
+        "tag": "has",
+        "answer": "Yes, she has finished it.",
+        "choices": [
+          "No, she has not started it.",
+          "No, she is still drawing it.",
+          "Yes, she has finished it."
+        ],
+        "clue": "Yes. Look, it is on the table.",
+        "reasons": {
+          "No, she has not started it.": "原文明确说完成，没有说未开始。",
+          "No, she is still drawing it.": "没有说仍在画；成品已在桌上。"
+        },
+        "point": "Has 开头在此询问是否已经完成。",
+        "n": 30,
+        "key": "C"
+      }
+    ],
+    "id": 15
+  },
+  {
+    "lines": [
+      "Girl: Is our music lesson on Tuesday, Ben?",
+      "Boy: No. It is on Friday this week.",
+      "Girl: Does it start at four?",
+      "Boy: No. It starts at half past four."
+    ],
+    "qs": [
+      {
+        "text": "What day is the music lesson this week?",
+        "tag": "what day",
+        "answer": "Friday.",
+        "choices": [
+          "Thursday.",
+          "Friday.",
+          "Tuesday."
+        ],
+        "clue": "It is on Friday this week.",
+        "reasons": {
+          "Tuesday.": "Tuesday 是被纠正的日期。",
+          "Thursday.": "没有说 Thursday。"
+        },
+        "point": "what day 问星期几；注意纠正后的信息。",
+        "n": 31,
+        "key": "B"
+      },
+      {
+        "text": "Am I right that the music lesson starts at four?",
+        "tag": "am",
+        "answer": "No, it starts at half past four.",
+        "choices": [
+          "Yes, it starts at four.",
+          "No, it starts at half past five.",
+          "No, it starts at half past four."
+        ],
+        "clue": "It starts at half past four.",
+        "reasons": {
+          "Yes, it starts at four.": "four 已被否定。",
+          "No, it starts at half past five.": "是 four 的半点，不是 five 的半点。"
+        },
+        "point": "Am I right that ...? 表示“我认为……对吗”；核对后半句。",
+        "n": 32,
+        "key": "C"
+      }
+    ],
+    "id": 16
+  },
+  {
+    "lines": [
+      "Girl: Was your train late yesterday, Mike?",
+      "Boy: Yes. It was twenty minutes late.",
+      "Girl: How long did the journey take?",
+      "Boy: Two hours. I read a book on the train."
+    ],
+    "qs": [
+      {
+        "text": "How long did Mike's train journey take?",
+        "tag": "how long:time",
+        "answer": "Two hours.",
+        "choices": [
+          "Three hours.",
+          "Twenty minutes.",
+          "Two hours."
+        ],
+        "clue": "Two hours.",
+        "reasons": {
+          "Twenty minutes.": "twenty minutes 是晚点时间，不是旅程时长。",
+          "Three hours.": "没有提到三小时。"
+        },
+        "point": "how long 问持续时长；区分旅程用时和晚点时长。",
+        "n": 33,
+        "key": "C"
+      },
+      {
+        "text": "Was Mike's train late yesterday?",
+        "tag": "was",
+        "answer": "Yes, it was twenty minutes late.",
+        "choices": [
+          "Yes, it was twenty minutes late.",
+          "Yes, it was two hours late.",
+          "No, it was on time."
+        ],
+        "clue": "It was twenty minutes late.",
+        "reasons": {
+          "No, it was on time.": "原文明确说晚点。",
+          "Yes, it was two hours late.": "two hours 是旅程时长，不是晚点时长。"
+        },
+        "point": "Was 开头问过去状态；同一对话中不同时间数字各有用途。",
+        "n": 34,
+        "key": "A"
+      }
+    ],
+    "id": 17
+  },
+  {
+    "lines": [
+      "Girl: Tom, how will you get to the library tomorrow?",
+      "Boy: By bus. My bike is broken.",
+      "Girl: Will you go with your father?",
+      "Boy: No. I will go with my uncle Jack."
+    ],
+    "qs": [
+      {
+        "text": "How will Tom get to the library tomorrow?",
+        "tag": "how",
+        "answer": "By bus.",
+        "choices": [
+          "By bus.",
+          "On foot.",
+          "By bike."
+        ],
+        "clue": "By bus. My bike is broken.",
+        "reasons": {
+          "By bike.": "自行车坏了，不会骑车去。",
+          "On foot.": "没有说步行。"
+        },
+        "point": "how 问方式；交通方式常用 by + 交通工具。",
+        "n": 35,
+        "key": "A"
+      },
+      {
+        "text": "Whom will Tom go to the library with?",
+        "tag": "whom",
+        "answer": "His uncle Jack.",
+        "choices": [
+          "His uncle Jack.",
+          "His father.",
+          "His friend Jack."
+        ],
+        "clue": "I will go with my uncle Jack.",
+        "reasons": {
+          "His father.": "father 被明确否定。",
+          "His friend Jack.": "Jack 的身份是 uncle，不是 friend。"
+        },
+        "point": "whom 在此问 with 的对象，即“和谁一起”。",
+        "n": 36,
+        "key": "A"
+      }
+    ],
+    "id": 18
+  },
+  {
+    "lines": [
+      "Girl: Jack, whose red bag is this?",
+      "Boy: It is my sister's. My bag is blue.",
+      "Girl: Are your books in the red bag?",
+      "Boy: No. My books are in my blue bag."
+    ],
+    "qs": [
+      {
+        "text": "Whose red bag is this?",
+        "tag": "whose",
+        "answer": "Jack's sister's.",
+        "choices": [
+          "Jack's mother's.",
+          "Jack's sister's.",
+          "Jack's."
+        ],
+        "clue": "It is my sister's.",
+        "reasons": {
+          "Jack's.": "Jack 的包是蓝色，红色包属于姐姐或妹妹。",
+          "Jack's mother's.": "原文是 sister，不是 mother。"
+        },
+        "point": "whose 问所属关系；回答要表达“某人的”。",
+        "n": 37,
+        "key": "B"
+      },
+      {
+        "text": "Are Jack's books in the red bag?",
+        "tag": "are",
+        "answer": "No, they are in the blue bag.",
+        "choices": [
+          "No, they are in the blue bag.",
+          "No, they are on the desk.",
+          "Yes, they are in the red bag."
+        ],
+        "clue": "My books are in my blue bag.",
+        "reasons": {
+          "Yes, they are in the red bag.": "红色包不是书所在的包。",
+          "No, they are on the desk.": "原文没有说书在桌上。"
+        },
+        "point": "Are 开头问复数事物的位置；注意 my 指 Jack。",
+        "n": 38,
+        "key": "A"
+      }
+    ],
+    "id": 19
+  },
+  {
+    "lines": [
+      "Girl: How tall is your brother, Leo?",
+      "Boy: He is one hundred and seventy centimetres tall.",
+      "Girl: Look at the wall beside him. How high is it?",
+      "Boy: Two metres. It is higher than he is."
+    ],
+    "qs": [
+      {
+        "text": "How high is the wall?",
+        "tag": "how high",
+        "answer": "Two metres.",
+        "choices": [
+          "170 centimetres.",
+          "Three metres.",
+          "Two metres."
+        ],
+        "clue": "Two metres.",
+        "reasons": {
+          "170 centimetres.": "170 centimetres 是兄弟的身高。",
+          "Three metres.": "没有说墙高三米。"
+        },
+        "point": "how high 在此问墙的高度；别把人物身高代入。",
+        "n": 39,
+        "key": "C"
+      },
+      {
+        "text": "How tall is Leo's brother?",
+        "tag": "how tall",
+        "answer": "170 centimetres.",
+        "choices": [
+          "160 centimetres.",
+          "170 centimetres.",
+          "Two metres."
+        ],
+        "clue": "one hundred and seventy centimetres tall",
+        "reasons": {
+          "160 centimetres.": "数字为 seventy，不是 sixty。",
+          "Two metres.": "Two metres 是墙高，不是兄弟的身高。"
+        },
+        "point": "how tall 常问人的身高；核对数字和对象。",
+        "n": 40,
+        "key": "B"
+      }
+    ],
+    "id": 20
+  },
+  {
+    "lines": [
+      "Girl: Could you walk to the new library from your home, David?",
+      "Boy: Yes. It is only one kilometre away.",
+      "Girl: How long does the walk take?",
+      "Boy: About fifteen minutes."
+    ],
+    "qs": [
+      {
+        "text": "How far is the new library from David's home?",
+        "tag": "how far",
+        "answer": "One kilometre.",
+        "choices": [
+          "One kilometre.",
+          "Fifteen kilometres.",
+          "Five kilometres."
+        ],
+        "clue": "It is only one kilometre away.",
+        "reasons": {
+          "Fifteen kilometres.": "fifteen 是步行分钟数，不是公里数。",
+          "Five kilometres.": "原文没有说 five kilometres。"
+        },
+        "point": "how far 问距离；不要把时间当作距离。",
+        "n": 41,
+        "key": "A"
+      },
+      {
+        "text": "Could David walk to the new library from his home?",
+        "tag": "could",
+        "answer": "Yes, he could walk there.",
+        "choices": [
+          "Yes, he could walk there.",
+          "No, he would have to take a train.",
+          "No, he would have to take a taxi."
+        ],
+        "clue": "Yes. It is only one kilometre away.",
+        "reasons": {
+          "No, he would have to take a train.": "David 明确说可以步行，没有说必须坐火车。",
+          "No, he would have to take a taxi.": "没有说必须打车。"
+        },
+        "point": "Could 开头在此问可行性；根据明确的 Yes 判断。",
+        "n": 42,
+        "key": "A"
+      }
+    ],
+    "id": 21
+  },
+  {
+    "lines": [
+      "Girl: Tom, when is your school trip?",
+      "Boy: Next Friday. We will visit a farm.",
+      "Girl: Can you ride a horse there?",
+      "Boy: No, but we can feed the animals."
+    ],
+    "qs": [
+      {
+        "text": "When is Tom's school trip?",
+        "tag": "when",
+        "answer": "Next Friday.",
+        "choices": [
+          "Next Sunday.",
+          "Next Friday.",
+          "This Friday."
+        ],
+        "clue": "Next Friday.",
+        "reasons": {
+          "This Friday.": "next 不是 this。",
+          "Next Sunday.": "星期是 Friday，不是 Sunday。"
+        },
+        "point": "when 问时间；同时听清 next 和星期。",
+        "n": 43,
+        "key": "B"
+      },
+      {
+        "text": "Can Tom ride a horse on the farm?",
+        "tag": "can",
+        "answer": "No, but he can feed the animals.",
+        "choices": [
+          "Yes, he can ride a horse.",
+          "No, but he can feed the animals.",
+          "No, but he can drive a car."
+        ],
+        "clue": "No, but we can feed the animals.",
+        "reasons": {
+          "Yes, he can ride a horse.": "骑马被否定。",
+          "No, but he can drive a car.": "原文说喂动物，没有说开车。"
+        },
+        "point": "Can 开头问能否做某事；but 后常有另一个活动。",
+        "n": 44,
+        "key": "B"
+      }
+    ],
+    "id": 22
+  },
+  {
+    "lines": [
+      "Boy: What kind of books do you like, Rose?",
+      "Girl: Books about animals. I like reading about cats and dogs.",
+      "Boy: Might your brother enjoy this animal book too?",
+      "Girl: Yes, he might. He also loves animals."
+    ],
+    "qs": [
+      {
+        "text": "What kind of books does Rose like?",
+        "tag": "what kind of",
+        "answer": "Books about animals.",
+        "choices": [
+          "Books about animals.",
+          "Books about sports.",
+          "Books about cooking."
+        ],
+        "clue": "Books about animals.",
+        "reasons": {
+          "Books about sports.": "没有说喜欢运动类书。",
+          "Books about cooking.": "没有说喜欢烹饪类书。"
+        },
+        "point": "what kind of 问种类；about 后说明书的主题。",
+        "n": 45,
+        "key": "A"
+      },
+      {
+        "text": "Might Rose's brother enjoy the animal book?",
+        "tag": "might",
+        "answer": "Yes, he might enjoy it.",
+        "choices": [
+          "No, he never reads books.",
+          "Yes, he might enjoy it.",
+          "No, he only likes sports books."
+        ],
+        "clue": "Yes, he might. He also loves animals.",
+        "reasons": {
+          "No, he only likes sports books.": "弟弟也喜欢动物，不是只喜欢运动书。",
+          "No, he never reads books.": "没有说弟弟从不看书。"
+        },
+        "point": "Might 开头问可能性；might 不表示已经发生或一定发生。",
+        "n": 46,
+        "key": "B"
+      }
+    ],
+    "id": 23
+  },
+  {
+    "lines": [
+      "Boy: What about going swimming this afternoon, Sue?",
+      "Girl: Sorry, I have to do my homework this afternoon.",
+      "Boy: How about playing table tennis tomorrow?",
+      "Girl: Good idea! Let's meet at three tomorrow afternoon."
+    ],
+    "qs": [
+      {
+        "text": "How about playing table tennis tomorrow? What is Sue's answer?",
+        "tag": "how about",
+        "answer": "Good idea! She will meet the boy at three.",
+        "choices": [
+          "She would rather go swimming tomorrow.",
+          "Good idea! She will meet the boy at three.",
+          "Sorry, she has to do her homework tomorrow."
+        ],
+        "clue": "Good idea! Let's meet at three tomorrow afternoon.",
+        "reasons": {
+          "Sorry, she has to do her homework tomorrow.": "做作业指今天下午，不是明天。",
+          "She would rather go swimming tomorrow.": "她接受打乒乓球，没有改为明天游泳。"
+        },
+        "point": "How about + doing 也可提建议；不要混淆两次建议的回应。",
+        "n": 47,
+        "key": "B"
+      },
+      {
+        "text": "What about going swimming this afternoon? What is Sue's answer?",
+        "tag": "what about",
+        "answer": "Sorry, she has to do her homework.",
+        "choices": [
+          "Sorry, she has to do her homework.",
+          "Good idea! She is free this afternoon.",
+          "She would rather go shopping."
+        ],
+        "clue": "Sorry, I have to do my homework this afternoon.",
+        "reasons": {
+          "Good idea! She is free this afternoon.": "Good idea 是对明天打乒乓球的回应。",
+          "She would rather go shopping.": "她没有提出去购物。"
+        },
+        "point": "What about + doing 在此提建议；听对方接受还是拒绝。",
+        "n": 48,
+        "key": "A"
+      }
+    ],
+    "id": 24
+  },
+  {
+    "lines": [
+      "Boy: Which class are you in, Mary?",
+      "Girl: Class Three. My brother is in Class Two.",
+      "Boy: Are you both in Grade Nine?",
+      "Girl: No. He is in Grade Nine, but I am in Grade Eight."
+    ],
+    "qs": [
+      {
+        "text": "Which grade is Mary in?",
+        "tag": "which grade",
+        "answer": "Grade Eight.",
+        "choices": [
+          "Grade Nine.",
+          "Grade Eight.",
+          "Grade Three."
+        ],
+        "clue": "He is in Grade Nine, but I am in Grade Eight.",
+        "reasons": {
+          "Grade Nine.": "Grade Nine 是兄弟的年级。",
+          "Grade Three.": "Three 是班级编号，不是年级。"
+        },
+        "point": "which grade 问年级；class 和 grade 不能混淆。",
+        "n": 49,
+        "key": "B"
+      },
+      {
+        "text": "Which class is Mary in?",
+        "tag": "which class",
+        "answer": "Class Three.",
+        "choices": [
+          "Class Eight.",
+          "Class Two.",
+          "Class Three."
+        ],
+        "clue": "Class Three. My brother is in Class Two.",
+        "reasons": {
+          "Class Two.": "Class Two 是哥哥或弟弟的班级。",
+          "Class Eight.": "Eight 是 Mary 的年级，不是班级。"
+        },
+        "point": "which class 问班级；区分本人和兄弟的信息。",
+        "n": 50,
+        "key": "C"
+      }
+    ],
+    "id": 25
+  },
+  {
+    "lines": [
+      "Boy: Anna, did you watch TV last night?",
+      "Girl: No. I read a book instead.",
+      "Boy: What time did you go to bed?",
+      "Girl: At half past nine, after I finished reading."
+    ],
+    "qs": [
+      {
+        "text": "Did Anna watch TV last night?",
+        "tag": "did",
+        "answer": "No, she read a book.",
+        "choices": [
+          "No, she played a game.",
+          "Yes, she watched TV.",
+          "No, she read a book."
+        ],
+        "clue": "No. I read a book instead.",
+        "reasons": {
+          "Yes, she watched TV.": "watch TV 被否定。",
+          "No, she played a game.": "替代活动是 read a book，不是玩游戏。"
+        },
+        "point": "Did 开头问过去发生的事；听实际做了什么。",
+        "n": 51,
+        "key": "C"
+      },
+      {
+        "text": "What time did Anna go to bed?",
+        "tag": "what time",
+        "answer": "At 9:30 p.m.",
+        "choices": [
+          "At 10:30 p.m.",
+          "At 9:00 p.m.",
+          "At 9:30 p.m."
+        ],
+        "clue": "At half past nine.",
+        "reasons": {
+          "At 9:00 p.m.": "half past nine 表示九点半，不是九点。",
+          "At 10:30 p.m.": "小时数为 nine，不是 ten。"
+        },
+        "point": "what time 问几点；half past nine = 9:30。",
+        "n": 52,
+        "key": "C"
+      }
+    ],
+    "id": 26
+  }
+]
