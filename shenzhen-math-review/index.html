@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="深圳中考数学考点地图、分专题例题和即时反馈练习。">
+  <title>深圳中考数学 · 考点地图与专题练习</title>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="topics.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <a class="skip" href="#main">跳到学习内容</a>
+  <header class="top">
+    <div class="wrap top-inner">
+      <a class="brand" href="./" aria-label="深圳中考数学首页"><span class="brand-icon" aria-hidden="true">∑</span> 深圳中考数学</a>
+      <nav aria-label="页面导航"><a href="#map">考点地图</a><a href="#practice">专题练习</a><a href="#papers">历年卷</a></nav>
+    </div>
+  </header>
+
+  <main id="main" class="wrap">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-text">
+        <p class="eyebrow">七至九年级 · 深圳卷复习</p>
+        <h1 id="hero-title">中考数学<br>一项一项练</h1>
+        <p class="hero-intro">先稳住计算，再练函数和几何。每个专题有例题、基础题和一道提升题，做完就能核对步骤。</p>
+        <div class="hero-links"><a class="button primary" href="#map">查看考点地图 <span aria-hidden="true">↓</span></a><a class="button on-dark" href="#papers">看历年卷结构</a></div>
+      </div>
+      <figure class="hero-figure" aria-hidden="true">
+        <svg viewBox="0 0 300 220" fill="none">
+          <defs><pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0H0V24" stroke="#426860" stroke-width="1"/></pattern></defs>
+          <rect x="10" y="10" width="280" height="200" rx="15" fill="url(#grid)"/>
+          <path d="M24 163H273M106 198V26m-5 7 5-7 5 7m155 125 7 5-7 5" stroke="#99bfb4" stroke-width="1.5"/>
+          <path d="M160 42V184" stroke="#77a79b" stroke-dasharray="4 5"/>
+          <path d="M64 42Q160 290 256 42" stroke="#d8f68e" stroke-width="4" stroke-linecap="round"/>
+          <circle cx="160" cy="166" r="6" fill="#d8f68e"/>
+          <circle cx="112" cy="135" r="4" fill="#a7d3c9"/>
+          <circle cx="208" cy="135" r="4" fill="#a7d3c9"/>
+          <text x="169" y="190" fill="#d8f68e" font-size="14">顶点</text>
+        </svg>
+        <figcaption>把条件标到图上，再列式。</figcaption>
+      </figure>
+    </section>
+
+    <section class="metrics" aria-label="考试信息与本机练习进度">
+      <div><strong>100 <small>分</small></strong><span>现行数学满分</span></div>
+      <div><strong>90 <small>分钟</small></strong><span>闭卷笔试</span></div>
+      <div class="metrics-progress"><strong id="total-progress">0 / 24</strong><span>本机答对题数</span><progress id="overall-progress" value="0" max="24" aria-label="本机答对题数"></progress></div>
+    </section>
+
+    <section class="section" id="map" aria-labelledby="map-title">
+      <p class="eyebrow">01 / 选一个考点</p>
+      <h2 id="map-title">考点地图</h2>
+      <p class="sub">点开专题看例题和练习。初次复习可以从计算、相似与二次函数开始。</p>
+      <div class="filters" id="filters" role="group" aria-label="按模块筛选"></div>
+      <div class="cards" id="topic-cards"></div>
+    </section>
+
+    <section class="section" id="practice" aria-labelledby="practice-title">
+      <p class="eyebrow">02 / 从例题到独立作答</p>
+      <h2 id="practice-title" tabindex="-1">专题练习</h2>
+      <div id="practice-content"></div>
+      <noscript><p>打开浏览器的 JavaScript 后即可作答。</p></noscript>
+    </section>
+
+    <section class="section" id="papers" aria-labelledby="papers-title">
+      <p class="eyebrow">03 / 按题型复习</p>
+      <h2 id="papers-title">深圳卷分题练</h2>
+      <p class="sub">2024 至 2026 年公开试卷整理版的结构如下。题号和分值用于历年卷练习。</p>
+      <div class="paper-grid">
+        <article><h3>选择题</h3><p><strong>24 分</strong> · 第 1—8 题</p><span>先稳住概念、运算和读图。</span></article>
+        <article><h3>填空题</h3><p><strong>15 分</strong> · 第 9—13 题</p><span>检查单位、符号和取值限制。</span></article>
+        <article><h3>解答题</h3><p><strong>61 分</strong> · 第 14—20 题</p><span>先练计算、统计、建模的前几问。</span></article>
+      </div>
+      <div class="resource-links">
+        <a class="button outline" href="../math2026/">2026 深圳卷课堂页 ↗</a>
+        <a class="button outline" href="../math-quadratic-exams/">二次函数专题题库 ↗</a>
+      </div>
+      <details class="source">
+        <summary>查阅考试依据与试卷来源</summary>
+        <p>考试信息依据深圳现行政策与教育部七至九年级数学课程标准。查阅日期为 2026 年 11 月 7 日，2027 届题型细则以之后的官方通知为准。</p>
+        <ul>
+          <li><a href="https://szeb.sz.gov.cn/home/xxgk/flzy/zcfgjjd/zcfg/fwxsjz/content/post_11245012.html">深圳市教育局中考改革实施意见</a></li>
+          <li><a href="https://www.moe.gov.cn/srcsite/A26/s8001/202204/W020220420582346895190.pdf">义务教育数学课程标准（2022年版）</a></li>
+          <li><a href="https://jx.panqjy.cn/doc-16332058.html">2024 深圳卷整理版</a> · <a href="https://jx.panqjy.cn/doc-17356317.html">2025 深圳卷整理版</a> · <a href="https://zy.21cnjy.com/26053509">2026 深圳卷整理版</a></li>
+        </ul>
+      </details>
+    </section>
+  </main>
+  <footer><div class="wrap foot"><p>答题选项仅保存在当前浏览器。</p><p><a href="../">学习仓库首页</a> <span aria-hidden="true">·</span> <a href="#main">回到顶部 ↑</a></p></div></footer>
+</body>
+</html>
