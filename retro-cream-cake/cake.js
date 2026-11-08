@@ -5,6 +5,9 @@ const canvas = byId("cake");
 const context = canvas.getContext("2d");
 const undoButton = byId("undo");
 const eraserButton = byId("eraser");
+const fruitSizeInput = byId("fruit-size");
+const fruitSizeOutput = byId("fruit-size-value");
+const resizeFruitButton = byId("resize-fruit");
 const messageInput = byId("message");
 const hint = byId("hint");
 const gift = byId("gift");
@@ -17,6 +20,9 @@ const eraserRadius = 18;
 const hitCanvas = document.createElement("canvas");
 hitCanvas.width = hitCanvas.height = eraserRadius * 2 + 1;
 const hitContext = hitCanvas.getContext("2d", { willReadFrequently: true });
+const defaultFruitSize = Number(fruitSizeInput.defaultValue);
+const minFruitSize = Number(fruitSizeInput.min);
+const maxFruitSize = Number(fruitSizeInput.max);
 
 const colors = {
   vanilla: { name: "香草奶油", tint: "#eabe7f" },
@@ -82,6 +88,10 @@ let rotationFrame = 0;
 let pointer = null;
 let hover = null;
 let erasing = false;
+let resizingFruit = false;
+let selectedFruit = null;
+let fruitResizeStarted = false;
+let newFruitSize = defaultFruitSize;
 let tab = "icing";
 let activeTool = "shell";
 let activeColor = "vanilla";
@@ -120,6 +130,8 @@ function undo() {
   const orientation = state.angle;
   state = history.pop();
   state.angle = orientation;
+  selectedFruit = null;
+  fruitResizeStarted = false;
   messageInput.value = state.message;
   undoButton.disabled = !history.length;
   persist();
@@ -240,13 +252,32 @@ function drawSwag(ctx, mark, angle, shadow) {
   ctx.restore();
 }
 
-function drawMark(ctx, { mark, angle, point }, shadow = true) {
+function isFruit(tool) {
+  return Boolean(toppings[tool]) && tool !== "candle";
+}
+
+function fruitSizePercent(mark) {
+  const size = mark?.fruitSize;
+  return Number.isFinite(size) ? Math.max(minFruitSize, Math.min(maxFruitSize, size)) : defaultFruitSize;
+}
+
+function markBox(tool, source) {
+  if (tool.box) return tool.box;
+  const scale = tool.size / Math.max(source.width, source.height);
+  const width = source.width * scale;
+  const height = source.height * scale;
+  return [width, height, -height * .92];
+}
+
+function drawMark(ctx, { mark, angle, point }, shadow = true, selected = false) {
   if (mark.tool === "swag") { drawSwag(ctx, mark, angle, shadow); return; }
   if (mark.face === "side" && Math.sin(angle) < .025) return;
   const source = shadow ? sprite(mark.tool, mark.color) : art[mark.tool];
   const tool = tools[mark.tool];
+  const scale = isFruit(mark.tool) ? fruitSizePercent(mark) / defaultFruitSize : 1;
   ctx.save();
   ctx.translate(point.x, point.y - (mark.lift ?? 0));
+  if (scale !== 1) ctx.scale(scale, scale);
   if (shadow) {
     ctx.shadowColor = "#693c254d";
     ctx.shadowBlur = 5;
@@ -261,14 +292,15 @@ function drawMark(ctx, { mark, angle, point }, shadow = true) {
       ctx.scale(.62 + .38 * Math.sin(angle), 1);
     }
   }
-  if (tool.box) {
-    const [width, height, y, x = -width / 2] = tool.box;
-    ctx.drawImage(source, x, y, width, height);
-  } else {
-    const scale = tool.size / Math.max(source.width, source.height);
-    const width = source.width * scale;
-    const height = source.height * scale;
-    ctx.drawImage(source, -width / 2, -height * .92, width, height);
+  const [width, height, y, x = -width / 2] = markBox(tool, source);
+  ctx.drawImage(source, x, y, width, height);
+  if (selected) {
+    const padding = 8 / scale;
+    ctx.shadowColor = "transparent";
+    ctx.strokeStyle = "#2d573e";
+    ctx.lineWidth = 3 / scale;
+    ctx.setLineDash([7 / scale, 5 / scale]);
+    ctx.strokeRect(x - padding, y - padding, width + padding * 2, height + padding * 2);
   }
   ctx.restore();
 }
@@ -285,13 +317,13 @@ function orderedMarks(includeStarter) {
 }
 
 function paint(ctx, { photo = false } = {}) {
-  const exactSample = state.preset && (!erasing || photo) &&
+  const exactSample = state.preset && ((!erasing && !resizingFruit) || photo) &&
     state.base === "vanilla" && Math.abs(Math.sin(displayAngle / 2)) < .0005;
   const showOriginalBag = !photo && !hover && tab === "icing";
   const background = exactSample ? (showOriginalBag ? art.opening : art.sample) : art.plain;
   ctx.drawImage(background, 0, 0, canvas.width, canvas.height, 0, 0, canvas.width, canvas.height);
   if (!exactSample) paintBase(ctx);
-  for (const entry of orderedMarks(!exactSample)) drawMark(ctx, entry);
+  for (const entry of orderedMarks(!exactSample)) drawMark(ctx, entry, true, !photo && entry.mark === selectedFruit);
   if (state.message.trim()) {
     ctx.save();
     ctx.translate(center.x + 7, center.y - 11);
@@ -307,7 +339,7 @@ function paint(ctx, { photo = false } = {}) {
     ctx.restore();
   }
   if (!photo && hover) {
-    if (erasing) {
+    if (erasing || resizingFruit) {
       ctx.save();
       ctx.beginPath();
       ctx.arc(hover.x, hover.y, eraserRadius, 0, tau);
@@ -355,7 +387,9 @@ function place(x, y) {
   const mark = locate(x, y);
   if (!mark || state.marks.length >= 1500) return false;
   beginEdit();
-  state.marks.push({ ...mark, tool: activeTool, color: activeColor });
+  const entry = { ...mark, tool: activeTool, color: activeColor };
+  if (isFruit(activeTool) && newFruitSize !== defaultFruitSize) entry.fruitSize = newFruitSize;
+  state.marks.push(entry);
   return true;
 }
 
@@ -366,14 +400,15 @@ function beginEdit() {
   }
 }
 
-function hitMark(x, y) {
+function hitMark(x, y, fruitOnly = false) {
   const diameter = hitCanvas.width;
   const centerAlpha = (eraserRadius * diameter + eraserRadius) * 4 + 3;
   let closest = null;
   let bestDistance = eraserRadius ** 2 + 1;
   for (const entry of orderedMarks(true).reverse()) {
-    // The broad bounds include the curved swags and tall candles.
-    if (Math.abs(entry.point.x - x) > 145 || Math.abs(entry.point.y - y) > 160) continue;
+    if (fruitOnly && !isFruit(entry.mark.tool)) continue;
+    // Include curved swags, tall candles, and fruit enlarged to 160%.
+    if (Math.abs(entry.point.x - x) > 145 || Math.abs(entry.point.y - y) > 185) continue;
     hitContext.clearRect(0, 0, diameter, diameter);
     hitContext.save();
     hitContext.translate(eraserRadius + .5 - x, eraserRadius + .5 - y);
@@ -394,16 +429,43 @@ function hitMark(x, y) {
   return closest;
 }
 
+function editableMarkIndex(mark) {
+  const index = state.marks.indexOf(mark);
+  if (index >= 0 || !state.preset) return index;
+  state.marks = [...starter, ...state.marks];
+  state.preset = false;
+  return starter.indexOf(mark);
+}
+
 function erase(x, y) {
   const mark = hitMark(x, y);
   if (!mark) return false;
   beginEdit();
-  if (state.preset && !state.marks.includes(mark)) {
-    state.marks = [...starter, ...state.marks];
-    state.preset = false;
-  }
-  state.marks.splice(state.marks.indexOf(mark), 1);
+  state.marks.splice(editableMarkIndex(mark), 1);
   return true;
+}
+
+function selectFruit(x, y) {
+  selectedFruit = hitMark(x, y, true);
+  fruitResizeStarted = false;
+  hover = null;
+  updateTray();
+  render();
+}
+
+function setFruitSize(size) {
+  if (!resizingFruit) {
+    newFruitSize = size;
+  } else if (selectedFruit && size !== fruitSizePercent(selectedFruit)) {
+    if (!fruitResizeStarted) saveUndo();
+    fruitResizeStarted = true;
+    const index = editableMarkIndex(selectedFruit);
+    selectedFruit = { ...selectedFruit, fruitSize: size };
+    state.marks[index] = selectedFruit;
+    persist();
+    render();
+  }
+  updateFruitSizeControls();
 }
 
 function canDecorate() {
@@ -413,6 +475,10 @@ function canDecorate() {
 canvas.addEventListener("pointerdown", event => {
   if (!canDecorate() || pointer || event.button !== 0) return;
   const { x, y } = pointerPoint(event);
+  if (resizingFruit) {
+    selectFruit(x, y);
+    return;
+  }
   if (!erasing && !locate(x, y)) return;
   cancelAnimationFrame(rotationFrame);
   state.angle = displayAngle;
@@ -426,7 +492,7 @@ canvas.addEventListener("pointerdown", event => {
 canvas.addEventListener("pointermove", event => {
   if (!canDecorate()) return;
   const { x, y } = pointerPoint(event);
-  const nextHover = erasing || (tab === "icing" && locate(x, y)) ? { x, y } : null;
+  const nextHover = erasing || resizingFruit || (tab === "icing" && locate(x, y)) ? { x, y } : null;
   const movedBrush = Boolean(hover || nextHover);
   hover = nextHover;
   const spacing = erasing ? eraserRadius : tools[activeTool].spacing;
@@ -459,7 +525,7 @@ canvas.addEventListener("pointerleave", () => { hover = null; render(); });
 canvas.addEventListener("keydown", event => {
   if (!canDecorate() || pointer) return;
   const direction = { ArrowLeft: [-1, 0], ArrowRight: [1, 0], ArrowUp: [0, -1], ArrowDown: [0, 1] }[event.key];
-  if (erasing && direction) {
+  if ((erasing || resizingFruit) && direction) {
     event.preventDefault();
     const point = hover ?? center;
     hover = {
@@ -471,7 +537,11 @@ canvas.addEventListener("keydown", event => {
   }
   if (!["Enter", " "].includes(event.key)) return;
   event.preventDefault();
-  if (erasing) {
+  if (resizingFruit) {
+    const point = hover ?? center;
+    selectFruit(point.x, point.y);
+    return;
+  } else if (erasing) {
     const point = hover ?? center;
     erase(point.x, point.y);
   } else {
@@ -505,9 +575,21 @@ function rotate() {
   rotationFrame = requestAnimationFrame(animate);
 }
 
+function updateFruitSizeControls() {
+  const size = resizingFruit && selectedFruit ? fruitSizePercent(selectedFruit) : newFruitSize;
+  const label = size + "%";
+  byId("fruit-size-controls").hidden = tab !== "topping";
+  resizeFruitButton.setAttribute("aria-pressed", resizingFruit);
+  fruitSizeInput.disabled = !ready || erasing || (resizingFruit ? !selectedFruit : !isFruit(activeTool));
+  fruitSizeInput.value = size;
+  fruitSizeInput.setAttribute("aria-valuetext", label);
+  fruitSizeOutput.value = label;
+}
+
 function updateTray() {
   eraserButton.setAttribute("aria-pressed", erasing);
   canvas.classList.toggle("is-erasing", erasing);
+  canvas.classList.toggle("is-resizing", resizingFruit);
   document.querySelectorAll(".tabs button").forEach(button => {
     button.setAttribute("aria-pressed", button.dataset.tab === tab);
   });
@@ -517,7 +599,7 @@ function updateTray() {
   const visibleTools = choices?.slice(currentPage * pageSize, (currentPage + 1) * pageSize) ?? [];
   for (const [key, button] of toolButtons) {
     button.hidden = !visibleTools.includes(key);
-    button.setAttribute("aria-pressed", !erasing && key === activeTool);
+    button.setAttribute("aria-pressed", !erasing && !resizingFruit && key === activeTool);
   }
   for (const [key, button] of baseButtons) {
     button.hidden = tab !== "base";
@@ -536,14 +618,20 @@ function updateTray() {
     byId("next-page").disabled = currentPage === pageCount - 1;
   }
   byId("packing").hidden = tab !== "packing";
+  updateFruitSizeControls();
   hint.textContent = erasing ? "点击擦掉一个装饰，按住拖动可连续擦除。" :
+    resizingFruit ? (selectedFruit ? "已选" + tools[selectedFruit.tool].name + "，拖动滑块调整大小。" :
+      "点一下蛋糕上要调整的水果，再拖动滑块。") :
     tab === "packing" ? "写好祝福，就可以盖上蛋糕盒。" :
     tab === "base" ? "选一种颜色，给整只蛋糕抹上奶油。" :
     tools[activeTool].hint ?? "点一下蛋糕顶部，放上" + tools[activeTool].name + "。";
 }
 
-function setEraser(active) {
-  erasing = active;
+function setEditMode(mode) {
+  erasing = mode === "erase";
+  resizingFruit = mode === "resize";
+  selectedFruit = null;
+  fruitResizeStarted = false;
   hover = null;
   updateTray();
   render();
@@ -554,7 +642,7 @@ function switchTab(next) {
   closeGift();
   tab = next;
   if (selectedTools[tab]) activeTool = selectedTools[tab];
-  setEraser(false);
+  setEditMode("place");
 }
 
 function stamp(name, artwork, onClick) {
@@ -585,7 +673,7 @@ for (const [key, tool] of Object.entries(tools)) {
     activeTool = key;
     selectedTools[tab] = key;
     if (tab === "icing" && !customIcingColor) activeColor = tool.defaultColor ?? tool.color ?? "vanilla";
-    setEraser(false);
+    setEditMode("place");
   }));
 }
 for (const [key, color] of Object.entries(colors)) {
@@ -608,7 +696,7 @@ for (const [key, color] of Object.entries(colors)) {
     if (pointer) return;
     activeColor = key;
     customIcingColor = true;
-    setEraser(false);
+    setEditMode("place");
   });
   byId("colors").append(button);
   swatches.set(key, button);
@@ -636,6 +724,7 @@ function replaceCake(withSample) {
   pages.topping = 0;
   activeColor = "vanilla";
   customIcingColor = false;
+  newFruitSize = defaultFruitSize;
   switchTab("icing");
   persist();
   byId("notice").textContent = withSample ? "复古样款已恢复。" : "空白蛋糕准备好了。";
@@ -671,8 +760,16 @@ undoButton.addEventListener("click", undo);
 eraserButton.addEventListener("click", () => {
   if (pointer || !ready) return;
   closeGift();
-  setEraser(!erasing);
+  setEditMode(erasing ? "place" : "erase");
 });
+resizeFruitButton.addEventListener("click", () => {
+  if (pointer || !ready) return;
+  setEditMode(resizingFruit ? "place" : "resize");
+});
+fruitSizeInput.addEventListener("input", () => setFruitSize(fruitSizeInput.valueAsNumber));
+for (const event of ["change", "blur", "pointerdown"]) {
+  fruitSizeInput.addEventListener(event, () => { fruitResizeStarted = false; });
+}
 byId("rotate").addEventListener("click", rotate);
 byId("reset").addEventListener("click", () => replaceCake(false));
 byId("sample").addEventListener("click", () => replaceCake(true));
@@ -688,8 +785,8 @@ document.addEventListener("keydown", event => {
     if (!gift.hidden) {
       closeGift();
       byId("box").focus();
-    } else if (erasing) {
-      setEraser(false);
+    } else if (erasing || resizingFruit) {
+      setEditMode("place");
     }
   }
 });
@@ -709,7 +806,7 @@ messageInput.addEventListener("change", () => {
 });
 byId("box").addEventListener("click", () => {
   if (pointer) return;
-  setEraser(false);
+  setEditMode("place");
   byId("gift-message").textContent = state.message.trim() || "一只亲手裱好的奶油蛋糕";
   byId("gift-save").textContent = "保存成品照";
   gift.hidden = false;
@@ -735,6 +832,7 @@ Promise.all(imageNames.map(async name => {
   }
   ready = true;
   eraserButton.disabled = false;
+  updateFruitSizeControls();
   render();
 }).catch(() => {
   hint.textContent = "蛋糕素材未加载，请刷新页面。";

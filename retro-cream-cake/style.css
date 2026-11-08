@@ -56,6 +56,7 @@ button:focus-visible, input:focus-visible, canvas:focus-visible { outline: 3px s
 }
 .eraser-button:focus-visible { outline-color: #b56e43; }
 #cake.is-erasing { cursor: cell; }
+#cake.is-resizing { cursor: pointer; }
 .tabs {
   position: relative; z-index: 1; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 3%; padding-inline: 9.5%; margin: -1px 0 -4px;
@@ -106,6 +107,21 @@ button:focus-visible, input:focus-visible, canvas:focus-visible { outline: 3px s
 .page-controls button:focus-visible { outline-color: var(--red); }
 .icing-colors { flex-wrap: wrap; border-top: 1px solid #be9b6a; padding-top: 6px; }
 .color-label strong { color: var(--red); margin-left: 4px; white-space: nowrap; }
+.fruit-size-controls {
+  display: grid; grid-template-columns: auto minmax(64px, 1fr) 40px auto; align-items: center; gap: 6px 9px;
+  margin-top: 6px; padding: 7px 4px 0; border-top: 1px solid #be9b6a;
+  color: #604429; font-size: 12px;
+}
+.fruit-size-controls input { width: 100%; min-width: 0; height: 30px; margin: 0; accent-color: var(--red); }
+.fruit-size-controls input:disabled { opacity: .48; }
+.fruit-size-controls output { text-align: right; font-variant-numeric: tabular-nums; }
+.fruit-size-controls button {
+  min-height: 32px; padding: 3px 7px; border: 1px solid #af8555; border-radius: 7px;
+  background: #ffefd1; color: var(--green); white-space: nowrap;
+}
+.fruit-size-controls button:hover { background: #f1cba6; }
+.fruit-size-controls button[aria-pressed="true"] { background: var(--red); color: #fff0cc; }
+.fruit-size-controls button:focus-visible { outline-color: var(--red); }
 .stamp:focus-visible, .note-actions button:focus-visible, input:focus-visible { outline-color: var(--red); }
 .packing { display: grid; grid-template-columns: minmax(0, 1fr) 33%; gap: 10px; align-items: center; padding-inline: 4px; }
 .packing label { display: grid; gap: 6px; font-size: 14px; font-weight: bold; }
@@ -143,6 +159,8 @@ button:focus-visible, input:focus-visible, canvas:focus-visible { outline: 3px s
 .gift div { display: flex; flex-wrap: wrap; justify-content: center; gap: 7px; }
 .gift button { padding: 6px 9px; border: 3px double #f6ce9b; border-radius: 6px; background: var(--red); color: #fff0cf; font-size: 13px; }
 @media (max-width: 430px) {
+  .fruit-size-controls { grid-template-columns: auto minmax(64px, 1fr) 38px; }
+  .fruit-size-controls button { grid-column: 2 / -1; justify-self: end; }
   .shop { padding: 5px 4px 9px; }
   .workbench { border-radius: 12px; box-shadow: 0 4px 14px #59382355; }
   .tray { border-width: 4px; border-radius: 15px; }

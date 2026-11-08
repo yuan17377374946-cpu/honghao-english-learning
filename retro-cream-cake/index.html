@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="转一转蛋糕，亲手挤奶油花，再摆几颗红樱桃。">
 <title>复古蛋糕店</title>
-<link rel="stylesheet" href="style.css?v=eraser">
-<script src="cake.js?v=icing-16" defer></script>
+<link rel="stylesheet" href="style.css?v=fruit-size">
+<script src="cake.js?v=fruit-size" defer></script>
 </head>
 <body>
 <main class="shop">
@@ -48,6 +48,12 @@
       <div id="icing-colors" class="icing-colors">
         <span class="color-label">裱花奶油 <strong id="color-name"></strong></span>
         <div id="colors" class="colors" aria-label="裱花奶油颜色"></div>
+      </div>
+      <div id="fruit-size-controls" class="fruit-size-controls" hidden>
+        <label for="fruit-size">水果大小</label>
+        <input id="fruit-size" type="range" min="50" max="160" step="5" value="100" aria-describedby="hint">
+        <output id="fruit-size-value" for="fruit-size" aria-hidden="true">100%</output>
+        <button id="resize-fruit" type="button" aria-pressed="false">调整已放水果</button>
       </div>
       <div id="packing" class="packing" hidden>
         <label for="message">蛋糕上的祝福<input id="message" maxlength="14" autocomplete="off" placeholder="写一句生日快乐"></label>
