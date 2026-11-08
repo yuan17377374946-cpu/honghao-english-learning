@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="转一转蛋糕，亲手挤奶油花，再摆几颗红樱桃。">
+<title>复古蛋糕店</title>
+<link rel="stylesheet" href="style.css">
+<script src="cake.js" defer></script>
+</head>
+<body>
+<main class="shop">
+  <h1 class="sr-only">复古蛋糕店</h1>
+  <section class="workbench" aria-label="蛋糕工作台">
+    <div class="stage">
+      <canvas id="cake" width="1122" height="1020" tabindex="0" aria-label="蛋糕装饰画布" aria-describedby="hint"></canvas>
+      <button id="undo" class="scene-button undo" type="button" aria-label="撤销" title="撤销"></button>
+      <button id="rotate" class="scene-button rotate" type="button" aria-label="转动蛋糕" title="转动蛋糕"></button>
+      <section id="gift" class="gift" aria-labelledby="gift-title" hidden>
+        <img src="box.webp" alt="">
+        <h2 id="gift-title">蛋糕装好啦</h2>
+        <p id="gift-message"></p>
+        <div><button type="button" id="unbox">打开盒子</button><button type="button" id="gift-save">保存成品照</button></div>
+      </section>
+    </div>
+    <nav class="tabs" aria-label="制作步骤">
+      <button type="button" data-tab="base" aria-pressed="false">奶油</button>
+      <button type="button" data-tab="icing" aria-pressed="true">裱花</button>
+      <button type="button" data-tab="topping" aria-pressed="false">装饰</button>
+      <button type="button" data-tab="packing" aria-pressed="false">装盒</button>
+    </nav>
+    <section class="tray" aria-label="裱花托盘">
+      <div id="tools" class="tools"></div>
+      <div id="catalog-nav" class="catalog-nav" hidden>
+        <span id="catalog-count" aria-live="polite"></span>
+        <div class="page-controls">
+          <button id="prev-page" type="button" aria-label="上一页">‹</button>
+          <span id="page-number"></span>
+          <button id="next-page" type="button" aria-label="下一页">›</button>
+        </div>
+      </div>
+      <div id="icing-colors" class="icing-colors">
+        <span class="color-label">裱花奶油 <strong id="color-name"></strong></span>
+        <div id="colors" class="colors" aria-label="裱花奶油颜色"></div>
+      </div>
+      <div id="packing" class="packing" hidden>
+        <label for="message">蛋糕上的祝福<input id="message" maxlength="14" autocomplete="off" placeholder="写一句生日快乐"></label>
+        <button type="button" id="box" class="stamp"><img src="box.webp" alt="">盖上蛋糕盒</button>
+      </div>
+    </section>
+    <div class="recipe-note">
+      <p id="hint">沿着蛋糕边拖动，挤一圈厚厚的贝壳花。</p>
+      <div class="note-actions">
+        <button id="reset" type="button">从空白开始</button>
+        <button id="sample" type="button">恢复示例</button>
+      </div>
+      <p id="notice" class="sr-only" role="status"></p>
+    </div>
+  </section>
+</main>
+</body>
+</html>
