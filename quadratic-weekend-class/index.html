@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="二次函数周末作业课堂讲题页，12 道题的原题图、分步解析与板书图。">
+  <title>二次函数周末作业 · 线上讲题</title>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="lesson.js"></script>
+  <script defer src="graphs.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <a class="skip" href="#board">跳到讲题区</a>
+  <header class="top">
+    <div class="wrap top-inner">
+      <div class="brand"><span class="mark" aria-hidden="true">ƒ</span><div><strong>二次函数</strong><span>周末作业 · 线上讲题</span></div></div>
+      <div class="toolbar" aria-label="屏幕共享工具">
+        <button type="button" id="font-down" aria-label="减小字号">A−</button>
+        <button type="button" id="font-up" aria-label="增大字号">A+</button>
+        <button type="button" id="fullscreen">全屏</button>
+      </div>
+    </div>
+  </header>
+  <main class="wrap">
+    <section class="intro" aria-labelledby="course-title">
+      <div><p class="kicker">深圳真题与模拟 · 课堂讲评</p><h1 id="course-title">二次函数周末作业</h1><p>先看条件和小问，讲到哪一步，再点开哪一步。</p></div>
+      <div class="intro-count"><strong>12</strong><span>道原作业题</span></div>
+    </section>
+    <nav id="question-nav" class="question-nav" aria-label="题目目录"></nav>
+    <section id="board" aria-labelledby="question-title"></section>
+    <noscript><p>请开启浏览器的 JavaScript，以切换题目并展开解析。</p></noscript>
+  </main>
+  <dialog id="zoom" aria-labelledby="zoom-title">
+    <div class="zoom-bar"><strong id="zoom-title">原题放大</strong><form method="dialog"><button type="submit">关闭</button></form></div>
+    <img id="zoom-image" alt="">
+  </dialog>
+  <footer class="wrap">题号按作业册排列，原图中的题源编号保留。<span>键盘 ← → 切换题目。</span></footer>
+</body>
+</html>
