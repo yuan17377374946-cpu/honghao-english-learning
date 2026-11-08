@@ -88,21 +88,34 @@ const icing = {
   tower: { name: "螺旋尖塔", box: [76, 78, -70], hint: "在蛋糕顶部点一下，挤出一座层层叠起的奶油尖塔。" }
 };
 const toppings = {
-  cherry: { name: "红樱桃", box: [54, 81, -77, -24] },
-  strawberry: { name: "草莓", size: 78 },
-  raspberry: { name: "覆盆子", size: 60 },
-  blueberry: { name: "蓝莓", size: 49 },
-  blackberry: { name: "黑莓", size: 59 },
-  grape: { name: "紫葡萄", size: 81 },
-  fig: { name: "无花果", size: 82 },
-  strawberryHalf: { name: "草莓切半", size: 77 },
-  kiwi: { name: "奇异果片", size: 83 },
-  orange: { name: "橙子片", size: 89 },
-  lemonSlice: { name: "柠檬片", size: 84 },
-  peach: { name: "蜜桃片", size: 80 },
-  mango: { name: "芒果丁", size: 57 },
-  candle: { name: "小蜡烛", box: [18, 107, -105], hint: "点一下蛋糕顶部，插一支小蜡烛。" }
+  cherry: { name: "红樱桃", group: "orchard", box: [54, 81, -77, -24] },
+  strawberry: { name: "草莓", group: "berry", size: 78 },
+  greenGrape: { name: "青提切半", group: "berry", size: 63 },
+  redcurrant: { name: "红醋栗串", group: "berry", size: 72 },
+  raspberry: { name: "覆盆子", group: "berry", size: 60 },
+  blueberry: { name: "蓝莓", group: "berry", size: 49 },
+  blackberry: { name: "黑莓", group: "berry", size: 59 },
+  grape: { name: "紫葡萄", group: "berry", size: 81 },
+  strawberryHalf: { name: "草莓切半", group: "berry", size: 77 },
+  orange: { name: "橙子片", group: "citrus", size: 89 },
+  lemonSlice: { name: "柠檬片", group: "citrus", size: 84 },
+  lime: { name: "青柠片", group: "citrus", size: 80 },
+  grapefruit: { name: "红西柚片", group: "citrus", size: 93 },
+  kiwi: { name: "奇异果片", group: "tropical", size: 83 },
+  mango: { name: "芒果丁", group: "tropical", size: 57 },
+  dragonFruit: { name: "红心火龙果", group: "tropical", size: 81 },
+  pineapple: { name: "菠萝扇片", group: "tropical", size: 84 },
+  starfruit: { name: "杨桃星星片", group: "tropical", size: 80 },
+  lychee: { name: "荔枝果肉", group: "tropical", size: 62 },
+  banana: { name: "香蕉片", group: "tropical", size: 73 },
+  fig: { name: "无花果", group: "orchard", size: 82 },
+  peach: { name: "蜜桃片", group: "orchard", size: 80 },
+  apple: { name: "红苹果薄片", group: "orchard", size: 82 },
+  pomegranate: { name: "石榴籽", group: "orchard", size: 64 },
+  watermelon: { name: "西瓜小三角", group: "orchard", size: 85 },
+  candle: { name: "小蜡烛", group: "orchard", box: [18, 107, -105], hint: "点一下蛋糕顶部，插一支小蜡烛。" }
 };
+const toppingGroups = { all: "全部", berry: "莓果葡萄", citrus: "柑橘", tropical: "热带水果", orchard: "其他" };
 const tools = { ...icing, ...toppings };
 const catalog = { icing: Object.keys(icing), topping: Object.keys(toppings) };
 const pageSize = 4;
@@ -128,6 +141,7 @@ let fruitResizeStarted = false;
 let newFruitSize = defaultFruitSize;
 let tab = state.layers && !state.frosted ? "build" : "icing";
 let boxPreview = true;
+let toppingGroup = "all";
 let fillingGroup = "cream";
 let activeTool = "shell";
 let activeColor = "vanilla";
@@ -772,6 +786,13 @@ function updateAssembly() {
   return "蛋糕体和夹心交替叠，最上面放一层蛋糕体。";
 }
 
+function currentCatalog() {
+  const choices = catalog[tab];
+  return tab === "topping" && toppingGroup !== "all"
+    ? choices.filter(key => toppings[key].group === toppingGroup)
+    : choices;
+}
+
 function updateTray() {
   eraserButton.setAttribute("aria-pressed", erasing);
   eraserButton.disabled = !ready || tab === "build" || tab === "packing";
@@ -784,7 +805,7 @@ function updateTray() {
     button.setAttribute("aria-pressed", button.dataset.tab === tab);
     button.disabled = Boolean(state.layers && !state.frosted && button.dataset.tab !== "build");
   });
-  const choices = catalog[tab];
+  const choices = currentCatalog();
   const currentPage = pages[tab];
   const pageCount = choices ? Math.ceil(choices.length / pageSize) : 0;
   const visibleTools = choices?.slice(currentPage * pageSize, (currentPage + 1) * pageSize) ?? [];
@@ -799,11 +820,16 @@ function updateTray() {
   for (const [key, button] of swatches) button.setAttribute("aria-pressed", key === activeColor);
   byId("tools").hidden = tab === "packing" || tab === "build";
   byId("tools").dataset.tab = tab;
+  byId("topping-groups").hidden = tab !== "topping";
+  for (const [group, button] of toppingGroupButtons) {
+    button.setAttribute("aria-pressed", group === toppingGroup);
+  }
   byId("icing-colors").hidden = tab !== "icing";
   byId("color-name").textContent = colors[activeColor].name;
   byId("catalog-nav").hidden = !choices;
   if (choices) {
-    byId("catalog-count").textContent = tab === "icing" ? choices.length + " 款裱花" : choices.length - 1 + " 款水果 · 另有蜡烛";
+    byId("catalog-count").textContent = tab === "icing" ? choices.length + " 款裱花" :
+      choices.filter(isFruit).length + " 款水果" + (choices.includes("candle") ? " · 另有蜡烛" : "");
     byId("page-number").textContent = (currentPage + 1) + " / " + pageCount;
     byId("prev-page").disabled = currentPage === 0;
     byId("next-page").disabled = currentPage === pageCount - 1;
@@ -864,6 +890,7 @@ const baseButtons = new Map();
 const swatches = new Map();
 const layerButtons = new Map();
 const fillingGroupButtons = new Map();
+const toppingGroupButtons = new Map();
 const packagingButtons = { shape: new Map(), material: new Map(), ribbon: new Map() };
 for (const [key, tool] of Object.entries(tools)) {
   toolButtons.set(key, stamp(tool.name, key, () => {
@@ -873,6 +900,22 @@ for (const [key, tool] of Object.entries(tools)) {
     if (tab === "icing" && !customIcingColor) activeColor = tool.defaultColor ?? tool.color ?? "vanilla";
     setEditMode("place");
   }));
+}
+for (const [group, name] of Object.entries(toppingGroups)) {
+  const button = document.createElement("button");
+  button.type = "button";
+  button.textContent = name;
+  button.addEventListener("click", () => {
+    if (pointer || toppingGroup === group) return;
+    toppingGroup = group;
+    const choices = currentCatalog();
+    if (!choices.includes(activeTool)) activeTool = choices[0];
+    selectedTools.topping = activeTool;
+    pages.topping = Math.floor(choices.indexOf(activeTool) / pageSize);
+    setEditMode("place");
+  });
+  byId("topping-groups").append(button);
+  toppingGroupButtons.set(group, button);
 }
 for (const [key, color] of Object.entries(colors)) {
   const baseButton = stamp(color.name, null, () => {
@@ -1014,8 +1057,9 @@ function finishAssembly() {
 }
 
 function turnPage(direction) {
-  if (!catalog[tab]) return;
-  const lastPage = Math.ceil(catalog[tab].length / pageSize) - 1;
+  const choices = currentCatalog();
+  if (!choices) return;
+  const lastPage = Math.ceil(choices.length / pageSize) - 1;
   pages[tab] = Math.max(0, Math.min(lastPage, pages[tab] + direction));
   updateTray();
 }
@@ -1031,6 +1075,7 @@ function replaceCake(withSample) {
   hover = null;
   selectedTools.icing = "shell";
   selectedTools.topping = "cherry";
+  toppingGroup = "all";
   pages.icing = 0;
   pages.topping = 0;
   activeColor = "vanilla";
