@@ -11,9 +11,14 @@ const resizeFruitButton = byId("resize-fruit");
 const messageInput = byId("message");
 const hint = byId("hint");
 const gift = byId("gift");
-const center = { x: 535, y: 446 };
+const originalCenterY = 446;
+const originalSideHeight = 272;
+const cakeBottomY = originalCenterY + originalSideHeight;
+const center = { x: 535, get y() { return cakeBottomY - cakeSideHeight(); } };
 const radius = { x: 337, y: 170 };
-const sideHeight = 272;
+const spongeHeight = 73;
+const fillingHeight = 26;
+const maxSponges = 4;
 const tau = Math.PI * 2;
 const storageKey = "retro-cake-studio-v2";
 const eraserRadius = 18;
@@ -23,6 +28,16 @@ const hitContext = hitCanvas.getContext("2d", { willReadFrequently: true });
 const defaultFruitSize = Number(fruitSizeInput.defaultValue);
 const minFruitSize = Number(fruitSizeInput.min);
 const maxFruitSize = Number(fruitSizeInput.max);
+
+const layerFlavors = {
+  vanillaSponge: { name: "香草蛋糕体", kind: "sponge" },
+  cocoaSponge: { name: "可可蛋糕体", kind: "sponge", color: { tint: "#75472d", shade: .72 } },
+  matchaSponge: { name: "抹茶蛋糕体", kind: "sponge", color: { tint: "#879152", shade: .37 } },
+  vanillaCream: { name: "香草奶油", kind: "filling" },
+  strawberryCream: { name: "草莓奶油", kind: "filling", color: { tint: "#da7d82", shade: .3 } },
+  blueberryCream: { name: "蓝莓奶油", kind: "filling", color: { tint: "#9d78b2", shade: .38 } },
+  cocoaCream: { name: "可可奶油", kind: "filling", color: { tint: "#926047", shade: .62 } }
+};
 
 const colors = {
   vanilla: { name: "香草奶油", tint: "#eabe7f" },
@@ -77,11 +92,12 @@ const catalog = { icing: Object.keys(icing), topping: Object.keys(toppings) };
 const pageSize = 4;
 const pages = { icing: 0, topping: 0 };
 const selectedTools = { icing: "shell", topping: "cherry" };
-const imageNames = ["opening", "sample", "plain", "bag", ...Object.keys(tools)];
+const imageNames = ["opening", "sample", "plain", "bag", "workbench", "sponge", "filling", ...Object.keys(tools)];
 const art = {};
 const tinted = new Map();
+const frostedStages = new Map();
 const history = [];
-let state = loadCake() ?? sampleCake();
+let state = loadCake() ?? blankCake();
 let ready = false;
 let displayAngle = state.angle;
 let rotationFrame = 0;
@@ -92,7 +108,7 @@ let resizingFruit = false;
 let selectedFruit = null;
 let fruitResizeStarted = false;
 let newFruitSize = defaultFruitSize;
-let tab = "icing";
+let tab = state.layers && !state.frosted ? "build" : "icing";
 let activeTool = "shell";
 let activeColor = "vanilla";
 let customIcingColor = false;
@@ -101,10 +117,33 @@ function sampleCake() {
   return { preset: true, marks: [], angle: 0, base: "vanilla", message: "" };
 }
 
+function blankCake() {
+  return { ...sampleCake(), preset: false, layers: [], frosted: false };
+}
+
+function layerKind(index) {
+  return index % 2 ? "filling" : "sponge";
+}
+
+function cakeSideHeight() {
+  if (!state.layers) return originalSideHeight;
+  const count = state.layers.length;
+  return Math.ceil(count / 2) * spongeHeight + Math.floor(count / 2) * fillingHeight;
+}
+
+function canFinishLayers(layers) {
+  return Boolean(layers && layers.length >= 3 && layerKind(layers.length) === "filling");
+}
+
 function loadCake() {
   try {
     const current = JSON.parse(localStorage.getItem(storageKey));
-    if (Array.isArray(current?.marks) && Number.isFinite(current.angle) && colors[current.base] && typeof current.message === "string") return current;
+    if (Array.isArray(current?.marks) && Number.isFinite(current.angle) && colors[current.base] && typeof current.message === "string") {
+      const { layers, frosted, ...cake } = current;
+      const validLayers = Array.isArray(layers) && layers.length <= maxSponges * 2 - 1 &&
+        layers.every((id, index) => layerFlavors[id]?.kind === layerKind(index));
+      return validLayers ? { ...cake, layers, frosted: Boolean(frosted && canFinishLayers(layers)) } : cake;
+    }
     const legacy = JSON.parse(localStorage.getItem("retro-cake-studio-v1"));
     if (!Array.isArray(legacy?.marks) || !Number.isFinite(legacy.angle) || typeof legacy.message !== "string") return null;
     const includesStarter = legacy.marks.length >= 109 && legacy.marks[0].tool === "shell" &&
@@ -135,8 +174,11 @@ function undo() {
   messageInput.value = state.message;
   undoButton.disabled = !history.length;
   persist();
-  updateTray();
-  render();
+  if (state.layers && !state.frosted) switchTab("build");
+  else {
+    updateTray();
+    render();
+  }
 }
 
 function starterMarks() {
@@ -162,7 +204,7 @@ const starter = starterMarks();
 
 function project(angle, distance, face) {
   if (face === "side") {
-    return { x: center.x + radius.x * Math.cos(angle), y: center.y + radius.y * Math.sin(angle) + sideHeight * distance };
+    return { x: center.x + radius.x * Math.cos(angle), y: center.y + radius.y * Math.sin(angle) + cakeSideHeight() * distance };
   }
   return { x: center.x + radius.x * distance * Math.cos(angle), y: center.y + radius.y * distance * Math.sin(angle) };
 }
@@ -174,19 +216,27 @@ function wrapped(angle) {
 function sprite(tool, color) {
   const original = art[tool];
   if (toppings[tool] || color === (icing[tool].color ?? "vanilla")) return original;
-  const key = tool + color;
+  return tintedImage(original, tool + color, colors[color]);
+}
+
+function tintedImage(original, key, color) {
   if (tinted.has(key)) return tinted.get(key);
   const layer = document.createElement("canvas");
   layer.width = original.naturalWidth;
   layer.height = original.naturalHeight;
   const ctx = layer.getContext("2d");
   ctx.drawImage(original, 0, 0);
-  colorWash(ctx, colors[color], layer.width, layer.height);
+  colorWash(ctx, color, layer.width, layer.height);
   ctx.globalAlpha = 1;
   ctx.globalCompositeOperation = "destination-in";
   ctx.drawImage(original, 0, 0);
   tinted.set(key, layer);
   return layer;
+}
+
+function layerImage(id) {
+  const { kind, color } = layerFlavors[id];
+  return color ? tintedImage(art[kind], "layer-" + id, color) : art[kind];
 }
 
 function colorWash(ctx, color, width, height) {
@@ -208,9 +258,52 @@ function colorWash(ctx, color, width, height) {
 function outline(ctx) {
   ctx.beginPath();
   ctx.ellipse(center.x, center.y, radius.x, radius.y, 0, Math.PI, tau);
-  ctx.lineTo(center.x + radius.x, center.y + sideHeight);
-  ctx.ellipse(center.x, center.y + sideHeight, radius.x, radius.y, 0, 0, Math.PI);
+  ctx.lineTo(center.x + radius.x, cakeBottomY);
+  ctx.ellipse(center.x, cakeBottomY, radius.x, radius.y, 0, 0, Math.PI);
   ctx.closePath();
+}
+
+function paintStack(ctx) {
+  ctx.drawImage(art.workbench, 0, 0, canvas.width, canvas.height, 0, 0, canvas.width, canvas.height);
+  const width = radius.x * 2;
+  let y = cakeBottomY;
+  for (const [index, id] of state.layers.entries()) {
+    const height = layerKind(index) === "sponge" ? spongeHeight : fillingHeight;
+    y -= height;
+    ctx.save();
+    ctx.shadowColor = "#5b331d38";
+    ctx.shadowBlur = 9;
+    ctx.shadowOffsetY = 5;
+    ctx.drawImage(layerImage(id), center.x - radius.x, y - radius.y, width, radius.y * 2 + height);
+    ctx.restore();
+  }
+}
+
+function frostedStage() {
+  const height = cakeSideHeight();
+  if (Math.abs(height - originalSideHeight) <= 2) return art.plain;
+  if (frostedStages.has(height)) return frostedStages.get(height);
+  const frame = document.createElement("canvas");
+  frame.width = canvas.width;
+  frame.height = canvas.height;
+  const ctx = frame.getContext("2d");
+  ctx.drawImage(art.workbench, 0, 0, frame.width, frame.height, 0, 0, frame.width, frame.height);
+  const left = center.x - radius.x;
+  const shift = center.y - originalCenterY;
+  // Resize the curved side in narrow strips to keep its bottom seated on the stand.
+  for (let x = left; x < center.x + radius.x; x += 2) {
+    const across = (x + 1 - center.x) / radius.x;
+    const y = originalCenterY + radius.y * Math.sqrt(1 - across * across);
+    ctx.drawImage(art.plain, x, y, 2, originalSideHeight, x, y + shift, 2, height);
+  }
+  ctx.save();
+  ctx.beginPath();
+  ctx.ellipse(center.x, center.y, radius.x, radius.y + 1, 0, 0, tau);
+  ctx.clip();
+  ctx.drawImage(art.plain, 0, shift);
+  ctx.restore();
+  frostedStages.set(height, frame);
+  return frame;
 }
 
 function paintBase(ctx) {
@@ -317,10 +410,15 @@ function orderedMarks(includeStarter) {
 }
 
 function paint(ctx, { photo = false } = {}) {
+  if (state.layers && (!state.frosted || (!photo && tab === "build"))) {
+    paintStack(ctx);
+    return;
+  }
   const exactSample = state.preset && ((!erasing && !resizingFruit) || photo) &&
     state.base === "vanilla" && Math.abs(Math.sin(displayAngle / 2)) < .0005;
   const showOriginalBag = !photo && !hover && tab === "icing";
-  const background = exactSample ? (showOriginalBag ? art.opening : art.sample) : art.plain;
+  const background = exactSample ? (showOriginalBag ? art.opening : art.sample) :
+    state.layers ? frostedStage() : art.plain;
   ctx.drawImage(background, 0, 0, canvas.width, canvas.height, 0, 0, canvas.width, canvas.height);
   if (!exactSample) paintBase(ctx);
   for (const entry of orderedMarks(!exactSample)) drawMark(ctx, entry, true, !photo && entry.mark === selectedFruit);
@@ -378,7 +476,7 @@ function locate(x, y) {
   }
   if (Math.abs(dx) >= .995 || tab === "topping") return null;
   const angle = Math.acos(dx);
-  const depth = (y - center.y - radius.y * Math.sin(angle)) / sideHeight;
+  const depth = (y - center.y - radius.y * Math.sin(angle)) / cakeSideHeight();
   if (depth < -.045 || depth > 1.02) return null;
   return { face: "side", angle: angle - displayAngle, distance: Math.max(.035, Math.min(depth, activeTool === "swag" ? .77 : .96)) };
 }
@@ -552,7 +650,7 @@ canvas.addEventListener("keydown", event => {
 });
 
 function rotate() {
-  if (pointer || !ready) return;
+  if (pointer || !ready || tab === "build") return;
   closeGift();
   hover = null;
   const from = displayAngle;
@@ -586,12 +684,52 @@ function updateFruitSizeControls() {
   fruitSizeOutput.value = label;
 }
 
+function updateAssembly() {
+  const layers = state.layers;
+  const count = layers?.length ?? 0;
+  const kind = layerKind(count);
+  const full = count >= maxSponges * 2 - 1;
+  const choosing = Boolean(layers && !state.frosted && !full);
+  const title = !layers ? "从蛋糕胚做一只新蛋糕" :
+    state.frosted ? "从底到顶的夹层" : full ? "蛋糕胚叠好了" :
+    count === 0 ? "选第一层蛋糕体" : kind === "filling" ? "给这一层铺上夹心" : "再叠一层蛋糕体";
+  byId("assembly-title").textContent = title;
+  byId("layer-count").textContent = layers ?
+    Math.ceil(count / 2) + " 层蛋糕体 · " + Math.floor(count / 2) + " 层夹心" : "";
+  byId("layer-choices").hidden = !choosing;
+  byId("layer-choices").dataset.kind = kind;
+  for (const [id, button] of layerButtons) {
+    button.hidden = layerFlavors[id].kind !== kind;
+    button.disabled = !ready;
+  }
+  const entries = (layers ?? []).map((id, index) => {
+    const li = document.createElement("li");
+    li.dataset.kind = layerFlavors[id].kind;
+    li.textContent = (index + 1) + ". " + layerFlavors[id].name;
+    return li;
+  });
+  byId("layer-stack").replaceChildren(...entries);
+  byId("layer-stack").hidden = !count;
+  byId("remove-layer").hidden = !count || state.frosted;
+  const finish = byId("finish-assembly");
+  finish.textContent = !layers ? "开始叠蛋糕胚" : state.frosted ? "继续装饰" : "叠好了，去抹奶油";
+  finish.disabled = !ready || Boolean(layers && !canFinishLayers(layers));
+  if (!layers) return "点开始，就可以选第一层蛋糕体。";
+  if (state.frosted) return "这是你亲手叠的夹层。切回奶油、裱花或装饰，就能继续做。";
+  if (full) return "已经叠了四层蛋糕体，可以抹奶油了。";
+  if (canFinishLayers(layers)) return "现在可以抹奶油，也可以继续加夹心和蛋糕体。";
+  return "蛋糕体和夹心交替叠，最上面放一层蛋糕体。";
+}
+
 function updateTray() {
   eraserButton.setAttribute("aria-pressed", erasing);
+  eraserButton.disabled = !ready || tab === "build";
+  byId("rotate").disabled = !ready || tab === "build";
   canvas.classList.toggle("is-erasing", erasing);
   canvas.classList.toggle("is-resizing", resizingFruit);
   document.querySelectorAll(".tabs button").forEach(button => {
     button.setAttribute("aria-pressed", button.dataset.tab === tab);
+    button.disabled = Boolean(state.layers && !state.frosted && button.dataset.tab !== "build");
   });
   const choices = catalog[tab];
   const currentPage = pages[tab];
@@ -606,7 +744,7 @@ function updateTray() {
     button.setAttribute("aria-pressed", key === state.base);
   }
   for (const [key, button] of swatches) button.setAttribute("aria-pressed", key === activeColor);
-  byId("tools").hidden = tab === "packing";
+  byId("tools").hidden = tab === "packing" || tab === "build";
   byId("tools").dataset.tab = tab;
   byId("icing-colors").hidden = tab !== "icing";
   byId("color-name").textContent = colors[activeColor].name;
@@ -618,8 +756,10 @@ function updateTray() {
     byId("next-page").disabled = currentPage === pageCount - 1;
   }
   byId("packing").hidden = tab !== "packing";
+  byId("assembly").hidden = tab !== "build";
   updateFruitSizeControls();
-  hint.textContent = erasing ? "点击擦掉一个装饰，按住拖动可连续擦除。" :
+  hint.textContent = tab === "build" ? updateAssembly() :
+    erasing ? "点击擦掉一个装饰，按住拖动可连续擦除。" :
     resizingFruit ? (selectedFruit ? "已选" + tools[selectedFruit.tool].name + "，拖动滑块调整大小。" :
       "点一下蛋糕上要调整的水果，再拖动滑块。") :
     tab === "packing" ? "写好祝福，就可以盖上蛋糕盒。" :
@@ -638,14 +778,14 @@ function setEditMode(mode) {
 }
 
 function switchTab(next) {
-  if (pointer) return;
+  if (pointer || (state.layers && !state.frosted && next !== "build")) return;
   closeGift();
   tab = next;
   if (selectedTools[tab]) activeTool = selectedTools[tab];
   setEditMode("place");
 }
 
-function stamp(name, artwork, onClick) {
+function stamp(name, artwork, onClick, tray = byId("tools")) {
   const button = document.createElement("button");
   button.className = "stamp";
   button.type = "button";
@@ -660,13 +800,14 @@ function stamp(name, artwork, onClick) {
   }
   button.append(icon, name);
   button.addEventListener("click", onClick);
-  byId("tools").append(button);
+  tray.append(button);
   return button;
 }
 
 const toolButtons = new Map();
 const baseButtons = new Map();
 const swatches = new Map();
+const layerButtons = new Map();
 for (const [key, tool] of Object.entries(tools)) {
   toolButtons.set(key, stamp(tool.name, key, () => {
     if (pointer) return;
@@ -701,6 +842,45 @@ for (const [key, color] of Object.entries(colors)) {
   byId("colors").append(button);
   swatches.set(key, button);
 }
+for (const [id, flavor] of Object.entries(layerFlavors)) {
+  layerButtons.set(id, stamp(flavor.name, null, () => addLayer(id), byId("layer-choices")));
+}
+
+function addLayer(id) {
+  const layers = state.layers;
+  if (!ready || !layers || state.frosted || layers.length >= maxSponges * 2 - 1 ||
+    layerFlavors[id].kind !== layerKind(layers.length)) return;
+  saveUndo();
+  state.layers = [...layers, id];
+  persist();
+  updateTray();
+  render();
+  byId("assembly-title").focus({ preventScroll: true });
+}
+
+function removeTopLayer() {
+  if (!state.layers?.length || state.frosted) return;
+  saveUndo();
+  state.layers = state.layers.slice(0, -1);
+  persist();
+  updateTray();
+  render();
+  byId("assembly-title").focus({ preventScroll: true });
+}
+
+function finishAssembly() {
+  if (!ready || pointer) return;
+  if (!state.layers) {
+    replaceCake(false);
+  } else if (state.frosted) {
+    switchTab("icing");
+  } else if (canFinishLayers(state.layers)) {
+    saveUndo();
+    state.frosted = true;
+    persist();
+    switchTab("base");
+  }
+}
 
 function turnPage(direction) {
   if (!catalog[tab]) return;
@@ -714,7 +894,7 @@ function replaceCake(withSample) {
   closeGift();
   cancelAnimationFrame(rotationFrame);
   saveUndo();
-  state = { ...sampleCake(), preset: withSample };
+  state = withSample ? sampleCake() : blankCake();
   displayAngle = state.angle;
   messageInput.value = state.message;
   hover = null;
@@ -725,9 +905,9 @@ function replaceCake(withSample) {
   activeColor = "vanilla";
   customIcingColor = false;
   newFruitSize = defaultFruitSize;
-  switchTab("icing");
+  switchTab(withSample ? "icing" : "build");
   persist();
-  byId("notice").textContent = withSample ? "复古样款已恢复。" : "空白蛋糕准备好了。";
+  byId("notice").textContent = withSample ? "复古样款已恢复。" : "蛋糕转台准备好了。";
 }
 
 function closeGift() {
@@ -736,11 +916,12 @@ function closeGift() {
 
 function savePhoto() {
   if (!ready) return;
+  const photoTop = 173 - Math.max(0, cakeSideHeight() - originalSideHeight);
   const frame = document.createElement("canvas");
   frame.width = canvas.width;
-  frame.height = canvas.height - 173;
+  frame.height = canvas.height - photoTop;
   const ctx = frame.getContext("2d");
-  ctx.translate(0, -173);
+  ctx.translate(0, -photoTop);
   paint(ctx, { photo: true });
   frame.toBlob(blob => {
     if (!blob) { byId("notice").textContent = "照片生成失败，请再试一次。"; return; }
@@ -773,6 +954,8 @@ for (const event of ["change", "blur", "pointerdown"]) {
 byId("rotate").addEventListener("click", rotate);
 byId("reset").addEventListener("click", () => replaceCake(false));
 byId("sample").addEventListener("click", () => replaceCake(true));
+byId("remove-layer").addEventListener("click", removeTopLayer);
+byId("finish-assembly").addEventListener("click", finishAssembly);
 byId("prev-page").addEventListener("click", () => turnPage(-1));
 byId("next-page").addEventListener("click", () => turnPage(1));
 document.querySelectorAll(".tabs button").forEach(button => button.addEventListener("click", () => switchTab(button.dataset.tab)));
@@ -822,18 +1005,19 @@ Promise.all(imageNames.map(async name => {
   await image.decode();
   art[name] = image;
 })).then(() => {
-  for (const [key, button] of baseButtons) {
-    const icon = button.querySelector("canvas");
-    const swatch = sprite("rose", key);
-    const scale = 65 / Math.max(swatch.width, swatch.height);
-    const width = swatch.width * scale;
-    const height = swatch.height * scale;
-    icon.getContext("2d").drawImage(swatch, (icon.width - width) / 2, (icon.height - height) / 2, width, height);
-  }
+  for (const [key, button] of baseButtons) paintThumb(button, sprite("rose", key));
+  for (const [id, button] of layerButtons) paintThumb(button, layerImage(id));
   ready = true;
-  eraserButton.disabled = false;
-  updateFruitSizeControls();
+  updateTray();
   render();
 }).catch(() => {
   hint.textContent = "蛋糕素材未加载，请刷新页面。";
 });
+
+function paintThumb(button, source) {
+  const icon = button.querySelector("canvas");
+  const scale = Math.min(83 / source.width, 65 / source.height);
+  const width = source.width * scale;
+  const height = source.height * scale;
+  icon.getContext("2d").drawImage(source, (icon.width - width) / 2, (icon.height - height) / 2, width, height);
+}

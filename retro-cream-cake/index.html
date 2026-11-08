@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="转一转蛋糕，亲手挤奶油花，再摆几颗红樱桃。">
+<meta name="description" content="一层蛋糕体、一层夹心，叠好后抹奶油、裱花，再摆上水果。">
 <title>复古蛋糕店</title>
-<link rel="stylesheet" href="style.css?v=fruit-size">
-<script src="cake.js?v=fruit-size" defer></script>
+<link rel="stylesheet" href="style.css?v=layers">
+<script src="cake.js?v=layers" defer></script>
 </head>
 <body>
 <main class="shop">
@@ -30,12 +30,25 @@
       </section>
     </div>
     <nav class="tabs" aria-label="制作步骤">
+      <button type="button" data-tab="build" aria-pressed="false">蛋糕胚</button>
       <button type="button" data-tab="base" aria-pressed="false">奶油</button>
       <button type="button" data-tab="icing" aria-pressed="true">裱花</button>
       <button type="button" data-tab="topping" aria-pressed="false">装饰</button>
       <button type="button" data-tab="packing" aria-pressed="false">装盒</button>
     </nav>
-    <section class="tray" aria-label="裱花托盘">
+    <section class="tray" aria-label="制作托盘">
+      <section id="assembly" aria-labelledby="assembly-title" hidden>
+        <div class="assembly-heading">
+          <h2 id="assembly-title" tabindex="-1" aria-live="polite">选第一层蛋糕体</h2>
+          <span id="layer-count"></span>
+        </div>
+        <div id="layer-choices" class="tools"></div>
+        <ol id="layer-stack" class="layer-stack" aria-label="从底到顶的蛋糕夹层"></ol>
+        <div class="assembly-actions">
+          <button id="remove-layer" type="button" hidden>拿掉最上层</button>
+          <button id="finish-assembly" type="button">叠好了，去抹奶油</button>
+        </div>
+      </section>
       <div id="tools" class="tools"></div>
       <div id="catalog-nav" class="catalog-nav" hidden>
         <span id="catalog-count" aria-live="polite"></span>
@@ -63,7 +76,7 @@
     <div class="recipe-note">
       <p id="hint">沿着蛋糕边拖动，挤一圈厚厚的贝壳花。</p>
       <div class="note-actions">
-        <button id="reset" type="button">从空白开始</button>
+        <button id="reset" type="button">从蛋糕胚开始</button>
         <button id="sample" type="button">恢复示例</button>
       </div>
       <p id="notice" class="sr-only" role="status"></p>
