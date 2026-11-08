@@ -43,6 +43,7 @@ function renderQuestion() {
             return `<button type="button" class="original" data-zoom="${url}" aria-label="放大第 ${question} 题原图 ${i+1}"><img src="${url}" alt="第 ${question} 题原图，第 ${i+1} 部分"></button>`;
           }).join('')}
         </details>
+        ${sketchMarkup()}
         ${boardGraph(question)}
       </section>
       <section class="panel" aria-labelledby="solution-title">
@@ -56,6 +57,7 @@ function renderQuestion() {
   for(const button of nav.querySelectorAll('[data-question]')) {
     button.setAttribute('aria-current',String(Number(button.dataset.question)===question));
   }
+  mountSketch(board.querySelector('.sketch'), question);
   renderPart();
 }
 
