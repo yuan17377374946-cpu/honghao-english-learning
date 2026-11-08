@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="转一转蛋糕，亲手挤奶油花，再摆几颗红樱桃。">
 <title>复古蛋糕店</title>
-<link rel="stylesheet" href="style.css">
-<script src="cake.js" defer></script>
+<link rel="stylesheet" href="style.css?v=eraser">
+<script src="cake.js?v=eraser" defer></script>
 </head>
 <body>
 <main class="shop">
@@ -14,6 +14,12 @@
   <section class="workbench" aria-label="蛋糕工作台">
     <div class="stage">
       <canvas id="cake" width="1122" height="1020" tabindex="0" aria-label="蛋糕装饰画布" aria-describedby="hint"></canvas>
+      <button id="eraser" class="eraser-button" type="button" aria-pressed="false" title="擦除蛋糕上的装饰" disabled>
+        <svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3.6 13.7 12.2 5a2 2 0 0 1 2.8 0l5.1 5.1a2 2 0 0 1 0 2.8L13 20H8.7l-5.1-5.1a.9.9 0 0 1 0-1.2ZM8 9.3l8.6 8.6M13 20h8"/>
+        </svg>
+        橡皮擦
+      </button>
       <button id="undo" class="scene-button undo" type="button" aria-label="撤销" title="撤销"></button>
       <button id="rotate" class="scene-button rotate" type="button" aria-label="转动蛋糕" title="转动蛋糕"></button>
       <section id="gift" class="gift" aria-labelledby="gift-title" hidden>

@@ -4,6 +4,7 @@ const byId = id => document.getElementById(id);
 const canvas = byId("cake");
 const context = canvas.getContext("2d");
 const undoButton = byId("undo");
+const eraserButton = byId("eraser");
 const messageInput = byId("message");
 const hint = byId("hint");
 const gift = byId("gift");
@@ -12,6 +13,10 @@ const radius = { x: 337, y: 170 };
 const sideHeight = 272;
 const tau = Math.PI * 2;
 const storageKey = "retro-cake-studio-v2";
+const eraserRadius = 18;
+const hitCanvas = document.createElement("canvas");
+hitCanvas.width = hitCanvas.height = eraserRadius * 2 + 1;
+const hitContext = hitCanvas.getContext("2d", { willReadFrequently: true });
 
 const colors = {
   vanilla: { name: "香草奶油", tint: "#eabe7f" },
@@ -70,6 +75,7 @@ let displayAngle = state.angle;
 let rotationFrame = 0;
 let pointer = null;
 let hover = null;
+let erasing = false;
 let tab = "icing";
 let activeTool = "shell";
 let activeColor = "vanilla";
@@ -198,7 +204,7 @@ function paintBase(ctx) {
   ctx.restore();
 }
 
-function drawSwag(ctx, mark, angle) {
+function drawSwag(ctx, mark, angle, shadow) {
   const a = wrapped(angle + .35) - .35;
   const start = a - .315;
   const end = a + .315;
@@ -209,7 +215,7 @@ function drawSwag(ctx, mark, angle) {
   const right = project(rightAngle, mark.distance, "side");
   const width = right.x - left.x;
   if (width < 9) return;
-  const source = sprite("swag", mark.color);
+  const source = shadow ? sprite("swag", mark.color) : art.swag;
   const sourceWidth = source.width;
   const sourceHeight = source.height;
   const cropStart = (end - leftAngle) / .63 * sourceWidth;
@@ -219,24 +225,27 @@ function drawSwag(ctx, mark, angle) {
   outline(ctx);
   ctx.clip();
   ctx.transform(1, (right.y - left.y) / width, 0, 1, left.x, left.y - 4);
-  ctx.shadowColor = "#5a2f244c";
-  ctx.shadowBlur = 4;
-  ctx.shadowOffsetY = 3;
+  if (shadow) {
+    ctx.shadowColor = "#5a2f244c";
+    ctx.shadowBlur = 4;
+    ctx.shadowOffsetY = 3;
+  }
   ctx.drawImage(source, cropStart, 0, cropWidth, sourceHeight, 0, 0, width, depth);
   ctx.restore();
 }
 
-function drawMark(ctx, mark, angle) {
-  if (mark.tool === "swag") { drawSwag(ctx, mark, angle); return; }
+function drawMark(ctx, { mark, angle, point }, shadow = true) {
+  if (mark.tool === "swag") { drawSwag(ctx, mark, angle, shadow); return; }
   if (mark.face === "side" && Math.sin(angle) < .025) return;
-  const point = project(angle, mark.distance, mark.face);
-  const source = sprite(mark.tool, mark.color);
+  const source = shadow ? sprite(mark.tool, mark.color) : art[mark.tool];
   const tool = tools[mark.tool];
   ctx.save();
   ctx.translate(point.x, point.y - (mark.lift ?? 0));
-  ctx.shadowColor = "#693c254d";
-  ctx.shadowBlur = 5;
-  ctx.shadowOffsetY = 4;
+  if (shadow) {
+    ctx.shadowColor = "#693c254d";
+    ctx.shadowBlur = 5;
+    ctx.shadowOffsetY = 4;
+  }
   if (tool.edge) {
     if (mark.face === "top" && mark.distance > .76) {
       const tilt = Math.atan2(radius.y * Math.cos(angle), -radius.x * Math.sin(angle));
@@ -258,21 +267,25 @@ function drawMark(ctx, mark, angle) {
   ctx.restore();
 }
 
+function orderedMarks(includeStarter) {
+  const marks = state.preset && includeStarter ? [...starter, ...state.marks] : state.marks;
+  return marks.map(mark => {
+    const angle = mark.angle + displayAngle;
+    return { mark, angle, point: project(angle, mark.distance, mark.face) };
+  }).sort((first, second) => {
+    if (first.mark.face !== second.mark.face) return first.mark.face === "side" ? -1 : 1;
+    return first.point.y - second.point.y || Number(Boolean(toppings[first.mark.tool])) - Number(Boolean(toppings[second.mark.tool]));
+  });
+}
+
 function paint(ctx, { photo = false } = {}) {
-  const exactSample = state.preset && state.base === "vanilla" && Math.abs(Math.sin(displayAngle / 2)) < .0005;
+  const exactSample = state.preset && (!erasing || photo) &&
+    state.base === "vanilla" && Math.abs(Math.sin(displayAngle / 2)) < .0005;
   const showOriginalBag = !photo && !hover && tab === "icing";
   const background = exactSample ? (showOriginalBag ? art.opening : art.sample) : art.plain;
   ctx.drawImage(background, 0, 0, canvas.width, canvas.height, 0, 0, canvas.width, canvas.height);
   if (!exactSample) paintBase(ctx);
-  const marks = state.preset && !exactSample ? [...starter, ...state.marks] : state.marks;
-  const projected = marks.map(mark => {
-    const angle = mark.angle + displayAngle;
-    return { mark, angle, y: project(angle, mark.distance, mark.face).y };
-  }).sort((first, second) => {
-    if (first.mark.face !== second.mark.face) return first.mark.face === "side" ? -1 : 1;
-    return first.y - second.y || Number(Boolean(toppings[first.mark.tool])) - Number(Boolean(toppings[second.mark.tool]));
-  });
-  for (const { mark, angle } of projected) drawMark(ctx, mark, angle);
+  for (const entry of orderedMarks(!exactSample)) drawMark(ctx, entry);
   if (state.message.trim()) {
     ctx.save();
     ctx.translate(center.x + 7, center.y - 11);
@@ -287,7 +300,23 @@ function paint(ctx, { photo = false } = {}) {
     ctx.fillText(state.message.trim(), 0, 0, 435);
     ctx.restore();
   }
-  if (!photo && hover && tab === "icing") ctx.drawImage(art.bag, hover.x - 5, hover.y - 182, 150, 186);
+  if (!photo && hover) {
+    if (erasing) {
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(hover.x, hover.y, eraserRadius, 0, tau);
+      ctx.strokeStyle = "#703b2b";
+      ctx.lineWidth = 5;
+      ctx.stroke();
+      ctx.setLineDash([7, 5]);
+      ctx.strokeStyle = "#fff0cb";
+      ctx.lineWidth = 2.5;
+      ctx.stroke();
+      ctx.restore();
+    } else if (tab === "icing") {
+      ctx.drawImage(art.bag, hover.x - 5, hover.y - 182, 150, 186);
+    }
+  }
 }
 
 function render() {
@@ -319,37 +348,83 @@ function locate(x, y) {
 function place(x, y) {
   const mark = locate(x, y);
   if (!mark || state.marks.length >= 1500) return false;
-  if (!pointer?.changed) {
-    saveUndo();
-    if (pointer) pointer.changed = true;
-  }
+  beginEdit();
   state.marks.push({ ...mark, tool: activeTool, color: activeColor });
   return true;
 }
 
+function beginEdit() {
+  if (!pointer?.changed) {
+    saveUndo();
+    if (pointer) pointer.changed = true;
+  }
+}
+
+function hitMark(x, y) {
+  const diameter = hitCanvas.width;
+  const centerAlpha = (eraserRadius * diameter + eraserRadius) * 4 + 3;
+  let closest = null;
+  let bestDistance = eraserRadius ** 2 + 1;
+  for (const entry of orderedMarks(true).reverse()) {
+    // The broad bounds include the curved swags and tall candles.
+    if (Math.abs(entry.point.x - x) > 145 || Math.abs(entry.point.y - y) > 160) continue;
+    hitContext.clearRect(0, 0, diameter, diameter);
+    hitContext.save();
+    hitContext.translate(eraserRadius + .5 - x, eraserRadius + .5 - y);
+    drawMark(hitContext, entry, false);
+    hitContext.restore();
+    const pixels = hitContext.getImageData(0, 0, diameter, diameter).data;
+    if (pixels[centerAlpha] > 96) return entry.mark;
+    for (let row = 0; row < diameter; row += 1) {
+      for (let col = 0; col < diameter; col += 1) {
+        const distance = (col - eraserRadius) ** 2 + (row - eraserRadius) ** 2;
+        if (distance < bestDistance && pixels[(row * diameter + col) * 4 + 3] > 96) {
+          bestDistance = distance;
+          closest = entry.mark;
+        }
+      }
+    }
+  }
+  return closest;
+}
+
+function erase(x, y) {
+  const mark = hitMark(x, y);
+  if (!mark) return false;
+  beginEdit();
+  if (state.preset && !state.marks.includes(mark)) {
+    state.marks = [...starter, ...state.marks];
+    state.preset = false;
+  }
+  state.marks.splice(state.marks.indexOf(mark), 1);
+  return true;
+}
+
 function canDecorate() {
-  return ready && gift.hidden && (tab === "icing" || tab === "topping");
+  return ready && gift.hidden && (erasing || tab === "icing" || tab === "topping");
 }
 
 canvas.addEventListener("pointerdown", event => {
   if (!canDecorate() || pointer || event.button !== 0) return;
   const { x, y } = pointerPoint(event);
-  if (!locate(x, y)) return;
+  if (!erasing && !locate(x, y)) return;
   cancelAnimationFrame(rotationFrame);
   state.angle = displayAngle;
   pointer = { id: event.pointerId, x, y, changed: false };
   canvas.setPointerCapture(event.pointerId);
-  place(x, y);
-  hover = tab === "icing" ? { x, y } : null;
+  const edit = erasing ? erase : place;
+  edit(x, y);
+  hover = erasing || tab === "icing" ? { x, y } : null;
   render();
 });
 canvas.addEventListener("pointermove", event => {
   if (!canDecorate()) return;
   const { x, y } = pointerPoint(event);
-  const nextHover = tab === "icing" && locate(x, y) ? { x, y } : null;
+  const nextHover = erasing || (tab === "icing" && locate(x, y)) ? { x, y } : null;
   const movedBrush = Boolean(hover || nextHover);
   hover = nextHover;
-  const spacing = tools[activeTool].spacing;
+  const spacing = erasing ? eraserRadius : tools[activeTool].spacing;
+  const edit = erasing ? erase : place;
   let changed = false;
   if (pointer?.id === event.pointerId && spacing) {
     const distance = Math.hypot(x - pointer.x, y - pointer.y);
@@ -360,7 +435,7 @@ canvas.addEventListener("pointermove", event => {
       for (let step = 0; step < steps; step += 1) {
         pointer.x += dx;
         pointer.y += dy;
-        changed = place(pointer.x, pointer.y) || changed;
+        changed = edit(pointer.x, pointer.y) || changed;
       }
     }
   }
@@ -376,9 +451,26 @@ for (const event of ["pointerup", "pointercancel", "lostpointercapture"]) {
 }
 canvas.addEventListener("pointerleave", () => { hover = null; render(); });
 canvas.addEventListener("keydown", event => {
-  if (!canDecorate() || !["Enter", " "].includes(event.key)) return;
+  if (!canDecorate() || pointer) return;
+  const direction = { ArrowLeft: [-1, 0], ArrowRight: [1, 0], ArrowUp: [0, -1], ArrowDown: [0, 1] }[event.key];
+  if (erasing && direction) {
+    event.preventDefault();
+    const point = hover ?? center;
+    hover = {
+      x: Math.max(0, Math.min(canvas.width, point.x + direction[0] * eraserRadius)),
+      y: Math.max(0, Math.min(canvas.height, point.y + direction[1] * eraserRadius))
+    };
+    render();
+    return;
+  }
+  if (!["Enter", " "].includes(event.key)) return;
   event.preventDefault();
-  place(center.x, center.y + (activeTool === "swag" ? 255 : -28));
+  if (erasing) {
+    const point = hover ?? center;
+    erase(point.x, point.y);
+  } else {
+    place(center.x, center.y + (activeTool === "swag" ? 255 : -28));
+  }
   persist();
   render();
 });
@@ -408,6 +500,8 @@ function rotate() {
 }
 
 function updateTray() {
+  eraserButton.setAttribute("aria-pressed", erasing);
+  canvas.classList.toggle("is-erasing", erasing);
   document.querySelectorAll(".tabs button").forEach(button => {
     button.setAttribute("aria-pressed", button.dataset.tab === tab);
   });
@@ -417,7 +511,7 @@ function updateTray() {
   const visibleTools = choices?.slice(currentPage * pageSize, (currentPage + 1) * pageSize) ?? [];
   for (const [key, button] of toolButtons) {
     button.hidden = !visibleTools.includes(key);
-    button.setAttribute("aria-pressed", key === activeTool);
+    button.setAttribute("aria-pressed", !erasing && key === activeTool);
   }
   for (const [key, button] of baseButtons) {
     button.hidden = tab !== "base";
@@ -436,18 +530,25 @@ function updateTray() {
     byId("next-page").disabled = currentPage === pageCount - 1;
   }
   byId("packing").hidden = tab !== "packing";
-  hint.textContent = tab === "packing" ? "写好祝福，就可以盖上蛋糕盒。" :
+  hint.textContent = erasing ? "点击擦掉一个装饰，按住拖动可连续擦除。" :
+    tab === "packing" ? "写好祝福，就可以盖上蛋糕盒。" :
     tab === "base" ? "选一种颜色，给整只蛋糕抹上奶油。" :
     tools[activeTool].hint ?? "点一下蛋糕顶部，放上" + tools[activeTool].name + "。";
 }
 
-function switchTab(next) {
-  closeGift();
+function setEraser(active) {
+  erasing = active;
   hover = null;
-  tab = next;
-  if (selectedTools[tab]) activeTool = selectedTools[tab];
   updateTray();
   render();
+}
+
+function switchTab(next) {
+  if (pointer) return;
+  closeGift();
+  tab = next;
+  if (selectedTools[tab]) activeTool = selectedTools[tab];
+  setEraser(false);
 }
 
 function stamp(name, artwork, onClick) {
@@ -474,10 +575,11 @@ const baseButtons = new Map();
 const swatches = new Map();
 for (const [key, tool] of Object.entries(tools)) {
   toolButtons.set(key, stamp(tool.name, key, () => {
+    if (pointer) return;
     activeTool = key;
     selectedTools[tab] = key;
     if (tab === "icing" && !customIcingColor) activeColor = tool.defaultColor ?? tool.color ?? "vanilla";
-    updateTray();
+    setEraser(false);
   }));
 }
 for (const [key, color] of Object.entries(colors)) {
@@ -497,9 +599,10 @@ for (const [key, color] of Object.entries(colors)) {
   button.setAttribute("aria-label", color.name);
   button.title = color.name;
   button.addEventListener("click", () => {
+    if (pointer) return;
     activeColor = key;
     customIcingColor = true;
-    updateTray();
+    setEraser(false);
   });
   byId("colors").append(button);
   swatches.set(key, button);
@@ -559,6 +662,11 @@ function savePhoto() {
 
 undoButton.disabled = true;
 undoButton.addEventListener("click", undo);
+eraserButton.addEventListener("click", () => {
+  if (pointer || !ready) return;
+  closeGift();
+  setEraser(!erasing);
+});
 byId("rotate").addEventListener("click", rotate);
 byId("reset").addEventListener("click", () => replaceCake(false));
 byId("sample").addEventListener("click", () => replaceCake(true));
@@ -570,9 +678,13 @@ document.addEventListener("keydown", event => {
     event.preventDefault();
     undo();
   }
-  if (event.key === "Escape" && !gift.hidden) {
-    closeGift();
-    byId("box").focus();
+  if (event.key === "Escape" && !pointer) {
+    if (!gift.hidden) {
+      closeGift();
+      byId("box").focus();
+    } else if (erasing) {
+      setEraser(false);
+    }
   }
 });
 messageInput.value = state.message;
@@ -590,8 +702,8 @@ messageInput.addEventListener("change", () => {
   messageInput.dataset.before = current;
 });
 byId("box").addEventListener("click", () => {
-  hover = null;
-  render();
+  if (pointer) return;
+  setEraser(false);
   byId("gift-message").textContent = state.message.trim() || "一只亲手裱好的奶油蛋糕";
   byId("gift-save").textContent = "保存成品照";
   gift.hidden = false;
@@ -616,6 +728,7 @@ Promise.all(imageNames.map(async name => {
     icon.getContext("2d").drawImage(swatch, (icon.width - width) / 2, (icon.height - height) / 2, width, height);
   }
   ready = true;
+  eraserButton.disabled = false;
   render();
 }).catch(() => {
   hint.textContent = "蛋糕素材未加载，请刷新页面。";

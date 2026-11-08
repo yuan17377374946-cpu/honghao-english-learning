@@ -40,6 +40,22 @@ button:focus-visible, input:focus-visible, canvas:focus-visible { outline: 3px s
 .scene-button:disabled { background: #3e2b1620; }
 .undo { left: 78%; }
 .rotate { left: 89%; }
+.eraser-button {
+  position: absolute; top: 2.8%; left: 2.8%;
+  display: inline-flex; align-items: center; justify-content: center; gap: 4px;
+  min-height: 37px; padding: 4px clamp(4px, 1vw, 9px);
+  border: 3px double #876241; border-radius: 10px;
+  background: linear-gradient(120deg, #ffedc9, #e8c992); color: var(--green);
+  box-shadow: 0 2px 5px #4d2f2566;
+  font-size: clamp(11px, 2.8vw, 15px); font-weight: bold; white-space: nowrap;
+}
+.eraser-button svg { flex: none; width: clamp(13px, 3.5vw, 17px); }
+.eraser-button:hover:enabled { filter: brightness(1.08); }
+.eraser-button[aria-pressed="true"] {
+  background: var(--red); color: #fff0cc; border-color: #f6ce9b;
+}
+.eraser-button:focus-visible { outline-color: #b56e43; }
+#cake.is-erasing { cursor: cell; }
 .tabs {
   position: relative; z-index: 1; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 3%; padding-inline: 9.5%; margin: -1px 0 -4px;
