@@ -29,14 +29,30 @@ const defaultFruitSize = Number(fruitSizeInput.defaultValue);
 const minFruitSize = Number(fruitSizeInput.min);
 const maxFruitSize = Number(fruitSizeInput.max);
 
+const fillingGroups = {
+  cream: "奶油",
+  fruit: "果粒",
+  boba: "啵啵",
+  crunch: "饼干薄脆",
+  paste: "红豆芋泥"
+};
 const layerFlavors = {
   vanillaSponge: { name: "香草蛋糕体", kind: "sponge" },
   cocoaSponge: { name: "可可蛋糕体", kind: "sponge", color: { tint: "#75472d", shade: .72 } },
   matchaSponge: { name: "抹茶蛋糕体", kind: "sponge", color: { tint: "#879152", shade: .37 } },
-  vanillaCream: { name: "香草奶油", kind: "filling" },
-  strawberryCream: { name: "草莓奶油", kind: "filling", color: { tint: "#da7d82", shade: .3 } },
-  blueberryCream: { name: "蓝莓奶油", kind: "filling", color: { tint: "#9d78b2", shade: .38 } },
-  cocoaCream: { name: "可可奶油", kind: "filling", color: { tint: "#926047", shade: .62 } }
+  vanillaCream: { name: "香草奶油", kind: "filling", group: "cream" },
+  strawberryCream: { name: "草莓奶油", kind: "filling", group: "cream", color: { tint: "#da7d82", shade: .3 } },
+  blueberryCream: { name: "蓝莓奶油", kind: "filling", group: "cream", color: { tint: "#9d78b2", shade: .38 } },
+  cocoaCream: { name: "可可奶油", kind: "filling", group: "cream", color: { tint: "#926047", shade: .62 } },
+  melonFilling: { name: "哈密瓜", kind: "filling", group: "fruit", asset: "filling-melon" },
+  dragonFilling: { name: "火龙果", kind: "filling", group: "fruit", asset: "filling-dragon" },
+  mangoFilling: { name: "芒果", kind: "filling", group: "fruit", asset: "filling-mango" },
+  peachBoba: { name: "蜜桃乌龙啵啵", kind: "filling", group: "boba", asset: "filling-peach-boba" },
+  thaiBoba: { name: "泰茶啵啵", kind: "filling", group: "boba", asset: "filling-thai-boba" },
+  cookieFilling: { name: "奥利奥碎", kind: "filling", group: "crunch", asset: "filling-cookie" },
+  crispFilling: { name: "可可百利薄脆", kind: "filling", group: "crunch", asset: "filling-crisp" },
+  redBeanFilling: { name: "甜红豆", kind: "filling", group: "paste", asset: "filling-red-bean" },
+  taroFilling: { name: "芋泥", kind: "filling", group: "paste", asset: "filling-taro" }
 };
 
 const colors = {
@@ -92,7 +108,8 @@ const catalog = { icing: Object.keys(icing), topping: Object.keys(toppings) };
 const pageSize = 4;
 const pages = { icing: 0, topping: 0 };
 const selectedTools = { icing: "shell", topping: "cherry" };
-const imageNames = ["opening", "sample", "plain", "bag", "workbench", "sponge", "filling", ...Object.keys(tools)];
+const fillingAssets = Object.values(layerFlavors).map(flavor => flavor.asset).filter(Boolean);
+const imageNames = ["opening", "sample", "plain", "bag", "workbench", "sponge", "filling", ...fillingAssets, ...Object.keys(tools)];
 const art = {};
 const tinted = new Map();
 const frostedStages = new Map();
@@ -109,6 +126,7 @@ let selectedFruit = null;
 let fruitResizeStarted = false;
 let newFruitSize = defaultFruitSize;
 let tab = state.layers && !state.frosted ? "build" : "icing";
+let fillingGroup = "cream";
 let activeTool = "shell";
 let activeColor = "vanilla";
 let customIcingColor = false;
@@ -235,7 +253,8 @@ function tintedImage(original, key, color) {
 }
 
 function layerImage(id) {
-  const { kind, color } = layerFlavors[id];
+  const { kind, color, asset } = layerFlavors[id];
+  if (asset) return art[asset];
   return color ? tintedImage(art[kind], "layer-" + id, color) : art[kind];
 }
 
@@ -696,12 +715,23 @@ function updateAssembly() {
   byId("assembly-title").textContent = title;
   byId("layer-count").textContent = layers ?
     Math.ceil(count / 2) + " 层蛋糕体 · " + Math.floor(count / 2) + " 层夹心" : "";
-  byId("layer-choices").hidden = !choosing;
-  byId("layer-choices").dataset.kind = kind;
-  for (const [id, button] of layerButtons) {
-    button.hidden = layerFlavors[id].kind !== kind;
+  const choosingFilling = choosing && kind === "filling";
+  const choices = byId("layer-choices");
+  choices.hidden = !choosing;
+  byId("filling-groups").hidden = !choosingFilling;
+  for (const [group, button] of fillingGroupButtons) {
+    button.setAttribute("aria-pressed", group === fillingGroup);
     button.disabled = !ready;
   }
+  let visibleChoices = 0;
+  for (const [id, button] of layerButtons) {
+    const flavor = layerFlavors[id];
+    const visible = flavor.kind === kind && (!choosingFilling || flavor.group === fillingGroup);
+    button.hidden = !visible;
+    button.disabled = !ready;
+    if (visible) visibleChoices++;
+  }
+  choices.style.setProperty("--flavor-columns", visibleChoices);
   const entries = (layers ?? []).map((id, index) => {
     const li = document.createElement("li");
     li.dataset.kind = layerFlavors[id].kind;
@@ -808,6 +838,7 @@ const toolButtons = new Map();
 const baseButtons = new Map();
 const swatches = new Map();
 const layerButtons = new Map();
+const fillingGroupButtons = new Map();
 for (const [key, tool] of Object.entries(tools)) {
   toolButtons.set(key, stamp(tool.name, key, () => {
     if (pointer) return;
@@ -845,6 +876,19 @@ for (const [key, color] of Object.entries(colors)) {
 for (const [id, flavor] of Object.entries(layerFlavors)) {
   layerButtons.set(id, stamp(flavor.name, null, () => addLayer(id), byId("layer-choices")));
 }
+for (const [group, name] of Object.entries(fillingGroups)) {
+  const button = document.createElement("button");
+  button.type = "button";
+  button.textContent = name;
+  button.addEventListener("click", () => {
+    fillingGroup = group;
+    updateTray();
+  });
+  byId("filling-groups").append(button);
+  fillingGroupButtons.set(group, button);
+}
+const fillingCount = Object.values(layerFlavors).filter(flavor => flavor.kind === "filling").length;
+byId("filling-total").textContent = fillingCount + " 种夹心";
 
 function addLayer(id) {
   const layers = state.layers;

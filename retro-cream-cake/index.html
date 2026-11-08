@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="一层蛋糕体、一层夹心，叠好后抹奶油、裱花，再摆上水果。">
 <title>复古蛋糕店</title>
-<link rel="stylesheet" href="style.css?v=layers">
-<script src="cake.js?v=layers" defer></script>
+<link rel="stylesheet" href="style.css?v=fillings">
+<script src="cake.js?v=fillings" defer></script>
 </head>
 <body>
 <main class="shop">
@@ -41,6 +41,9 @@
         <div class="assembly-heading">
           <h2 id="assembly-title" tabindex="-1" aria-live="polite">选第一层蛋糕体</h2>
           <span id="layer-count"></span>
+        </div>
+        <div id="filling-groups" class="filling-groups" role="group" aria-label="夹心分类" hidden>
+          <span id="filling-total"></span>
         </div>
         <div id="layer-choices" class="tools"></div>
         <ol id="layer-stack" class="layer-stack" aria-label="从底到顶的蛋糕夹层"></ol>

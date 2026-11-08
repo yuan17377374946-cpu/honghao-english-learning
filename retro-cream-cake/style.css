@@ -90,7 +90,16 @@ button:focus-visible, input:focus-visible, canvas:focus-visible { outline: 3px s
 .assembly-heading { margin: 1px 0 7px; color: #604429; font-size: 12px; }
 .assembly-heading h2 { margin: 0; color: var(--green); font-size: clamp(14px, 3.5vw, 18px); }
 .assembly-heading h2:focus { outline: none; }
-#layer-choices[data-kind="sponge"] { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.filling-groups {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 4px 5px; margin: 0 4px 7px;
+}
+#filling-total { margin-right: 3px; color: #604429; font-size: 11px; }
+.filling-groups button {
+  min-height: 30px; padding: 3px 8px; border: 1px solid #b48c5b; border-radius: 7px;
+  background: #fff0ce; color: #523824; font-size: 12px;
+}
+.filling-groups button[aria-pressed="true"] { background: var(--red); color: #fff0cf; border-color: var(--red); }
+#layer-choices { grid-template-columns: repeat(var(--flavor-columns, 4), minmax(0, 1fr)); }
 #layer-choices .stamp { min-height: clamp(60px, 12vw, 87px); }
 #layer-choices canvas { height: clamp(34px, 8vw, 52px); }
 .layer-stack { display: flex; flex-wrap: wrap; gap: 4px; padding: 0 4px; margin: 8px 0; list-style: none; }
