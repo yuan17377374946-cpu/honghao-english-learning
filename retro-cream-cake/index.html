@@ -5,8 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="一层蛋糕体、一层夹心，叠好后抹奶油、裱花，再摆上水果。">
 <title>复古蛋糕店</title>
-<link rel="stylesheet" href="style.css?v=fillings">
-<script src="cake.js?v=fillings" defer></script>
+<link rel="stylesheet" href="style.css?v=packaging">
+<script src="packaging.js?v=packaging" defer></script>
+<script src="cake.js?v=packaging" defer></script>
 </head>
 <body>
 <main class="shop">
@@ -22,12 +23,6 @@
       </button>
       <button id="undo" class="scene-button undo" type="button" aria-label="撤销" title="撤销"></button>
       <button id="rotate" class="scene-button rotate" type="button" aria-label="转动蛋糕" title="转动蛋糕"></button>
-      <section id="gift" class="gift" aria-labelledby="gift-title" hidden>
-        <img src="box.webp" alt="">
-        <h2 id="gift-title">蛋糕装好啦</h2>
-        <p id="gift-message"></p>
-        <div><button type="button" id="unbox">打开盒子</button><button type="button" id="gift-save">保存成品照</button></div>
-      </section>
     </div>
     <nav class="tabs" aria-label="制作步骤">
       <button type="button" data-tab="build" aria-pressed="false">蛋糕胚</button>
@@ -72,8 +67,35 @@
         <button id="resize-fruit" type="button" aria-pressed="false">调整已放水果</button>
       </div>
       <div id="packing" class="packing" hidden>
-        <label for="message">蛋糕上的祝福<input id="message" maxlength="14" autocomplete="off" placeholder="写一句生日快乐"></label>
-        <button type="button" id="box" class="stamp"><img src="box.webp" alt="">盖上蛋糕盒</button>
+        <div id="packing-options">
+          <div class="packing-heading">
+            <h2>挑个蛋糕盒</h2>
+            <button type="button" id="box-preview" aria-pressed="true">预览包装</button>
+          </div>
+          <div id="box-shapes" class="tools" role="group" aria-label="盒型"></div>
+          <div class="packing-line">
+            <span>盒子材质 <strong id="box-color-name"></strong></span>
+            <div id="box-colors" class="colors" role="group" aria-label="盒子材质"></div>
+          </div>
+          <div class="packing-line">
+            <span>丝带</span>
+            <div id="box-ribbons" class="ribbon-tools" role="group" aria-label="丝带"></div>
+          </div>
+          <div class="packing-footer">
+            <label for="message">蛋糕上的祝福<input id="message" maxlength="14" autocomplete="off" placeholder="写一句生日快乐"></label>
+            <button type="button" id="box">盖上蛋糕盒</button>
+          </div>
+        </div>
+        <section id="gift" class="gift" aria-labelledby="gift-title" hidden>
+          <div>
+            <h2 id="gift-title">蛋糕装好啦</h2>
+            <p id="gift-message"></p>
+          </div>
+          <div class="gift-actions">
+            <button type="button" id="unbox">打开盒子</button>
+            <button type="button" id="gift-save">保存装盒照</button>
+          </div>
+        </section>
       </div>
     </section>
     <div class="recipe-note">

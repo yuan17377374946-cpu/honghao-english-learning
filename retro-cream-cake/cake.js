@@ -109,7 +109,8 @@ const pageSize = 4;
 const pages = { icing: 0, topping: 0 };
 const selectedTools = { icing: "shell", topping: "cherry" };
 const fillingAssets = Object.values(layerFlavors).map(flavor => flavor.asset).filter(Boolean);
-const imageNames = ["opening", "sample", "plain", "bag", "workbench", "sponge", "filling", ...fillingAssets, ...Object.keys(tools)];
+const ribbonAssets = Object.values(boxRibbons).map(ribbon => ribbon.asset).filter(Boolean);
+const imageNames = ["opening", "sample", "plain", "bag", "box", "workbench", "sponge", "filling", ...fillingAssets, ...ribbonAssets, ...Object.keys(tools)];
 const art = {};
 const tinted = new Map();
 const frostedStages = new Map();
@@ -126,13 +127,14 @@ let selectedFruit = null;
 let fruitResizeStarted = false;
 let newFruitSize = defaultFruitSize;
 let tab = state.layers && !state.frosted ? "build" : "icing";
+let boxPreview = true;
 let fillingGroup = "cream";
 let activeTool = "shell";
 let activeColor = "vanilla";
 let customIcingColor = false;
 
 function sampleCake() {
-  return { preset: true, marks: [], angle: 0, base: "vanilla", message: "" };
+  return { preset: true, marks: [], angle: 0, base: "vanilla", message: "", packaging: { ...defaultPackaging } };
 }
 
 function blankCake() {
@@ -157,7 +159,12 @@ function loadCake() {
   try {
     const current = JSON.parse(localStorage.getItem(storageKey));
     if (Array.isArray(current?.marks) && Number.isFinite(current.angle) && colors[current.base] && typeof current.message === "string") {
-      const { layers, frosted, ...cake } = current;
+      const { layers, frosted, packaging, ...cake } = current;
+      cake.packaging = {
+        shape: Object.hasOwn(boxShapes, packaging?.shape) ? packaging.shape : defaultPackaging.shape,
+        material: Object.hasOwn(boxMaterials, packaging?.material) ? packaging.material : defaultPackaging.material,
+        ribbon: Object.hasOwn(boxRibbons, packaging?.ribbon) ? packaging.ribbon : defaultPackaging.ribbon
+      };
       const validLayers = Array.isArray(layers) && layers.length <= maxSponges * 2 - 1 &&
         layers.every((id, index) => layerFlavors[id]?.kind === layerKind(index));
       return validLayers ? { ...cake, layers, frosted: Boolean(frosted && canFinishLayers(layers)) } : cake;
@@ -428,7 +435,18 @@ function orderedMarks(includeStarter) {
   });
 }
 
-function paint(ctx, { photo = false } = {}) {
+function packagingRoof() {
+  let clearance = state.preset ? 111 : 74;
+  for (const mark of state.marks) {
+    if (mark.face !== "top" || mark.tool === "swag") continue;
+    const [, , offset] = markBox(tools[mark.tool], art[mark.tool]);
+    const scale = isFruit(mark.tool) ? fruitSizePercent(mark) / defaultFruitSize : 1;
+    clearance = Math.max(clearance, -offset * scale + (mark.lift ?? 0) + 20);
+  }
+  return Math.max(232, center.y - clearance);
+}
+
+function paint(ctx, { photo = false, packaged = tab === "packing" && boxPreview } = {}) {
   if (state.layers && (!state.frosted || (!photo && tab === "build"))) {
     paintStack(ctx);
     return;
@@ -454,6 +472,9 @@ function paint(ctx, { photo = false } = {}) {
     ctx.fillStyle = "#883831";
     ctx.fillText(state.message.trim(), 0, 0, 435);
     ctx.restore();
+  }
+  if (packaged) {
+    paintPackaging(ctx, state.packaging, center.x, cakeBottomY - 19, packagingRoof(), art);
   }
   if (!photo && hover) {
     if (erasing || resizingFruit) {
@@ -753,8 +774,10 @@ function updateAssembly() {
 
 function updateTray() {
   eraserButton.setAttribute("aria-pressed", erasing);
-  eraserButton.disabled = !ready || tab === "build";
+  eraserButton.disabled = !ready || tab === "build" || tab === "packing";
   byId("rotate").disabled = !ready || tab === "build";
+  canvas.classList.toggle("is-packing", tab === "packing");
+  if (tab !== "packing") canvas.setAttribute("aria-label", "蛋糕装饰画布");
   canvas.classList.toggle("is-erasing", erasing);
   canvas.classList.toggle("is-resizing", resizingFruit);
   document.querySelectorAll(".tabs button").forEach(button => {
@@ -787,12 +810,13 @@ function updateTray() {
   }
   byId("packing").hidden = tab !== "packing";
   byId("assembly").hidden = tab !== "build";
+  if (tab === "packing") updatePackaging();
   updateFruitSizeControls();
   hint.textContent = tab === "build" ? updateAssembly() :
     erasing ? "点击擦掉一个装饰，按住拖动可连续擦除。" :
     resizingFruit ? (selectedFruit ? "已选" + tools[selectedFruit.tool].name + "，拖动滑块调整大小。" :
       "点一下蛋糕上要调整的水果，再拖动滑块。") :
-    tab === "packing" ? "写好祝福，就可以盖上蛋糕盒。" :
+    tab === "packing" ? "挑好盒型、材质和丝带，再把蛋糕装起来。" :
     tab === "base" ? "选一种颜色，给整只蛋糕抹上奶油。" :
     tools[activeTool].hint ?? "点一下蛋糕顶部，放上" + tools[activeTool].name + "。";
 }
@@ -810,6 +834,7 @@ function setEditMode(mode) {
 function switchTab(next) {
   if (pointer || (state.layers && !state.frosted && next !== "build")) return;
   closeGift();
+  if (next === "packing" && tab !== "packing") boxPreview = true;
   tab = next;
   if (selectedTools[tab]) activeTool = selectedTools[tab];
   setEditMode("place");
@@ -839,6 +864,7 @@ const baseButtons = new Map();
 const swatches = new Map();
 const layerButtons = new Map();
 const fillingGroupButtons = new Map();
+const packagingButtons = { shape: new Map(), material: new Map(), ribbon: new Map() };
 for (const [key, tool] of Object.entries(tools)) {
   toolButtons.set(key, stamp(tool.name, key, () => {
     if (pointer) return;
@@ -889,6 +915,67 @@ for (const [group, name] of Object.entries(fillingGroups)) {
 }
 const fillingCount = Object.values(layerFlavors).filter(flavor => flavor.kind === "filling").length;
 byId("filling-total").textContent = fillingCount + " 种夹心";
+
+function choosePackaging(part, value) {
+  if (!ready || pointer) return;
+  if (state.packaging[part] !== value) {
+    saveUndo();
+    state.packaging = { ...state.packaging, [part]: value };
+    persist();
+  }
+  boxPreview = true;
+  updatePackaging();
+  render();
+}
+
+for (const [shape, { name }] of Object.entries(boxShapes)) {
+  const button = stamp(name, null, () => choosePackaging("shape", shape), byId("box-shapes"));
+  const ctx = button.querySelector("canvas").getContext("2d");
+  ctx.translate(48, 8);
+  ctx.scale(.087, .087);
+  paintPackaging(ctx, { shape, material: "paper", ribbon: "none" }, 0, 477, 152, art);
+  packagingButtons.shape.set(shape, button);
+}
+for (const [material, { name, color, edge }] of Object.entries(boxMaterials)) {
+  const button = document.createElement("button");
+  button.type = "button";
+  button.className = "swatch";
+  button.style.background = "linear-gradient(145deg, " + edge + " 12%, " + color + " 72%)";
+  button.title = name;
+  button.setAttribute("aria-label", name);
+  button.addEventListener("click", () => choosePackaging("material", material));
+  byId("box-colors").append(button);
+  packagingButtons.material.set(material, button);
+}
+for (const [ribbon, { name, asset }] of Object.entries(boxRibbons)) {
+  const button = document.createElement("button");
+  button.type = "button";
+  if (asset) {
+    const image = new Image();
+    image.src = asset + ".webp";
+    image.alt = "";
+    button.append(image);
+  }
+  button.append(name);
+  button.addEventListener("click", () => choosePackaging("ribbon", ribbon));
+  byId("box-ribbons").append(button);
+  packagingButtons.ribbon.set(ribbon, button);
+}
+
+function updatePackaging() {
+  const { material } = state.packaging;
+  for (const [part, buttons] of Object.entries(packagingButtons)) {
+    for (const [value, button] of buttons) {
+      button.setAttribute("aria-pressed", value === state.packaging[part]);
+      button.disabled = !ready;
+    }
+  }
+  byId("box-color-name").textContent = boxMaterials[material].name;
+  byId("box-preview").setAttribute("aria-pressed", boxPreview);
+  byId("box-preview").disabled = !ready;
+  byId("box").disabled = !ready;
+  canvas.setAttribute("aria-label", boxPreview ? "蛋糕装盒预览" : "蛋糕装饰画布");
+}
 
 function addLayer(id) {
   const layers = state.layers;
@@ -956,27 +1043,35 @@ function replaceCake(withSample) {
 
 function closeGift() {
   gift.hidden = true;
+  byId("packing-options").hidden = false;
+}
+
+function reopenBox() {
+  closeGift();
+  boxPreview = false;
+  updatePackaging();
+  render();
+  byId("box-preview").focus();
 }
 
 function savePhoto() {
   if (!ready) return;
-  const photoTop = 173 - Math.max(0, cakeSideHeight() - originalSideHeight);
+  const photoTop = Math.max(0, Math.floor(packagingRoof() - boxShapes[state.packaging.shape].depth * 1.2 - 16));
   const frame = document.createElement("canvas");
   frame.width = canvas.width;
   frame.height = canvas.height - photoTop;
   const ctx = frame.getContext("2d");
   ctx.translate(0, -photoTop);
-  paint(ctx, { photo: true });
+  paint(ctx, { photo: true, packaged: true });
   frame.toBlob(blob => {
     if (!blob) { byId("notice").textContent = "照片生成失败，请再试一次。"; return; }
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
-    link.download = "我的复古奶油蛋糕.png";
+    link.download = "我的复古蛋糕礼盒.png";
     link.href = url;
     link.click();
     setTimeout(() => URL.revokeObjectURL(url), 2000);
-    byId("notice").textContent = "成品照已生成。";
-    byId("gift-save").textContent = "已生成照片";
+    byId("notice").textContent = "装盒照已生成。";
   }, "image/png");
 }
 
@@ -1010,8 +1105,7 @@ document.addEventListener("keydown", event => {
   }
   if (event.key === "Escape" && !pointer) {
     if (!gift.hidden) {
-      closeGift();
-      byId("box").focus();
+      reopenBox();
     } else if (erasing || resizingFruit) {
       setEditMode("place");
     }
@@ -1031,15 +1125,22 @@ messageInput.addEventListener("change", () => {
   state.message = current;
   messageInput.dataset.before = current;
 });
+byId("box-preview").addEventListener("click", () => {
+  if (pointer || !ready) return;
+  boxPreview = !boxPreview;
+  updatePackaging();
+  render();
+});
 byId("box").addEventListener("click", () => {
-  if (pointer) return;
+  if (pointer || !ready) return;
+  boxPreview = true;
   setEditMode("place");
   byId("gift-message").textContent = state.message.trim() || "一只亲手裱好的奶油蛋糕";
-  byId("gift-save").textContent = "保存成品照";
+  byId("packing-options").hidden = true;
   gift.hidden = false;
   byId("unbox").focus();
 });
-byId("unbox").addEventListener("click", () => { closeGift(); byId("box").focus(); });
+byId("unbox").addEventListener("click", reopenBox);
 byId("gift-save").addEventListener("click", savePhoto);
 
 updateTray();
