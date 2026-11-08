@@ -42,7 +42,13 @@ const icing = {
   ruffle: { name: "荷叶波浪", spacing: 90, box: [108, 53, -27], edge: true, hint: "沿着边缘拖动，让奶油像荷叶一样起褶。" },
   weave: { name: "篮编纹", spacing: 83, box: [87, 73, -36], hint: "在侧面挤上几片交错的篮编纹。" },
   lace: { name: "蕾丝边", spacing: 92, box: [103, 43, -22], edge: true, hint: "沿着边缘拖动，接成一条镂空奶油蕾丝。" },
-  leaf: { name: "奶油叶", spacing: 57, box: [59, 62, -34], defaultColor: "seafoam", hint: "在花朵旁边点几片有叶脉的奶油叶。" }
+  leaf: { name: "奶油叶", spacing: 57, box: [59, 62, -34], defaultColor: "seafoam", hint: "在花朵旁边点几片有叶脉的奶油叶。" },
+  rope: { name: "双股绳纹", spacing: 103, box: [116, 34, -17], edge: true, hint: "沿着蛋糕边拖动，把双股奶油接成一圈绳纹。" },
+  scroll: { name: "法式 S 卷", spacing: 104, box: [118, 54, -27], edge: true, hint: "点一段卷纹，或沿着边缘拖出一串法式 S 卷。" },
+  drip: { name: "垂珠滴边", spacing: 96, box: [104, 52, -10], hint: "贴着蛋糕侧面的上沿点一下，让奶油珠垂下来。" },
+  blossom: { name: "五瓣小花", box: [81, 72, -37], defaultColor: "blush", hint: "点一下挤出一朵五瓣小花，适合点缀在水果旁边。" },
+  heart: { name: "奶油爱心", box: [81, 70, -38], defaultColor: "rose", hint: "在蛋糕上点一下，挤一颗双线奶油爱心。" },
+  tower: { name: "螺旋尖塔", box: [76, 78, -70], hint: "在蛋糕顶部点一下，挤出一座层层叠起的奶油尖塔。" }
 };
 const toppings = {
   cherry: { name: "红樱桃", box: [54, 81, -77, -24] },
