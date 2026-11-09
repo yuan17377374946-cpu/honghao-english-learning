@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="六年级圆的周长与面积互动课件，描边、涂色、对比半圆与组合图形。">
+  <title>圆的周长与面积｜六年级互动课堂</title>
+  <link rel="stylesheet" href="./style.css">
+  <script src="./lesson.js" defer></script>
+</head>
+<body>
+<header class="bar">
+  <div class="shell">
+    <div class="brand">
+      <svg viewBox="0 0 34 34" aria-hidden="true"><circle cx="17" cy="17" r="13" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4 17h26M17 4v26" stroke="currentColor" stroke-width="1.3" stroke-dasharray="2 3"/><path d="M17 17h13a13 13 0 0 1-13 13z" fill="currentColor"/></svg>
+      <span>六年级数学 · 图形课堂</span>
+    </div>
+    <div class="top-actions">
+      <button id="topics-button" type="button">15 类拓展</button>
+      <button id="project" type="button" aria-pressed="false">投屏模式</button>
+    </div>
+  </div>
+</header>
+<main>
+  <section class="hero">
+    <div class="shell hero-grid">
+      <div>
+        <div class="eyebrow">北师大版六年级上册 · 圆</div>
+        <h1>圆的周长<span>与面积</span></h1>
+        <p>周长是沿边走多远，面积是里面铺多大。<br>今天先看图，再列式。</p>
+        <button id="start" type="button">开始上课 ↓</button>
+      </div>
+      <svg class="hero-art" viewBox="0 0 445 260" role="img" aria-label="蓝线描外圈，橙色涂内部">
+        <defs><pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="#ccdfc1" stroke-width="1"/></pattern></defs>
+        <rect x="7" y="8" width="430" height="243" rx="21" fill="#f5faea" stroke="#c4d9b9"/>
+        <rect x="8" y="9" width="428" height="241" rx="20" fill="url(#grid)"/>
+        <circle cx="211" cy="128" r="81" fill="#f9cf83" fill-opacity=".74" stroke="#126cb7" stroke-width="5"/>
+        <path d="M109 128h204M211 25v204" stroke="#638475" stroke-width="1.15" stroke-dasharray="5 6"/>
+        <circle cx="211" cy="128" r="3.5" fill="#254c3d"/>
+        <path d="M211 128h81" stroke="#254c3d" stroke-width="2"/>
+        <text x="252" y="119" font-size="18" font-weight="700" fill="#254c3d" text-anchor="middle">r</text>
+        <path d="M273 76l35-24h23" fill="none" stroke="#126cb7" stroke-width="1.6"/>
+        <rect x="325" y="35" width="92" height="33" rx="6" fill="#e3f0fb"/>
+        <text x="371" y="57" text-anchor="middle" font-size="15" font-weight="750" fill="#075eaa">周长 · cm</text>
+        <path d="M163 169l-24 29h-19" fill="none" stroke="#9a4809" stroke-width="1.6"/>
+        <rect x="22" y="183" width="103" height="33" rx="6" fill="#ffebc8"/>
+        <text x="74" y="205" text-anchor="middle" font-size="15" font-weight="750" fill="#8a3c09">面积 · cm²</text>
+      </svg>
+    </div>
+  </section>
+  <section id="lesson" class="lesson shell" aria-label="45分钟课堂">
+    <nav class="route" id="route" aria-label="课程进度"></nav>
+    <article class="board" id="board"></article>
+    <nav class="pager" aria-label="翻页">
+      <button id="prev" type="button">← 上一环节</button>
+      <span id="progress" aria-live="polite"></span>
+      <button id="next" type="button">下一环节 →</button>
+    </nav>
+  </section>
+  <section class="extension shell" id="extension" aria-labelledby="extension-heading">
+    <header class="extension-header">
+      <div><span class="kicker">课后复习 · 课堂有余时选讲</span><h2 id="extension-heading">15 类圆的题型</h2></div>
+      <p>展开题型，先想第一步怎么做。</p>
+    </header>
+    <div class="topic-grid" id="topics"></div>
+    <p class="source-note">题型参考「钱万三」的圆专题讲义。</p>
+  </section>
+</main>
+<dialog id="lightbox" aria-labelledby="dialog-title">
+  <div class="dialog-head"><h2 id="dialog-title">放大图形</h2><form method="dialog"><button class="outline" autofocus>关闭</button></form></div>
+  <div id="dialog-content"></div>
+</dialog>
+</body>
+</html>
