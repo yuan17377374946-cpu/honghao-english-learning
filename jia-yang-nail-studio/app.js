@@ -21,7 +21,8 @@ const palette = [
 const patterns = {
   none: "无花纹", french: "法式边", micro: "细法式", ombre: "渐变晕染", dots: "波点", plaid: "格纹", marble: "大理石",
   flowers: "小雏菊", cherry: "小樱桃", waves: "海浪线", tortoise: "琥珀玳瑁", hearts: "小爱心", stripe: "斜纹",
-  halo: "中心光晕", smoke: "烟雾晕染", amberFlow: "琥珀流纹", silverTip: "极细银边", softPlaid: "透感格纹", leopard: "微豹纹"
+  halo: "中心光晕", smoke: "烟雾晕染", amberFlow: "琥珀流纹", silverTip: "极细银边", softPlaid: "透感格纹", leopard: "微豹纹",
+  lace: "蕾丝法式", porcelain: "浮雕山茶", shellGrain: "贝母细纹"
 };
 const charms = {
   pearl:"珍珠", bow:"蝴蝶结", diamond:"水钻", flower:"小花", heart:"爱心", star:"星星",
@@ -102,6 +103,15 @@ const presets = [
 const seasonalNail = (color, finish, pattern = "none", ink = "#fff0dc", decor = []) =>
   nail(color, finish, pattern, ink, decor, "square", "short");
 const trendPresets = [
+  {name:"水光蕾丝", category:"daily", detail:"冰透裸粉 · 水光猫眼 · 蕾丝与浮雕", tint:"#efe0e2",
+    tip:"用裸粉和冰透白做跳色。两片用玻璃珠猫眼，其余搭配细蕾丝、浮雕山茶和贝母细纹。",
+    nails:[
+      nail("#edbebc","glass","none","#fff0dc",[],"oval","short"),
+      nail("#e3b9bd","jelly","lace","#fff3e6",[],"oval","short"),
+      nail("#d08ca6","glass","none","#fff0dc",[],"oval","short"),
+      nail("#dba8b3","jelly","porcelain","#fff0e4",[],"oval","short"),
+      nail("#f1d2cc","pearl","shellGrain","#fff1e5",[],"oval","short")
+    ]},
   {name:"白开水猫眼", category:"daily", detail:"透白 · 玻璃珠光 · 极细银边", tint:"#ece4e8",
     tip:"用一层透明裸粉统一甲片，两片做银边、一片留微闪。小钻只点在食指甲根。",
     nails:[
@@ -159,6 +169,10 @@ const trendPresets = [
 ];
 
 let serial = 0;
+function petals(ink, uid) {
+  return '<defs><linearGradient id="'+uid+'-petal" x2=".72" y2="1"><stop stop-color="'+mix(ink,"#fff",.63)+'"/><stop offset=".55" stop-color="'+ink+'"/><stop offset="1" stop-color="'+mix(ink,"#713f54",.43)+'"/></linearGradient></defs>';
+}
+
 function artMarkup(kind, ink, uid, shape) {
   switch (kind) {
     case "french": return '<path d="M1 0h98v59Q72 53 50 68Q28 53 1 59Z" fill="' + ink + '"/><path d="M11 56Q36 56 50 68Q66 55 89 56" fill="none" stroke="#fff7" stroke-width="1.05"/>';
@@ -166,8 +180,15 @@ function artMarkup(kind, ink, uid, shape) {
     case "ombre": return '<defs><linearGradient id="' + uid + '-fade" x2="0" y2="1"><stop stop-color="' + ink + '"/><stop offset=".21" stop-color="' + ink + '" stop-opacity=".93"/><stop offset=".88" stop-color="' + ink + '" stop-opacity="0"/></linearGradient></defs><path d="M0 0h100v154H0z" fill="url(#' + uid + '-fade)"/>';
     case "dots": return Array.from({length:21}, (_,i) => '<circle cx="' + (24+(i%3)*26+(Math.floor(i/3)%2)*9) + '" cy="' + (30+Math.floor(i/3)*17) + '" r="3.15" fill="' + ink + '"/>').join("");
     case "plaid": return '<path d="M25 10v145M49 10v145M73 10v145M0 49h100M0 78h100M0 108h100M0 136h100" stroke="' + ink + '" stroke-width="8" opacity=".49"/><path d="M33 10v145M57 10v145M81 10v145M0 58h100M0 87h100M0 117h100M0 145h100" stroke="' + ink + '" opacity=".84" stroke-width="1.6"/>';
-    case "marble": return '<path d="M78 10C46 44 94 41 61 65S25 79 24 107 12 141 4 146M108 39C86 55 100 75 63 81S65 125 43 148M33 22C70 34 35 69 4 77" stroke="' + ink + '" stroke-width="7" opacity=".38" fill="none"/><path d="M77 10C47 43 94 43 62 65S24 78 26 108 10 140 4 146M107 43C83 58 96 74 64 83S65 124 45 145M34 21C70 33 35 69 4 77" fill="none" stroke="' + ink + '" stroke-width="1.4"/>';
-    case "flowers": return [[44,49,1],[63,73,.76],[34,91,.98],[58,111,1.04],[37,130,.68]].map(([x,y,s]) => '<g transform="translate('+x+' '+y+') scale('+s+')" fill="'+ink+'">' + Array.from({length:5}, (_,i)=>'<ellipse cy="-6" rx="3.4" ry="5" transform="rotate('+(i*72)+')"/>').join("") + '<circle r="3.3" fill="#eab56b"/><circle cx="-1" cy="-1" r="1" fill="#fff8df"/></g>').join("");
+    case "marble": {
+      const vein = "M73 20C53 32 66 45 60 56S46 62 41 73C35 84 42 98 30 111S16 122 11 143";
+      return '<g fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="'+vein+'" stroke="'+ink+'" stroke-width="12" opacity=".14"/><path d="'+vein+'" stroke="'+ink+'" stroke-width="5" opacity=".25"/><path d="'+vein+'" stroke="'+ink+'" stroke-width="1.35" opacity=".72"/><path d="M83 48C71 54 67 64 56 67L49 71M41 73C31 76 25 73 18 83M36 98l10 5 7 13 13 8 7 13M45 103l11 2 7 7M65 27l-14 3-12 12" stroke="'+ink+'" stroke-width=".78" opacity=".56"/><path d="M69 25C58 36 69 45 61 57S48 64 44 73M41 86c2 14-7 22-15 30" stroke="#fff8ee" stroke-width=".86" opacity=".7"/></g>';
+    }
+    case "flowers":
+      return petals(ink,uid)+[[44,49,.79,-12],[63,73,.61,19],[34,92,.72,4],[57,112,.82,-25],[39,131,.53,12]].map(([x,y,s,angle]) =>
+        '<g transform="translate('+x+' '+y+') rotate('+angle+') scale('+s+')">' + Array.from({length:7}, (_,i)=>
+          '<path d="M0 1C-2-2-5-7-4-11c1-4 6-5 8-1C6-8 2-2 0 1Z" transform="rotate('+(i*360/7)+')" fill="url(#'+uid+'-petal)"/>').join("") +
+        '<circle r="3.75" fill="#b98348"/><circle r="2.9" cx="-.35" cy="-.55" fill="#e9bc75"/><path d="m-1.6-.8.1-.1m2.8 1.4.1-.1m-1-2.1.1-.1" stroke="#fff2c7" stroke-width="1.15" stroke-linecap="round"/></g>').join("");
     case "cherry": return [[47,55,.65],[59,88,.84],[38,114,.73]].map(([x,y,s]) => '<g transform="translate('+x+' '+y+') scale('+s+')"><path d="M-6 5Q-5-9 1-15Q6-11 8 4" stroke="#526e47" fill="none" stroke-width="2.2"/><path d="M0-14q-12-8-13 0 5 4 13 0" fill="#7d9966"/><circle cx="-7" cy="7" r="6.2" fill="'+ink+'"/><circle cx="8" cy="6" r="6.5" fill="'+ink+'"/><path d="m-9 5 1-1m13 1 2-2" stroke="#fff9" stroke-linecap="round" stroke-width="2"/></g>').join("");
     case "waves": return '<path d="M-10 69C18 41 36 82 63 66S96 44 112 63M-10 82C18 54 37 95 65 80S97 58 112 77M-10 126C18 96 38 138 63 123S96 101 112 119" fill="none" stroke="' + ink + '" stroke-width="3.1" opacity=".9"/>';
     case "tortoise": return [[42,38,12,8,20],[65,55,12,16,50],[32,73,13,10,-35],[56,94,13,18,35],[29,112,11,12,-20],[72,125,14,10,-35],[48,139,9,8,32]].map(([x,y,rx,ry,rot]) => '<g transform="translate('+x+' '+y+') rotate('+rot+')"><ellipse rx="'+(rx+3)+'" ry="'+(ry+3)+'" fill="#bb682c" opacity=".34"/><ellipse rx="'+rx+'" ry="'+ry+'" fill="'+ink+'" opacity=".46"/><ellipse rx="'+rx*.6+'" ry="'+ry*.7+'" fill="'+ink+'" opacity=".33"/></g>').join("");
@@ -188,6 +209,32 @@ function artMarkup(kind, ink, uid, shape) {
     case "leopard":
       return [[46,39,-17],[62,62,15],[33,76,38],[54,91,-23],[73,108,40],[34,117,-15],[53,132,23]].map(([x,y,a]) =>
         '<g transform="translate('+x+' '+y+') rotate('+a+')"><path d="M-6-3Q-3-9 4-6T7 3Q2 7-4 5T-6-3Z" fill="#dba679" opacity=".7"/><path d="M-7 3Q-12-5-3-7m9 1q7 4 1 8M2 6q-4 2-7-1" fill="none" stroke="'+ink+'" stroke-linecap="round" stroke-width="2.6"/></g>').join("");
+    case "lace": {
+      const hem = "M13 45C27 47 37 62 50 64S73 48 87 45";
+      const picots = [[24,51,-36],[36,60,-42],[50,65,0],[64,60,41],[76,51,36]];
+      return '<defs><pattern id="'+uid+'-mesh" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(35)"><path d="M0 0H7V7" fill="none" stroke="'+ink+'" stroke-width=".95" opacity=".68"/></pattern></defs>'+
+        '<path d="M10 0h80v44C73 48 63 66 50 64S27 47 10 45Z" fill="url(#'+uid+'-mesh)"/>'+
+        '<path d="'+hem+'" fill="none" stroke="'+ink+'" stroke-width="1.5"/>'+
+        picots.map(([x,y,angle]) => '<g transform="translate('+x+' '+y+') rotate('+angle+')" fill="none" stroke="'+ink+'" stroke-linecap="round"><path d="M-7 0C-7 5-4 10 0 10S7 5 7 0M-4 1C-4 4-2 7 0 7s4-3 4-6" stroke-width=".9"/><path d="M0 2c-3 0-3 4 0 4s3-4 0-4" stroke-width=".7"/><circle cy="12.5" r=".75" fill="'+ink+'" stroke="none"/></g>').join("");
+    }
+    case "porcelain": {
+      const petal = "M0 2C-3-2-10-7-10-14c0-6 4-10 9-9 6-1 10 3 10 9C9-7 3-2 0 2Z";
+      const bloom = (x,y,scale,tilt) =>
+        '<g transform="translate('+x+' '+y+') rotate('+tilt+') scale('+scale+')">'+
+        '<ellipse cx="1.8" cy="3.7" rx="20" ry="17" fill="'+mix(ink,"#643c50",.77)+'" opacity=".21"/>'+
+        Array.from({length:6},(_,i)=>'<g transform="rotate('+(i*60)+')"><path d="'+petal+'" fill="url(#'+uid+'-petal)" stroke="'+mix(ink,"#6f4353",.35)+'" stroke-width=".65"/><path d="M-5-13q-1-5 3-7" stroke="#fff" stroke-opacity=".78" stroke-width="1" fill="none" stroke-linecap="round"/></g>').join("")+
+        Array.from({length:5},(_,i)=>'<path transform="rotate('+(i*72+31)+') scale(.53)" d="'+petal+'" fill="url(#'+uid+'-petal)" stroke="'+mix(ink,"#82505f",.29)+'" stroke-width=".8"/>').join("")+
+        '<circle r="3.4" fill="#ba935c"/><circle cx="-1" cy="-1" r="1.9" fill="#f9deb0"/></g>';
+      return petals(ink,uid)+
+        '<path d="M29 123Q40 97 57 78M38 108Q24 94 31 85Q44 91 38 108M46 99Q51 109 66 101Q58 93 46 99" fill="none" stroke="'+ink+'" stroke-width="1.1" opacity=".8"/>'+
+        bloom(54,76,.92,-16)+bloom(36,112,.49,14);
+    }
+    case "shellGrain":
+      return '<defs><linearGradient id="'+uid+'-shell" x2=".65" y2="1"><stop stop-color="'+ink+'" stop-opacity=".11"/><stop offset=".32" stop-color="#fff8eb" stop-opacity=".85"/><stop offset=".67" stop-color="'+ink+'" stop-opacity=".6"/><stop offset="1" stop-color="#fff" stop-opacity=".08"/></linearGradient></defs>'+
+        Array.from({length:11},(_,i) => {
+          const y = 39 + i*8.4;
+          return '<path d="M10 '+(y+11)+'Q38 '+(y-26)+' 88 '+(y+2)+'" fill="none" stroke="url(#'+uid+'-shell)" stroke-width="'+(i%3===0?1.65:.82)+'"/>';
+        }).join("");
     default: return "";
   }
 }
@@ -222,23 +269,44 @@ function charmMarkup(kind, uid) {
   }
 }
 
-function finishGlaze(kind, id, base) {
-  const layer = (gradient) => '<path d="M0 0h100v149H0z" fill="url(#'+gradient+')"/>';
-  const light = mix(base,"#fff9ef",.78);
-  if (kind === "glass") {
-    return '<defs><radialGradient id="'+id+'-glass"><stop stop-color="#fff" stop-opacity=".91"/><stop offset=".21" stop-color="#fffdf8" stop-opacity=".8"/><stop offset=".52" stop-color="#fdf6ee" stop-opacity=".53"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient></defs><ellipse cx="47" cy="73" rx="34" ry="54" transform="rotate(15 47 73)" fill="url(#'+id+'-glass)"/><path d="M38 48c-6 10-9 17-11 28" fill="none" stroke="#fff" stroke-opacity=".82" stroke-width="2" stroke-linecap="round"/>'+
-      dots(79,105,(x,y,z)=>'<circle cx="'+(x*100).toFixed(1)+'" cy="'+(y*148).toFixed(1)+'" r="'+(.25+z*.57).toFixed(1)+'" fill="#fff" opacity="'+(.12+z*.47).toFixed(2)+'"/>');
-  }
-  if (kind === "velvet") {
-    return '<defs><radialGradient id="'+id+'-velvet" cx=".59" cy=".42" r=".6"><stop stop-color="'+light+'" stop-opacity=".61"/><stop offset=".4" stop-color="'+light+'" stop-opacity=".37"/><stop offset=".73" stop-color="'+light+'" stop-opacity=".16"/><stop offset="1" stop-color="#35192f" stop-opacity=".24"/></radialGradient></defs>'+layer(id+"-velvet")+
-      dots(143,210,(x,y,z)=>'<circle cx="'+(x*100).toFixed(1)+'" cy="'+(y*148).toFixed(1)+'" r="'+(.21+z*.62).toFixed(1)+'" fill="'+light+'" opacity="'+(.16+z*.52).toFixed(2)+'"/>');
-  }
-  if (kind === "chrome") {
-    const dark = mix(base,"#54576d",.8);
-    const shine = mix(base,"#fcfaff",.86);
-    return '<defs><linearGradient id="'+id+'-chrome" x1="0" y1=".15" x2="1" y2=".7"><stop stop-color="'+dark+'"/><stop offset=".18" stop-color="#a6a8c0"/><stop offset=".32" stop-color="'+shine+'"/><stop offset=".47" stop-color="#d4ccdf"/><stop offset=".52" stop-color="#676779"/><stop offset=".63" stop-color="#aaa9bd"/><stop offset=".78" stop-color="#f7f5ff"/><stop offset="1" stop-color="#62677d"/></linearGradient></defs>'+layer(id+"-chrome");
-  }
-  return "";
+const magneticFinishes = {
+  cat: {angle:51, rx:14, ry:70, strength:.87, grain:115, seed:59},
+  glass: {angle:15, rx:24, ry:43, strength:.74, grain:140, seed:79},
+  velvet: {angle:27, rx:43, ry:61, strength:.48, grain:205, seed:143}
+};
+
+function magneticGlaze(kind, id, base) {
+  const {angle,rx,ry,strength,grain,seed} = magneticFinishes[kind];
+  const light = mix(base,"#fff7e8",.87);
+  const tint = mix(base,"#f7dbe8",.55);
+  const core = '<defs><radialGradient id="'+id+'-magnet" cx=".46" cy=".42" r=".55"><stop stop-color="#fffaf4" stop-opacity="'+strength+'"/><stop offset=".24" stop-color="'+light+'" stop-opacity="'+(strength*.93)+'"/><stop offset=".52" stop-color="'+light+'" stop-opacity="'+(strength*.49)+'"/><stop offset=".78" stop-color="'+tint+'" stop-opacity=".19"/><stop offset="1" stop-color="'+tint+'" stop-opacity="0"/></radialGradient></defs>';
+  // Keep magnetic particles concentrated around the same axis as the light.
+  const flecks = dots(seed,grain,(x,y,z) => {
+    const theta = x * Math.PI * 2;
+    const distance = Math.sqrt(y);
+    const px = Math.cos(theta)*distance*rx;
+    const py = Math.sin(theta)*distance*ry;
+    const opacity = (.16+z*.57)*(1-y*.71);
+    return '<ellipse cx="'+px.toFixed(1)+'" cy="'+py.toFixed(1)+'" rx="'+(.15+z*.35).toFixed(2)+'" ry="'+(.24+z*.42).toFixed(2)+'" fill="'+(z>.65?"#fffaf2":light)+'" opacity="'+opacity.toFixed(2)+'"/>';
+  });
+  const refraction = kind === "glass" ?
+    '<defs><radialGradient id="'+id+'-refraction" cx=".57" cy=".58"><stop offset=".27" stop-color="'+tint+'" stop-opacity="0"/><stop offset=".51" stop-color="'+light+'" stop-opacity=".19"/><stop offset=".67" stop-color="'+mix(base,"#fff0d6",.66)+'" stop-opacity=".38"/><stop offset=".83" stop-color="'+base+'" stop-opacity=".13"/><stop offset="1" stop-color="'+base+'" stop-opacity="0"/></radialGradient></defs><ellipse cx="2" cy="5" rx="29" ry="51" fill="url(#'+id+'-refraction)"/>' : "";
+  return core+'<g transform="translate(50 80) rotate('+angle+')">'+refraction+
+    '<ellipse rx="'+rx+'" ry="'+ry+'" fill="url(#'+id+'-magnet)"/>'+flecks+'</g>';
+}
+
+function wetCoat(id, soft) {
+  const opacity = soft ? ".48" : ".85";
+  return '<defs><linearGradient id="'+id+'-coat" gradientUnits="userSpaceOnUse" x1="28" y1="44" x2="43" y2="99"><stop stop-color="#fff" stop-opacity=".19"/><stop offset=".31" stop-color="#fff" stop-opacity="'+opacity+'"/><stop offset=".57" stop-color="#fffaf3" stop-opacity="'+opacity+'"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient></defs>'+
+    '<path d="M47 38C36 47 28 63 26 87q.1 9 3 12c1-23 8-43 19-55q3-4-1-6Z" fill="url(#'+id+'-coat)"/>'+
+    '<path d="M34 56q3-6 7-10m-9 14-1 2" stroke="#fff" stroke-opacity="'+opacity+'" stroke-width="1.18" fill="none" stroke-linecap="round"/>'+
+    '<path d="M71 84q5 12 3 27-1 10-7 17" stroke="#fff4ea" stroke-opacity="'+(soft?".22":".56")+'" stroke-width="1.25" fill="none" stroke-linecap="round"/>';
+}
+
+function chromeGlaze(id, base) {
+  const dark = mix(base,"#54576d",.8);
+  const shine = mix(base,"#fcfaff",.86);
+  return '<defs><linearGradient id="'+id+'-chrome" x1="0" y1=".15" x2="1" y2=".7"><stop stop-color="'+dark+'"/><stop offset=".18" stop-color="#a6a8c0"/><stop offset=".32" stop-color="'+shine+'"/><stop offset=".47" stop-color="#d4ccdf"/><stop offset=".52" stop-color="#676779"/><stop offset=".63" stop-color="#aaa9bd"/><stop offset=".78" stop-color="#f7f5ff"/><stop offset="1" stop-color="#62677d"/></linearGradient></defs><path d="M0 0h100v149H0z" fill="url(#'+id+'-chrome)"/>';
 }
 
 function nailSVG(item, finger = 2, use = "", position = "") {
@@ -247,29 +315,33 @@ function nailSVG(item, finger = 2, use = "", position = "") {
   const shape = shapes[item.shape][1];
   const sy = lengths[item.length][1] * [0.98,.99,1,.97,.85][finger];
   const sx = widths[finger];
-  const shade = mix(base, "#3b142d", item.finish === "matte" ? .21 : .36);
+  const magnetic = Object.hasOwn(magneticFinishes,item.finish);
+  const glass = item.finish === "glass";
+  const shade = mix(base, "#3b142d", item.finish === "matte" ? .21 : glass ? .25 : .36);
   const light = mix(base, "#fff9f8", item.finish === "matte" ? .13 : .44);
-  const inner = item.finish === "jelly" ? mix(base,"#fff2f7",.64) : base;
+  const inner = item.finish === "jelly" || glass ? mix(base,"#fff2f7",glass ? .32 : .64) : base;
   const sheen = ["matte","chrome","velvet"].includes(item.finish) ? "" : '<path d="M24 92C23 67 35 37 47 33C41 45 37 54 34 65Q29 84 28 105Z" fill="#fff" opacity=".27"/><path d="M72 61c4 15 7 32 6 53" stroke="#fff" opacity=".37" stroke-width="1.4" fill="none"/>';
   const finish = {
     matte: () => dots(47,90,(x,y,z)=>'<circle cx="'+(x*100).toFixed(1)+'" cy="'+(y*147).toFixed(1)+'" r="'+(.23+z*.52).toFixed(1)+'" fill="#fff" opacity=".23"/>'),
     jelly: () => '<ellipse cx="46" cy="82" rx="28" ry="53" fill="url(#'+id+'-jelly)"/>',
     pearl: () => '<path d="M0 0h100v149H0z" fill="url(#'+id+'-pearl)"/>',
     glitter: () => dots(82,135,(x,y,z)=>'<circle cx="'+(x*100).toFixed(1)+'" cy="'+(y*150).toFixed(1)+'" r="'+(.26+z*1.25).toFixed(1)+'" fill="'+(z>.71?'#fff7db':'#fff')+'" opacity="'+(.16+z*.65).toFixed(2)+'"/>'),
-    cat: () => '<path d="M0 0h100v149H0z" fill="url(#'+id+'-cat)"/>'+dots(59,85,(x,y,z)=>'<circle cx="'+(x*100).toFixed(1)+'" cy="'+(y*150).toFixed(1)+'" r="'+(.2+z*.63).toFixed(1)+'" fill="#fff" opacity="'+(.1+z*.44).toFixed(2)+'"/>')
+    chrome: () => chromeGlaze(id,base)
   }[item.finish];
   const pattern = artMarkup(item.pattern,item.ink,id,shape);
-  const glaze = (finish?.() ?? finishGlaze(item.finish,id,base))+sheen;
+  const material = magnetic ? magneticGlaze(item.finish,id,base) : (finish?.() ?? "");
+  const reflection = magnetic ? wetCoat(id,item.finish === "velvet") : sheen;
+  const underPattern = magnetic || item.finish === "chrome" ||
+    ["silverTip","lace","porcelain","shellGrain"].includes(item.pattern);
   return '<svg xmlns="http://www.w3.org/2000/svg" class="nail-art" viewBox="0 13 100 143" aria-hidden="true" '+position+'><defs>'+
     '<clipPath id="'+id+'-clip"><path d="'+shape+'"/></clipPath>'+
     '<linearGradient id="'+id+'-base"><stop stop-color="'+shade+'"/><stop offset=".19" stop-color="'+light+'"/><stop offset=".53" stop-color="'+inner+'"/><stop offset=".8" stop-color="'+base+'"/><stop offset="1" stop-color="'+shade+'"/></linearGradient>'+
     '<radialGradient id="'+id+'-jelly"><stop stop-color="#fff2f5" stop-opacity=".65"/><stop offset="1" stop-color="#fff2f5" stop-opacity="0"/></radialGradient>'+
     '<linearGradient id="'+id+'-pearl" x2="1" y2="1"><stop stop-color="#ffdee3" stop-opacity="0"/><stop offset=".27" stop-color="#fff0c1" stop-opacity=".47"/><stop offset=".48" stop-color="#e0f3f1" stop-opacity=".6"/><stop offset=".65" stop-color="#e0c6f0" stop-opacity=".43"/><stop offset="1" stop-color="#fbe0e8" stop-opacity="0"/></linearGradient>'+
-    '<linearGradient id="'+id+'-cat" x1="0" x2="1" y1=".15" y2=".8"><stop stop-color="#291335" stop-opacity=".35"/><stop offset=".33" stop-color="#fff1eb" stop-opacity="0"/><stop offset=".51" stop-color="#fff0df" stop-opacity=".76"/><stop offset=".57" stop-color="#ffefee" stop-opacity=".41"/><stop offset=".75" stop-color="#fff1eb" stop-opacity="0"/><stop offset="1" stop-color="#371032" stop-opacity=".2"/></linearGradient>'+
     '<filter id="'+id+'-charm" x="-50%" y="-50%" width="200%" height="200%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.25" flood-color="#592a42" flood-opacity=".47"/></filter>'+
     '</defs><g transform="translate(50 147) scale('+sx+' '+sy+') translate(-50 -147)" data-nail-space="">'+
     '<path data-nail-shape="" d="'+shape+'" fill="url(#'+id+'-base)"/><g clip-path="url(#'+id+'-clip)">'+
-    (item.pattern === "silverTip" || item.finish === "chrome" ? glaze+pattern : pattern+glaze)+
+    (underPattern ? material+pattern : pattern+material)+reflection+
     '<path d="'+shape+'" fill="none" stroke="'+shade+'" stroke-width="1.4" opacity=".58"/>'+
     item.decor.map(({kind,x,y,size},i) => '<g '+(use === "editor" ? 'data-charm-index="'+i+'"' : "")+' transform="translate('+x+' '+y+') scale('+size/30+')" filter="url(#'+id+'-charm)">'+
       (use === "editor" ? '<circle r="16" fill="transparent"/>' : "") + charmMarkup(kind,id+"c"+i)+'</g>').join("")+

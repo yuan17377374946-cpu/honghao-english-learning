@@ -124,7 +124,7 @@ h2 { font-size: 19px; letter-spacing: .045em; line-height: 1.35; }
 .finish-jelly { background: radial-gradient(circle at 40% 37%,#ffe2ea 5%,#eab5c9 42%,#cb7796); }
 .finish-pearl { background: conic-gradient(#f9d1de,#fff7d8,#d4e6df,#e7d6f6,#f9d1de); }
 .finish-glitter { background: radial-gradient(circle,#fff 0 1px,transparent 1.2px) 0 0 / 4px 4px,#c888a3; }
-.finish-cat { background: linear-gradient(140deg,#74495d 15%,#bc82a0 38%,#fff0ec 50%,#bc82a0 62%,#74495d 85%); }
+.finish-cat { background: radial-gradient(ellipse at 30% 27%,#fff 2%,transparent 20%), linear-gradient(140deg,#74495d 15%,#b77998 38%,#ffefec 50%,#ad698a 60%,#74495d 85%); }
 .small-note { font-size: 11px; color: var(--muted); line-height: 1.6; }
 .charm-edit { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 8px; }
 .charm-edit label { display: flex; gap: 6px; align-items: center; font-size: 11px; }
@@ -209,7 +209,7 @@ a.button { text-decoration: none; }
 
 .welcome-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; margin-bottom: 2px; }
 .welcome-actions .random { margin: 0; }
-.finish-glass { background: radial-gradient(ellipse at 44% 42%,#fff 9%,#f3e8ed 38%,#c7a9b9 62%,#b99bab 86%); }
+.finish-glass { background: radial-gradient(ellipse at 28% 27%,#fff 4%,transparent 24%), radial-gradient(ellipse at 53% 44%,#fff7ef 13%,#f4dbe2 41%,#c596aa 69%,#b4859a 94%); }
 .finish-velvet { background: radial-gradient(circle,#fff 0 .55px,transparent .8px) 0 0 / 3px 3px, radial-gradient(#d4ad90,#8b6055); }
 .finish-chrome { background: linear-gradient(132deg,#5f627a 12%,#d5d2de 35%,#fff 42%,#858393 50%,#f9f5fa 76%,#75768b 93%); }
 #inspiration, .tray { scroll-margin-top: 16px; }
