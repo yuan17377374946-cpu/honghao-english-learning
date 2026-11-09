@@ -139,7 +139,7 @@ let resizingFruit = false;
 let selectedFruit = null;
 let fruitResizeStarted = false;
 let newFruitSize = defaultFruitSize;
-let tab = state.layers && !state.frosted ? "build" : "icing";
+let tab = state.serving ? "slicing" : state.layers && !state.frosted ? "build" : "icing";
 let boxPreview = true;
 let toppingGroup = "all";
 let fillingGroup = "cream";
@@ -173,7 +173,7 @@ function loadCake() {
   try {
     const current = JSON.parse(localStorage.getItem(storageKey));
     if (Array.isArray(current?.marks) && Number.isFinite(current.angle) && colors[current.base] && typeof current.message === "string") {
-      const { layers, frosted, packaging, ...cake } = current;
+      const { layers, frosted, packaging, serving, ...cake } = current;
       cake.packaging = {
         shape: Object.hasOwn(boxShapes, packaging?.shape) ? packaging.shape : defaultPackaging.shape,
         material: Object.hasOwn(boxMaterials, packaging?.material) ? packaging.material : defaultPackaging.material,
@@ -181,7 +181,13 @@ function loadCake() {
       };
       const validLayers = Array.isArray(layers) && layers.length <= maxSponges * 2 - 1 &&
         layers.every((id, index) => layerFlavors[id]?.kind === layerKind(index));
-      return validLayers ? { ...cake, layers, frosted: Boolean(frosted && canFinishLayers(layers)) } : cake;
+      if (validLayers) {
+        cake.layers = layers;
+        cake.frosted = Boolean(frosted && canFinishLayers(layers));
+      }
+      const cut = (!cake.layers || cake.frosted) && readServing(serving);
+      if (cut) cake.serving = cut;
+      return cake;
     }
     const legacy = JSON.parse(localStorage.getItem("retro-cake-studio-v1"));
     if (!Array.isArray(legacy?.marks) || !Number.isFinite(legacy.angle) || typeof legacy.message !== "string") return null;
@@ -213,7 +219,8 @@ function undo() {
   messageInput.value = state.message;
   undoButton.disabled = !history.length;
   persist();
-  if (state.layers && !state.frosted) switchTab("build");
+  if (state.serving) switchTab("slicing");
+  else if (state.layers && !state.frosted) switchTab("build");
   else {
     updateTray();
     render();
@@ -438,10 +445,10 @@ function drawMark(ctx, { mark, angle, point }, shadow = true, selected = false) 
   ctx.restore();
 }
 
-function orderedMarks(includeStarter) {
+function orderedMarks(includeStarter, rotation = displayAngle) {
   const marks = state.preset && includeStarter ? [...starter, ...state.marks] : state.marks;
   return marks.map(mark => {
-    const angle = mark.angle + displayAngle;
+    const angle = mark.angle + rotation;
     return { mark, angle, point: project(angle, mark.distance, mark.face) };
   }).sort((first, second) => {
     if (first.mark.face !== second.mark.face) return first.mark.face === "side" ? -1 : 1;
@@ -460,6 +467,22 @@ function packagingRoof() {
   return Math.max(232, center.y - clearance);
 }
 
+function paintMessage(ctx) {
+  if (!state.message.trim()) return;
+  ctx.save();
+  ctx.translate(center.x + 7, center.y - 11);
+  ctx.scale(1, .76);
+  ctx.font = 'bold 48px "Noto Serif SC", "Songti SC", Georgia, serif';
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.strokeStyle = "#f9dc9d";
+  ctx.lineWidth = 3;
+  ctx.strokeText(state.message.trim(), 0, 0, 435);
+  ctx.fillStyle = "#883831";
+  ctx.fillText(state.message.trim(), 0, 0, 435);
+  ctx.restore();
+}
+
 function paint(ctx, { photo = false, packaged = tab === "packing" && boxPreview } = {}) {
   if (state.layers && (!state.frosted || (!photo && tab === "build"))) {
     paintStack(ctx);
@@ -473,20 +496,7 @@ function paint(ctx, { photo = false, packaged = tab === "packing" && boxPreview 
   ctx.drawImage(background, 0, 0, canvas.width, canvas.height, 0, 0, canvas.width, canvas.height);
   if (!exactSample) paintBase(ctx);
   for (const entry of orderedMarks(!exactSample)) drawMark(ctx, entry, true, !photo && entry.mark === selectedFruit);
-  if (state.message.trim()) {
-    ctx.save();
-    ctx.translate(center.x + 7, center.y - 11);
-    ctx.scale(1, .76);
-    ctx.font = 'bold 48px "Noto Serif SC", "Songti SC", Georgia, serif';
-    ctx.textAlign = "center";
-    ctx.textBaseline = "middle";
-    ctx.strokeStyle = "#f9dc9d";
-    ctx.lineWidth = 3;
-    ctx.strokeText(state.message.trim(), 0, 0, 435);
-    ctx.fillStyle = "#883831";
-    ctx.fillText(state.message.trim(), 0, 0, 435);
-    ctx.restore();
-  }
+  paintMessage(ctx);
   if (packaged) {
     paintPackaging(ctx, state.packaging, center.x, cakeBottomY - 19, packagingRoof(), art);
   }
@@ -510,7 +520,13 @@ function paint(ctx, { photo = false, packaged = tab === "packing" && boxPreview 
 }
 
 function render() {
-  if (ready) paint(context);
+  if (!ready) return;
+  if (state.serving) {
+    paintCutCake(context);
+    paintSlicePreview();
+  } else {
+    paint(context);
+  }
 }
 
 function pointerPoint(event) {
@@ -704,7 +720,7 @@ canvas.addEventListener("keydown", event => {
 });
 
 function rotate() {
-  if (pointer || !ready || tab === "build") return;
+  if (pointer || !ready || tab === "build" || state.serving) return;
   closeGift();
   hover = null;
   const from = displayAngle;
@@ -795,15 +811,18 @@ function currentCatalog() {
 
 function updateTray() {
   eraserButton.setAttribute("aria-pressed", erasing);
-  eraserButton.disabled = !ready || tab === "build" || tab === "packing";
-  byId("rotate").disabled = !ready || tab === "build";
+  eraserButton.disabled = !ready || ["build", "packing", "slicing"].includes(tab);
+  byId("rotate").disabled = !ready || tab === "build" || Boolean(state.serving);
   canvas.classList.toggle("is-packing", tab === "packing");
-  if (tab !== "packing") canvas.setAttribute("aria-label", "蛋糕装饰画布");
+  canvas.classList.toggle("is-slicing", tab === "slicing");
+  canvas.classList.toggle("is-cut", Boolean(state.serving));
+  if (tab !== "packing") canvas.setAttribute("aria-label", tab === "slicing" ? "蛋糕切块转台" : "蛋糕装饰画布");
   canvas.classList.toggle("is-erasing", erasing);
   canvas.classList.toggle("is-resizing", resizingFruit);
   document.querySelectorAll(".tabs button").forEach(button => {
     button.setAttribute("aria-pressed", button.dataset.tab === tab);
-    button.disabled = Boolean(state.layers && !state.frosted && button.dataset.tab !== "build");
+    button.disabled = Boolean((state.layers && !state.frosted && button.dataset.tab !== "build") ||
+      (state.serving && button.dataset.tab !== "slicing"));
   });
   const choices = currentCatalog();
   const currentPage = pages[tab];
@@ -818,7 +837,7 @@ function updateTray() {
     button.setAttribute("aria-pressed", key === state.base);
   }
   for (const [key, button] of swatches) button.setAttribute("aria-pressed", key === activeColor);
-  byId("tools").hidden = tab === "packing" || tab === "build";
+  byId("tools").hidden = ["packing", "build", "slicing"].includes(tab);
   byId("tools").dataset.tab = tab;
   byId("topping-groups").hidden = tab !== "topping";
   for (const [group, button] of toppingGroupButtons) {
@@ -836,13 +855,16 @@ function updateTray() {
   }
   byId("packing").hidden = tab !== "packing";
   byId("assembly").hidden = tab !== "build";
+  byId("slicing").hidden = tab !== "slicing";
   if (tab === "packing") updatePackaging();
+  if (tab === "slicing") updateSliceCounter();
   updateFruitSizeControls();
   hint.textContent = tab === "build" ? updateAssembly() :
     erasing ? "点击擦掉一个装饰，按住拖动可连续擦除。" :
     resizingFruit ? (selectedFruit ? "已选" + tools[selectedFruit.tool].name + "，拖动滑块调整大小。" :
       "点一下蛋糕上要调整的水果，再拖动滑块。") :
     tab === "packing" ? "挑好盒型、材质和丝带，再把蛋糕装起来。" :
+    tab === "slicing" ? (state.serving ? "点转台上的蛋糕块，或用编号选一块。点撤销可退回上一步。" : "蛋糕做好了？选份数，切开看看里面。") :
     tab === "base" ? "选一种颜色，给整只蛋糕抹上奶油。" :
     tools[activeTool].hint ?? "点一下蛋糕顶部，放上" + tools[activeTool].name + "。";
 }
@@ -858,7 +880,7 @@ function setEditMode(mode) {
 }
 
 function switchTab(next) {
-  if (pointer || (state.layers && !state.frosted && next !== "build")) return;
+  if (pointer || (state.layers && !state.frosted && next !== "build") || (state.serving && next !== "slicing")) return;
   closeGift();
   if (next === "packing" && tab !== "packing") boxPreview = true;
   tab = next;
@@ -1188,6 +1210,7 @@ byId("box").addEventListener("click", () => {
 byId("unbox").addEventListener("click", reopenBox);
 byId("gift-save").addEventListener("click", savePhoto);
 
+installSliceCounter();
 updateTray();
 Promise.all(imageNames.map(async name => {
   const image = new Image();

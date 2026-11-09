@@ -59,7 +59,7 @@ button:focus-visible, input:focus-visible, canvas:focus-visible { outline: 3px s
 #cake.is-erasing { cursor: cell; }
 #cake.is-resizing { cursor: pointer; }
 .tabs {
-  position: relative; z-index: 1; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr));
+  position: relative; z-index: 1; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr));
   gap: 2%; padding-inline: 6%; margin: -1px 0 -4px;
   background: linear-gradient(#70432a, #573221);
 }
@@ -220,3 +220,38 @@ button:focus-visible, input:focus-visible, canvas:focus-visible { outline: 3px s
   .tools[data-tab="base"] { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   .swatch { width: 22px; height: 22px; }
 }
+
+#cake.is-slicing { cursor: default; touch-action: auto; }
+#cake.is-cut { cursor: pointer; }
+.slicing { padding: 2px 5px 5px; }
+.slice-heading, .slice-actions {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 6px 9px;
+}
+.slice-heading { justify-content: space-between; margin-bottom: 8px; }
+.slice-heading h2 { margin: 0; color: var(--green); font-size: clamp(16px, 4vw, 20px); }
+.slice-heading p { margin: 4px 0 0; color: #674c35; font-size: 12px; }
+.slice-actions { justify-content: flex-end; }
+.slicing button, .slicing select, .slicing input {
+  min-height: 36px; padding: 4px 8px; border: 1px solid #ac8155; border-radius: 7px;
+  background: #fff2d3; color: #523725; font-size: 13px;
+}
+.slicing button:hover:enabled { filter: brightness(.94); }
+.slicing button:focus-visible, .slicing input:focus-visible, .slicing select:focus-visible { outline: 2px solid var(--red); }
+.slicing button.slice-primary {
+  border: 3px double #f5c893; background: var(--red); color: #fff1ce; font-weight: bold;
+}
+.slicing .slice-primary:focus-visible { outline-color: #ffdba0; }
+.slicing button:disabled { opacity: .48; }
+.slice-pieces { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 4px; }
+.slice-pieces button { min-width: 0; padding-inline: 2px; font-size: clamp(10px, 2.8vw, 13px); }
+.slice-pieces button[data-status="packed"] { background: #e2e8ce; border-color: #8c9b70; }
+.slice-pieces button[data-status="sold"] { background: #eadac4; border-color: #b2a289; color: #6c5342; }
+.slice-pieces button[aria-pressed="true"] { box-shadow: inset 0 0 0 2px var(--red); color: var(--red); font-weight: bold; }
+.slice-card { margin: 8px 0; overflow: hidden; border: 1px solid #c5a477; border-radius: 10px; background: #fff1cf; }
+#slice-preview { display: block; width: 100%; height: auto; }
+.slice-card figcaption { display: grid; gap: 4px; padding: 8px 10px; border-top: 1px solid #d4b589; }
+.slice-card strong { color: var(--red); font-size: 14px; }
+.slice-card span, .slice-receipt, .slice-checkout label { color: #64452c; font-size: 12px; line-height: 1.55; }
+.slice-checkout label { display: flex; align-items: center; gap: 5px; }
+.slice-checkout input { width: 94px; }
+.slice-receipt { margin: 4px 0 0; text-align: right; }
