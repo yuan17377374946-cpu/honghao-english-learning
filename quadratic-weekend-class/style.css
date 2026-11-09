@@ -95,8 +95,9 @@ footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .3
 .sketch { margin-top: .9rem; padding-top: .75rem; border-top: 1px solid var(--line); }
 .sketch-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: .35rem; }
 .sketch-head h4 { font-size: 1rem; }
-.sketch-controls { display: flex; gap: .3rem; }
+.sketch-controls, .sketch-zoom { display: flex; flex-wrap: wrap; align-items: center; gap: .3rem; }
 .sketch-controls button { font-size: .78rem; }
+.sketch-scale { min-width: 3.1em; text-align: center; font-size: .78rem; font-variant-numeric: tabular-nums; color: var(--muted); }
 .sketch svg { display: block; width: 100%; height: auto; margin-top: .45rem; border: 1px solid var(--line); border-radius: 8px; background: #fff; cursor: crosshair; touch-action: none; user-select: none; }
 .sketch .tiny { margin: .3rem 0 0; }
 .solution-column { display: grid; min-width: 0; gap: .85rem; }
