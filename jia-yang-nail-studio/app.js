@@ -103,14 +103,14 @@ const presets = [
 const seasonalNail = (color, finish, pattern = "none", ink = "#fff0dc", decor = []) =>
   nail(color, finish, pattern, ink, decor, "square", "short");
 const trendPresets = [
-  {name:"水光蕾丝", category:"daily", detail:"冰透裸粉 · 水光猫眼 · 蕾丝与浮雕", tint:"#efe0e2",
-    tip:"用裸粉和冰透白做跳色。两片用玻璃珠猫眼，其余搭配细蕾丝、浮雕山茶和贝母细纹。",
+  {name:"水光蕾丝", category:"daily", detail:"裸棕 · 莓茶猫眼 · 蕾丝与浮雕", tint:"#eddfd1",
+    tip:"用裸棕和奶油白做跳色。拇指用玫瑰棕猫眼，中指用莓茶色，其余搭配细蕾丝、浮雕山茶和贝母细纹。",
     nails:[
-      nail("#edbebc","glass","none","#fff0dc",[],"oval","short"),
-      nail("#e3b9bd","jelly","lace","#fff3e6",[],"oval","short"),
-      nail("#d08ca6","glass","none","#fff0dc",[],"oval","short"),
-      nail("#dba8b3","jelly","porcelain","#fff0e4",[],"oval","short"),
-      nail("#f1d2cc","pearl","shellGrain","#fff1e5",[],"oval","short")
+      nail("#b77d6b","glass","none","#fff0dc",[],"oval","short"),
+      nail("#cf9c86","jelly","lace","#fff1dc",[],"oval","short"),
+      nail("#844b42","glass","none","#fff0dc",[],"oval","short"),
+      nail("#dfbda0","jelly","porcelain","#fff0d6",[],"oval","short"),
+      nail("#d5a58f","pearl","shellGrain","#fff0db",[],"oval","short")
     ]},
   {name:"白开水猫眼", category:"daily", detail:"透白 · 玻璃珠光 · 极细银边", tint:"#ece4e8",
     tip:"用一层透明裸粉统一甲片，两片做银边、一片留微闪。小钻只点在食指甲根。",
@@ -271,7 +271,7 @@ function charmMarkup(kind, uid) {
 
 const magneticFinishes = {
   cat: {angle:51, rx:14, ry:70, strength:.87, grain:115, seed:59},
-  glass: {angle:15, rx:24, ry:43, strength:.74, grain:140, seed:79},
+  glass: {angle:17, rx:24, ry:44, strength:.69, grain:185, seed:79},
   velvet: {angle:27, rx:43, ry:61, strength:.48, grain:205, seed:143}
 };
 
@@ -295,12 +295,13 @@ function magneticGlaze(kind, id, base) {
     '<ellipse rx="'+rx+'" ry="'+ry+'" fill="url(#'+id+'-magnet)"/>'+flecks+'</g>';
 }
 
-function wetCoat(id, soft) {
-  const opacity = soft ? ".48" : ".85";
-  return '<defs><linearGradient id="'+id+'-coat" gradientUnits="userSpaceOnUse" x1="28" y1="44" x2="43" y2="99"><stop stop-color="#fff" stop-opacity=".19"/><stop offset=".31" stop-color="#fff" stop-opacity="'+opacity+'"/><stop offset=".57" stop-color="#fffaf3" stop-opacity="'+opacity+'"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient></defs>'+
-    '<path d="M47 38C36 47 28 63 26 87q.1 9 3 12c1-23 8-43 19-55q3-4-1-6Z" fill="url(#'+id+'-coat)"/>'+
-    '<path d="M34 56q3-6 7-10m-9 14-1 2" stroke="#fff" stroke-opacity="'+opacity+'" stroke-width="1.18" fill="none" stroke-linecap="round"/>'+
-    '<path d="M71 84q5 12 3 27-1 10-7 17" stroke="#fff4ea" stroke-opacity="'+(soft?".22":".56")+'" stroke-width="1.25" fill="none" stroke-linecap="round"/>';
+function surfaceReflection(id, strength) {
+  return '<defs><linearGradient id="'+id+'-window" gradientUnits="userSpaceOnUse" x1="42" y1="38" x2="37" y2="86"><stop stop-color="#fff" stop-opacity=".86"/><stop offset=".46" stop-color="#fff9ef" stop-opacity=".76"/><stop offset="1" stop-color="#fff4e8" stop-opacity=".14"/></linearGradient></defs>'+
+    '<g opacity="'+strength+'" fill="url(#'+id+'-window)">'+
+    '<path d="M42 39q2-2 4-1-3 6-5 13l-4-1q2-6 5-11ZM36.4 52.3l4.1 1.1q-4.5 14.6-6 28l-4 2q1-15 5.9-31.1Z"/>'+
+    '<path d="M47.3 38q1.6-1.4 3.4-.7-3.1 6.5-5 14.8l-2.7-.7q1.9-7.8 4.3-13.4ZM42.4 54l2.7.8q-4.3 13.2-6.1 25.1l-2.4 1q1.4-13 5.8-26.9Z"/>'+
+    '<path d="M71 79c4 11 6 30 .7 46" stroke="#fff2e1" stroke-opacity=".43" stroke-width="1.2" fill="none" stroke-linecap="round"/>'+
+    '</g>';
 }
 
 function chromeGlaze(id, base) {
@@ -316,11 +317,11 @@ function nailSVG(item, finger = 2, use = "", position = "") {
   const sy = lengths[item.length][1] * [0.98,.99,1,.97,.85][finger];
   const sx = widths[finger];
   const magnetic = Object.hasOwn(magneticFinishes,item.finish);
-  const glass = item.finish === "glass";
-  const shade = mix(base, "#3b142d", item.finish === "matte" ? .21 : glass ? .25 : .36);
-  const light = mix(base, "#fff9f8", item.finish === "matte" ? .13 : .44);
-  const inner = item.finish === "jelly" || glass ? mix(base,"#fff2f7",glass ? .32 : .64) : base;
-  const sheen = ["matte","chrome","velvet"].includes(item.finish) ? "" : '<path d="M24 92C23 67 35 37 47 33C41 45 37 54 34 65Q29 84 28 105Z" fill="#fff" opacity=".27"/><path d="M72 61c4 15 7 32 6 53" stroke="#fff" opacity=".37" stroke-width="1.4" fill="none"/>';
+  const sheer = item.finish === "jelly" || item.finish === "glass";
+  const matte = item.finish === "matte";
+  const shade = mix(base,"#391f16",matte ? .24 : .35);
+  const light = mix(base,"#fff3e6",matte ? .17 : .35);
+  const inner = sheer ? mix(base,"#f8d9cb",.28) : base;
   const finish = {
     matte: () => dots(47,90,(x,y,z)=>'<circle cx="'+(x*100).toFixed(1)+'" cy="'+(y*147).toFixed(1)+'" r="'+(.23+z*.52).toFixed(1)+'" fill="#fff" opacity=".23"/>'),
     jelly: () => '<ellipse cx="46" cy="82" rx="28" ry="53" fill="url(#'+id+'-jelly)"/>',
@@ -330,19 +331,20 @@ function nailSVG(item, finger = 2, use = "", position = "") {
   }[item.finish];
   const pattern = artMarkup(item.pattern,item.ink,id,shape);
   const material = magnetic ? magneticGlaze(item.finish,id,base) : (finish?.() ?? "");
-  const reflection = magnetic ? wetCoat(id,item.finish === "velvet") : sheen;
+  const reflection = matte || item.finish === "chrome" ? "" : surfaceReflection(id,item.finish === "velvet" ? .33 : .92);
   const underPattern = magnetic || item.finish === "chrome" ||
     ["silverTip","lace","porcelain","shellGrain"].includes(item.pattern);
   return '<svg xmlns="http://www.w3.org/2000/svg" class="nail-art" viewBox="0 13 100 143" aria-hidden="true" '+position+'><defs>'+
     '<clipPath id="'+id+'-clip"><path d="'+shape+'"/></clipPath>'+
-    '<linearGradient id="'+id+'-base"><stop stop-color="'+shade+'"/><stop offset=".19" stop-color="'+light+'"/><stop offset=".53" stop-color="'+inner+'"/><stop offset=".8" stop-color="'+base+'"/><stop offset="1" stop-color="'+shade+'"/></linearGradient>'+
-    '<radialGradient id="'+id+'-jelly"><stop stop-color="#fff2f5" stop-opacity=".65"/><stop offset="1" stop-color="#fff2f5" stop-opacity="0"/></radialGradient>'+
+    '<radialGradient id="'+id+'-base" cx=".36" cy=".33" r=".74" gradientTransform="rotate(8 .36 .33)"><stop stop-color="'+light+'"/><stop offset=".46" stop-color="'+inner+'"/><stop offset=".77" stop-color="'+base+'"/><stop offset="1" stop-color="'+shade+'"/></radialGradient>'+
+    '<linearGradient id="'+id+'-rim" x1="0" x2=".84" y1="0" y2="1"><stop stop-color="#fff9ee" stop-opacity=".73"/><stop offset=".27" stop-color="#fff0df" stop-opacity=".15"/><stop offset=".65" stop-color="'+shade+'" stop-opacity=".34"/><stop offset=".86" stop-color="#fff0e3" stop-opacity=".43"/><stop offset="1" stop-color="'+shade+'" stop-opacity=".78"/></linearGradient>'+
+    '<radialGradient id="'+id+'-jelly"><stop stop-color="#fff2e7" stop-opacity=".42"/><stop offset="1" stop-color="#fff2e7" stop-opacity="0"/></radialGradient>'+
     '<linearGradient id="'+id+'-pearl" x2="1" y2="1"><stop stop-color="#ffdee3" stop-opacity="0"/><stop offset=".27" stop-color="#fff0c1" stop-opacity=".47"/><stop offset=".48" stop-color="#e0f3f1" stop-opacity=".6"/><stop offset=".65" stop-color="#e0c6f0" stop-opacity=".43"/><stop offset="1" stop-color="#fbe0e8" stop-opacity="0"/></linearGradient>'+
-    '<filter id="'+id+'-charm" x="-50%" y="-50%" width="200%" height="200%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.25" flood-color="#592a42" flood-opacity=".47"/></filter>'+
+    '<filter id="'+id+'-charm" x="-50%" y="-50%" width="200%" height="200%"><feDropShadow dx=".6" dy="1.8" stdDeviation="1.1" flood-color="#442716" flood-opacity=".50"/></filter>'+
     '</defs><g transform="translate(50 147) scale('+sx+' '+sy+') translate(-50 -147)" data-nail-space="">'+
     '<path data-nail-shape="" d="'+shape+'" fill="url(#'+id+'-base)"/><g clip-path="url(#'+id+'-clip)">'+
     (underPattern ? material+pattern : pattern+material)+reflection+
-    '<path d="'+shape+'" fill="none" stroke="'+shade+'" stroke-width="1.4" opacity=".58"/>'+
+    '<path d="'+shape+'" fill="none" stroke="url(#'+id+'-rim)" stroke-width="3.4" opacity="'+(matte?".52":".88")+'"/>'+
     item.decor.map(({kind,x,y,size},i) => '<g '+(use === "editor" ? 'data-charm-index="'+i+'"' : "")+' transform="translate('+x+' '+y+') scale('+size/30+')" filter="url(#'+id+'-charm)">'+
       (use === "editor" ? '<circle r="16" fill="transparent"/>' : "") + charmMarkup(kind,id+"c"+i)+'</g>').join("")+
     '</g></g></svg>';
@@ -359,7 +361,7 @@ const storage = {
   }
 };
 function makeDesign(preset) { return {name:preset.name, tint:preset.tint, nails:copy(preset.nails)}; }
-let design = storage.read("draft", makeDesign(presets[0]));
+let design = storage.read("draft", makeDesign(trendPresets[0]));
 let saved = storage.read("collection", []);
 let selected = 2;
 let tab = "color";
@@ -444,7 +446,6 @@ function renderStage() {
   $("#design-label").textContent = design.name;
   $("#design-label").title = design.name;
   $("#display-index").textContent = "正在编辑 " + fingers[selected];
-  $("#display").style.background = "radial-gradient(ellipse at 50% 35%,#fff8f6 5%,"+mix(design.tint,"#ffffff",.45)+" 65%,"+design.tint+" 100%)";
   row.innerHTML = design.nails.map((item, i) =>
     '<button type="button" data-finger="'+i+'" aria-label="编辑'+fingers[i]+'" aria-pressed="'+(selected===i)+'" class="nail-button'+(i===selected?' active':'')+(item.decor.length?' has-charm':'')+'">'+
     nailSVG(item,i,"editor")+'<span class="finger-label">'+fingers[i]+'</span></button>').join("");
@@ -489,8 +490,8 @@ function renderEditor() {
         option("finish",key,label,key===item.finish,'<span class="finish-sample finish-'+key+'" aria-hidden="true"></span>'))));
   } else if (tab === "art") {
     editor.innerHTML = panelGroup("选择花纹", patterns[item.pattern], optionGrid(Object.entries(patterns).map(([key,label]) => {
-      const id = "p" + (++serial);
-      const mark = '<svg class="pattern-art" viewBox="0 16 100 125" aria-hidden="true"><rect x="18" y="21" width="64" height="115" rx="20" fill="#eed4df"/><clipPath id="'+id+'"><rect x="18" y="21" width="64" height="115" rx="20"/></clipPath><g clip-path="url(#'+id+')">'+artMarkup(key,"#a75a7c",id)+'</g></svg>';
+      const ink = ["lace","porcelain","shellGrain"].includes(key) ? "#fff2dd" : "#8c5043";
+      const mark = nailSVG(nail("#e1bbab","gloss",key,ink,[],"oval","medium"));
       return option("pattern",key,label,key===item.pattern,mark);
     }),true))+
       (item.pattern === "silverTip"
@@ -605,8 +606,8 @@ async function exportPNG(work = design) {
   const captured = copy(work);
   const width = 1200, height = 740;
   const art = captured.nails.map((item,i) => nailSVG(item,i,"",'x="'+(98+i*210)+'" y="151" width="168" height="311"')).join("");
-  const background = mix(captured.tint,"#ffffff",.45);
-  const svg = '<svg xmlns="http://www.w3.org/2000/svg" width="'+width+'" height="'+height+'"><defs><filter id="card-shadow" x="-20%" y="-35%" width="140%" height="180%"><feDropShadow dx="0" dy="15" stdDeviation="13" flood-color="#69374b" flood-opacity=".26"/></filter></defs><rect width="1200" height="740" fill="'+background+'"/><rect x="36" y="36" width="1128" height="668" rx="32" fill="#fff8" stroke="#fff"/><g filter="url(#card-shadow)">'+art+'</g></svg>';
+  const background = mix(captured.tint,"#ede3d4",.68);
+  const svg = '<svg xmlns="http://www.w3.org/2000/svg" width="'+width+'" height="'+height+'"><defs><filter id="card-shadow" x="-20%" y="-35%" width="140%" height="180%"><feDropShadow dx="6" dy="10" stdDeviation="7" flood-color="#513221" flood-opacity=".43"/></filter></defs><rect width="1200" height="740" fill="'+background+'"/><rect x="36" y="36" width="1128" height="668" rx="24" fill="#fffbf4" stroke="#fff"/><g filter="url(#card-shadow)">'+art+'</g></svg>';
   const url = URL.createObjectURL(new Blob([svg],{type:"image/svg+xml;charset=utf-8"}));
   try {
     const artImage = new Image();

@@ -7,8 +7,8 @@
   <meta name="description" content="一间自己的穿戴甲工作室。给五片甲搭配颜色、纹路与饰品，保存灵感和实做清单。">
   <title>甲样研究所｜穿戴甲设计小游戏</title>
   <link rel="icon" type="image/svg+xml" href="mark.svg">
-  <link rel="stylesheet" href="style.css?v=3">
-  <script src="app.js?v=3" defer></script>
+  <link rel="stylesheet" href="style.css?v=4">
+  <script src="app.js?v=4" defer></script>
 </head>
 <body>
   <header class="topbar">
@@ -25,21 +25,23 @@
   </header>
   <main class="workspace">
     <section class="welcome" aria-labelledby="studio-title">
-      <div>
+      <div class="welcome-copy">
         <p class="signature">The Nail Atelier</p>
         <h1 id="studio-title">穿戴甲设计台</h1>
-        <p class="intro">先在这里试配色、排饰品，再把喜欢的一套做到甲片上。</p>
+        <p class="intro">挑一片甲，在托盘里试底色、封层和饰品。</p>
+        <div class="welcome-actions">
+          <a class="button outline" href="#inspiration">看秋冬配方</a>
+          <button type="button" class="button random" id="random"><span data-icon="shuffle"></span> 随机一套</button>
+        </div>
       </div>
-      <div class="welcome-actions">
-        <a class="button outline" href="#inspiration">看秋冬配方</a>
-        <button type="button" class="button random" id="random"><span data-icon="shuffle"></span> 随机一套</button>
-      </div>
+      <figure class="welcome-photo">
+        <img src="atelier-materials.webp" alt="穿戴甲材质示意，裸粉猫眼、细蕾丝和立体山茶摆在暖色石材上" width="1180" height="787" fetchpriority="high">
+      </figure>
     </section>
     <div class="workbench" id="workbench">
       <section class="tray" aria-labelledby="stage-title">
         <div class="tray-heading">
           <div class="tray-title-group">
-            <span class="live-dot" aria-hidden="true"></span>
             <div><h2 id="stage-title">试色托盘</h2><p id="design-label"></p></div>
           </div>
           <div class="history" aria-label="编辑记录">
@@ -49,10 +51,6 @@
         </div>
         <div class="display" id="display">
           <div class="display-meta"><span>五指套组</span><span class="display-index" id="display-index"></span></div>
-          <div class="tray-cross tl" aria-hidden="true"></div>
-          <div class="tray-cross br" aria-hidden="true"></div>
-          <svg class="sparkle big" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 1c1.8 10.1 4.9 13.2 15 15-10.1 1.8-13.2 4.9-15 15C14.2 20.9 11.1 17.8 1 16 11.1 14.2 14.2 11.1 16 1Z"/></svg>
-          <svg class="sparkle small" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 1c1.8 10.1 4.9 13.2 15 15-10.1 1.8-13.2 4.9-15 15C14.2 20.9 11.1 17.8 1 16 11.1 14.2 14.2 11.1 16 1Z"/></svg>
           <div id="nail-row" class="nail-row" aria-label="选择要编辑的甲片"></div>
           <p class="tray-hint" id="tray-hint"><span data-icon="cursor"></span><span>点一片甲开始设计</span></p>
         </div>
