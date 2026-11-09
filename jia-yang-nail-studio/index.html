@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fbf6f7">
+  <meta name="description" content="一间自己的穿戴甲工作室。给五片甲搭配颜色、纹路与饰品，保存灵感和实做清单。">
+  <title>甲样研究所｜穿戴甲设计小游戏</title>
+  <link rel="icon" type="image/svg+xml" href="mark.svg">
+  <link rel="stylesheet" href="style.css?v=2">
+  <script src="app.js?v=2" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="top-inner">
+      <a class="brand" href="./" aria-label="甲样研究所首页">
+        <img src="mark.svg" alt="" width="42" height="42">
+        <span><b>甲样研究所</b><i>Atelier de Nails</i></span>
+      </a>
+      <nav aria-label="主导航">
+        <button class="nav-button current" id="nav-studio" type="button" aria-current="page"><span data-icon="studio"></span>设计台</button>
+        <button class="nav-button" id="nav-collection" type="button"><span data-icon="heart"></span>我的作品<span class="count" id="collection-count" hidden></span></button>
+      </nav>
+    </div>
+  </header>
+  <main class="workspace">
+    <section class="welcome" aria-labelledby="studio-title">
+      <div>
+        <p class="signature">The Nail Atelier</p>
+        <h1 id="studio-title">穿戴甲设计台</h1>
+        <p class="intro">先在这里试配色、排饰品，再把喜欢的一套做到甲片上。</p>
+      </div>
+      <div class="welcome-actions">
+        <a class="button outline" href="#inspiration">看秋冬配方</a>
+        <button type="button" class="button random" id="random"><span data-icon="shuffle"></span> 随机一套</button>
+      </div>
+    </section>
+    <div class="workbench" id="workbench">
+      <section class="tray" aria-labelledby="stage-title">
+        <div class="tray-heading">
+          <div class="tray-title-group">
+            <span class="live-dot" aria-hidden="true"></span>
+            <div><h2 id="stage-title">试色托盘</h2><p id="design-label"></p></div>
+          </div>
+          <div class="history" aria-label="编辑记录">
+            <button type="button" id="undo" title="撤销 (Ctrl/⌘ Z)" aria-label="撤销" data-icon="undo" disabled></button>
+            <button type="button" id="redo" title="重做 (Ctrl/⌘ Shift Z)" aria-label="重做" data-icon="redo" disabled></button>
+          </div>
+        </div>
+        <div class="display" id="display">
+          <div class="display-meta"><span>五指套组</span><span class="display-index" id="display-index"></span></div>
+          <div class="tray-cross tl" aria-hidden="true"></div>
+          <div class="tray-cross br" aria-hidden="true"></div>
+          <svg class="sparkle big" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 1c1.8 10.1 4.9 13.2 15 15-10.1 1.8-13.2 4.9-15 15C14.2 20.9 11.1 17.8 1 16 11.1 14.2 14.2 11.1 16 1Z"/></svg>
+          <svg class="sparkle small" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 1c1.8 10.1 4.9 13.2 15 15-10.1 1.8-13.2 4.9-15 15C14.2 20.9 11.1 17.8 1 16 11.1 14.2 14.2 11.1 16 1Z"/></svg>
+          <div id="nail-row" class="nail-row" aria-label="选择要编辑的甲片"></div>
+          <p class="tray-hint" id="tray-hint"><span data-icon="cursor"></span><span>点一片甲开始设计</span></p>
+        </div>
+        <div class="tray-footer">
+          <div class="tray-utilities">
+            <button type="button" class="text-button" id="blank"><span data-icon="reset"></span>空白开局</button>
+            <button type="button" class="text-button" id="recipe"><span data-icon="list"></span>实做清单</button>
+          </div>
+          <div class="tray-actions">
+            <button type="button" class="button outline" id="export"><span data-icon="download"></span>导出图片</button>
+            <button type="button" class="button primary" id="save"><span data-icon="heart"></span>保存作品</button>
+          </div>
+        </div>
+      </section>
+      <section class="editor" aria-labelledby="editor-title">
+        <div class="editor-heading">
+          <div>
+            <h2 id="editor-title">调色与装饰</h2>
+            <p id="edit-target"></p>
+          </div>
+          <label class="all-toggle"><input type="checkbox" id="apply-all"><span>应用五指</span></label>
+        </div>
+        <div class="tabs" role="tablist" aria-label="编辑类别" id="tabs">
+          <button type="button" role="tab" id="tab-shape" data-tab="shape" aria-controls="editor-panel"><span data-icon="shape"></span>甲型</button>
+          <button type="button" role="tab" id="tab-color" data-tab="color" aria-controls="editor-panel"><span data-icon="color"></span>底色</button>
+          <button type="button" role="tab" id="tab-art" data-tab="art" aria-controls="editor-panel"><span data-icon="art"></span>花纹</button>
+          <button type="button" role="tab" id="tab-charm" data-tab="charm" aria-controls="editor-panel"><span data-icon="gem"></span>饰品</button>
+        </div>
+        <div id="editor-panel" class="editor-panel" role="tabpanel" tabindex="0"></div>
+      </section>
+    </div>
+    <section class="inspiration" id="inspiration" aria-labelledby="inspiration-title">
+      <div class="section-heading">
+        <div><h2 id="inspiration-title">秋冬款式配方</h2><p>先看五指怎么分配底色和装饰，再套用到设计台。</p></div>
+        <span class="script-label" aria-hidden="true">Autumn / Winter</span>
+      </div>
+      <div class="trend-filters" id="trend-filters" role="group" aria-label="按风格筛选秋冬配方">
+        <button type="button" data-filter="all" aria-pressed="true">全部</button>
+        <button type="button" data-filter="daily" aria-pressed="false">通勤短甲</button>
+        <button type="button" data-filter="warm" aria-pressed="false">秋冬暖调</button>
+        <button type="button" data-filter="cool" aria-pressed="false">清冷微光</button>
+      </div>
+      <div id="trend-presets" class="preset-grid"></div>
+      <details class="inspiration-notes">
+        <summary>配方参考来源</summary>
+        <p>配方参考了收录小红书创作者案例的秋冬美甲报道，以及引用小红书话题数据的行业报告。六套是可自由拆搭的穿戴甲设计，顺序按风格编排。</p>
+        <ul>
+          <li><a href="https://pdf.dfcfw.com/pdf/H3_AP202606141823548865_1.pdf" target="_blank" rel="noopener noreferrer">知行战略咨询《2026年美甲类目电商行业消费趋势》</a></li>
+          <li><a href="https://www.jessicahk.com/beauty-wellness/%E7%A7%8B%E5%86%AC%E7%BE%8E%E7%94%B2-%E9%A1%8F%E8%89%B2-%E6%AC%BE%E5%BC%8F%E6%8E%A8%E8%96%A6-%E6%B0%A3%E8%B3%AA%E9%A1%AF%E7%99%BD" target="_blank" rel="noopener noreferrer">JESSICA 的小红书美甲案例</a></li>
+          <li><a href="https://www.cosmopolitan.com/tw/beauty/make-up/g74138509/2026-white-cat-eye-nails/" target="_blank" rel="noopener noreferrer">Cosmopolitan 的透白猫眼与细法式专题</a></li>
+          <li><a href="https://www.cosmopolitan.com/tw/beauty/make-up/g74184063/2026-fall-winter-checked-nails/" target="_blank" rel="noopener noreferrer">Cosmopolitan 的秋冬格纹专题</a></li>
+          <li><a href="https://www.cosmopolitan.com/tw/beauty/make-up/g74044023/ig-grape-purple-nails/" target="_blank" rel="noopener noreferrer">Cosmopolitan 的葡萄紫专题</a></li>
+        </ul>
+      </details>
+      <h3 class="original-heading">原有灵感</h3>
+      <div id="presets" class="preset-grid original-presets"></div>
+    </section>
+    <footer class="page-footer"><img src="mark.svg" alt="" width="22" height="22"><span>甲样研究所</span><span>作品保存在当前浏览器</span></footer>
+  </main>
+  <dialog id="dialog" aria-labelledby="dialog-title">
+    <div class="dialog-head">
+      <h2 id="dialog-title"></h2>
+      <button type="button" class="icon-button" id="dialog-close" data-icon="close" aria-label="关闭"></button>
+    </div>
+    <div id="dialog-body"></div>
+  </dialog>
+  <div class="toast" role="status" aria-live="polite" id="toast"></div>
+</body>
+</html>
