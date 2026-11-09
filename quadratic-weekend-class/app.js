@@ -36,6 +36,7 @@ function renderQuestion() {
         <h3 id="condition-title">读题与条件</h3>
         <p>${item.setup}</p>
         ${item.note?`<p class="rule">${item.note}</p>`:''}
+        ${boardGraph(question)}
         <details class="source-images" ${question===4?'open':''}>
           <summary>原题原图 · 点击放大</summary>
           ${Array.from({length:item.images},(_,i)=>{
@@ -44,7 +45,6 @@ function renderQuestion() {
           }).join('')}
         </details>
         ${sketchMarkup()}
-        ${boardGraph(question)}
       </section>
       <div class="solution-column">
         <section class="panel" aria-labelledby="solution-title">
@@ -148,10 +148,11 @@ board.addEventListener('click',event=>{
 
 board.addEventListener('input',event=>{
   if(event.target.id!=='horizontal-level') return;
+  const graph=event.target.closest('.graph');
   const t=Number(event.target.value);
   const count=t< -2||t>2.5?0:t===-2||t> -1.5?1:2;
-  board.querySelector('#intersection-label').textContent=`t = ${String(t).replace('-', '−')}，${count} 个交点`;
-  board.querySelector('.graph-view').innerHTML=graphMarkup(boardGraphs[5],t);
+  graph.querySelector('#intersection-label').textContent=`t = ${String(t).replace('-', '−')}，${count} 个交点`;
+  graph.querySelector('.graph-view').innerHTML=graphMarkup(boardGraphs[5],t);
 });
 
 document.addEventListener('keydown',event=>{
