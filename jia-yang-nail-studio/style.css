@@ -86,7 +86,7 @@ h2 { font-size: 19px; letter-spacing: .045em; line-height: 1.35; }
 .editor-heading { padding: 16px 15px 13px; }
 .all-toggle { display: flex; align-items: center; gap: 5px; padding: 7px 8px; background: #f2e9df; color: var(--rose-dark); border-radius: 7px; font-size: 11px; white-space: nowrap; cursor: pointer; }
 .all-toggle input { accent-color: var(--rose); margin: 0; width: 14px; height: 14px; }
-.tabs { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 4px; margin: 0 13px; border-bottom: 1px solid var(--line); }
+.tabs { display: grid; grid-template-columns: repeat(5, minmax(0,1fr)); gap: 2px; margin: 0 13px; border-bottom: 1px solid var(--line); }
 .tabs button { display: flex; justify-content: center; align-items: center; gap: 5px; padding: 11px 3px 10px; border: 0; border-bottom: 2px solid transparent; border-radius: 7px 7px 0 0; margin-bottom: -1px; background: none; color: var(--muted); font-size: 12px; white-space: nowrap; }
 .tabs .ico { width: 15px; height: 15px; }
 .tabs button[aria-selected="true"] { color: var(--rose-dark); border-color: var(--rose); font-weight: 700; background: #f2e9df; }
@@ -110,6 +110,10 @@ h2 { font-size: 19px; letter-spacing: .045em; line-height: 1.35; }
 .option:hover, .option.active { border-color: #a77a65; background: var(--light); color: var(--rose-dark); }
 .option.active { box-shadow: inset 0 0 0 1px #a77a65; font-weight: 700; }
 .option .nail-art { width: 34px; height: 38px; filter: drop-shadow(1px 2px 1px #42281b4a); }
+.photo-options { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 7px; }
+.photo-options .option { gap: 6px; padding-bottom: 9px; }
+.photo-options .nail-art { width: 51px; height: 64px; }
+.photo-options + .small-note { margin-top: 12px; }
 .option .charm-art { width: 26px; height: 26px; }
 .finish-sample { width: 14px; height: 14px; border-radius: 50%; display: inline-block; flex: none; border: 1px solid #8f4a6836; }
 .finish-gloss { background: linear-gradient(138deg,#f2cbd7 15%,#fff3 24%,#fff 31%,#df9db2 47%,#b87b94 100%); }
@@ -189,6 +193,7 @@ dialog::backdrop { background: #392b226c; }
 }
 @media (max-width: 389px) {
   .nav-button .ico { display: none; }
+  .tabs .ico { width: 12px; height: 12px; }
   .tray-footer { justify-content: center; }
   .tray-utilities, .tray-actions { justify-content: center; }
   .editor-heading, .editor-panel { padding-inline: 11px; }

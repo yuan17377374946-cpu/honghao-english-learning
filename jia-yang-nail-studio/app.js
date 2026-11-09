@@ -102,7 +102,33 @@ const presets = [
 
 const seasonalNail = (color, finish, pattern = "none", ink = "#fff0dc", decor = []) =>
   nail(color, finish, pattern, ink, decor, "square", "short");
+
+// Coordinates trace the five tips in the original 1536 × 1024 product image.
+const referenceImage = "atelier-materials.webp";
+const referenceTips = [
+  {label:"玫瑰猫眼", center:266, bottom:671,
+    path:"M270 326C332 324 367 370 376 434C381 475 380 529 380 572C379 626 360 653 321 666C288 674 229 672 199 658C165 642 151 616 151 577C151 522 155 477 165 428C180 366 219 329 270 326Z",
+    style:nail("#b77d6b","glass","none","#fff0dc",[],"square","short")},
+  {label:"裸粉蕾丝", center:519, bottom:672,
+    path:"M521 333C568 330 606 354 618 399C631 444 630 507 633 557C636 603 627 639 600 656C573 674 514 672 478 668C436 662 411 646 409 605C406 555 411 497 414 451C416 388 451 335 521 333Z",
+    style:nail("#cf9c86","jelly","lace","#fff1dc",[],"square","short")},
+  {label:"立体山茶", center:771, bottom:675,
+    path:"M769 338C821 335 858 366 874 414C886 454 889 511 886 561C886 612 876 648 847 663C825 674 787 676 756 673C713 672 684 664 667 641C653 620 656 578 657 545C656 494 656 454 665 421C678 369 716 339 769 338Z",
+    style:nail("#dfbda0","jelly","porcelain","#fff0d6",[],"square","short")},
+  {label:"莓茶猫眼", center:1021, bottom:674,
+    path:"M1015 334C1065 331 1106 355 1124 409C1135 445 1137 493 1135 542C1135 587 1136 624 1112 647C1092 668 1058 675 1021 672C982 672 951 664 930 646C911 628 909 595 912 548C911 505 913 468 921 427C931 372 965 338 1015 334Z",
+    style:nail("#844b42","glass","none","#fff0dc",[],"square","short")},
+  {label:"奶油蕾丝", center:1278, bottom:669,
+    path:"M1276 342C1322 337 1358 366 1371 413C1380 454 1386 503 1385 551C1384 591 1386 628 1363 647C1342 667 1315 668 1281 668C1245 669 1210 664 1190 646C1173 629 1171 600 1174 553C1174 502 1177 454 1189 412C1202 369 1234 343 1276 342Z",
+    style:nail("#cb9b87","jelly","lace","#fff1dc",[],"square","short")}
+];
+const referenceSet = {
+  name:"奶油玫瑰蕾丝", category:"daily", detail:"图中同款 · 玻璃珠猫眼 · 立体山茶", tint:"#eadacd",
+  tip:"拇指和无名指做两种深浅的玻璃珠猫眼，食指和小指用细蕾丝，中指用奶油色立体山茶。",
+  nails:referenceTips.map(({style},index) => ({...style,photo:index}))
+};
 const trendPresets = [
+  referenceSet,
   {name:"水光蕾丝", category:"daily", detail:"裸棕 · 莓茶猫眼 · 蕾丝与浮雕", tint:"#eddfd1",
     tip:"用裸棕和奶油白做跳色。拇指用玫瑰棕猫眼，中指用莓茶色，其余搭配细蕾丝、浮雕山茶和贝母细纹。",
     nails:[
@@ -310,12 +336,56 @@ function chromeGlaze(id, base) {
   return '<defs><linearGradient id="'+id+'-chrome" x1="0" y1=".15" x2="1" y2=".7"><stop stop-color="'+dark+'"/><stop offset=".18" stop-color="#a6a8c0"/><stop offset=".32" stop-color="'+shine+'"/><stop offset=".47" stop-color="#d4ccdf"/><stop offset=".52" stop-color="#676779"/><stop offset=".63" stop-color="#aaa9bd"/><stop offset=".78" stop-color="#f7f5ff"/><stop offset="1" stop-color="#62677d"/></linearGradient></defs><path d="M0 0h100v149H0z" fill="url(#'+id+'-chrome)"/>';
 }
 
-function nailSVG(item, finger = 2, use = "", position = "") {
+function photoFor(item) {
+  const sample = referenceTips[item.photo];
+  const style = sample?.style;
+  return style && item.finish === style.finish && item.pattern === style.pattern && item.shape === style.shape &&
+    (item.pattern === "none" || item.ink === style.ink) ? sample : null;
+}
+
+function photoColor(id, source, target) {
+  if (source === target) return "";
+  const channels = "RGB".split("").map((channel,index) => {
+    const offset = 1+index*2;
+    const from = parseInt(source.slice(offset,offset+2),16)/255;
+    const to = parseInt(target.slice(offset,offset+2),16)/255;
+    const values = Array.from({length:17},(_,i) => {
+      const input = i/16;
+      const output = input <= from ? input/from*to : to+(input-from)*(1-to)/(1-from);
+      return output.toFixed(4);
+    });
+    return '<feFunc'+channel+' type="table" tableValues="'+values.join(" ")+'"/>';
+  }).join("");
+  return '<filter id="'+id+'-tint" color-interpolation-filters="sRGB"><feComponentTransfer>'+channels+'</feComponentTransfer></filter>';
+}
+
+function charmShadow(id) {
+  return '<filter id="'+id+'-charm" x="-50%" y="-50%" width="200%" height="200%"><feDropShadow dx=".6" dy="1.8" stdDeviation="1.1" flood-color="#442716" flood-opacity=".50"/></filter>';
+}
+
+function nailDecor(item, id, use) {
+  return item.decor.map(({kind,x,y,size},i) => '<g '+(use === "editor" ? 'data-charm-index="'+i+'"' : "")+' transform="translate('+x+' '+y+') scale('+size/30+')" filter="url(#'+id+'-charm)">'+
+    (use === "editor" ? '<circle r="16" fill="transparent"/>' : "") + charmMarkup(kind,id+"c"+i)+'</g>').join("");
+}
+
+function nailSVG(item, finger = 2, use = "", position = "", photoSource = referenceImage) {
   const id = "n" + (++serial);
   const base = item.color;
   const shape = shapes[item.shape][1];
   const sy = lengths[item.length][1] * [0.98,.99,1,.97,.85][finger];
   const sx = widths[finger];
+  const start = '<svg xmlns="http://www.w3.org/2000/svg" class="nail-art" viewBox="0 13 100 143" aria-hidden="true" '+position+'>';
+  const space = '<g transform="translate(50 147) scale('+sx+' '+sy+') translate(-50 -147)" data-nail-space="">';
+  const photo = photoFor(item);
+  if (photo) {
+    const transform = 'translate(50 147) scale(.275 '+(.275/lengths.short[1])+') translate(-'+photo.center+' -'+photo.bottom+')';
+    const outline = '<path d="'+photo.path+'" transform="'+transform+'"';
+    const tint = photoColor(id,photo.style.color,base);
+    return start+'<defs><clipPath id="'+id+'-clip">'+outline+'/></clipPath>'+tint+charmShadow(id)+'</defs>'+space+
+      outline+' data-nail-shape="" fill="transparent"/><g clip-path="url(#'+id+'-clip)">'+
+      '<image href="'+photoSource+'" width="1536" height="1024" preserveAspectRatio="none" transform="'+transform+'"'+
+      (tint ? ' filter="url(#'+id+'-tint)"' : "")+'/>'+nailDecor(item,id,use)+'</g></g></svg>';
+  }
   const magnetic = Object.hasOwn(magneticFinishes,item.finish);
   const sheer = item.finish === "jelly" || item.finish === "glass";
   const matte = item.finish === "matte";
@@ -334,19 +404,17 @@ function nailSVG(item, finger = 2, use = "", position = "") {
   const reflection = matte || item.finish === "chrome" ? "" : surfaceReflection(id,item.finish === "velvet" ? .33 : .92);
   const underPattern = magnetic || item.finish === "chrome" ||
     ["silverTip","lace","porcelain","shellGrain"].includes(item.pattern);
-  return '<svg xmlns="http://www.w3.org/2000/svg" class="nail-art" viewBox="0 13 100 143" aria-hidden="true" '+position+'><defs>'+
+  return start+'<defs>'+
     '<clipPath id="'+id+'-clip"><path d="'+shape+'"/></clipPath>'+
     '<radialGradient id="'+id+'-base" cx=".36" cy=".33" r=".74" gradientTransform="rotate(8 .36 .33)"><stop stop-color="'+light+'"/><stop offset=".46" stop-color="'+inner+'"/><stop offset=".77" stop-color="'+base+'"/><stop offset="1" stop-color="'+shade+'"/></radialGradient>'+
     '<linearGradient id="'+id+'-rim" x1="0" x2=".84" y1="0" y2="1"><stop stop-color="#fff9ee" stop-opacity=".73"/><stop offset=".27" stop-color="#fff0df" stop-opacity=".15"/><stop offset=".65" stop-color="'+shade+'" stop-opacity=".34"/><stop offset=".86" stop-color="#fff0e3" stop-opacity=".43"/><stop offset="1" stop-color="'+shade+'" stop-opacity=".78"/></linearGradient>'+
     '<radialGradient id="'+id+'-jelly"><stop stop-color="#fff2e7" stop-opacity=".42"/><stop offset="1" stop-color="#fff2e7" stop-opacity="0"/></radialGradient>'+
     '<linearGradient id="'+id+'-pearl" x2="1" y2="1"><stop stop-color="#ffdee3" stop-opacity="0"/><stop offset=".27" stop-color="#fff0c1" stop-opacity=".47"/><stop offset=".48" stop-color="#e0f3f1" stop-opacity=".6"/><stop offset=".65" stop-color="#e0c6f0" stop-opacity=".43"/><stop offset="1" stop-color="#fbe0e8" stop-opacity="0"/></linearGradient>'+
-    '<filter id="'+id+'-charm" x="-50%" y="-50%" width="200%" height="200%"><feDropShadow dx=".6" dy="1.8" stdDeviation="1.1" flood-color="#442716" flood-opacity=".50"/></filter>'+
-    '</defs><g transform="translate(50 147) scale('+sx+' '+sy+') translate(-50 -147)" data-nail-space="">'+
+    charmShadow(id)+'</defs>'+space+
     '<path data-nail-shape="" d="'+shape+'" fill="url(#'+id+'-base)"/><g clip-path="url(#'+id+'-clip)">'+
     (underPattern ? material+pattern : pattern+material)+reflection+
     '<path d="'+shape+'" fill="none" stroke="url(#'+id+'-rim)" stroke-width="3.4" opacity="'+(matte?".52":".88")+'"/>'+
-    item.decor.map(({kind,x,y,size},i) => '<g '+(use === "editor" ? 'data-charm-index="'+i+'"' : "")+' transform="translate('+x+' '+y+') scale('+size/30+')" filter="url(#'+id+'-charm)">'+
-      (use === "editor" ? '<circle r="16" fill="transparent"/>' : "") + charmMarkup(kind,id+"c"+i)+'</g>').join("")+
+    nailDecor(item,id,use)+
     '</g></g></svg>';
 }
 
@@ -361,10 +429,10 @@ const storage = {
   }
 };
 function makeDesign(preset) { return {name:preset.name, tint:preset.tint, nails:copy(preset.nails)}; }
-let design = storage.read("draft", makeDesign(trendPresets[0]));
+let design = storage.read("draft", makeDesign(referenceSet));
 let saved = storage.read("collection", []);
 let selected = 2;
-let tab = "color";
+let tab = design.nails.some(photoFor) ? "photo" : "color";
 let charmIndex = null;
 let lastRandom = -1;
 let activeRecipe;
@@ -479,7 +547,14 @@ function renderEditor() {
     button.tabIndex = button.dataset.tab === tab ? 0 : -1;
   });
   editor.setAttribute("aria-labelledby", "tab-"+tab);
-  if (tab === "shape") {
+  if (tab === "photo") {
+    const activePhoto = photoFor(item);
+    const tips = referenceSet.nails.map((sample,index) =>
+      option("photo",index,referenceTips[index].label,activePhoto === referenceTips[index],nailSVG(sample)));
+    editor.innerHTML = panelGroup("奶油玫瑰蕾丝", activePhoto?.label ?? "任选一片",
+      '<div class="photo-options">'+tips.join("")+'</div>'+
+      '<p class="small-note">先选一指，再换同款甲片。可以换底色、长度和加饰品。修改甲型、封层或花纹会切换到自由设计。</p>');
+  } else if (tab === "shape") {
     editor.innerHTML = panelGroup("选择甲型", shapes[item.shape][0], optionGrid(Object.entries(shapes).map(([key,[label]]) =>
       option("shape",key,label,key===item.shape,nailSVG(nail("#d9a3ba","gloss","none","#fff0dc",[],key))))))+
       panelGroup("甲片长度", lengths[item.length][0]+"款", optionGrid(Object.entries(lengths).map(([key,[label]]) => option("length",key,label+"款",key===item.length))))+
@@ -570,7 +645,8 @@ function recipeLine(item) {
     const scale = size < 18 ? "小" : size > 30 ? "大" : "中";
     return charms[kind]+"（"+height+side+"，"+scale+"）";
   }).join("、");
-  return shapes[item.shape][0]+lengths[item.length][0]+"款，"+base+"，"+finishes[item.finish]+art+(decor ? "；饰品 "+decor : "");
+  const sample = photoFor(item);
+  return (sample ? sample.label+"，" : "")+shapes[item.shape][0]+lengths[item.length][0]+"款，"+base+"，"+finishes[item.finish]+art+(decor ? "；饰品 "+decor : "");
 }
 function openRecipe(work, trendIndex) {
   activeRecipe = work;
@@ -602,14 +678,28 @@ async function copyRecipe() {
   }
 }
 
+async function embedReferenceImage() {
+  const response = await fetch(referenceImage);
+  if (!response.ok) throw new Error("reference image");
+  const blob = await response.blob();
+  return new Promise((resolve,reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = () => reject(reader.error);
+    reader.readAsDataURL(blob);
+  });
+}
+
 async function exportPNG(work = design) {
   const captured = copy(work);
   const width = 1200, height = 740;
-  const art = captured.nails.map((item,i) => nailSVG(item,i,"",'x="'+(98+i*210)+'" y="151" width="168" height="311"')).join("");
-  const background = mix(captured.tint,"#ede3d4",.68);
-  const svg = '<svg xmlns="http://www.w3.org/2000/svg" width="'+width+'" height="'+height+'"><defs><filter id="card-shadow" x="-20%" y="-35%" width="140%" height="180%"><feDropShadow dx="6" dy="10" stdDeviation="7" flood-color="#513221" flood-opacity=".43"/></filter></defs><rect width="1200" height="740" fill="'+background+'"/><rect x="36" y="36" width="1128" height="668" rx="24" fill="#fffbf4" stroke="#fff"/><g filter="url(#card-shadow)">'+art+'</g></svg>';
-  const url = URL.createObjectURL(new Blob([svg],{type:"image/svg+xml;charset=utf-8"}));
+  let url;
   try {
+    const image = captured.nails.some(photoFor) ? await embedReferenceImage() : undefined;
+    const art = captured.nails.map((item,i) => nailSVG(item,i,"",'x="'+(98+i*210)+'" y="151" width="168" height="311"',image)).join("");
+    const background = mix(captured.tint,"#ede3d4",.68);
+    const svg = '<svg xmlns="http://www.w3.org/2000/svg" width="'+width+'" height="'+height+'"><defs><filter id="card-shadow" x="-20%" y="-35%" width="140%" height="180%"><feDropShadow dx="6" dy="10" stdDeviation="7" flood-color="#513221" flood-opacity=".43"/></filter></defs><rect width="1200" height="740" fill="'+background+'"/><rect x="36" y="36" width="1128" height="668" rx="24" fill="#fffbf4" stroke="#fff"/><g filter="url(#card-shadow)">'+art+'</g></svg>';
+    url = URL.createObjectURL(new Blob([svg],{type:"image/svg+xml;charset=utf-8"}));
     const artImage = new Image();
     artImage.src = url;
     await artImage.decode();
@@ -648,7 +738,7 @@ async function exportPNG(work = design) {
   } catch {
     announce("暂时无法导出图片，请重试");
   } finally {
-    URL.revokeObjectURL(url);
+    if (url) URL.revokeObjectURL(url);
   }
 }
 
@@ -700,6 +790,13 @@ function setOption(button) {
   const {key,value} = button.dataset;
   if (key === "charm") {
     addCharm(value);
+    return;
+  }
+  if (key === "photo") {
+    const sample = referenceSet.nails[Number(value)];
+    if (sample) commit(() => allTargets((item) => {
+      Object.assign(item,{...sample,decor:item.decor,length:item.length});
+    }));
     return;
   }
   commit(() => allTargets((item) => { item[key] = value; }));
@@ -789,8 +886,11 @@ function moveCharm(x,y) {
   const path = row.querySelector('[data-finger="'+selected+'"] [data-nail-shape]');
   x = clamp(x,23,77);
   y = clamp(y,38,135);
-  if (path?.isPointInFill) {
-    for (let attempts=0; attempts<10 && !path.isPointInFill(new DOMPoint(x,y)); attempts++) x = (x+50)/2;
+  const space = path?.parentNode.getCTM();
+  const local = path?.getCTM()?.inverse();
+  if (path?.isPointInFill && space && local) {
+    const toPath = local.multiply(space);
+    for (let attempts=0; attempts<10 && !path.isPointInFill(new DOMPoint(x,y).matrixTransform(toPath)); attempts++) x = (x+50)/2;
   }
   item.x = Math.round(x);
   item.y = Math.round(y);
@@ -832,6 +932,10 @@ row.addEventListener("keydown", (event) => {
 });
 
 $("#random").addEventListener("click", randomDesign);
+$("#apply-reference").addEventListener("click", () => {
+  tab = "photo";
+  applyTrend(0);
+});
 $("#undo").addEventListener("click", () => stepHistory(undoStack,redoStack));
 $("#redo").addEventListener("click", () => stepHistory(redoStack,undoStack));
 $("#blank").addEventListener("click", () => showDesign({name:"新设计",tint:"#f3d7e1",nails:Array.from({length:5},()=>nail("#f3c7b5","gloss","none","#fff0dc",[],"oval","medium"))}));
