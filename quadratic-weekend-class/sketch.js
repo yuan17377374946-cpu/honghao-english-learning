@@ -39,17 +39,34 @@ function sketchMarkup() {
   </section>`;
 }
 
-function mountSketch(panel, questionNumber) {
+function writingMarkup() {
+  return `<section class="panel sketch writing-paper" aria-labelledby="writing-title">
+    <div class="sketch-head">
+      <h3 id="writing-title">手写草稿纸</h3>
+      <div class="sketch-controls">
+        <button type="button" data-sketch="undo">撤销一笔</button>
+        <button type="button" data-sketch="clear">清空手写</button>
+      </div>
+    </div>
+    <p class="tiny">按住鼠标左键写字或算式，草稿按题保存在当前浏览器。</p>
+    <svg viewBox="0 0 800 450" aria-label="空白手写区">
+      <g class="sketch-ink" fill="none" stroke="#182f3c" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"></g>
+    </svg>
+  </section>`;
+}
+
+function mountSketch(panel, questionNumber, kind = 'sketch') {
   const svg = panel.querySelector('svg');
   const ink = svg.querySelector('.sketch-ink');
   const undo = panel.querySelector('[data-sketch="undo"]');
   const clear = panel.querySelector('[data-sketch="clear"]');
-  const key = `quadratic-weekend-sketch:${questionNumber}`;
+  const key = `quadratic-weekend-${kind}:${questionNumber}`;
+  const { width, height } = svg.viewBox.baseVal;
   let activePointer = null;
   let activePath = null;
   let lastPoint = '';
 
-  if (!sketches.has(questionNumber)) {
+  if (!sketches.has(key)) {
     let paths = [];
     try {
       const saved = JSON.parse(localStorage.getItem(key));
@@ -57,9 +74,9 @@ function mountSketch(panel, questionNumber) {
     } catch {
       // Drawing still works when the browser disables storage.
     }
-    sketches.set(questionNumber, paths);
+    sketches.set(key, paths);
   }
-  const paths = sketches.get(questionNumber);
+  const paths = sketches.get(key);
 
   function addPath(data) {
     const element = document.createElementNS(svgNamespace, 'path');
@@ -87,8 +104,8 @@ function mountSketch(panel, questionNumber) {
     coordinate.x = event.clientX;
     coordinate.y = event.clientY;
     const local = coordinate.matrixTransform(svg.getScreenCTM().inverse());
-    const x = Math.max(0, Math.min(480, Math.round(local.x)));
-    const y = Math.max(0, Math.min(264, Math.round(local.y)));
+    const x = Math.max(0, Math.min(width, Math.round(local.x)));
+    const y = Math.max(0, Math.min(height, Math.round(local.y)));
     return `${x} ${y}`;
   }
 

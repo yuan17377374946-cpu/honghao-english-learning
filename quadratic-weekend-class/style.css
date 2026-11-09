@@ -99,3 +99,5 @@ footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .3
 .sketch-controls button { font-size: .78rem; }
 .sketch svg { display: block; width: 100%; height: auto; margin-top: .45rem; border: 1px solid var(--line); border-radius: 8px; background: #fff; cursor: crosshair; touch-action: none; user-select: none; }
 .sketch .tiny { margin: .3rem 0 0; }
+.solution-column { display: grid; min-width: 0; gap: .85rem; }
+.writing-paper.sketch { margin-top: 0; }

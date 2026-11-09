@@ -46,18 +46,22 @@ function renderQuestion() {
         ${sketchMarkup()}
         ${boardGraph(question)}
       </section>
-      <section class="panel" aria-labelledby="solution-title">
-        <h3 id="solution-title">分步板书</h3>
-        <div class="part-tabs" role="group" aria-label="选择小问">
-          ${item.parts.map((part,i)=>`<button type="button" data-part="${i}" aria-current="${i===partIndex}">${part[0]}${part[5]?' · 选做':''}</button>`).join('')}
-        </div>
-        <div id="part-body"></div>
-      </section>
+      <div class="solution-column">
+        <section class="panel" aria-labelledby="solution-title">
+          <h3 id="solution-title">分步板书</h3>
+          <div class="part-tabs" role="group" aria-label="选择小问">
+            ${item.parts.map((part,i)=>`<button type="button" data-part="${i}" aria-current="${i===partIndex}">${part[0]}${part[5]?' · 选做':''}</button>`).join('')}
+          </div>
+          <div id="part-body"></div>
+        </section>
+        ${writingMarkup()}
+      </div>
     </div>`;
   for(const button of nav.querySelectorAll('[data-question]')) {
     button.setAttribute('aria-current',String(Number(button.dataset.question)===question));
   }
   mountSketch(board.querySelector('.sketch'), question);
+  mountSketch(board.querySelector('.writing-paper'), question, 'writing');
   renderPart();
 }
 
