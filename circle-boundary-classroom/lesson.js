@@ -396,9 +396,6 @@ board.addEventListener('click', (event) => {
   wrapper.append(zoom.closest('figure').querySelector('svg').cloneNode(true));
   openDialog('放大图形', wrapper);
 });
-document.querySelector('#topics').innerHTML = topics.map(([title, note], i) => `
-  <details><summary>${String(i + 1).padStart(2, '0')} · ${title}</summary><p>${note}</p>
-  </details>`).join('');
 lightbox.addEventListener('close', () => { dialogContent.replaceChildren(); });
 
 renderStep(0);

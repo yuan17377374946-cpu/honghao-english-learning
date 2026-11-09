@@ -5,8 +5,11 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="description" content="六年级圆的周长与面积互动课件，描边、涂色、对比半圆与组合图形。">
   <title>圆的周长与面积｜六年级互动课堂</title>
-  <link rel="stylesheet" href="./style.css">
-  <script src="./lesson.js" defer></script>
+  <link rel="stylesheet" href="./style.css?v=bank1">
+  <script src="./lesson.js?v=bank1" defer></script>
+  <script src="./question-data.js" defer></script>
+  <script src="./question-diagrams.js" defer></script>
+  <script src="./question-bank.js" defer></script>
 </head>
 <body>
 <header class="bar">
@@ -16,7 +19,7 @@
       <span>六年级数学 · 图形课堂</span>
     </div>
     <div class="top-actions">
-      <button id="topics-button" type="button">15 类拓展</button>
+      <button id="topics-button" type="button">52 题题库</button>
       <button id="project" type="button" aria-pressed="false">投屏模式</button>
     </div>
   </div>
@@ -59,11 +62,11 @@
   </section>
   <section class="extension shell" id="extension" aria-labelledby="extension-heading">
     <header class="extension-header">
-      <div><span class="kicker">课后复习 · 课堂有余时选讲</span><h2 id="extension-heading">15 类圆的题型</h2></div>
-      <p>展开题型，先想第一步怎么做。</p>
+      <div><span class="kicker">逐题讲解 · π 取 3.14</span><h2 id="extension-heading">15 类题型 · 52 题</h2></div>
+      <p>按题型选题，也可以按顺序一题一题讲。</p>
     </header>
-    <div class="topic-grid" id="topics"></div>
-    <p class="source-note">题型参考「钱万三」的圆专题讲义。</p>
+    <div class="bank-layout" id="topics"><nav class="bank-topics" id="bank-topics" aria-label="15 类题型"></nav><div id="bank-panel"></div></div>
+    <p class="source-note">题型参考「钱万三」的圆专题讲义。题图按题意重绘。</p>
   </section>
 </main>
 <dialog id="lightbox" aria-labelledby="dialog-title">
