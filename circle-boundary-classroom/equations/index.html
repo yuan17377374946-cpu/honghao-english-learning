@@ -6,8 +6,9 @@
 <meta name="description" content="从半圆题学会找等量关系、列方程，逐步复习带小数的简易方程。">
 <title>怎么列方程、解方程｜六年级数学课堂</title>
 <link rel="stylesheet" href="../style.css">
-<link rel="stylesheet" href="./review.css">
+<link rel="stylesheet" href="./review.css?v=principles1">
 <script src="./review.js" defer></script>
+<script src="./principles.js" defer></script>
 </head>
 <body class="equations">
 <header class="bar">
@@ -102,6 +103,34 @@
     <div class="kicker">03 · 再求出 x</div>
     <h2>怎么解方程</h2>
     <p class="lead">看清 x 在哪里。两边做同样的运算，简化到 x 单独留下，最后代回原式验算。</p>
+    <div class="eq-principles" id="principles">
+      <h3>为什么这样解？先看图</h3>
+      <div class="controls eq-viz-tabs" role="group" aria-label="解方程的两种方法">
+        <button type="button" class="choice" data-method="balance" aria-pressed="true">方法一 · 看天平</button>
+        <button type="button" class="choice" data-method="parts" aria-pressed="false">方法二 · 看各部分关系</button>
+      </div>
+      <section class="eq-viz-panel" id="method-balance" aria-label="天平演示">
+        <p>等号就像一架平衡的天平。选一种运算，看看砝码怎么变。</p>
+        <div class="controls eq-viz-tabs" id="balance-picker" role="group" aria-label="选择天平运算"></div>
+        <div id="balance-stage"></div>
+      </section>
+      <section class="eq-viz-panel" id="method-parts" aria-label="四则运算各部分关系" hidden>
+        <p>先指一指 x 在图里是哪一块，再用已知的量求它。</p>
+        <div class="controls eq-viz-tabs" id="parts-picker" role="group" aria-label="选择运算关系"></div>
+        <div id="parts-stage"></div>
+      </section>
+      <details class="reveal eq-merge">
+        <summary>看条形图 · 为什么 1.57x + x = 2.57x？</summary>
+        <figure class="eq-strips">
+          <div class="eq-strip-caption">先把 1.57x 拆成 1 个 x 和 0.57 个 x。</div>
+          <div class="eq-strip-row"><span>1.57x</span><div class="eq-strip-track"><i>1 个 x</i><i class="eq-strip-part">0.57 个 x</i></div></div>
+          <div class="eq-strip-row"><span>＋ x</span><div class="eq-strip-track"><i>1 个 x</i></div></div>
+          <div class="eq-strip-row eq-strip-result"><span>＝ 2.57x</span><div class="eq-strip-track"><i>1 个 x</i><i>1 个 x</i><i class="eq-strip-part">0.57 个 x</i></div></div>
+          <figcaption>两个整条加一个 0.57 条，共 2.57 条。每个整条都代表同一个 x。</figcaption>
+        </figure>
+      </details>
+    </div>
+    <h3 class="eq-example-label">照着图，再看每一道例题</h3>
     <div class="lesson-tabs" id="example-picker" role="group" aria-label="切换方程例题"></div>
     <div class="eq-demo" id="example-board"></div>
   </section>
