@@ -70,6 +70,7 @@ function renderPart() {
   document.querySelector('#part-body').innerHTML = `
     <h4 class="part-title" id="part-title" tabindex="-1">${title} <span>${optional?'选做':'必做'}</span></h4>
     <p class="part-prompt">${prompt}</p>
+    ${question===5 && partIndex===3 ? shiftedGraphDetails() : ''}
     <div class="stage-actions">
       <button type="button" data-action="hint" aria-expanded="false" aria-controls="hint">显示提示</button>
       <button type="button" class="primary" data-action="step">展开第 1 步</button>
@@ -153,6 +154,16 @@ board.addEventListener('input',event=>{
   const count=t< -2||t>2.5?0:t===-2||t> -1.5?1:2;
   graph.querySelector('#intersection-label').textContent=`t = ${String(t).replace('-', '−')}，${count} 个交点`;
   graph.querySelector('.graph-view').innerHTML=graphMarkup(boardGraphs[5],t);
+});
+
+board.addEventListener('change',event=>{
+  if(event.target.id!=='shift-example') return;
+  const graph=event.target.closest('.graph');
+  const m=Number(event.target.value);
+  const intersections=shiftedIntersections(m);
+  const note=m===tangentShift?'（相切）':m===4?'（交于 A）':m===-2?'（交于 A、B）':'';
+  graph.querySelector('.graph-view').innerHTML=graphMarkup(shiftedGraph(m,intersections));
+  graph.querySelector('output').textContent=`与线段 AB 有 ${intersections.length} 个交点${note}`;
 });
 
 document.addEventListener('keydown',event=>{

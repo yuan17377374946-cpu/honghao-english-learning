@@ -185,12 +185,13 @@ function graphMarkup(config, level = -1.5) {
       ${regions}${guides}${segments}${curves}${levelLine}
     </svg>
     ${config.dots.map(([x,y,label,dx=7,dy=-7])=>`<circle cx="${X(x)}" cy="${Y(y)}" r="4.2" fill="${green}"/>${label?`<text x="${X(x)+dx}" y="${Y(y)+dy}" fill="#163b46" font-size="15">${label.replaceAll('<','&lt;')}</text>`:''}`).join('')}
-    ${intersections.map(x=>`<circle cx="${X(x)}" cy="${Y(level)}" r="6.5" fill="${amber}" stroke="#fff" stroke-width="1.5"/>`).join('')}
+    ${(config.markers??intersections.map(x=>[x,level])).map(([x,y])=>`<circle cx="${X(x)}" cy="${Y(y)}" r="6.5" fill="${amber}" stroke="#fff" stroke-width="1.5"/>`).join('')}
   </svg>`;
 }
 
-function diagramDetails(config) {
+function diagramDetails(config, controls = '') {
   return `<details class="graph"><summary>展开板书图 · ${config.label}</summary><div class="graph-view">${graphMarkup(config)}</div>
+    ${controls}
     ${config.caption?`<p class="tiny">${config.caption}</p>`:''}
     ${config.interactive?`<label>水平线高度 t <input id="horizontal-level" type="range" min="-2.5" max="3" step=".25" value="-1.5"><output id="intersection-label" for="horizontal-level">t = −1.5，2 个交点</output></label><p class="tiny">实线为 −3 ≤ x ≤ 1 内的图象，只统计实线上的交点。</p>`:''}
   </details>`;
@@ -199,4 +200,45 @@ function diagramDetails(config) {
 function boardGraph(question) {
   const graphs = [supportingGraphs[question],boardGraphs[question]].filter(Boolean);
   return graphs.map(diagramDetails).join('');
+}
+
+const shiftedExamples = [
+  [-3, '−3'],
+  [-11/4, '−11/4（相切）'],
+  [-2.5, '−5/2'],
+  [-2, '−2（原位置）'],
+  [0, '0'],
+  [4, '4（交于 A）'],
+  [4.5, '9/2']
+];
+const tangentShift = -11/4;
+const segmentY = x=>1.5*x+1;
+
+function shiftedIntersections(m) {
+  const discriminant = 12*m+33;
+  if (discriminant<0) return [];
+  const offset = Math.sqrt(discriminant)/2;
+  return [...new Set([m+1.5-offset,m+1.5+offset])].filter(x=>x>=-2 && x<=1);
+}
+
+function shiftedGraph(m, intersections) {
+  return {
+    label:'第（4）问 · 平移抛物线与线段 AB',
+    range:[-5.35,6.35,-3,7],
+    xTicks:[-5,-4,-3,-2,-1,1,2,3,4,5,6], yTicks:[-2,2,4,6],
+    curves:[
+      {from:-5.35,to:6.35,f:x=>.5*(x-m)**2-2,color:green},
+      {from:-2,to:1,f:segmentY,color:blue}
+    ],
+    dots:[[-2,-2,'B(−2, −2)',-82,20],[1,2.5,'A(1, 5/2)',10,-10]],
+    markers:intersections.map(x=>[x,segmentY(x)]),
+    caption:'蓝色是线段 AB，绿色是平移后的抛物线，橙色点是计入的交点。只数 −2 ≤ x ≤ 1 内的交点，A、B 两个端点也计入。'
+  };
+}
+
+function shiftedGraphDetails() {
+  const options = shiftedExamples.map(([value,label])=>`<option value="${value}" ${value===tangentShift?'selected':''}>${label}</option>`).join('');
+  return diagramDetails(shiftedGraph(tangentShift,shiftedIntersections(tangentShift)),`
+    <label for="shift-example">选择顶点横坐标 m <select id="shift-example">${options}</select></label>
+    <p><output for="shift-example" aria-live="polite">与线段 AB 有 1 个交点（相切）</output></p>`);
 }
