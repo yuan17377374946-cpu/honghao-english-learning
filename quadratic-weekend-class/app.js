@@ -66,7 +66,7 @@ function renderQuestion() {
 }
 
 function renderPart() {
-  const [title,prompt,hint,steps,answer,optional] = lesson[question-1].parts[partIndex];
+  const [title,prompt,hint,steps,answer,optional,discriminant] = lesson[question-1].parts[partIndex];
   const partDiagram = question===5 && partIndex===3 ? shiftedGraphDetails()
     : question===8 && partIndex===2 ? vertexDistanceDetails() : '';
   document.querySelector('#part-body').innerHTML = `
@@ -79,8 +79,11 @@ function renderPart() {
       <button type="button" data-action="reset" disabled>收起解析</button>
     </div>
     <p id="hint" class="hint" hidden>${hint}</p>
-    <ol class="steps" aria-label="推导步骤">${steps.map(step=>`<li hidden>${step}</li>`).join('')}</ol>
-    <p class="answer" hidden><strong>结论</strong>　${answer}</p>`;
+    <ol id="solution-steps" class="steps" aria-label="推导步骤">${steps.map(step=>`<li hidden>${step}</li>`).join('')}</ol>
+    <p class="answer" hidden><strong>结论</strong>　${answer}</p>
+    ${discriminant ? `<details><summary>展开判别式推导</summary>
+      <ol class="steps">${discriminant.map(step=>`<li>${step}</li>`).join('')}</ol>
+    </details>` : ''}`;
 }
 
 function selectQuestion(next) {
@@ -95,7 +98,7 @@ function selectQuestion(next) {
 }
 
 function updateSteps() {
-  const rows=[...board.querySelectorAll('.steps li')];
+  const rows=[...board.querySelectorAll('#solution-steps li')];
   for(const [index,row] of rows.entries()){
     row.hidden=index>=revealed;
     row.classList.toggle('latest',index===revealed-1);
@@ -145,7 +148,7 @@ board.addEventListener('click',event=>{
   } else if(button.dataset.action==='step') {
     revealed+=1;
     updateSteps();
-    board.querySelector('.steps .latest').scrollIntoView({block:'nearest'});
+    board.querySelector('#solution-steps .latest').scrollIntoView({block:'nearest'});
   } else if(button.dataset.action==='reset') {
     revealed=0;
     updateSteps();
