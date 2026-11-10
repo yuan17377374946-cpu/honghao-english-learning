@@ -54,6 +54,8 @@ button:disabled { opacity: .48; cursor: default; }
 .rule { padding: .45rem .65rem; color: #70401b; background: #fff4e4; border-left: 3px solid #d99351; border-radius: 5px; }
 details { margin-top: .85rem; border-top: 1px solid var(--line); padding-top: .68rem; }
 summary { font-weight: 750; color: var(--active); cursor: pointer; }
+.formula-board { margin: 0 0 .9rem; }
+.formula-board math[display="block"] { margin: .6rem 0; overflow-x: auto; }
 .original { display: block; width: 100%; margin: .56rem 0 0; padding: 0; overflow: hidden; }
 .original img { display: block; width: 100%; height: auto; background: #fff; }
 .tiny { color: var(--muted); font-size: .78rem; }

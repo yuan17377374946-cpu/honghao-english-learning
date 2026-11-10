@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="二次函数周末作业课堂讲题页，12 道题的原题图、分步解析与板书图。">
   <title>二次函数周末作业 · 线上讲题</title>
-  <link rel="stylesheet" href="style.css?v=shift-slider-1">
+  <link rel="stylesheet" href="style.css?v=formula-board-1">
   <script defer src="lesson.js?v=delta-steps-1"></script>
   <script defer src="graphs.js?v=q8-vertex-diagrams-1"></script>
   <script defer src="sketch.js?v=coordinate-zoom-1"></script>
@@ -28,6 +28,75 @@
       <div><p class="kicker">深圳真题与模拟 · 课堂讲评</p><h1 id="course-title">二次函数周末作业</h1><p>先看条件和小问，讲到哪一步，再点开哪一步。</p></div>
       <div class="intro-count"><strong>12</strong><span>道原作业题</span></div>
     </section>
+    <details id="quadratic-formula" class="panel formula-board">
+      <summary>公式板书 · 一元二次方程的求根公式与判别式</summary>
+      <p>用配方法把左边凑成一个平方。下面每一步都可以单独展开。</p>
+      <details>
+        <summary>第 1 步 · 两边除以 a，再移项</summary>
+        <p>从一元二次方程开始。因为 a ≠ 0，等号两边可以同除以 a。</p>
+        <math display="block">
+          <mi>a</mi><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mi>b</mi><mi>x</mi><mo>+</mo><mi>c</mi><mo>=</mo><mn>0</mn>
+        </math>
+        <math display="block">
+          <msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mfrac><mi>b</mi><mi>a</mi></mfrac><mi>x</mi><mo>+</mo><mfrac><mi>c</mi><mi>a</mi></mfrac><mo>=</mo><mn>0</mn>
+        </math>
+        <p>等号两边同减 c/a，把含 x 的项留在左边。</p>
+        <math display="block">
+          <msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mfrac><mi>b</mi><mi>a</mi></mfrac><mi>x</mi><mo>=</mo><mo>−</mo><mfrac><mi>c</mi><mi>a</mi></mfrac>
+        </math>
+      </details>
+      <details>
+        <summary>第 2 步 · 为什么补「一次项系数一半的平方」</summary>
+        <p>先看完全平方公式。括号里加 p，展开后 x 的系数就是 2p。</p>
+        <math display="block">
+          <msup><mrow><mo>(</mo><mi>x</mi><mo>+</mo><mi>p</mi><mo>)</mo></mrow><mn>2</mn></msup>
+          <mo>=</mo><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mn>2</mn><mi>p</mi><mi>x</mi><mo>+</mo><msup><mi>p</mi><mn>2</mn></msup>
+        </math>
+        <p>现在 x 的系数是 b/a。让 2p = b/a，就得到 p = b/(2a)。因此两边都加上 p²，左边就能合成一个平方。</p>
+        <math display="block">
+          <msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mfrac><mi>b</mi><mi>a</mi></mfrac><mi>x</mi>
+          <mo>+</mo><mfrac><msup><mi>b</mi><mn>2</mn></msup><mrow><mn>4</mn><msup><mi>a</mi><mn>2</mn></msup></mrow></mfrac>
+          <mo>=</mo><mo>−</mo><mfrac><mi>c</mi><mi>a</mi></mfrac>
+          <mo>+</mo><mfrac><msup><mi>b</mi><mn>2</mn></msup><mrow><mn>4</mn><msup><mi>a</mi><mn>2</mn></msup></mrow></mfrac>
+        </math>
+      </details>
+      <details>
+        <summary>第 3 步 · 左边合成平方，右边通分</summary>
+        <p>把 −c/a 的分子和分母同乘 4a，得到 −4ac/(4a²)。右边分母相同，就可以把分子相加。</p>
+        <math display="block">
+          <msup><mrow><mo>(</mo><mi>x</mi><mo>+</mo><mfrac><mi>b</mi><mrow><mn>2</mn><mi>a</mi></mrow></mfrac><mo>)</mo></mrow><mn>2</mn></msup>
+          <mo>=</mo><mfrac><mrow><mo>−</mo><mn>4</mn><mi>a</mi><mi>c</mi><mo>+</mo><msup><mi>b</mi><mn>2</mn></msup></mrow><mrow><mn>4</mn><msup><mi>a</mi><mn>2</mn></msup></mrow></mfrac>
+          <mo>=</mo><mfrac><mrow><msup><mi>b</mi><mn>2</mn></msup><mo>−</mo><mn>4</mn><mi>a</mi><mi>c</mi></mrow><mrow><mn>4</mn><msup><mi>a</mi><mn>2</mn></msup></mrow></mfrac>
+        </math>
+      </details>
+      <details>
+        <summary>第 4 步 · 用判别式判断实数根的个数</summary>
+        <p>把右边的分子记作 <strong>Δ = b² − 4ac</strong>。分母 4a² 一定大于 0，所以右边是正、零还是负，只看 Δ。</p>
+        <ul class="steps">
+          <li><strong>Δ &gt; 0</strong>。平方等于正数，开方有正、负两个结果，因此有两个不同的实数根。</li>
+          <li><strong>Δ = 0</strong>。平方等于 0，括号里只能是 0。求根公式中的两个结果相等，只有一个不同的根值。</li>
+          <li><strong>Δ &lt; 0</strong>。实数的平方不会是负数，因此没有实数根。</li>
+        </ul>
+      </details>
+      <details>
+        <summary>第 5 步 · 开平方，得到求根公式</summary>
+        <p>当 Δ ≥ 0 时，两边开平方。因为 √(4a²) = 2|a|，所以先写成下面这个式子。</p>
+        <math display="block">
+          <mi>x</mi><mo>+</mo><mfrac><mi>b</mi><mrow><mn>2</mn><mi>a</mi></mrow></mfrac>
+          <mo>=</mo><mo>±</mo><mfrac><msqrt><mi>Δ</mi></msqrt><mrow><mn>2</mn><mo>|</mo><mi>a</mi><mo>|</mo></mrow></mfrac>
+        </math>
+        <p>右边已经同时取了正、负两种结果。若 a &lt; 0，把分母 2|a| 改写成 2a，只会交换这两个结果。因此可写成 ±√Δ/(2a)。</p>
+        <p>两边同减 b/(2a)，右边合并成一个分式，就得到求根公式。</p>
+        <math display="block">
+          <mi>x</mi><mo>=</mo><mo>−</mo><mfrac><mi>b</mi><mrow><mn>2</mn><mi>a</mi></mrow></mfrac>
+          <mo>±</mo><mfrac><msqrt><mi>Δ</mi></msqrt><mrow><mn>2</mn><mi>a</mi></mrow></mfrac>
+          <mo>=</mo><mfrac><mrow><mo>−</mo><mi>b</mi><mo>±</mo><msqrt><mi>Δ</mi></msqrt></mrow><mrow><mn>2</mn><mi>a</mi></mrow></mfrac>
+        </math>
+        <math display="block">
+          <mi>x</mi><mo>=</mo><mfrac><mrow><mo>−</mo><mi>b</mi><mo>±</mo><msqrt><mrow><msup><mi>b</mi><mn>2</mn></msup><mo>−</mo><mn>4</mn><mi>a</mi><mi>c</mi></mrow></msqrt></mrow><mrow><mn>2</mn><mi>a</mi></mrow></mfrac>
+        </math>
+      </details>
+    </details>
     <nav id="question-nav" class="question-nav" aria-label="题目目录"></nav>
     <section id="board" aria-labelledby="question-title"></section>
     <noscript><p>请开启浏览器的 JavaScript，以切换题目并展开解析。</p></noscript>
