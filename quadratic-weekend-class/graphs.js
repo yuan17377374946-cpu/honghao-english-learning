@@ -174,6 +174,7 @@ function graphMarkup(config, level = -1.5) {
   const regions=(config.regions??[]).map(points=>`<polygon points="${poly(points)}" fill="#cfe8dd" fill-opacity=".72" stroke="#558978" stroke-width="1.6"/>`).join('');
   const segments=(config.segments??[]).map(points=>`<polyline points="${poly(points)}" stroke="#456974" stroke-width="2" fill="none"/>`).join('');
   const guides=(config.guides??[]).map(points=>`<polyline points="${poly(points)}" stroke="#73928e" stroke-width="1.5" fill="none" stroke-dasharray="5 5"/>`).join('');
+  const annotations=(config.annotations??[]).map(([x,y,label,dx,dy,anchor])=>`<text x="${X(x)+dx}" y="${Y(y)+dy}" text-anchor="${anchor}" fill="#163b46" font-size="15">${label}</text>`).join('');
   const levelLine=config.interactive?`<path d="M52 ${Y(level)}H556" stroke="${amber}" stroke-width="2.5" stroke-dasharray="6 4"/>`:'';
   const intersections=config.interactive&&level>=-2?[...new Set([-2-Math.sqrt(2*(level+2)),-2+Math.sqrt(2*(level+2))])].filter(x=>x>=-3-1e-8&&x<=1+1e-8):[];
   return `<svg viewBox="0 0 610 284" role="img" aria-label="${config.label}">
@@ -185,6 +186,7 @@ function graphMarkup(config, level = -1.5) {
       ${regions}${guides}${segments}${curves}${levelLine}
     </svg>
     ${config.dots.map(([x,y,label,dx=7,dy=-7])=>`<circle cx="${X(x)}" cy="${Y(y)}" r="4.2" fill="${green}"/>${label?`<text x="${X(x)+dx}" y="${Y(y)+dy}" fill="#163b46" font-size="15">${label.replaceAll('<','&lt;')}</text>`:''}`).join('')}
+    ${annotations}
     ${(config.markers??intersections.map(x=>[x,level])).map(([x,y])=>`<circle cx="${X(x)}" cy="${Y(y)}" r="6.5" fill="${amber}" stroke="#fff" stroke-width="1.5"/>`).join('')}
   </svg>`;
 }
@@ -200,6 +202,48 @@ function diagramDetails(config, controls = '') {
 function boardGraph(question) {
   const graphs = [supportingGraphs[question],boardGraphs[question]].filter(Boolean);
   return graphs.map(diagramDetails).join('');
+}
+
+
+function sharedChordGraph(a) {
+  const opensUp = a > 0;
+  const vertexY = -4*a;
+  return {
+    label: opensUp ? '情形一 · C₂ 开口向上' : '情形二 · C₂ 开口向下',
+    range: [-2.9, 2.9, -9.6, 4.6],
+    xTicks: [-2, -1, 1, 2],
+    yTicks: [-8, -4, -2, 2, 4],
+    curves: [
+      {from: -2.5, to: 2.5, f: x => 2*(x*x-4), color: green},
+      {from: -2.75, to: 2.75, f: x => a*(x*x-4), color: blue}
+    ],
+    segments: [[[-2,0],[2,0]]],
+    guides: [
+      [[0,-8],[1.58,-8],[1.58,0]],
+      [[0,vertexY],[-1.58,vertexY],[-1.58,0]]
+    ],
+    dots: [
+      [-2,0,'A',-18,-10], [2,0,'B',9,-10], [0,0,'M',9,18],
+      [0,-8,'P',9,19], [0,vertexY,'Q',9,opensUp ? 17 : -8]
+    ],
+    annotations: [
+      [1.58,-4,'PM = 8',8,5,'start'],
+      [-1.58,vertexY/2,'QM = 2',-8,opensUp ? 9 : -6,'end']
+    ]
+  };
+}
+
+function sharedChordDetails() {
+  const cases = [0.5, -0.5].map(a => {
+    const config = sharedChordGraph(a);
+    return `<div class="graph-view"><p><strong>${config.label}</strong></p>${graphMarkup(config)}</div>`;
+  }).join('');
+  return `<details class="graph">
+    <summary>展开板书图 · 第（3）问两种开口</summary>
+    <p class="tiny">绿色是 C₁，蓝色是 C₂。图中取 AB 的中点 M 为原点，AM = BM = 2。两条抛物线的共同对称轴都经过 M。</p>
+    ${cases}
+    <p class="tiny">P 到 AB 的距离是 8，Q 到 AB 的距离是 2。Q 在 AB 上方或下方，都满足距离之和为 10。</p>
+  </details>`;
 }
 
 const tangentShift = -11/4;
