@@ -242,3 +242,32 @@ function shiftedGraphDetails() {
     </div>
     <p><output id="shift-count" for="shift-m">与线段 AB 有 1 个交点（相切）</output></p>`);
 }
+
+function vertexDistanceDetails() {
+  const examples = [
+    {a:0.5,label:'情况一：两条抛物线都开口向上（a = 1/2）'},
+    {a:-0.5,label:'情况二：第二条抛物线开口向下（a = −1/2）'}
+  ];
+  const diagrams = examples.map(({a,label})=>{
+    const graph = {
+      label,
+      range:[-.45,6.6,-6.8,7.6],
+      xTicks:[1,2,3,4,5,6], yTicks:[-5,-2,1,3,5,7],
+      curves:[
+        {from:.4,to:5.6,f:x=>2*(x-3)**2-5,color:green},
+        {from:.4,to:5.6,f:x=>a*(x-3)**2+3-4*a,color:blue},
+        {from:1,to:5,f:()=>3,color:amber}
+      ],
+      guides:[[[3,-6.8],[3,7.6]]],
+      dots:[[1,3,'A',-17,-9],[3,3,'M',8,-9],[5,3,'B',9,-9],
+        [3,-5,'P · PM = 8',10,19],[3,3-4*a,'Q · QM = 2',10,-10]]
+    };
+    return `<p><strong>${label}</strong></p><div class="graph-view">${graphMarkup(graph)}</div>`;
+  }).join('');
+  return `<details class="graph">
+    <summary>展开板书图 · 第（3）问的两种开口情况</summary>
+    <p class="tiny">坐标位置取作示意。橙色线段 AB 长 4，M 是中点，AM = BM = 2。虚线是共同的对称轴，过顶点 P、Q 和中点 M。</p>
+    ${diagrams}
+    <p class="tiny">绿色抛物线的顶点 P 在 AB 下方 8 个单位。蓝色抛物线的顶点 Q 可以在 AB 下方或上方，距离都是 2，所以两种情况都满足 PM + QM = 10。</p>
+  </details>`;
+}

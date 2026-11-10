@@ -67,10 +67,12 @@ function renderQuestion() {
 
 function renderPart() {
   const [title,prompt,hint,steps,answer,optional] = lesson[question-1].parts[partIndex];
+  const partDiagram = question===5 && partIndex===3 ? shiftedGraphDetails()
+    : question===8 && partIndex===2 ? vertexDistanceDetails() : '';
   document.querySelector('#part-body').innerHTML = `
     <h4 class="part-title" id="part-title" tabindex="-1">${title} <span>${optional?'选做':'必做'}</span></h4>
     <p class="part-prompt">${prompt}</p>
-    ${question===5 && partIndex===3 ? shiftedGraphDetails() : ''}
+    ${partDiagram}
     <div class="stage-actions">
       <button type="button" data-action="hint" aria-expanded="false" aria-controls="hint">显示提示</button>
       <button type="button" class="primary" data-action="step">展开第 1 步</button>
