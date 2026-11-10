@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="从半圆题学会找等量关系、列方程，逐步复习带小数的简易方程。">
+<title>怎么列方程、解方程｜六年级数学课堂</title>
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="./review.css">
+<script src="./review.js" defer></script>
+</head>
+<body class="equations">
+<header class="bar">
+  <div class="shell">
+    <a class="eq-back" href="../">← 圆的周长与面积</a>
+    <span class="brand">六年级数学 · 课前复习</span>
+  </div>
+</header>
+<main class="shell eq-main">
+  <div class="eq-intro">
+    <div class="eyebrow">从昨天的半圆题接着讲</div>
+    <h1>怎么列方程、解方程</h1>
+    <p>先说清哪两个量相等，再把等号两边一步一步算下去。</p>
+  </div>
+  <nav class="eq-nav" aria-label="复习顺序">
+    <a href="#basics"><span>01</span> 看懂字母和等号</a>
+    <a href="#model"><span>02</span> 怎么列方程</a>
+    <a href="#solve"><span>03</span> 怎么解方程</a>
+    <a href="#practice"><span>04</span> 自己练</a>
+  </nav>
+
+  <section class="board eq-section" id="basics">
+    <div class="kicker">01 · 课前热身</div>
+    <h2>先看懂字母和等号</h2>
+    <div class="eq-three">
+      <div><h3>同一个字母代表同一个量</h3><p><var>x</var> 可以表示直径。<b>1.57x</b> 是 1.57 × x，单独的 <b>x</b> 就是 1 × x。加、减、除号要写出来。</p></div>
+      <div><h3>先看等号两边写了什么</h3><p>2 × 3 = 6 是等式。1.57x + x = 51.4 有等号，也有未知数，所以是方程。</p></div>
+      <div><h3>两边做同样的运算</h3><p>同时加、减或乘同一个数，两边仍相等。两边也能同时除以同一个数，除数不能是 0。</p></div>
+    </div>
+    <details class="reveal">
+      <summary>展开字母式和常用公式</summary>
+      <dl class="eq-reference">
+        <div><dt>2a 和 a²</dt><dd>2a = a + a，a² = a × a。比如 a = 3 时，一个等于 6，一个等于 9。</dd></div>
+        <div><dt>常用运算律</dt><dd>a + b = b + a，ab = ba。结合律可以重新分组，例如 (ab)c = a(bc)。乘法分配律 (a + b)x = ax + bx，反过来就能把 1.57x + x 写成 (1.57 + 1) × x。</dd></div>
+        <div><dt>长方形与正方形</dt><dd>长方形周长 2(a + b)，面积 ab。正方形周长 4a，面积 a²。</dd></div>
+        <div><dt>路程、速度和时间</dt><dd>路程 s = vt，速度 v = s ÷ t，时间 t = s ÷ v。先统一单位，再把数代入公式。</dd></div>
+      </dl>
+    </details>
+  </section>
+
+  <section class="board eq-section" id="model">
+    <div class="kicker">02 · 先列式</div>
+    <h2>怎么列方程</h2>
+    <p class="lead">一个半圆形礼饼的周长是 51.4 cm。这个礼饼的面积是多少？π 取 3.14。</p>
+    <div class="eq-model">
+      <figure class="eq-figure">
+        <svg viewBox="0 0 360 225" role="img" aria-labelledby="cake-title cake-desc">
+          <title id="cake-title">半圆完整周长由弧边和直径组成</title>
+          <desc id="cake-desc">上方蓝线是半圆弧，下方橙色直线是直径，设为 x 厘米。</desc>
+          <path d="M56 163 A124 124 0 0 1 304 163 Z" fill="#e7f2fc"/>
+          <path d="M56 163 A124 124 0 0 1 304 163" fill="none" stroke="#126cb7" stroke-width="5"/>
+          <path d="M56 163 H304" fill="none" stroke="#a95b15" stroke-width="5"/>
+          <circle cx="180" cy="163" r="4" fill="#164e40"/>
+          <text x="180" y="103" text-anchor="middle" fill="#075eaa" font-size="19" font-weight="700">弧长 = 3.14 × x ÷ 2</text>
+          <text x="180" y="196" text-anchor="middle" fill="#8a460b" font-size="19" font-weight="700">直径 = x</text>
+        </svg>
+        <figcaption>蓝色是弧边，橙色是直径，两段合起来围成一圈。</figcaption>
+      </figure>
+      <div class="eq-model-steps">
+        <details class="reveal" open>
+          <summary>第 1 步 · 设哪个量为 x</summary>
+          <p>要算面积，需要知道半径。题目给的是周长，先设半圆的<strong>直径为 x cm</strong>，求出直径后再除以 2 得到半径。</p>
+        </details>
+        <details class="reveal">
+          <summary>第 2 步 · 用一句话写等量关系</summary>
+          <p><strong>半圆弧长 ＋ 直径 ＝ 半圆的周长</strong></p>
+          <p>同样直径的整圆周长是 3.14 × x，半圆弧长就是 3.14 × x ÷ 2。</p>
+        </details>
+        <details class="reveal">
+          <summary>第 3 步 · 把数量换成数字和字母</summary>
+          <p>弧长写在左边第一项，直径写在左边第二项，题目给的总周长写在右边。</p>
+          <p class="eq-emphasis">3.14 × x ÷ 2 + x = 51.4</p>
+        </details>
+      </div>
+    </div>
+    <div class="eq-choice-area">
+      <h3>自己选一次等量关系</h3>
+      <div class="controls" id="model-choices" role="group" aria-label="半圆周长的等量关系">
+        <button class="choice" type="button" data-model="arc" aria-pressed="false">半圆弧长 = 周长</button>
+        <button class="choice" type="button" data-model="full" aria-pressed="false">半圆弧长 + 直径 = 周长</button>
+        <button class="choice" type="button" data-model="area" aria-pressed="false">半圆面积 = 周长</button>
+      </div>
+      <p class="feedback" id="model-feedback" role="status">沿图描一圈，再选。</p>
+    </div>
+    <div class="eq-patterns">
+      <h3>应用题还会用到哪些等量关系</h3>
+      <div class="eq-pattern-grid" id="patterns"></div>
+    </div>
+  </section>
+
+  <section class="board eq-section" id="solve">
+    <div class="kicker">03 · 再求出 x</div>
+    <h2>怎么解方程</h2>
+    <p class="lead">看清 x 在哪里。两边做同样的运算，简化到 x 单独留下，最后代回原式验算。</p>
+    <div class="lesson-tabs" id="example-picker" role="group" aria-label="切换方程例题"></div>
+    <div class="eq-demo" id="example-board"></div>
+  </section>
+
+  <section class="board eq-section" id="practice">
+    <div class="kicker">04 · 当堂练习</div>
+    <h2>自己练</h2>
+    <p class="lead">先在纸上写过程，再输入 x 的值检查。最后一题先写等量关系和方程。</p>
+    <div class="eq-practice-grid" id="practice-grid"></div>
+  </section>
+  <footer class="eq-footer"><a href="../">← 返回圆的周长与面积课堂</a></footer>
+</main>
+</body>
+</html>
