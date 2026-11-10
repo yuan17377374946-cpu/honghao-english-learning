@@ -126,6 +126,10 @@ board.addEventListener('click',event=>{
     }
     renderPart();
     document.querySelector('#part-title').focus({preventScroll:true});
+  } else if(button.dataset.shiftM!==undefined) {
+    const slider=button.closest('.graph').querySelector('#shift-m');
+    slider.value=button.dataset.shiftM;
+    slider.dispatchEvent(new Event('input',{bubbles:true}));
   } else if(button.dataset.zoom) {
     zoomImage.src=button.dataset.zoom;
     zoomImage.alt=button.getAttribute('aria-label');
@@ -156,14 +160,15 @@ board.addEventListener('input',event=>{
   graph.querySelector('.graph-view').innerHTML=graphMarkup(boardGraphs[5],t);
 });
 
-board.addEventListener('change',event=>{
-  if(event.target.id!=='shift-example') return;
+board.addEventListener('input',event=>{
+  if(event.target.id!=='shift-m') return;
   const graph=event.target.closest('.graph');
   const m=Number(event.target.value);
   const intersections=shiftedIntersections(m);
   const note=m===tangentShift?'（相切）':m===4?'（交于 A）':m===-2?'（交于 A、B）':'';
   graph.querySelector('.graph-view').innerHTML=graphMarkup(shiftedGraph(m,intersections));
-  graph.querySelector('output').textContent=`与线段 AB 有 ${intersections.length} 个交点${note}`;
+  graph.querySelector('#shift-value').textContent=`m = ${String(m).replace('-', '−')}`;
+  graph.querySelector('#shift-count').textContent=`与线段 AB 有 ${intersections.length} 个交点${note}`;
 });
 
 document.addEventListener('keydown',event=>{

@@ -202,15 +202,6 @@ function boardGraph(question) {
   return graphs.map(diagramDetails).join('');
 }
 
-const shiftedExamples = [
-  [-3, '−3'],
-  [-11/4, '−11/4（相切）'],
-  [-2.5, '−5/2'],
-  [-2, '−2（原位置）'],
-  [0, '0'],
-  [4, '4（交于 A）'],
-  [4.5, '9/2']
-];
 const tangentShift = -11/4;
 const segmentY = x=>1.5*x+1;
 
@@ -230,6 +221,7 @@ function shiftedGraph(m, intersections) {
       {from:-5.35,to:6.35,f:x=>.5*(x-m)**2-2,color:green},
       {from:-2,to:1,f:segmentY,color:blue}
     ],
+    guides:[[[m,-3],[m,7]]],
     dots:[[-2,-2,'B(−2, −2)',-82,20],[1,2.5,'A(1, 5/2)',10,-10]],
     markers:intersections.map(x=>[x,segmentY(x)]),
     caption:'蓝色是线段 AB，绿色是平移后的抛物线，橙色点是计入的交点。只数 −2 ≤ x ≤ 1 内的交点，A、B 两个端点也计入。'
@@ -237,8 +229,16 @@ function shiftedGraph(m, intersections) {
 }
 
 function shiftedGraphDetails() {
-  const options = shiftedExamples.map(([value,label])=>`<option value="${value}" ${value===tangentShift?'selected':''}>${label}</option>`).join('');
   return diagramDetails(shiftedGraph(tangentShift,shiftedIntersections(tangentShift)),`
-    <label for="shift-example">选择顶点横坐标 m <select id="shift-example">${options}</select></label>
-    <p><output for="shift-example" aria-live="polite">与线段 AB 有 1 个交点（相切）</output></p>`);
+    <label for="shift-m">拖动滑杆改变顶点横坐标 m</label>
+    <div class="stage-actions">
+      <input id="shift-m" type="range" min="-4" max="5" step="0.01" value="${tangentShift}">
+      <output id="shift-value" for="shift-m">m = −2.75</output>
+    </div>
+    <div class="stage-actions" role="group" aria-label="跳到关键位置">
+      <button type="button" data-shift-m="${tangentShift}">−11/4（相切）</button>
+      <button type="button" data-shift-m="-2">−2（原位置）</button>
+      <button type="button" data-shift-m="4">4（交于 A）</button>
+    </div>
+    <p><output id="shift-count" for="shift-m">与线段 AB 有 1 个交点（相切）</output></p>`);
 }

@@ -76,6 +76,7 @@ summary { font-weight: 750; color: var(--active); cursor: pointer; }
 .graph svg { display: block; width: 100%; max-height: 360px; border: 1px solid var(--line); border-radius: 9px; background: #fbfdfd; margin-top: .6rem; }
 .graph label { display: flex; gap: .65rem; flex-wrap: wrap; align-items: center; margin-top: .6rem; }
 .graph input { width: min(230px, 70%); accent-color: var(--active); }
+#shift-m { width: min(420px, 100%); }
 .graph output { font-weight: 750; font-variant-numeric: tabular-nums; }
 footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .3rem; padding-block: 1rem 1.45rem; color: var(--muted); font-size: .8rem; }
 @media (max-width: 800px) {
