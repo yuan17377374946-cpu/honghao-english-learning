@@ -20,9 +20,6 @@
   const innerSquare = square(126,84,109);
   const outsideSquare = square(127,30,166);
   const centerDiamond = "M210 30L293 113L210 196L127 113Z";
-  const leaf = "M130 195A160 160 0 0 1 290 35A160 160 0 0 1 130 195Z";
-  const leafA = pie(130,195,160,270,360);
-  const leafB = pie(290,35,160,90,180);
   const blue = "blue";
   const dogHead = '<g transform="translate(-3 -7)"><ellipse class="bank-dog" cx="-4" cy="3" rx="8" ry="5"/><path class="bank-dog" d="M0 0Q0-6 6-6Q9-6 10-2L14-1V2L5 4Z"/><path class="bank-dog-leg" d="M-11 3Q-16 2-16-2M-8 7l1 4h3M0 7l2 4h3M3-4l-1 5"/><circle cx="8" cy="-3" r="1" fill="#583a26"/></g>';
   const dogSector = pie(216,120,86,-90,180);
@@ -187,6 +184,46 @@
       board("只涂新圆外面的一圈。那就是减少的面积。",2,fill(disk(210,113,84)+disk(210,113,63))+tag(210,115,"减少 7/16"))];
   }
 
+  function grazingOverlap() {
+    const radius=124, left=148, top=56;
+    const right=left+radius, bottom=top+radius;
+    const grass=square(left,top,radius);
+    const sectorA=pie(left,bottom,radius,270,360);
+    const sectorB=pie(right,top,radius,90,180);
+    const shared=`M${left} ${top}A${radius} ${radius} 0 0 1 ${right} ${bottom}A${radius} ${radius} 0 0 1 ${left} ${top}Z`;
+    const board=ink(grass,"green")+tag(left-12,bottom+12,"A")+tag(right+12,top-7,"B");
+    const side=134, duration=1.8;
+    const piece=(path,tone,label,x,y,offset=0,slide=false)=>{
+      const stroke=tone==="blue"?"#156798":"#207557";
+      return `<g transform="translate(${offset} 0)">
+        <path d="${path}" class="bank-paint ${tone}" stroke="${stroke}" stroke-width="1.6"/>
+        ${tag(x,y,label)}
+        ${slide?`<animateTransform attributeName="transform" type="translate" from="${offset} 0" to="0 0" dur="${duration}s" fill="freeze"/>`:""}
+      </g>`;
+    };
+    const a=(offset=0,slide=false)=>piece(sectorA,"blue","A",left+13,bottom-9,offset,slide);
+    const b=(offset=0,slide=false)=>piece(sectorB,"green","B",right-13,top+18,offset,slide);
+    const stage=(caption,values,marks,seconds)=>from(caption,values,marks,{hideBase:true,duration:seconds});
+    return [
+      stage("先把两头牛各自能吃到的范围分开放。两个扇形一样大，每个都占一个圆的四分之一。",
+        "绳长 10 m，每块面积 3.14×10×10÷4＝78.5 m²。",
+        a(-side)+b(side)+board+tag(76,204,"A 牛 · 78.5 m²")+tag(344,204,"B 牛 · 78.5 m²")+tag(210,227,"草地边长 10 m")),
+      stage("先把蓝色扇形移进草地。让扇形的圆心对准左下角 A，两个半径沿着草地的两条边。",
+        "A 牛能吃到的范围是半径 10 m 的四分之一圆。",
+        board+b(side)+a(-side,true)+tag(210,227,"蓝色扇形移到 A 角"),duration),
+      stage("再把绿色扇形移进同一块草地。让圆心对准右上角 B。停下来看看中间哪一块颜色叠在一起。",
+        "B 牛的扇形也是 78.5 m²。两块合计 78.5＋78.5＝157 m²。",
+        board+a()+b(side,true)+tag(210,227,"绿色扇形移到 B 角"),duration),
+      stage("看覆盖的层数。靠近拴绳点 A、B 的两个角各只盖一层，中间的叶形同时被两个扇形盖住，所以算了两次。",
+        "整块草地都被盖住了，只有中间的叶形多算了一次。",
+        a()+b()+fill(shared)+board+tag(172,157,"1 层")+tag(248,81,"1 层")+tag(210,124,"2 层")+tag(210,227,"黄色是两头牛都能吃到的地方")),
+      stage("从两块扇形的总面积里，减去一整块草地，也就是每个地方都减掉一层。两角剩零层，中间还剩一层。",
+        "整块草地 10×10＝100 m²。两头牛都能吃到 157－100＝57 m²。",
+        `<g>${a()+b()}<animate attributeName="opacity" from="1" to=".12" dur="1s" fill="freeze"/></g>`+
+        fill(shared)+board+tag(210,124,"57 m²")+tag(210,227,"157－100＝57 m²"))
+    ];
+  }
+
   function grazingFrames(row,isDog) {
     const anchor=isDog?[216,120]:[210,177];
     const top=isDog?[216,77]:[210,115];
@@ -304,10 +341,7 @@
     },
     "sector-2a": row => guided(row,radialFrame(210,118,96,64,90,360,["从外半径 6 cm 扣掉环宽 2 cm。","内半径 4 cm","沿着留下来的外弧绕一圈的大半段。","270°＝3/4 圈","47.1 cm²"])),
     "sector-2b": row => guided(row,radialFrame(272,177,138,92,180,240,["从内弧沿半径再往外量 3 cm。","外半径 9 cm","把 60° 放回整圈里比较。","60°＝1/6 圈","23.55 cm²"])),
-    "leaf-10": row => guided(row,[
-      ["蓝色和绿色分别是一头牛绳子能扫到的区域。",fill(leafA,blue)+fill(leafB,"green",.3)+tag(210,233,"两条绳子都是 10 m")],
-      ["两块合起来盖满正方形。中间颜色叠在一起，就是两头都能到的地方。",ink(square(130,35,160))+fill(leaf)+tag(210,232,"正方形 100 m²")],
-      ["把两个四分之一圆的面积相加，再减去整个方形，留下多算一次的叶片。",block(leaf,"157－100＝57 m²")]]),
+    "leaf-10": grazingOverlap,
     dog: row => grazingFrames(row,true),
     sheep: row => grazingFrames(row,false),
     "quadrant-square": quarterSquare

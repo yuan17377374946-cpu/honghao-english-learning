@@ -61,7 +61,7 @@ function annularStudy(key) {
 
 function grazing(key) {
   if(key==='leaf-10') {
-    const leaf='M130 195A160 160 0 0 1 290 35A160 160 0 0 1 130 195Z';
+    const leaf='M130 35A160 160 0 0 1 290 195A160 160 0 0 1 130 35Z';
     return path(leaf,'shade')+path(leaf)+box(130,35,160,160)+label(210,220,'10 m')+label(114,204,'A')+label(305,32,'B');
   }
   if(key==='dog') {
