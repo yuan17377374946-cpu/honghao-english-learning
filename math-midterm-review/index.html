@@ -531,9 +531,14 @@ const advancedMethods = (() => {
       '<strong>先在 B 点算角。</strong>∠ABE = 90° − 15° = 75°，∠ABD = ∠ABC = 60°，所以 ∠DBE = 15°。',
       '<strong>延长 DE，取 ED′ = ED。</strong>BE 是 DD′ 的垂直平分线，所以 BD = BD′，∠EBD′ = ∠DBE = 15°。因此 ∠ABD′ = 75° + 15° = 90°。',
       '<strong>取直角三角形 ABD′ 的斜边中点 K。</strong>BK = AK = AD′/2，故 ∠ABK = ∠BAK = 15°。于是 ∠KBE = 75° − 15° = 60°，∠BKE = 30°。',
-      '<strong>在直角三角形 BKE 里求比例。</strong>设 BE = u，则 30° 的对边 BE 是斜边的一半，BK = 2u。勾股得 KE = √3u。',
-      '<strong>在线段 AD′ 上找一半。</strong>AE = AD + DE，AK = (AD + 2DE)/2，所以 KE = AE − AK = AD/2。代回得到 AD/BE = 2√3。'
-    ],visuals:[angleBase,stage(2,'取对称点 D′ 和斜边中点 K',()=>angleFigure('mirrorD'),'A、K、D、E、D′ 共线。B 处标出 ∠ABD′ 的直角。'),stage(5,'看出 KE 恰好是 AD 的一半',midpoint13,'AE − AK = (AD + DE) − (AD/2 + DE)。')]},
+      '<strong>用勾股求 KE。</strong>设 BE = u。在直角三角形 BKE 中，∠BKE = 30°，所以它的对边 BE 是斜边 BK 的一半，BK = 2u。<br>KE² = BK² − BE² = (2u)² − u² = 3u²。因为线段长度为正，所以 KE = √3u = √3·BE。',
+      '<strong>先算 AE 和 AK。</strong><br>① D 在 A、E 之间，所以 AE = AD + DE。<br>② 延长 DE 时取了 ED′ = DE，所以 AD′ = AD + DE + ED′ = AD + 2DE。<br>③ K 是 AD′ 的中点，所以 AK = AD′/2 = (AD + 2DE)/2 = AD/2 + DE。',
+      '<strong>用 AE 减去 AK，得到 KE。</strong>看线段图，K 在 A、E 之间，所以 AE = AK + KE。<br>KE = AE − AK<br>= (AD + DE) − (AD/2 + DE)<br>= AD − AD/2 + DE − DE<br>= AD/2。',
+      '<strong>把两个 KE 连起来，求 AD/BE。</strong>第 4 步得 KE = √3·BE，第 6 步得 KE = AD/2。<br>所以 AD/2 = √3·BE。两边乘 2，得 AD = 2√3·BE。再除以 BE，得 AD/BE = 2√3。'
+    ],visuals:[angleBase,stage(2,'取对称点 D′ 和斜边中点 K',()=>angleFigure('mirrorD'),'A、K、D、E、D′ 共线。B 处标出 ∠ABD′ 的直角。'),
+      stage(5,'在线段图上找出 AE 和 AK',midpoint13,'E 是 DD′ 的中点，K 是 AD′ 的中点。先用 DE 把 AE、AK 写出来。'),
+      stage(6,'用 AE − AK 得到 KE',midpoint13,'AE 和 AK 各含一个 DE。相减后只剩 AD − AD/2。'),
+      stage(7,'把 KE 的两种写法连起来',midpoint13,'AD/2 = KE = √3·BE，所以 AD/BE = 2√3。')]},
     {title:'三角函数 · 二倍角', answer:ratio, steps:[
       '<strong>把两段都写成 15° 的函数。</strong>在 △ACD 中，cos 15° = AC/AD；在 △AEB 中，sin 15° = BE/AB。',
       '<strong>相除。</strong>AD/BE = (AC/AB)/(sin 15° cos 15°)。原来的 30°–60°–90° 三角形给出 AC/AB = √3/2。',
@@ -1194,8 +1199,8 @@ const questions = [
       "把 D 关于点 E 对称得到 D′，也就是沿 AD 过 E 延长 DE，使 ED′ = ED。由于 BE 垂直平分 DD′，BD 和 BD′ 关于 BE 对称，所以 ∠EBD′ = 15°。",
       "此时 ∠ABD′ = 75° + 15° = 90°。取斜边 AD′ 的中点 K。直角三角形的斜边中线等于斜边的一半，所以 BK = AK。",
       "△ABK 是等腰三角形，∠ABK = ∠BAK = 15°，所以 ∠KBE = 75° − 15° = 60°。在直角三角形 BKE 中，KE/BE = tan 60° = √3。",
-      "最后看同一条直线上的长度。AD′ = AD + 2DE，且 AK = AD′/2，因此 KE = AE − AK = (AD + DE) − (AD/2 + DE) = AD/2。",
-      "所以 AD/BE = 2KE/BE = 2√3。"
+      "先分别算 AE、AK。D 在 A、E 之间，所以 AE = AD + DE。又因为 ED′ = DE，所以 AD′ = AD + DE + ED′ = AD + 2DE。K 是 AD′ 的中点，故 AK = AD′/2 = AD/2 + DE。<br>图上 K 在 A、E 之间，KE = AE − AK = (AD + DE) − (AD/2 + DE) = AD − AD/2 = AD/2。",
+      "把 KE 的两种写法连起来。由 KE/BE = √3 得 KE = √3·BE，又有 KE = AD/2，所以 AD/2 = √3·BE。两边乘 2，再除以 BE，得到 AD/BE = 2√3。"
     ]
   },
   {
