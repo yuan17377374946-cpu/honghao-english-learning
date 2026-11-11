@@ -20,6 +20,7 @@
   let current = initial?.[0] || classroomOrder[0];
   let filter = initial && !classroomOrder.includes(current) ? "全部题目" : "课上 8 题";
   let visible = [];
+  let stopMotion = () => {};
 
   function updateIndex() {
     visible = filter === "课上 8 题"
@@ -31,6 +32,7 @@
   }
 
   function showQuestion(id, moveFocus = false, updateUrl = true) {
+    stopMotion();
     current = id;
     if (updateUrl) history.replaceState(null, "", "#" + id);
     updateIndex();
@@ -51,6 +53,7 @@
         ${hasBoundary ? '<button type="button" class="choice" data-mode="boundary" data-value="boundary" aria-pressed="false">描边</button>' : ''}
         ${hasArea ? '<button type="button" class="choice" data-mode="area" data-value="area" aria-pressed="false">看阴影</button>' : ''}
       </div>` : ''}
+      ${window.circlePracticeMotion.controls}
       <div class="practice-answers">
         <button type="button" class="outline" id="hint-button" aria-expanded="false" aria-controls="hint">看提示</button>
         <button type="button" class="action" id="next-step" aria-controls="steps">展开下一步</button>
@@ -70,6 +73,7 @@
       figure.dataset.mode = button.dataset.mode;
       for (const option of modes) option.setAttribute("aria-pressed", String(option === button));
     });
+    stopMotion = window.circlePracticeMotion.attach(panel, figure, id);
     const hintButton = panel.querySelector("#hint-button");
     const hintText = panel.querySelector("#hint");
     hintButton.addEventListener("click", () => {

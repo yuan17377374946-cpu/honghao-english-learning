@@ -41,7 +41,7 @@
     rollHalf: path("M35 133H385","edge")+path("M50 120A55 55 0 0 1 160 120Z","boundary")+path("M255 120A55 55 0 0 1 365 120Z","boundary")+path("M171 90H239l-10 -7m10 7l-10 7","edge")+label(50,158,"12 cm")+label(255,158,"37.7 cm"),
     squareCircle: squareCircle(),
     squareShades: squareCircle(true),
-    bend: path("M105 35H168A110 110 0 0 1 278 145V166H256V145A88 88 0 0 0 168 57H105Z","fill-area")+path("M105 35H168A110 110 0 0 1 278 145V166H256V145A88 88 0 0 0 168 57H105Z","boundary")+path("M168 35V145H278","dash")+label(135,24,"3 m")+label(207,137,"4 m")+label(311,159,"3 m")+label(312,141,"宽 1 m"),
+    bend: path("M112 22H165A89 89 0 0 1 254 111V164H236V111A71 71 0 0 0 165 40H112Z","fill-area")+path("M112 22H165A89 89 0 0 1 254 111V164H236V111A71 71 0 0 0 165 40H112Z","boundary")+path("M165 22V111H254","dash")+label(139,17,"3 m")+label(202,105,"4 m")+label(291,142,"3 m")+label(295,161,"宽 1 m"),
     parks: path("M27 125a80 80 0 0 1 160 0H155a48 48 0 0 0-96 0a16 16 0 0 0-32 0Z","fill-area")+path("M233 125a80 80 0 0 1 160 0H377a64 64 0 0 0-128 0Z","fill-area")+path("M27 125a80 80 0 0 1 160 0H155a48 48 0 0 0-96 0a16 16 0 0 0-32 0ZM233 125a80 80 0 0 1 160 0H377a64 64 0 0 0-128 0Z","boundary")+label(107,156,"A 方案")+label(313,156,"B 方案"),
     pond: path("M106 133a104 104 0 0 1 208 0v26H106Z","fill-area")+path("M132 133a78 78 0 0 1 156 0Z","paper")+path("M106 133a104 104 0 0 1 208 0v26H106ZM132 133a78 78 0 0 1 156 0Z","boundary")+path("M106 133h26m156 0h26","dash")+label(210,112,"r = 3 m")+label(349,151,"1 m"),
     ring: circle(195,90,71,"fill-area")+circle(195,90,63,"paper")+circle(195,90,71,"boundary")+circle(195,90,63,"boundary")+path("M195 90h71","dash")+label(226,80,"8 m")+label(306,121,"外半径 9 m"),

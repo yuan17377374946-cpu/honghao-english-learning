@@ -46,3 +46,17 @@
   .practice-list { grid-template-columns:repeat(auto-fit,minmax(128px,1fr)); max-height:144px; }
   .practice-list button { font-size:13px; }
 }
+
+.practice-motion { margin-top:12px; padding:12px; border:1px solid #cbdccc; border-radius:11px; background:#f2f7ed; }
+.motion-buttons { display:flex; flex-wrap:wrap; align-items:center; gap:8px; }
+.motion-buttons button { min-height:44px; }
+.motion-explanation { padding-top:9px; }
+.motion-caption { color:var(--ink); line-height:1.65; }
+.motion-value { margin-top:5px; color:#164e40; font-weight:800; font-variant-numeric:tabular-nums; line-height:1.5; overflow-wrap:anywhere; }
+.practice-figure[data-motion="active"] svg > :not(.motion-overlay,defs) { opacity:.45; }
+.practice-figure svg .motion-trace { fill:none; stroke:#075eaa; stroke-width:3.5; stroke-linecap:round; stroke-linejoin:round; vector-effect:non-scaling-stroke; }
+.practice-figure svg .motion-trace.green { stroke:#157556; }
+.practice-figure svg .motion-region { fill:#ec9d36; fill-opacity:.69; fill-rule:evenodd; }
+.practice-figure svg .motion-region.green { fill:#49b098; }
+.practice-figure svg .motion-dot { fill:#075eaa; stroke:#f3f9f5; stroke-width:2; }
+.practice-figure svg .motion-tag { font-size:15px; font-weight:850; fill:#153e32; stroke:#f3f9f5; stroke-width:3.6px; paint-order:stroke fill; }
