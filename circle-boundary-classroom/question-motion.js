@@ -55,17 +55,43 @@
   }
 
   function quarterSquare() {
-    const proof = ink("M45 69H129V153H45Z")+fill("M45 69H129V153Z","blue")+fill("M45 69V153H129Z","amber",.25)+ink("M45 69L129 153","green")+
-      tag(85,50,"正方形 60 cm²")+tag(100,93,"30")+tag(72,137,"30")+
-      tag(182,117,"→")+
-      fill("M320 112V28L404 112Z","blue",.15)+fill("M320 112H404L320 196Z","amber",.4)+
-      fill("M320 112V196L236 112Z","blue",.65)+fill("M320 112H236L320 28Z","amber",.9)+
-      ink("M320 28L404 112L320 196L236 112Z","green")+
-      tag(320,19,"以 r 为边的正方形")+tag(352,84,"30")+tag(352,143,"30")+tag(287,143,"30")+tag(286,84,"30")+tag(320,222,"r²＝4×30＝120 cm²");
+    const pieces = [
+      {x:109,y:43,angle:90,end:90,tone:"blue"},
+      {x:49,y:103,angle:270,end:180,tone:"amber"},
+      {x:109,y:153,angle:90,end:270,tone:"blue"},
+      {x:49,y:213,angle:270,end:360,tone:"amber"}
+    ];
+    const legTriangle = "M0 0H60L0 60Z";
+    const diagonal = "M60 0L0 60";
+    const pieceDrawing = tone => `<path class="bank-paint ${tone}" d="${legTriangle}"/><path class="bank-ink green" d="${diagonal}"/>`;
+    const startingLabels = tag(79,30,"原正方形 60 cm²")+tag(79,140,"复制一张 60 cm²");
+    const cut = pieces.map(({x,y,angle,tone},i) =>
+      `<g transform="translate(${x} ${y}) rotate(${angle})">${fill(legTriangle,tone,i*.12)}${ink(diagonal,"green")}</g>`
+    ).join("")+startingLabels+tag(94,63,"30")+tag(63,93,"30")+tag(94,173,"30")+tag(63,203,"30")+
+      tag(294,111,"两张正方形，各剪两块")+tag(294,143,"一共 4 块");
+    const moved = pieces.map(({x,y,angle,end,tone},i) => {
+      const begin=.12+i*.29;
+      return `<g transform="translate(${x} ${y})">
+        <animateTransform attributeName="transform" type="translate" from="${x} ${y}" to="303 119" begin="${begin}s" dur=".88s" fill="freeze"/>
+        <g transform="rotate(${angle})">
+          <animateTransform attributeName="transform" type="rotate" from="${angle}" to="${end}" begin="${begin}s" dur=".88s" fill="freeze"/>
+          ${pieceDrawing(tone)}
+        </g>
+      </g>`;
+    }).join("");
+    const diamond = "M303 59L363 119L303 179L243 119Z";
+    const proof = startingLabels+
+      path(square(49,43,60),"guide")+path(square(49,153,60),"guide")+path(diamond,"guide")+
+      moved+`<g opacity="0"><animate attributeName="opacity" from="0" to="1" begin="1.92s" dur=".22s" fill="freeze"/>
+        ${tag(303,39,"以 r 为边的正方形")}${tag(339,86,"r")}${tag(340,153,"r")}${tag(267,153,"r")}${tag(266,86,"r")}
+        ${tag(320,101,"30")}${tag(320,139,"30")}${tag(286,139,"30")}${tag(286,101,"30")}
+        ${tag(303,213,"r²＝4×30＝120 cm²")}
+      </g>`;
     return [
       from("从圆心沿虚线走到弧上的顶点。这条对角线就是半径 r。","小正方形的面积是 60 cm²。",ink("M126 193L235 84")+node(126,193)+node(235,84)+tag(192,128,"r")+tag(108,216,"圆心")),
-      from("把小正方形沿对角线切成两块，每块是 30。用四块一样的三角形围出新正方形，外边每一条都长 r。","30×4＝120 cm²，所以 r²＝120 cm²。",proof,{hideBase:true}),
-      from("把四分之一圆整块涂出来。半径的平方已经求出，可以直接代入。","3.14 × 120 ÷ 4＝94.2 cm²",block(quadrant,"扇形 94.2 cm²",212,225,blue)),
+      from("把原正方形沿对角线剪开，只有两块。再取一个一模一样的正方形，也沿对角线剪开，这才凑齐四块。","每块 60÷2＝30 cm²。每块的斜边都是原正方形的对角线，长 r。",cut,{hideBase:true}),
+      from("把四块三角形的直角放在中间，四条绿色斜边围在外面。每条外边都是 r，拼成的就是边长为 r 的正方形。","4×30＝120 cm²，所以 r×r＝120 cm²。",proof,{hideBase:true,duration:2.2}),
+      from("把四分之一圆整块涂出来。求圆面积只需要 r×r，现在可以直接用 120。","3.14 × 120 ÷ 4＝94.2 cm²",block(quadrant,"扇形 94.2 cm²",212,225,blue)),
       from("从扇形里去掉小正方形，只剩正方形上方和右方的两块阴影。","94.2－60＝34.2 cm²",block(quadrant+innerSquare,"阴影 34.2 cm²",212,225)+ink(innerSquare,"green"))
     ];
   }
