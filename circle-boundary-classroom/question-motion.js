@@ -115,6 +115,55 @@
     ];
   }
 
+  function squareBetweenCircles() {
+    const x=210, y=113, outerR=83, r=outerR/Math.sqrt(2);
+    const left=x-r, right=x+r, top=y-r, bottom=y+r;
+    const outer=disk(x,y,outerR), inner=disk(x,y,r);
+    const outline=square(left,top,2*r);
+    const axis=`M${left} ${y}H${right}M${x} ${top}V${bottom}`;
+    const grid=[square(left,top,r),square(x,top,r),square(left,y,r),square(x,y,r)];
+    const gridCenters=[[x-r/2,y-r/2],[x+r/2,y-r/2],[x-r/2,y+r/2],[x+r/2,y+r/2]];
+    const fourTriangles=[
+      `M${left} ${top}H${right}L${x} ${y}Z`,
+      `M${right} ${top}V${bottom}L${x} ${y}Z`,
+      `M${right} ${bottom}H${left}L${x} ${y}Z`,
+      `M${left} ${bottom}V${top}L${x} ${y}Z`
+    ];
+    const greenRadius=(a,b) => `<path class="bank-ink green" d="M${a} ${y}H${b}"/>`;
+    const blueRadius=(a,b) => `<path class="bank-ink" d="M${a} ${y}H${b}"/>`;
+    const matchingSide=`<g>
+      <animateTransform attributeName="transform" type="translate" from="0 0" to="0 ${-r}" begin=".2s" dur="1.5s" fill="freeze"/>
+      ${blueRadius(left,x)}${greenRadius(x,right)}
+      ${tag(x-r/2,y-10,"r")}${tag(x+r/2,y-10,"r")}
+    </g>`;
+    return [
+      from("先看外圆。把正方形对角线描出来，它经过圆心，两个端点都在外圆上。","对角线是外圆的直径。从圆心到任意一个角的长度是外圆半径 R。",
+        ink(outer,"green")+ink(`M${left} ${bottom}L${right} ${top}`)+node(x,y)+tag(240,90,"R")+tag(210,231,"对角线＝2R")),
+      from("两条对角线把正方形分成四个一样大的直角三角形。看上面那块，夹住直角的两条边都长 R。","每个三角形面积是 R×R÷2。四块面积一共是 12 cm²，所以 R×R＝12÷2＝6 cm²。",
+        fourTriangles.map((d,i)=>fill(d,i%2?"blue":"amber",i*.24)).join("")+
+        ink(`M${left} ${top}L${right} ${bottom}M${left} ${bottom}L${right} ${top}`)+
+        tag(188,92,"R")+tag(231,92,"R")+tag(210,223,"4 × (R×R÷2)＝12")),
+      from("现在看内圆。从左边的切点画到圆心，再从圆心画到右边的切点。蓝、绿两段各是一条半径。","内圆的直径＝r＋r＝2r。",
+        ink(inner,"green")+ink(`M${left} ${y}H${x}`)+ink(`M${x} ${y}H${right}`,"green")+
+        node(left,y)+node(x,y)+node(right,y)+tag(x-r/2,y-13,"r")+tag(x+r/2,y-13,"r")+
+        tag(210,223,"两条半径拼成一条直径")),
+      from("把蓝绿两段一起向上平移。看两个端点，正好分别落在正方形上边的两个角。","这条线只是平移，长度没变。所以正方形的一条边也等于 r＋r。",
+        ink(outline)+path(`M${left} ${y}H${right}`,"guide")+matchingSide+
+        node(left,top)+node(right,top)+tag(210,223,"正方形的边长＝2r"),{duration:1.9}),
+      from("沿中间各画一条横线和竖线，把正方形分成四格。横着每一格宽 r，竖着每一格也高 r。","一小格的面积是 r×r。四小格合在一起，就是题目给的 12 cm²。",
+        grid.map((d,i)=>fill(d,i%2?"blue":"amber",.25+i*.18)).join("")+ink(outline)+ink(axis,"green")+
+        gridCenters.map(([gx,gy])=>tag(gx,gy+5,"r×r")).join("")+tag(210,47,"r　　＋　　r")+
+        tag(left-15,y-r/2+5,"r")+tag(left-15,y+r/2+5,"r")+tag(210,223,"4 个 r×r＝12 cm²")),
+      from("把 12 平方厘米平均分给这四格。看涂亮的这一小格，它的长和宽都是 r。","每格 12÷4＝3 cm²，所以 r×r＝3 cm²。",
+        fill(grid[0])+ink(outline)+ink(axis)+gridCenters.map(([gx,gy])=>tag(gx,gy+5,"3")).join("")+
+        tag(210,223,"12÷4＝3 cm²")),
+      from("求圆面积只需要半径乘半径。外圆用 6，内圆用 3，分别乘 3.14。","外圆：3.14×6＝18.84 cm²。内圆：3.14×3＝9.42 cm²。",
+        fill(disk(107,113,65),"blue")+ink(disk(107,113,65))+fill(disk(306,113,65/Math.sqrt(2)),"green",.35)+
+        ink(disk(306,113,65/Math.sqrt(2)),"green")+tag(107,108,"外圆 R×R＝6")+tag(306,108,"内圆 r×r＝3")+
+        tag(107,202,"18.84 cm²")+tag(306,202,"9.42 cm²"),{hideBase:true})
+    ];
+  }
+
   function scaleFrames(row,index) {
     const compare = (r1,r2,left,right) => ink(disk(108,112,r1))+ink(disk(300,112,r2),"green")+
       ink(`M108 112h${r1}M300 112h${r2}`,"green")+node(108,112)+node(300,112)+tag(108,222,left)+tag(300,222,right);
@@ -175,10 +224,7 @@
       ["圆面积除以 3.14，先求半径的平方。",ink("M210 113H293","green")+tag(265,101,"r＝10 cm")],
       ["外方的边长等于圆的直径。",ink(outsideSquare)+ink("M127 113H293","green")+tag(210,222,"20²＝400 cm²")],
       ["沿圆的直径把内方分成两个一样大的三角形。",fill("M127 113L210 30L293 113Z",blue)+fill("M127 113H293L210 196Z","amber",.25)+ink("M127 113H293","green")+tag(210,222,"20×10÷2×2＝200 cm²")]]),
-    "circle-square-circle": row => guided(row,[
-      ["先标外圆。方形对角线等于外圆直径。",ink("M151.31 171.69L268.69 54.31")+ink(disk(210,113,83),"green")+tag(210,219,"2R²＝12，R²＝6")],
-      ["再标内圆。方形边长等于内圆直径。",ink("M151.31 113H268.69")+ink(disk(210,113,58.69),"green")+tag(210,219,"4r²＝12，r²＝3")],
-      ["把两个半径的平方各乘 π。",ink(disk(210,113,83))+ink(disk(210,113,58.69),"green")+tag(210,222,"外圆 18.84 cm²　内圆 9.42 cm²")]]),
+    "circle-square-circle": squareBetweenCircles,
     "square-circle": row => guided(row,[
       ["方形边长是 2r。把方形与圆的面积都写成含 r² 的式子。",ink(outsideSquare)+ink("M127 113H293","green")+tag(210,222,"方形 4r²　圆 3.14r²")],
       ["涂出的四个角一共是 4.3 cm²。先求一个 r²。",block(outsideSquare+disk(210,113,83),"0.86r²＝4.3")],
