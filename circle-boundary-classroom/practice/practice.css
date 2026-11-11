@@ -60,3 +60,19 @@
 .practice-figure svg .motion-region.green { fill:#49b098; }
 .practice-figure svg .motion-dot { fill:#075eaa; stroke:#f3f9f5; stroke-width:2; }
 .practice-figure svg .motion-tag { font-size:15px; font-weight:850; fill:#153e32; stroke:#f3f9f5; stroke-width:3.6px; paint-order:stroke fill; }
+
+.dog-motion .dog-house { fill:#d9e8d8; stroke:#527260; stroke-width:1.5; }
+.dog-motion .dog-house-name { fill:#254f40; font-size:13px; }
+.dog-motion .dog-track { fill:none; stroke:#2e78aa; stroke-width:2.5; opacity:.65; }
+.dog-motion :is(.dog-rope-wall,.dog-rope-free) { fill:none; stroke-width:2.7; stroke-linejoin:round; stroke-linecap:round; }
+.dog-motion .dog-rope-wall { stroke:#a65a22; }
+.dog-motion .dog-rope-free { stroke:#176a51; }
+.dog-motion .dog-anchor { fill:#a65a22; }
+.dog-motion .dog-pivot { fill:#176a51; stroke:#fffef8; stroke-width:1.3; }
+.dog-motion .dog-coat { fill:#f1b569; stroke:#623923; stroke-width:1; }
+.dog-motion .dog-leg { fill:none; stroke:#623923; stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round; }
+.dog-motion .dog-ear { fill:#623923; }
+.dog-motion .dog-collar { stroke:#a43d29; stroke-width:2; }
+.dog-motion .dog-legend { font-size:13px; font-weight:800; fill:#254f40; }
+.dog-motion .dog-legend.wall { fill:#85431e; }
+.dog-motion .dog-legend.free { fill:#176a51; }

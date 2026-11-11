@@ -49,7 +49,7 @@
       svg.unpauseAnimations();
       svg.setCurrentTime(0);
       overlay.innerHTML = frame.marks;
-      if (reduceMotion.matches) svg.setCurrentTime(2);
+      if (reduceMotion.matches) svg.setCurrentTime((frame.duration ?? 2) + .1);
       figure.dataset.motion = "active";
       for (const control of diagramControls) control.setAttribute("aria-pressed", "false");
       caption.textContent = `第 ${index + 1} / ${frames.length} 步　${frame.caption}`;

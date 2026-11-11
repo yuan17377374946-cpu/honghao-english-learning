@@ -1,6 +1,6 @@
 (() => {
-  const trace = (d, tone = "blue") =>
-    `<path class="motion-trace ${tone}" d="${d}" pathLength="1" stroke-dasharray="1 1"><animate attributeName="stroke-dashoffset" from="1" to="0" dur="1.25s" fill="freeze"/></path>`;
+  const trace = (d, tone = "blue", seconds = 1.25) =>
+    `<path class="motion-trace ${tone}" d="${d}" pathLength="1" stroke-dasharray="1 1"><animate attributeName="stroke-dashoffset" from="1" to="0" dur="${seconds}s" fill="freeze"/></path>`;
   const region = (d, tone = "amber") =>
     `<path class="motion-region ${tone}" d="${d}"><animate attributeName="opacity" from="0" to="1" dur=".85s" fill="freeze"/></path>`;
   const tag = (x,y,value) => `<text class="motion-tag" x="${x}" y="${y}">${value}</text>`;
@@ -14,12 +14,76 @@
   const halfFill = "M110 130A100 100 0 0 1 310 130Z";
   const quarterA = "M150 37H258A108 108 0 0 1 150 145Z";
   const quarterC = "M222 145H150A72 72 0 0 1 222 73Z";
-  const dog = [
-    ["M49 139A115 115 0 0 1 164 24","M164 103V24","16 dm",125,60],
-    ["M164 24A79 79 0 0 1 243 103","M164 103H243","11 dm",216,94],
-    ["M243 103A43 43 0 0 1 200 146","M200 103V146","6 dm",239,138],
-    ["M200 146A7 7 0 0 1 193 139","M200 139H193","1 dm",186,159]
+  const dogCorners = [[164,139],[164,103],[200,103],[200,139]];
+  const dogRadii = [16,11,6,1];
+  const dogDurations = [2.9,2.5,2.15,1.7];
+  const dogCaptions = [
+    "小狗从 A 点起跑。绳子绕着拴绳点转，整条绳子都能转动。",
+    "绳子贴住第一面墙。看小狗怎样以左上角为圆心继续跑。",
+    "绳子再贴住上面一面墙。能转动的那一段从右上角拉到小狗。",
+    "绳子已经贴住三面墙。小狗只用最后 1 dm 绕过右下角，跑到底边就停。"
   ];
+  function dogQuarter(index) {
+    const [x,y] = dogCorners[index];
+    const radius = dogRadii[index] * 7.2;
+    const startAngle = Math.PI + index * Math.PI / 2;
+    const points = Array.from({length:25}, (_, i) => {
+      const angle = startAngle + (i / 24) * Math.PI / 2;
+      return [(x + radius * Math.cos(angle)).toFixed(2), (y + radius * Math.sin(angle)).toFixed(2)];
+    });
+    return {points, arc:`M${points[0].join(" ")} A${radius} ${radius} 0 0 1 ${points.at(-1).join(" ")}`};
+  }
+
+  function runningDog(seconds, index) {
+    const leg = (x,y,swing) => `<g transform="translate(${x} ${y})"><path d="M0 0l1.2 5h3" class="dog-leg"/>
+      <animateTransform attributeName="transform" additive="sum" type="rotate" values="${swing};${-swing};${swing}" dur="${seconds/6}s" repeatCount="6"/></g>`;
+    return `<g transform="scale(${index < 2 ? 1 : -1} 1)">
+      <g transform="scale(${index === 3 ? .73 : 1})">
+        <path d="M-9-1Q-17-2-16-8" class="dog-leg"/>
+        ${leg(-7,2,-23)}${leg(3,2,22)}
+        <ellipse cx="-4" cy="-1" rx="8.5" ry="5.6" class="dog-coat"/>
+        <path d="M0-4Q1-11 7-11Q12-11 13-7L17-6V-3Q14 0 7 0H3Z" class="dog-coat"/>
+        <path d="M5-9Q0-10 1-5Q2-1 5-4Z" class="dog-ear"/>
+        <path d="M2-3L3 2" class="dog-collar"/>
+        <circle cx="9.5" cy="-7.3" r="1" class="dog-ear"/>
+        <circle cx="16" cy="-5.3" r="1.2" class="dog-ear"/>
+      </g>
+    </g>`;
+  }
+
+  function dogFrame(index) {
+    const [x,y] = dogCorners[index];
+    const [startX,startY] = dogCorners[0];
+    const {points,arc} = dogQuarter(index);
+    const [initialX,initialY] = points[0];
+    const seconds = dogDurations[index];
+    const distance = dogRadii[index];
+    const wall = dogCorners.slice(0,index+1).map(point => point.join(",")).join(" ");
+    const moving = (attribute,axis) =>
+      `<animate attributeName="${attribute}" values="${points.map(point=>point[axis]).join(";")}" dur="${seconds}s" fill="freeze"/>`;
+    const earlierArcs = dogCorners.slice(0,index).map((_,i)=>`<path class="dog-track" d="${dogQuarter(i).arc}"/>`).join("");
+    const total = index === 3 ? "，四段合计 53.38 dm" : "";
+    const values = index === 0 ? "还可转动 16 dm" : `16－${index}×5＝${distance} dm${total}`;
+    const marks = `<g class="dog-motion">
+      <rect class="dog-house" x="164" y="103" width="36" height="36" rx="2"/>
+      <text class="dog-house-name" x="182" y="127">屋</text>
+      ${earlierArcs}${trace(arc,"blue",seconds)}
+      <polyline class="dog-rope-wall" points="${wall}"/>
+      <line class="dog-rope-free" x1="${x}" y1="${y}" x2="${initialX}" y2="${initialY}">${moving("x2",0)}${moving("y2",1)}</line>
+      <circle class="dog-anchor" cx="${startX}" cy="${startY}" r="2.5"/>
+      <circle class="dog-pivot" cx="${x}" cy="${y}" r="4"/>
+      <g transform="translate(${initialX} ${initialY})">
+        <animateTransform attributeName="transform" type="translate" values="${points.map(point=>point.join(" ")).join(";")}" dur="${seconds}s" fill="freeze"/>
+        ${runningDog(seconds,index)}
+      </g>
+      <text class="dog-legend" x="325" y="68">绳长始终 16 dm</text>
+      <path class="dog-rope-wall" d="M263 89h14"/>
+      <text class="dog-legend wall" x="329" y="94">贴墙 ${index*5} dm</text>
+      <path class="dog-rope-free" d="M263 115h14"/>
+      <text class="dog-legend free" x="329" y="120">转动 ${distance} dm</text>
+    </g>`;
+    return {...frame(dogCaptions[index],values,marks),duration:seconds};
+  }
   const cutFrames = mode => [
     frame("把上下两块的弯边分别描出来。两条弯边可以拼回一个整圆。",mode ? "原来的圆周长＝两条弯边之和" : "r＝5 cm，两条弯边合计 31.4 cm",
       trace(semicircle(58,111,130))+trace(semicircle(232,77,130,false))),
@@ -104,10 +168,7 @@
       frame("第一圈是绳子原来能够到的边界。","原半径 8 m",trace(circle(195,90,63))+trace("M195 90H258","green")+tag(222,111,"8 m")),
       frame("绳子多 1 m，边界向外扩成另一个同心圆。","新半径 8＋1＝9 m",trace(circle(195,90,71))+trace("M195 90H266","green")+tag(230,111,"9 m")),
       frame("新多出来的草地只有两圈中间这一圈。","3.14×(9²－8²)＝53.38 m²",region(circle(195,90,71)+circle(195,90,63)))],
-    "p42-explore4c":dog.map(([arc,radius,value,x,y],i)=>frame(
-      ["从 A 点起跑。先以拴绳的墙角为圆心，跑四分之一圆。","绳子贴上一条墙边。换到第二个墙角作圆心。","绳子又贴上一条墙边。换到第三个墙角作圆心。","最后只剩一小截绳子。把四段四分之一圆弧加起来。"][i],
-      ["半径 16 dm","16－5＝11 dm","11－5＝6 dm","6－5＝1 dm，合计 53.38 dm"][i],
-      dog.slice(0,i+1).map(([previous])=>trace(previous)).join("")+trace(radius,"green")+dot(arc)+tag(x,y,value))),
+    "p42-explore4c":dogCorners.map((_,index)=>dogFrame(index)),
     "p8-required2":[
       frame("先涂大扇形。圆心在 A，半径是 AB。","AB＝6 cm，大扇形面积 28.26 cm²",region(quarterA)+trace("M150 37V145")+tag(127,72,"A")),
       frame("再涂小扇形。圆心在 C，半径是 CB。","CB＝4 cm，小扇形面积 12.56 cm²",region(quarterA)+region(quarterC,"green")+trace("M150 145H222","green")),
