@@ -109,6 +109,14 @@ button:focus-visible,summary:focus-visible,textarea:focus-visible{outline:3px so
 .figure-select select{min-height:44px;min-width:0;max-width:100%;flex:1;font:inherit;color:var(--ink);background:#fff;border:1px solid #9fb6bc;border-radius:8px;padding:5px 8px}
 .figure-select select:focus-visible{outline:3px solid #a64324;outline-offset:3px}
 @media(min-width:851px){.method-svg{max-height:clamp(250px,39vh,375px)}}
+
+.bisector-proof{margin:10px 0 2px;padding:6px 11px 10px;border:1px solid #b6d8d0;border-radius:8px;background:#f8fcfb}
+.bisector-proof summary{min-height:44px;line-height:1.45;padding:10px 0}
+.bisector-proof p + p,.bisector-proof-figures + p{margin-top:8px}
+.bisector-proof-figures{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,205px),1fr));gap:8px;margin-top:10px}
+.bisector-proof-figures figure{margin:0;min-width:0}
+.bisector-proof-figures figcaption{font-weight:700;color:#23564f}
+.bisector-proof-figures .method-svg{max-height:none;margin:4px 0}
 </style>
 </head>
 <body>
@@ -472,6 +480,37 @@ const advancedMethods = (() => {
       line([p.A[0],57],[p.D[0],57],teal)+txt((p.A[0]+p.D[0])/2,45,'AD',teal,16,'middle')+
       txt((p.K[0]+p.E[0])/2,76,'KE',red,16,'middle')+txt(240,152,'KE = AE − AK = AD/2',ink,17,'middle'));
   }
+  function bisectorAreaFigure(sharedHeight) {
+    const A=[137,226-Math.sqrt(216**2-99**2)], C=[38,226], D=[182,226], B=[398,226];
+    const foot=(point,start,end)=>{
+      const [u,v]=unit(start,end);
+      const t=(point[0]-start[0])*u+(point[1]-start[1])*v;
+      return [start[0]+t*u,start[1]+t*v];
+    };
+    const p={A,B,C,D,T:[A[0],C[1]],K:foot(D,A,C),H:foot(D,A,B)};
+    const main=shape(p,'ACD',teal,'#e3f3ed')+shape(p,'ADB',blue,'#e4eefb')+line(A,D,ink);
+    const heights=sharedHeight
+      ? line(A,p.T,gold,true)+right(p.T,A,C,gold)+txt(p.T[0]-12,144,'AT',gold,17,'end')+labels(p,{T:[-5,21]})
+      : ['K','H'].map((key,i)=>{
+          const q=p[key], [u,v]=unit(D,q);
+          const [x,y]=[(D[0]+q[0])/2,(D[1]+q[1])/2];
+          return line(D,q,gold,true)+right(q,i===0?A:B,D,gold)+line([x-v*5,y+u*5],[x+v*5,y-u*5],gold);
+        }).join('')+arc(A,C,D,46,teal)+arc(A,D,B,46,blue)+labels(p,{K:[-20,0],H:[8,-7]});
+    return svg(260,sharedHeight?'以 CD、DB 为底，共用高 AT':'以 AC、AB 为底，D 到两边的高 DK、DH 相等',
+      main+heights+labels(p,{A:[-6,-10],C:[-13,20],D:[0,21],B:[7,19]}));
+  }
+  function bisectorProof() {
+    return '<details class="bisector-proof"><summary>补习｜角平分线定理怎么来的？</summary>'+
+      '<p><strong>结论。</strong>在 △ACB 中，若 AD 平分 ∠CAB，且 D 在 CB 上，则 <strong>CD / DB = AC / AB</strong>。靠 C 的两段放在一起，靠 B 的两段放在一起。</p>'+
+      '<div class="bisector-proof-figures">'+
+      '<figure><figcaption>① 以 CD、DB 为底</figcaption>'+bisectorAreaFigure(true)+'</figure>'+
+      '<figure><figcaption>② 以 AC、AB 为底</figcaption>'+bisectorAreaFigure(false)+'</figure></div>'+
+      '<p><strong>看左图。</strong>过 A 作 AT ⟂ CB。绿色 △ACD 和蓝色 △ADB 共用高 AT，所以 S△ACD / S△ADB = CD / DB。</p>'+
+      '<p><strong>看右图。</strong>过 D 分别作 DK ⟂ AC、DH ⟂ AB。两个直角三角形 AKD、AHD 共用斜边 AD，又有 ∠KAD = ∠DAH，所以它们全等，得到 DK = DH。绿色和蓝色三角形换用 AC、AB 作底，高相等，所以 S△ACD / S△ADB = AC / AB。</p>'+
+      '<p><strong>把同一个面积比连起来。</strong>CD / DB = AC / AB。</p>'+
+      '<p><strong>练一遍。</strong>若 AC = 6、AB = 9、CB = 10，则 CD : DB = 2 : 3。全长 10 分成 5 份，每份长 2，所以 CD = 4、DB = 6。</p>'+
+      '<p><strong>回到本题。</strong>把 AC = √3、AB = 2 代入，得到 CD : DB = √3 : 2。因为 CB = 1，CD 占全长的 √3/(√3 + 2)，所以 x = √3/(√3 + 2) = 2√3 − 3。</p></details>';
+  }
   const angleBase=stage(0,'原图与两个 15°',()=>angleFigure('base'),'AD 平分 30°，所以两边各 15°。E 在 AD 的延长线上。');
   const ratio = 'AD / BE = 2√3';
   const methods13 = [
@@ -484,7 +523,7 @@ const advancedMethods = (() => {
     {title:'原图相似 · 无辅助线', answer:ratio, steps:[
       '<strong>看原图的两个 15°。</strong>∠CAD = ∠BAE = 15°，又 ∠ACD = ∠AEB = 90°，所以 △ACD ∽ △AEB。斜边 AD 对 AB，短直角边 CD 对 EB。',
       '<strong>设 BC = 1。</strong>只求比值，可以按同一比例缩放。30° 对边是斜边的一半，得 AB = 2，再由勾股得 AC = √3。设 CD = x，则 BD = 1 − x。',
-      '<strong>用角平分线分底边。</strong>CD/BD = AC/AB = √3/2，所以 x/(1 − x) = √3/2，解得 x = √3/(2 + √3) = 2√3 − 3。',
+      '<strong>用角平分线分底边。</strong>CD/BD = AC/AB = √3/2，所以 x/(1 − x) = √3/2，解得 x = √3/(2 + √3) = 2√3 − 3。'+bisectorProof(),
       '<strong>把相似比转成题目要的比。</strong>CD/BE = AD/AB，所以 AD·BE = AB·CD = 2x，因而 AD/BE = AD²/(2x)。△ACD 中 AD² = 3 + x²。',
       '<strong>化简。</strong>也可以直接利用 x = √3/(2 + √3)，得到 3/x = √3(2 + √3) = 2√3 + 3。因此 AD/BE = (3/x + x)/2 = 2√3。'
     ], visuals:[angleBase,stage(1,'拆开原图中的两块直角三角形',()=>compare13(false),'每组对应边用同色标出。'),stage(2,'在 BC 上标出两段长度',()=>svg(137,'BC 为 1。CD 为 x，DB 为 1 减 x。',line([51,73],[425,73],muted)+line([51,73],[225,73],teal)+line([225,73],[425,73],blue)+labels({C:[51,73],D:[225,73],B:[425,73]},{C:[-5,24],D:[-5,24],B:[-5,24]})+txt(132,57,'x',teal)+txt(301,57,'1 − x',blue)+txt(240,119,'CD / DB = AC / AB',ink,16,'middle'))),stage(4,'用斜边和短边的相似比',()=>compare13(false),'AD·BE = AB·CD，把 AD/BE 化成 AD²/(AB·CD)。')]},
