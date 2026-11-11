@@ -1,0 +1,20 @@
+.bank-board .practice-motion {
+  margin:0 0 14px; padding:12px; border:1px solid #cbdccc; border-radius:11px; background:#f2f7ed;
+}
+.bank-board .motion-buttons { display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
+.bank-board .motion-buttons button { min-height:44px; }
+.bank-board .motion-explanation { padding-top:8px; }
+.bank-board .motion-caption { color:var(--ink); line-height:1.6; }
+.bank-board .motion-value { margin-top:4px; color:#164e40; font-weight:800; line-height:1.55; overflow-wrap:anywhere; }
+.bank-figure[data-motion="active"] svg > :not(.motion-overlay,defs) { opacity:.34; }
+.bank-figure[data-motion="isolated"] svg > :not(.motion-overlay,defs) { opacity:0; }
+.bank-figure svg .bank-ink { fill:none; stroke:#075eaa; stroke-width:3; stroke-linecap:round; stroke-linejoin:round; }
+.bank-figure svg .bank-ink.green { stroke:#176a51; }
+.bank-figure svg .bank-paint { fill:#f1a43f; fill-opacity:.72; fill-rule:evenodd; }
+.bank-figure svg .bank-paint.blue { fill:#72b3e6; }
+.bank-figure svg .bank-paint.green { fill:#68bf9d; }
+.bank-figure svg .bank-node { fill:#075eaa; stroke:#fbfff9; stroke-width:1.5; }
+.bank-figure svg .bank-wheel { fill:#c4e5f1; fill-opacity:.65; stroke:#075eaa; stroke-width:2; }
+.bank-figure svg .bank-tag { font-size:14px; font-weight:800; fill:#174637; stroke:#f4f9f4; stroke-width:3.2px; paint-order:stroke fill; }
+.bank-figure svg .bank-dog { fill:#f2b16a; stroke:#643a23; stroke-width:1; }
+.bank-figure svg .bank-dog-leg { fill:none; stroke:#643a23; stroke-width:1.4; stroke-linecap:round; }

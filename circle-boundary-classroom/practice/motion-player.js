@@ -13,8 +13,7 @@
       </div>
     </section>`;
 
-  function attach(panel, figure, id) {
-    const frames = window.circlePracticeAnimations[id];
+  function attach(panel, figure, id, frames = window.circlePracticeAnimations[id]) {
     const svg = figure.querySelector("svg");
     const namespace = "http://www.w3.org/2000/svg";
     const overlay = document.createElementNS(namespace, "g");
@@ -50,7 +49,7 @@
       svg.setCurrentTime(0);
       overlay.innerHTML = frame.marks;
       if (reduceMotion.matches) svg.setCurrentTime((frame.duration ?? 2) + .1);
-      figure.dataset.motion = "active";
+      figure.dataset.motion = frame.hideBase ? "isolated" : "active";
       for (const control of diagramControls) control.setAttribute("aria-pressed", "false");
       caption.textContent = `第 ${index + 1} / ${frames.length} 步　${frame.caption}`;
       values.textContent = frame.values;
