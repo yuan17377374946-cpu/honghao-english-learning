@@ -18,3 +18,8 @@
 .bank-figure svg .bank-tag { font-size:14px; font-weight:800; fill:#174637; stroke:#f4f9f4; stroke-width:3.2px; paint-order:stroke fill; }
 .bank-figure svg .bank-dog { fill:#f2b16a; stroke:#643a23; stroke-width:1; }
 .bank-figure svg .bank-dog-leg { fill:none; stroke:#643a23; stroke-width:1.4; stroke-linecap:round; }
+
+.bank-figure svg .bank-paint.house { fill:#eee9d9; fill-opacity:1; }
+.bank-figure svg .bank-rope { fill:none; stroke:#176a51; stroke-width:2; stroke-linecap:round; }
+.bank-figure svg .bank-rope.wrapped { stroke:#a65a22; stroke-width:3; }
+.bank-figure svg .bank-sheep { fill:#fffdf2; stroke:#153b32; stroke-width:1.3; }

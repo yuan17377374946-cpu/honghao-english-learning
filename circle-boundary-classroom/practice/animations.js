@@ -109,6 +109,37 @@
   const bottlesA = bundling(76,67,34,34);
   const bottlesB = bundling(218,85,102,0);
   const starCorners = "M150 30H210A60 60 0 0 1 150 90ZM270 30V90A60 60 0 0 1 210 30ZM270 150H210A60 60 0 0 1 270 90ZM150 150V90A60 60 0 0 1 210 150Z";
+  function flipTriangle() {
+    const arcs = ["M50 135a64 64 0 0 1 96 -55.43","M146 79.57a64 64 0 0 1 96 55.43","","M242 135a64 64 0 0 1 96 -55.43"];
+    const points = [[50,135],[146,79.57],[242,135],[242,135]];
+    const captions = [
+      "第一次绕右下角翻。B 从左下角抬起，沿弧走到三角形上方。",
+      "第二次换下一个着地点。B 从上方沿弧落到地面。",
+      "第三次绕 B 自己翻。三角形在转，蓝色的 B 点一直留在原地。",
+      "第四次再换一个着地点。B 从地上抬起，画出第三条弧。"
+    ];
+    const stages = arcs.map((arc,index)=>{
+      const start = 50+64*index;
+      const pivot = start+64;
+      const [bx,by] = points[index];
+      const piece = `<g>
+        ${region(`M${start} 135l32 -55.43 32 55.43Z`)}${trace(`M${pivot} 135L${bx} ${by}`,"green",.35)}
+        <circle class="motion-dot" cx="${bx}" cy="${by}" r="5"/>
+        <animateTransform attributeName="transform" type="rotate" from="0 ${pivot} 135" to="120 ${pivot} 135" dur="1.9s" fill="freeze"/>
+      </g>`;
+      return {...frame(captions[index],arc ? "绕着地点转 120°，B 到圆心的距离为 10 cm。" : "B 就是圆心，这一次 B 走了 0 cm。",
+        trace("M40 135H382")+arcs.slice(0,index).filter(Boolean).map(d=>trace(d,"blue",.3)).join("")+
+        (arc ? trace(arc,"blue",1.9) : "")+piece+
+        `<circle class="motion-dot" cx="${pivot}" cy="135" r="3"/>`+tag(pivot,155,index===2?"圆心就是 B":"这次的圆心")),hideBase:true,duration:1.9};
+    });
+    stages.push({...frame("把 B 走过的三段弧放到同一个圆上，每段转过 120°。","120°＋120°＋120°＝360°，路程 2×3.14×10＝62.8 cm。",
+      [0,1,2].map(i=>{
+        const p = a=>[210+58*Math.cos(a),90+58*Math.sin(a)].join(" ");
+        return trace(`M${p(i*2*Math.PI/3)}A58 58 0 0 1 ${p((i+1)*2*Math.PI/3)}`,i===1?"green":"blue");
+      }).join("")+trace("M210 90H268","green")+tag(246,81,"10 cm")),hideBase:true});
+    return stages;
+  }
+
   const figures = {
     "p7-choice2":[
       frame("沿大半圆从 A 走到 B。它的直径是整条 AB。","大弧长＝π×AB÷2",trace(semicircle(80,142,260))+tag(210,162,"AB")),
@@ -129,7 +160,12 @@
     "p35-fill6":[
       frame("尺上两个读数之间，就是量角器滚一整周的距离。","37.7－12＝25.7 cm",trace("M50 133H255")+tag(155,154,"25.7 cm")),
       frame("从弯边走到底边。若半径是 x，直径就有 2 个 x。","弧 3.14x ＋ 直边 2x＝25.7",trace(semicircle(50,120,110))+trace("M50 120H160","green")+tag(105,54,"3.14x")+tag(105,110,"2x")),
-      frame("合起来是 5.14 个 x，等号两边同除 5.14。得到半径后再涂面积。","x＝5 cm，面积 39.25 cm²",region("M255 120A55 55 0 0 1 365 120Z")+tag(310,105,"r＝5 cm"))],
+      frame("弯边有 3.14 个 x，直径有 2 个 x。把这两段在数轴上首尾接起来。","3.14x＋2x＝(3.14＋2)x＝5.14x。",
+        trace("M50 150H176")+trace("M176 150H255","green")+tag(112,169,"3.14x")+tag(214,169,"2x")),
+      frame("5.14 个 x 一共是 25.7 cm。两边同时除以 5.14，求出一份 x。","5.14x÷5.14＝25.7÷5.14，x＝5 cm。",
+        trace("M310 120H365","green")+tag(337,109,"5 cm")),
+      frame("最后只涂量角器的一面，它是半个圆。","3.14×5×5÷2＝39.25 cm²。",
+        region("M255 120A55 55 0 0 1 365 120Z")+tag(310,105,"r＝5 cm"))],
     "p40-solve2":cutFrames(false),
     "p47-q23":cutFrames(true),
     "p18-explore1":[
@@ -145,7 +181,10 @@
       frame("沿两条路线描一遍。两边都是用 24 m 来算半圆弧长。","两条路线各 37.68 m",trace(semicircle(90,126,240))+[0,1,2,3].map(i=>trace(semicircle(90+i*60,126,60,i%2===0),"green")).join("")),
       frame("路一样长。用每分钟走的距离比较，20 比 15 大。","天天 20 m/分，龙龙 15 m/分",dot(semicircle(90,126,240))+tag(210,70,"同样的路程"))],
     "p5-choice7":twoSquares("左图边长 2r，正方形面积 4r²","右图四个小三角形，合计 2r²",
-      frame("把刚才标出的面积跟圆面积 πr² 比。","左图圆占 π/4，右图方占 2/π",trace(circle(132,90,55))+trace(diamond,"green"))),
+      frame("左图要问圆占外方多少。分子取圆，分母取外方。","πr²÷4r²＝π/4。",
+        region(circle(132,90,55))+trace(leftSquare,"green")),
+      ).concat(frame("右图要问内方占圆多少。分子取内方，分母取圆。","2r²÷πr²＝2/π。",
+        region(diamond,"green")+trace(circle(289,90,55)))),
     "p40-solve5":twoSquares("左图给方的面积 12 dm²，所以 r²＝3","右图给半径 2 dm，每个小三角形面积 2 dm²",
       frame("左图涂圆，右图涂方。分别算出各自的面积。","左圆 9.42 dm²，右方 8 dm²",region(circle(132,90,55))+region(diamond,"green"))),
     "p42-explore3":twoSquares("左图边长 a，方与圆面积比 4∶π","右图圆直径 a，圆与方面积比 π∶2",
@@ -180,19 +219,34 @@
     "p50-q26":[
       frame("先描平行四边形的底与高。底是直径，高是半径。","底 6 cm，高 3 cm",trace("M162 108H282M222 48V108")+tag(223,147,"6 cm")+tag(244,82,"3 cm")),
       frame("左边去掉一块四分之一圆，右边补回同样大的一块。","两个 ¼ 圆面积相等",region("M222 108V48A60 60 0 0 0 162 108Z")+region("M222 108V48A60 60 0 0 1 282 108Z","green")),
+      frame("把右边要加的四分之一圆沿竖线翻到左边。两块大小完全相同，因此左边减掉的量与右边加上的量抵消。",
+        "－四分之一圆面积＋四分之一圆面积＝0。",
+        region("M222 108V48A60 60 0 0 0 162 108Z")+
+        `<g transform="translate(222 0)"><g>${region("M0 108V48A60 60 0 0 1 60 108Z","green")}<animateTransform attributeName="transform" type="scale" from="1 1" to="-1 1" dur="1.7s" fill="freeze"/></g></g>`),
       frame("一减一加抵消。现在只需要比较左边多边形和右边小三角形。","13.5－4.5＝9 cm²",trace("M102 48H222V108H162Z")+trace("M222 48L282 108H222Z","green"))],
     "p7-choice7":[
       frame("先涂大半圆。直径是 2 dm，所以半径是 1 dm。","半圆面积 1.57 dm²",region("M130 145A80 80 0 0 1 290 145Z")+tag(210,111,"r＝1 dm")),
       frame("再涂 45° 扇形。它的半径是 2 dm。","扇形面积也是 1.57 dm²",region("M130 145L243.137 31.863A160 160 0 0 1 290 145Z","green")+tag(259,129,"r＝2 dm")),
-      frame("两个完整图形一样大，各去掉同一块公共部分，剩下的就一样大。","左阴影＝右阴影",region("M130 145A80 80 0 0 1 210 65ZM210 65L243.137 31.863A160 160 0 0 1 290 145A80 80 0 0 0 210 65Z"))],
+      frame("把两个图形叠起来。黄色部分既在半圆里，也在 45° 扇形里，两边都要减这同一块。","半圆剩下 1.57－公共面积，扇形也剩下 1.57－公共面积。",
+        region("M130 145L210 65A80 80 0 0 1 290 145Z")+trace("M130 145A80 80 0 0 1 290 145Z")+trace("M130 145L243.137 31.863A160 160 0 0 1 290 145Z","green")),
+      frame("减完同一块后，只留下左边和右边的两片月牙。","左阴影面积＝右阴影面积。",region("M130 145A80 80 0 0 1 210 65ZM210 65L243.137 31.863A160 160 0 0 1 290 145A80 80 0 0 0 210 65Z"))],
     "p8-challenge":[
       frame("先把圆的半径设为 x。长方形高是 x，上边再伸出 4.28 cm。","宽 x，长 x＋4.28",trace("M175 80V145M175 80H240")+trace("M240 80H358","green")+tag(209,69,"x")+tag(154,121,"x")),
-      frame("两个图形面积相等，等号两边同除 x，得到只剩一层 x 的式子。","3.14x＝x＋4.28，x＝2 cm",trace(circle(175,80,65))+trace(box(175,80,183,65),"green")),
+      frame("圆面积等于长方形面积，分别把它们写出来。","3.14×x×x＝(x＋4.28)×x。",
+        trace(circle(175,80,65))+trace(box(175,80,183,65),"green")),
+      frame("两边都有一个乘上的 x。半径大于 0，两边可以同时除以 x。","3.14x＝x＋4.28。",
+        trace("M175 80V145")+trace("M175 145H358","green")+tag(155,113,"x")),
+      frame("两边都减去 1 个 x，剩下 2.14 个 x 等于 4.28。再两边都除以 2.14。","2.14x＝4.28，x＝4.28÷2.14＝2 cm。",
+        trace("M175 80H240")+trace("M240 80H358","green")+tag(208,69,"2 cm")+tag(299,69,"4.28 cm")),
       frame("把阴影涂出来，再看外面三条直边和一条圆弧。","阴影面积 9.42 cm²，周长 15.7 cm",region("M175 145A65 65 0 0 0 240 80H358V145Z")+trace("M175 145A65 65 0 0 0 240 80H358V145Z"))],
     "p36-challenge":[
       frame("圆心在 AB 中间。用两条半径把半圆分成上下两块。","AB＝20 cm，r＝10 cm",trace("M145 30V150M145 90H205")+tag(169,82,"10 cm")),
       frame("上面多出来的弓形，和下面缺掉的弓形大小相同。","上下两个弓形等面积",region("M145 30A60 60 0 0 1 205 90Z")+region("M145 150A60 60 0 0 0 205 90Z","green")),
-      frame("把上面的弓形补到下方，面积等于整个三角形 BDC。","底 20 cm，高 10 cm，面积 100 cm²",region("M145 150L205 90L265 150Z")+tag(205,132,"高 10 cm"))],
+      {...frame("沿水平的半径把上方弓形翻下来。它与下方的缺口正好重合。","弓形大小没变，只换了位置。",
+        region("M145 150L205 90L265 150ZM145 150A60 60 0 0 0 205 90Z","green")+
+        `<g transform="translate(0 90)"><g>${region("M145 -60A60 60 0 0 1 205 0Z")}<animateTransform attributeName="transform" type="scale" from="1 1" to="1 -1" dur="1.7s" fill="freeze"/></g></g>`+trace("M145 90H205")),duration:1.7},
+      frame("补完以后，两块阴影合成整个三角形 BDC。","底 20 cm，高 10 cm，面积 20×10÷2＝100 cm²。",
+        region("M145 150L205 90L265 150Z")+trace("M205 90V150","green")+tag(206,162,"底 20 cm")+tag(228,123,"10 cm"))],
     "p6-solve4":[
       frame("从钢管端面看，先沿外侧四条直线描。","4×10＝40 cm",trace(steel.straight)+tag(210,126,"4 段，每段 10 cm")),
       frame("再描四角的弧。四段各是四分之一圆。","4 段弧＝1 个圆周＝31.4 cm",trace(steel.curved,"green")),
@@ -207,16 +261,16 @@
       frame("四格都一样，整张纸的利用率跟一格相同。","π÷4×100%≈78.5%",[178,242].flatMap(x=>[58,122].map(y=>region(circle(x,y,32)))).join(""))],
     "p7-fill5":[
       frame("杆的左端固定。端点离固定点 4 m。","半径 4 m",trace("M130 140H258")+tag(195,129,"4 m")),
-      frame("端点从水平转到竖直，画出一段四分之一圆弧。","转过 90°",trace("M258 140A128 128 0 0 0 130 12")+dot("M258 140A128 128 0 0 0 130 12")+tag(153,117,"90°")),
+      {...frame("整根杆绕左端抬起来。看杆尖怎样画出四分之一圆弧。","半径始终是 4 m，转过 90°。",
+        trace("M258 140A128 128 0 0 0 130 12","blue",1.7)+
+        `<g><path class="motion-trace green" d="M130 140H258"/><circle class="motion-dot" cx="258" cy="140" r="5"/><animateTransform attributeName="transform" type="rotate" from="0 130 140" to="-90 130 140" dur="1.7s" fill="freeze"/></g>`+
+        tag(153,117,"90°")),duration:1.7},
       frame("端点只走整圆周长的四分之一。","2×3.14×4÷4＝6.28 m",trace("M258 140A128 128 0 0 0 130 12")+tag(252,47,"弧长 6.28 m"))],
     "p7-fill9":[
       frame("滚动时先跟着圆心走，从左圆心到右圆心。","5×18.84＝94.2 cm",trace("M97 113H323")+dot("M97 113H323")+tag(210,131,"94.2 cm")),
       frame("在两头各补一段。每段正好是圆心到挡板的距离。","左补 3 cm，右补 3 cm",trace("M65 113H97M323 113H355","green")+tag(82,98,"3 cm")+tag(338,98,"3 cm")),
       frame("把两头补上的长度与圆心路程连起来。","94.2＋3＋3＝100.2 cm",trace("M65 145H355")+tag(210,162,"100.2 cm"))],
-    "p7-fill10":[
-      frame("第一次翻转，B 绕着接地点转 120°。","半径 10 cm，圆心角 120°",trace("M50 135a64 64 0 0 1 96 -55.43")+dot("M50 135a64 64 0 0 1 96 -55.43")+tag(102,49,"120°")),
-      frame("B 落到地面后，有一次翻转正好绕 B 自己，它停在原处。","这一次 B 的路程是 0 cm",trace("M146 79.57a64 64 0 0 1 96 55.43")+region(circle(242,135,5))+tag(243,163,"B 在这里不动")),
-      frame("把 B 真正走过的三段弧接起来，刚好是整圆一周。","3×120°＝360°，路程 62.8 cm",trace("M50 135a64 64 0 0 1 96 -55.43a64 64 0 0 1 96 55.43M242 135a64 64 0 0 1 96 -55.43"))],
+    "p7-fill10":flipTriangle(),
     "p8-solve6":[
       frame("圆沿上边扫过宽 2 cm 的带，沿下边也扫过宽 2 cm 的带。","2＋2＝4 cm，中间正好接上",region(box(102,36,216,54))+region(box(102,90,216,54),"green")+tag(210,63,"2 cm")+tag(210,117,"2 cm")),
       frame("放大想象左上角。角上的小方格边长为半径 1 cm，圆只扫到其中四分之一圆。","一角＝1²－3.14×1²÷4",region("M75 36H102A27 27 0 0 0 75 63Z")+tag(115,22,"小方格 1 cm")),

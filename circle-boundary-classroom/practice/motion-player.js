@@ -33,6 +33,8 @@
     let running = false;
     let paused = false;
     let timer;
+    let deadline;
+    let remaining;
 
     function refreshControls() {
       play.textContent = running ? "暂停动画" : paused ? "继续播放" :
@@ -48,7 +50,10 @@
       svg.unpauseAnimations();
       svg.setCurrentTime(0);
       overlay.innerHTML = frame.marks;
-      if (reduceMotion.matches) svg.setCurrentTime((frame.duration ?? 2) + .1);
+      if (reduceMotion.matches) {
+        svg.setCurrentTime((frame.duration ?? 2) + .1);
+        svg.pauseAnimations();
+      }
       figure.dataset.motion = frame.hideBase ? "isolated" : "active";
       for (const control of diagramControls) control.setAttribute("aria-pressed", "false");
       caption.textContent = `第 ${index + 1} / ${frames.length} 步　${frame.caption}`;
@@ -63,8 +68,9 @@
       paused = false;
     }
 
-    function queueNext() {
-      const hold = Math.max(4700, 2300 + frames[index].caption.length * 90);
+    function queueNext(hold = Math.max(4700, (frames[index].duration ?? 2) * 1000 + 1800,
+      2300 + frames[index].caption.length * 90)) {
+      deadline = performance.now() + hold;
       timer = setTimeout(() => {
         if (index === frames.length - 1) {
           stop();
@@ -89,6 +95,7 @@
 
     play.addEventListener("click", () => {
       if (running) {
+        remaining = Math.max(0, deadline - performance.now());
         clearTimeout(timer);
         running = false;
         paused = true;
@@ -99,10 +106,13 @@
       running = true;
       if (paused) {
         paused = false;
-        svg.unpauseAnimations();
+        if (!reduceMotion.matches) svg.unpauseAnimations();
         refreshControls();
-      } else render(0);
-      queueNext();
+        queueNext(remaining);
+      } else {
+        render(0);
+        queueNext();
+      }
     });
     back.addEventListener("click", () => { stop(); render(index - 1); });
     forward.addEventListener("click", () => { stop(); render(index + 1); });

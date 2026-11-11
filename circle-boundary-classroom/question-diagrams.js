@@ -26,7 +26,7 @@ function arcStudy(key) {
 }
 
 function concentric(key) {
-  const x=210,y=113,r=83,s=55;
+  const x=210,y=113,r=83,s=key==="rings-shrink"?r*3/4:55;
   const outer = circle(x,y,r);
   const inner = circle(x,y,s);
   if (key==='square-circle-diamond') return box(127,30,166,166) + outer +
@@ -228,7 +228,7 @@ function rolling(key) {
 
 const diagramFamilies = [
   [arcStudy, 'route moon half-6 half-cake half-wall half-fence'],
-  [concentric, 'rings square-circle-diamond circle-square-circle square-circle ring-square ring-tri'],
+  [concentric, 'rings rings-shrink square-circle-diamond circle-square-circle square-circle ring-square ring-tri'],
   [annularStudy, 'sector-1a sector-1b sector-2a sector-2b'],
   [grazing, 'leaf-10 dog sheep'],
   [cans, 'cans-four cans-three'],

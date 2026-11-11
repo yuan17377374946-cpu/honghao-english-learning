@@ -9,7 +9,7 @@
   const turn = (d,x,y,angle) => `<g>${fill(d,"blue")}<animateTransform attributeName="transform" type="rotate" from="0 ${x} ${y}" to="${angle} ${x} ${y}" dur="1.55s" fill="freeze"/></g>`;
   const marker = '<circle class="bank-node" cx="0" cy="0" r="5"/>';
   const from = (caption, values, marks, options={}) => ({caption,values,marks,...options});
-  const guided = (row, items) => items.map(([caption,marks],i) => from(caption,row.steps[i],marks));
+  const guided = (row, items) => items.map(([caption,marks,options],i) => from(caption,row.steps[i],marks,options));
   const half = arc(90,173,240);
   const halfShape = half+"Z";
   const upper = arc(65,174,290);
@@ -29,7 +29,6 @@
   const dogCorner1 = pie(216,77,43,-180,-90);
   const dogCorner2 = pie(173,120,43,180,270);
   const sheepSector = pie(210,177,124,180,270);
-  const sheepCorners = pie(210,115,62,-90,0)+pie(148,177,62,90,180);
 
   function shapeData(figure, selector, indices) {
     const candidates=[...figure.querySelectorAll(selector)];
@@ -188,6 +187,46 @@
       board("只涂新圆外面的一圈。那就是减少的面积。",2,fill(disk(210,113,84)+disk(210,113,63))+tag(210,115,"减少 7/16"))];
   }
 
+  function grazingFrames(row,isDog) {
+    const anchor=isDog?[216,120]:[210,177];
+    const top=isDog?[216,77]:[210,115];
+    const left=isDog?[173,120]:[148,177];
+    const large=isDog?86:124;
+    const short=large/2;
+    const whole=isDog?6:4;
+    const wall=whole/2;
+    const animal=isDog?dogHead:`<g transform="translate(0 -6)"><ellipse class="bank-sheep" cx="-3" cy="0" rx="9" ry="6"/><circle class="bank-sheep" cx="6" cy="-3" r="4"/><path class="bank-dog-leg" d="M-8 4v5m7-5v5"/><circle cx="7.5" cy="-4" r="1" fill="#153b32"/></g>`;
+    const land=isDog?square(left[0],top[1],short):"";
+    const walls=land?fill(land,"house")+ink(land,"green")+tag(193,103,"屋"):
+      ink(`M${left.join(" ")}H${anchor[0]}V${top[1]}`,"green");
+    const main=isDog?dogSector:sheepSector;
+    const first=isDog?dogCorner1:pie(...top,short,-90,0);
+    const second=isDog?dogCorner2:pie(...left,short,90,180);
+    function run(center,radius,start,end) {
+      const points=Array.from({length:37},(_,i)=>point(...center,radius,start+(end-start)*i/36));
+      const [x,y]=points[0];
+      const wrapped=center===anchor?"":`<path class="bank-rope wrapped" d="M${anchor.join(" ")}L${center.join(" ")}"/>`;
+      return wrapped+`<line class="bank-rope" x1="${center[0]}" y1="${center[1]}" x2="${x}" y2="${y}">
+        ${["x2","y2"].map((attr,i)=>`<animate attributeName="${attr}" values="${points.map(p=>p[i]).join(";")}" dur="2.2s" fill="freeze"/>`).join("")}
+      </line>`+node(...center)+travel("M"+points.map(p=>p.join(" ")).join("L"),animal,2.2);
+    }
+    const wideAngle=isDog?"270°":"90°";
+    return [
+      from(`先让${isDog?"小狗":"小羊"}拉紧整条绳子绕拴绳点走。看绳子能转过多大角度。`,
+        `整根绳长 ${whole} m，转过 ${wideAngle}。`,fill(main,blue)+walls+
+        run(anchor,large,isDog?-90:180,isDog?180:270)+tag(315,221,`可转动 ${whole} m`),{hideBase:true,duration:2.2}),
+      from(`现在看上方的${isDog?"墙角":"墙端"}。贴墙的那段绳不再转，只有剩下的那段能绕角转动。`,
+        `${whole}－${wall}＝${wall} m，新增一个四分之一圆。`,fill(main,blue)+fill(first)+walls+
+        run(top,short,-90,isDog?-180:0)+tag(315,221,`可转动 ${wall} m`),{hideBase:true,duration:2.2}),
+      from("再看左边，换另一个墙端当圆心。仍然只贴住一段墙。",
+        row.steps[2],fill(main,blue)+fill(first)+fill(second,"green")+walls+
+        run(left,short,180,isDog?270:90)+tag(315,221,`可转动 ${wall} m`),{hideBase:true,duration:2.2}),
+      from("把直接能到的大块和绕墙多出的两个小块相加。",row.steps[3],
+        fill(main,blue)+fill(first)+fill(second,"green")+walls+
+        tag(310,229,isDog?"合计 98.91 m²":"合计 18.84 m²"),{hideBase:true})
+    ];
+  }
+
   const builders = {
     route: row => guided(row,[
       ["先沿直径方向看三段。2、4、6 拼成一整段。",mark("M65 174H355","2＋4＋6＝12 cm",210,229)],
@@ -214,12 +253,39 @@
       ["篱笆沿弯边走一段，再沿直边回到起点。",ink(half)+ink("M90 173H330","green")+tag(210,229,"3.14r＋2r")],
       ["把 20.56 m 平均分成 5.14 个半径长。",ink("M210 173H330","green")+node(210,173)+tag(273,152,"r＝4 m")],
       ["把鸡棚能占的半圆区域涂出来。",block(halfShape,"25.12 m²",210,129)]]),
-    rings: row => row.number==="2" ? guided(row,[
-      ["从 25.12 cm 的周长反推原半径，再从原半径扣掉 1 cm。",ink("M210 113H293")+ink("M210 113H265","green")+tag(309,105,"4 cm")+tag(245,144,"3 cm")],
-      ["先看原来的整圆，再叠上缩小后的圆。",fill(disk(210,113,83))+fill(disk(210,113,55),blue,.3)+tag(210,222,"50.24 cm² → 28.26 cm²")],
-      ["两圆之间这一圈就是减少的面积。",block(circleRing,"减少 21.98 cm²")]]) : guided(row,[
-      ["把外圆、内圆的半径都放大到两倍。两个面积各扩大四倍。",ink("M210 113H293")+ink("M210 113H265","green")+tag(210,223,"R → 2R　r → 2r")],
-      ["大圆和小圆同时乘 4，相减得到的圆环也乘 4。",block(circleRing,"圆环面积 ×4")]]),
+    "rings-shrink": row => {
+      const outer=84, inner=63;
+      const outline=ink(disk(210,113,outer))+ink(disk(210,113,inner),"green");
+      return [
+        from("先沿外圆描一圈。圆周长是 2×3.14 个半径，用 25.12 除以 6.28，求出原半径。",
+          "25.12÷6.28＝4 cm",ink(disk(210,113,outer))+ink("M210 113H294")+tag(255,104,"4 cm"),{hideBase:true}),
+        from("沿同一条半径，把末端往圆心退 1 cm。新圆的半径剩 3 cm。",
+          "4－1＝3 cm",outline+ink("M210 113H273","green")+ink("M273 113H294")+tag(242,103,"3 cm")+tag(297,139,"1 cm"),{hideBase:true}),
+        from("先涂原来的 4 cm 圆，再叠上现在的 3 cm 圆。绿色圈内仍然保留。",
+          row.steps[1],fill(disk(210,113,outer))+fill(disk(210,113,inner),"green",.45)+outline+tag(210,226,"原来 50.24 cm²　现在 28.26 cm²"),{hideBase:true}),
+        from("只留下两条圆边之间的一圈。用原面积减去新面积。",
+          row.steps[2],block(disk(210,113,outer)+disk(210,113,inner),"50.24－28.26＝21.98 cm²")+outline,{hideBase:true})
+      ];
+    },
+    rings: row => {
+      const pair=(x,r,s)=>ink(disk(x,114,r))+ink(disk(x,114,s),"green");
+      const strip=(x,r,s)=>disk(x,114,r)+disk(x,114,s);
+      const compare=pair(100,38,24)+pair(302,76,48);
+      const original=strip(100,38,24);
+      return [
+        from("先看蓝色外半径和绿色内半径。把整个小圆环按相同比例拉大，两条半径一起翻倍。",
+          "外半径 R → 2R，内半径 r → 2r。",
+          pair(100,38,24)+ink("M100 114H138")+ink("M100 114V90","green")+
+          `<g transform="translate(302 114)"><g>${ink(disk(0,0,38))+ink(disk(0,0,24),"green")}${ink("M0 0H38")+ink("M0 0V-24","green")}<animateTransform attributeName="transform" type="scale" from="1" to="2" dur="1.8s" fill="freeze"/></g></g>`+
+          tag(100,218,"放大前")+tag(302,218,"放大后"),{hideBase:true,duration:1.8}),
+        from("每个圆的面积都要把自己的半径乘两次。半径乘 2，面积就乘 2×2。",
+          "外圆 π(2R)²＝4πR²，内圆 π(2r)²＝4πr²。",
+          fill(disk(100,114,38),blue)+fill(disk(302,114,76),blue)+fill(disk(100,114,24),"green",.6)+fill(disk(302,114,48),"green",.6)+compare+tag(100,218,"原来的两个圆")+tag(302,218,"两圆面积各 ×4"),{hideBase:true}),
+        from("两边都只留下外圆减内圆的环。放大后，两项都有同一个 4。",
+          "4πR²－4πr²＝4×(πR²－πr²)。",
+          fill(original)+fill(strip(302,76,48))+compare+tag(100,218,"原圆环面积")+tag(302,218,"原圆环面积 ×4"),{hideBase:true})
+      ];
+    },
     "square-circle-diamond": row => guided(row,[
       ["圆面积除以 3.14，先求半径的平方。",ink("M210 113H293","green")+tag(265,101,"r＝10 cm")],
       ["外方的边长等于圆的直径。",ink(outsideSquare)+ink("M127 113H293","green")+tag(210,222,"20²＝400 cm²")],
@@ -242,16 +308,8 @@
       ["蓝色和绿色分别是一头牛绳子能扫到的区域。",fill(leafA,blue)+fill(leafB,"green",.3)+tag(210,233,"两条绳子都是 10 m")],
       ["两块合起来盖满正方形。中间颜色叠在一起，就是两头都能到的地方。",ink(square(130,35,160))+fill(leaf)+tag(210,232,"正方形 100 m²")],
       ["把两个四分之一圆的面积相加，再减去整个方形，留下多算一次的叶片。",block(leaf,"157－100＝57 m²")]]),
-    dog: row => guided(row,[
-      ["小狗先绕 A 跑外面的大半圈加一个直角。屋子挡住剩下的一个直角。",fill(dogSector,blue)+travel("M216 34A86 86 0 1 1 130 120",dogHead)+tag(328,206,"半径 6 m")],
-      ["绳子贴上一面 3 m 的墙，能继续转的绳子剩 3 m。",ink("M216 120V77M216 120H173","green")+node(216,77)+node(173,120)+tag(315,201,"6－3＝3 m")],
-      ["小狗可以从两个相邻墙角各多绕一个四分之一圆。",fill(dogCorner1)+fill(dogCorner2,"green",.3)+tag(320,208,"增加 14.13 m²")],
-      ["把大块和两块小扇形相加。",fill(dogSector,blue)+fill(dogCorner1+dogCorner2)+tag(210,229,"合计 98.91 m²")]]),
-    sheep: row => guided(row,[
-      ["绳子从 O 出发，只扫到两面墙夹出的直角。",block(sheepSector,"半径 4 m",151,129,blue)],
-      ["绕到墙端以后，绳子先贴住 2 m 的墙，剩下的 2 m 还能绕。",ink("M148 177H210V115","green")+node(148,177)+node(210,115)+tag(304,184,"4－2＝2 m")],
-      ["左右两个墙端各加一块四分之一圆。",block(sheepCorners,"新增 6.28 m²",308,213)],
-      ["大块加上两小块。",fill(sheepSector,blue)+fill(sheepCorners)+tag(307,222,"合计 18.84 m²")]]),
+    dog: row => grazingFrames(row,true),
+    sheep: row => grazingFrames(row,false),
     "quadrant-square": quarterSquare
   };
 
@@ -394,7 +452,7 @@
       ["只靠外框的尺寸，无法确定图里每块阴影。",ink("M104 45H320V189H104Z")+tag(210,236,"现有条件不能唯一确定面积")]]),
     barrel: row => guided(row,[
       ["先看油桶滚一圈。圆周拉直，就是圆心前进的距离。",ink(disk(96,125,31))+tag(211,220,"一圈 1.256 m")],
-      ["让油桶从左端滚到右端，跟踪中间的圆心。",travel("M96 125H324",'<circle class="bank-wheel" r="31"/>'+marker)+ink("M96 125H324")+tag(210,215,"5 圈，圆心走 6.28 m")],
+      ["让油桶从左端滚到右端，跟踪中间的圆心。",travel("M96 125H324",'<g><circle class="bank-wheel" r="31"/><path class="bank-rope" d="M0 0V-28"/><animateTransform attributeName="transform" type="rotate" from="0" to="1800" dur="3s" fill="freeze"/></g>'+marker,3)+ink("M96 125H324")+tag(210,215,"5 圈，圆心走 6.28 m"),{duration:3}],
       ["圆心在两端都离车厢端面一个半径，各补 0.2 m。",ink("M65 125H96M324 125H355","green")+tag(89,209,"0.2 m")+tag(338,209,"0.2 m")+tag(210,230,"车厢长 6.68 m")]]),
     carpet: row => guided(row,[
       ["把地毯拆成中间长方形和两头半圆。两个半圆拼成一个整圆。",fill("M105 78H315V164H105Z",blue)+fill("M105 78A43 43 0 0 0 105 164ZM315 78A43 43 0 0 1 315 164Z","green",.3)+tag(210,216,"地毯面积 318.5 dm²")],
@@ -405,10 +463,21 @@
       ["四个转弯分别扫出一个四分之一圆，合起来是一个半径 2 cm 的圆。",fill(pie(115,81,38,180,270)+pie(305,81,38,270,360)+pie(305,195,38,0,90)+pie(115,195,38,90,180))+tag(210,143,"四角合计 12.56 cm²")],
       ["把四条带和四个转角合在一起。",fill(shapeData(figure,"path.shade"))+tag(210,143,"64＋12.56＝76.56 cm²")]]),
     "rolling-square": (row,figure) => [
-      from("看四条边扫过的带子。中间还剩一个边长 4 cm 的小正方形。",row.steps[0],block(square(190,97,38),"中间 4×4＝16 cm²",210,220)),
-      from("再涂四个最靠墙角的空隙。每个角都要从小方格中减掉四分之一圆。","4×4²－3.14×4²＝13.76 cm²",block(shapeData(figure,"path.shade",[0,1,2,3]),"四角共 13.76 cm²")),
-      from("把中间空白和四角空隙一起涂出。","16＋13.76＝29.76 cm²",block(shapeData(figure,"path.shade"),"滚不到 29.76 cm²")),
-      from("最后只跟着圆心走。它走的每条边都离墙 4 cm。",row.steps[2],ink(rollingOutline)+travel(rollingOutline,marker)+tag(210,228,"每边 12 cm，一圈 48 cm"))
+      from("让圆贴着上边走，再沿右、下、左三边走。蓝线记录的是圆心，每处都离相邻墙一条半径。",
+        "墙边到圆心的距离＝4 cm。",
+        ink(rollingOutline)+travel(rollingOutline,'<circle class="bank-wheel" r="38"/>'+marker,3.6)+tag(210,238,"圆心沿虚线走"),{duration:3.6}),
+      from("从左、右两边各向里扫过一个直径。上、下两边也是一样。中间就留下一个小正方形。",
+        "直径 8 cm，剩下的边长 20－8－8＝4 cm，面积 4×4＝16 cm²。",
+        ["M114 59H190V173H114Z","M228 59H304V173H228Z","M152 21H266V97H152Z","M152 135H266V211H152Z"].map((band,i)=>fill(band,blue,i*.15)).join("")+
+        fill(square(190,97,38),"amber",.5)+tag(210,124,"4 cm")+tag(210,238,"两边各扫进 8 cm")),
+      from("单独看左上角。圆扫进一格里的部分是四分之一圆，贴墙角的那一小块没有扫到。",
+        "小方格面积 4×4＝16 cm²，四分之一圆面积 3.14×4²÷4＝12.56 cm²。",
+        ink(square(114,21,38))+fill(pie(152,59,38,180,270),blue)+
+        fill(shapeData(figure,"path.shade",[0]),"amber",.45)+tag(210,238,"一角剩 3.44 cm²")),
+      from("四个角的空隙一样大。加上中间的小正方形，就是全部滚不到的地方。",
+        "4×3.44＋16＝29.76 cm²。",block(shapeData(figure,"path.shade"),"滚不到 29.76 cm²")),
+      from("最后只量圆心的路线。每条边的两端各扣掉一个半径，再乘四条边。",
+        row.steps[2],ink(rollingOutline)+travel(rollingOutline,marker,2.5)+tag(210,238,"每边 12 cm，一圈 48 cm"),{duration:2.5})
     ],
     "rotate-half": row => guided(row,[
       ["先沿 AB 找旋转半径。B 到固定点 A 的距离是半圆的整条直径。",ink("M107 186H287")+node(107,186)+tag(195,211,"AB＝6 cm")],

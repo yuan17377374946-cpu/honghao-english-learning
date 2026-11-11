@@ -54,7 +54,7 @@
 .motion-caption { color:var(--ink); line-height:1.65; }
 .motion-value { margin-top:5px; color:#164e40; font-weight:800; font-variant-numeric:tabular-nums; line-height:1.5; overflow-wrap:anywhere; }
 .practice-figure[data-motion="active"] svg > :not(.motion-overlay,defs) { opacity:.45; }
-.practice-figure svg .motion-trace { fill:none; stroke:#075eaa; stroke-width:3.5; stroke-linecap:round; stroke-linejoin:round; vector-effect:non-scaling-stroke; }
+.practice-figure svg .motion-trace { fill:none; stroke:#075eaa; stroke-width:3.5; stroke-linecap:round; stroke-linejoin:round; }
 .practice-figure svg .motion-trace.green { stroke:#157556; }
 .practice-figure svg .motion-region { fill:#ec9d36; fill-opacity:.69; fill-rule:evenodd; }
 .practice-figure svg .motion-region.green { fill:#49b098; }
@@ -76,3 +76,5 @@
 .dog-motion .dog-legend { font-size:13px; font-weight:800; fill:#254f40; }
 .dog-motion .dog-legend.wall { fill:#85431e; }
 .dog-motion .dog-legend.free { fill:#176a51; }
+
+.practice-figure[data-motion="isolated"] svg > :not(.motion-overlay,defs) { opacity:0; }
