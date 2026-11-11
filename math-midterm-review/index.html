@@ -1,0 +1,1594 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>九年级数学期中 · 逐题讲评</title>
+<meta name="description" content="九年级数学期中 20 道题，含重绘题图、分步讲解和板书草稿纸。">
+<style>
+:root{color-scheme:light;--bg:#edf3f5;--paper:#fff;--ink:#18313a;--muted:#516872;--line:#d3e0e4;--accent:#08746a;--deep:#173a46}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.65 system-ui,"Microsoft YaHei",sans-serif}
+.wrap{width:min(1390px,calc(100% - 32px));margin:auto}
+header{background:var(--deep);color:white;padding:24px 0 20px}
+h1,h2,h3,p{margin:0}
+h1{font-size:clamp(1.65rem,4vw,2.5rem);line-height:1.18}
+header p{color:#d3e9eb;margin-top:8px}
+nav{display:grid;grid-template-columns:8fr 5fr 5fr;gap:9px;margin:14px 0}
+.nav-group{border:1px solid var(--line);border-radius:12px;background:white;padding:8px 10px}
+.nav-group h2{font-size:.82rem;color:var(--muted);margin-bottom:5px}
+.numbers,.actions{display:flex;flex-wrap:wrap;align-items:center;gap:7px}
+button{font:inherit;color:inherit;background:white;border:1px solid var(--line);border-radius:8px;padding:6px 11px;cursor:pointer}
+button:hover:not(:disabled){border-color:var(--accent)}
+button:disabled{opacity:.44;cursor:default}
+button:focus-visible,summary:focus-visible{outline:3px solid #ac5a22;outline-offset:3px}
+.numbers button{min-width:2.5rem;padding:4px 7px;font-variant-numeric:tabular-nums}
+button[aria-current="true"],.primary{background:var(--deep);color:white;border-color:var(--deep);font-weight:700}
+.question-head{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin:12px 0}
+.question-head h2{font-size:clamp(1.35rem,3.4vw,2rem);line-height:1.3}
+.eyebrow{font-size:.82rem;color:var(--accent);font-weight:750;margin-bottom:3px}
+.columns{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:12px;align-items:start}
+.panel{border:1px solid var(--line);border-radius:14px;background:var(--paper);padding:14px 17px;min-width:0}
+.panel h3{font-size:1.1rem;margin-bottom:8px}
+.prompt{line-height:1.85}
+details{border-top:1px solid var(--line);margin-top:12px;padding-top:9px}
+summary{cursor:pointer;font-weight:700;color:var(--accent)}
+.source-list{display:grid;gap:8px;margin-top:8px}
+.source-list svg{width:100%;max-height:420px;border-radius:6px;background:#f4f7f7;display:block}
+.board-figure{width:100%;height:auto;max-height:320px;display:block;margin:8px 0;border:1px solid var(--line);border-radius:8px;background:#f8fcfb}
+.board-figure:not(.teaching-svg) text{font-size:14px;fill:var(--ink)}
+.steps{padding-left:1.4rem;margin:10px 0}
+.steps li{padding:6px 4px}
+.steps li.latest{background:#edf7f5;border-radius:6px}
+.answer{padding:10px;background:#e7f5f0;border-left:4px solid var(--accent);border-radius:5px;font-weight:700}
+.empty{color:var(--muted);font-size:.93rem;margin-top:8px}
+.question-note{background:#fff7e6;border-left:4px solid #a3561d;padding:8px 10px;margin-top:9px;border-radius:5px;font-size:.93rem}
+footer{color:var(--muted);padding:16px 0 25px;font-size:.85rem}
+[hidden]{display:none!important}
+@media(max-width:850px){.columns{grid-template-columns:1fr}nav{grid-template-columns:1fr}.wrap{width:calc(100% - 22px)}.panel{padding:12px}.source-list svg{max-height:350px}}
+</style>
+<style>
+body{font-family:"Noto Sans SC",system-ui,"Microsoft YaHei",sans-serif}
+button,summary,textarea{outline-offset:3px}
+button,summary{min-height:44px}
+button{min-width:44px}
+button:focus-visible,summary:focus-visible,textarea:focus-visible{outline:3px solid #a64324}
+::selection{background:#c5e7df;color:#173a46}
+.question-head{scroll-margin-top:10px}
+.figure-head,.chalk-head,.paper-toolbar{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.lesson-figure{margin:14px 0 4px}
+.figure-head{margin-bottom:4px}
+.figure-head h3{margin:0}
+.figure-stage{margin:7px 0;color:#23564f;font-weight:750}
+.figure-caption{color:var(--muted);font-size:.94rem;margin:6px 0 10px}
+.figure-actions{display:flex;gap:7px;flex-wrap:wrap;align-items:center}
+.figure-actions .board-from-figure{margin-inline-start:auto}
+.figure-count{font-variant-numeric:tabular-nums;color:var(--muted);font-size:.9rem}
+.teaching-svg{max-height:clamp(230px,44vh,390px);background:#f8fcfb}
+.teaching-svg text{font-weight:650}
+@media (min-width:1050px){.lesson-source{position:sticky;top:12px}}
+.lesson-workspace{display:grid;gap:12px;min-width:0}
+.lesson-board{min-width:0;scroll-margin-top:12px}
+.chalk-head{align-items:center;margin-bottom:9px}
+.chalk-head h3{font-size:clamp(1.12rem,2.4vw,1.35rem);margin:0}
+.paper-question{display:none}
+@media(max-width:850px){
+  .paper-question{display:block;background:#edf6f4;border-radius:7px;padding:8px 10px;margin-bottom:9px;font-size:.95rem}
+}
+.paper-toolbar{justify-content:flex-start;margin-bottom:9px}
+.paper-tools{display:flex;flex-wrap:wrap;gap:5px;align-items:center}
+.paper-tools + .paper-tools{padding-inline-start:8px;border-inline-start:1px solid var(--line)}
+.paper-toolbar button{font-size:.94rem;padding:5px 9px}
+.paper-toolbar button[aria-pressed="true"]{background:#e0f3ee;border-color:#3d7d73;font-weight:700}
+.ink-dot{display:inline-block;width:.72em;height:.72em;border-radius:50%;background:var(--pen);margin-inline-end:5px}
+.paper-surface{position:relative;aspect-ratio:16/9;isolation:isolate;background:#fff;border:1px solid #b9ced3;border-radius:8px;overflow:hidden}
+.paper-surface[data-paper="grid"]{background-image:linear-gradient(#deeaee 1px,transparent 1px),linear-gradient(90deg,#deeaee 1px,transparent 1px);background-size:24px 24px}
+.paper-art{position:absolute;inset:4%;display:grid;place-items:center;pointer-events:none}
+.paper-art .board-figure{margin:0;border:0;background:transparent;width:100%;height:100%;max-height:100%;min-height:0;min-width:0}
+.paper-surface:not([data-paper="figure"]) .paper-art{visibility:hidden}
+.paper-surface canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none;cursor:crosshair}
+.paper-surface canvas[data-mode="eraser"]{cursor:cell}
+.paper-status{font-size:.85rem;color:var(--muted);margin:5px 0}
+.paper-notes{margin-top:4px;padding-top:1px}
+.paper-notes textarea{width:100%;min-height:5em;border:1px solid #a7bec5;border-radius:7px;padding:8px 10px;font:inherit;resize:vertical;color:inherit;background:white}
+@media(max-width:600px){
+  .figure-actions .board-from-figure{margin-inline-start:0}
+  .paper-tools + .paper-tools{border:0;padding-inline-start:0}
+  .teaching-svg{max-height:none}
+}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+
+.method-picker{margin:0 0 12px;padding:11px 16px;background:#f8fcfb;border:1px solid var(--line);border-radius:12px}
+.method-picker h3{margin-bottom:7px;font-size:1rem}
+.method-options{display:flex;flex-wrap:wrap;gap:7px}
+.method-options button{font-size:.96rem}
+.method-options button[aria-pressed="true"]{background:#deefe9;border-color:#418379;color:#14564e;font-weight:700}
+.method-svg{max-height:none}
+@media(min-width:1050px) and (max-height:850px){.method-svg{max-height:37vh}}
+.figure-select{display:flex;align-items:center;gap:8px;margin:7px 0 9px;color:var(--muted);font-size:.94rem}
+.figure-select select{min-height:44px;min-width:0;max-width:100%;flex:1;font:inherit;color:var(--ink);background:#fff;border:1px solid #9fb6bc;border-radius:8px;padding:5px 8px}
+.figure-select select:focus-visible{outline:3px solid #a64324;outline-offset:3px}
+@media(min-width:851px){.method-svg{max-height:clamp(250px,39vh,375px)}}
+</style>
+</head>
+<body>
+<header><div class="wrap"><h1>九年级数学期中 · 逐题讲评</h1><p>2026–2027 学年第一学期 · 学生练习与讲评</p></div></header>
+<main class="wrap">
+  <nav id="number-nav" aria-label="题号"></nav>
+  <section id="question-board" aria-labelledby="question-title">
+    <div class="question-head"></div>
+    <section class="method-picker" aria-labelledby="method-heading" hidden></section>
+    <div class="columns">
+      <section class="panel lesson-source"></section>
+      <div class="lesson-workspace">
+        <section id="chalkboard" class="panel lesson-board" aria-labelledby="chalkboard-title" hidden>
+          <div class="chalk-shell">
+            <div class="chalk-head">
+              <h3 id="chalkboard-title" tabindex="-1">板书草稿纸</h3>
+              <button type="button" data-paper-action="close">收起板书</button>
+            </div>
+            <p class="paper-question"></p>
+            <div class="paper-toolbar" aria-label="板书工具">
+              <div class="paper-tools" role="group" aria-label="纸张">
+                <button type="button" data-paper="grid" aria-pressed="true">方格纸</button>
+                <button type="button" data-paper="blank" aria-pressed="false">白纸</button>
+                <button type="button" data-paper="figure" aria-pressed="false">题图底纸</button>
+              </div>
+              <div class="paper-tools" role="group" aria-label="笔迹">
+                <button type="button" data-paper-mode="pen" aria-pressed="true">画笔</button>
+                <button type="button" data-paper-mode="eraser" aria-pressed="false">橡皮擦</button>
+                <button type="button" data-ink="blue" aria-pressed="true"><span class="ink-dot" style="--pen:#224f87"></span>蓝笔</button>
+                <button type="button" data-ink="red" aria-pressed="false"><span class="ink-dot" style="--pen:#ac3629"></span>红笔</button>
+                <button type="button" data-ink="black" aria-pressed="false"><span class="ink-dot" style="--pen:#263e48"></span>黑笔</button>
+              </div>
+              <div class="paper-tools">
+                <button type="button" data-paper-action="undo">撤销</button>
+                <button type="button" data-paper-action="clear">清空笔迹</button>
+              </div>
+            </div>
+            <div class="paper-surface" data-paper="grid">
+              <div class="paper-art" aria-hidden="true"></div>
+              <canvas aria-label="手写板书区域"></canvas>
+            </div>
+            <p class="paper-status" role="status"></p>
+            <details class="paper-notes"><summary>展开键盘板书</summary><textarea aria-label="键盘板书" placeholder="输入公式、证明步骤或课堂笔记…"></textarea></details>
+          </div>
+        </section>
+        <section class="panel lesson-steps"></section>
+      </div>
+    </div>
+  </section>
+  <footer>键盘 ←、→ 可切换题目。</footer>
+</main>
+<script>
+const lessonVisuals = (() => {
+  const ink = '#263e48';
+  const faint = '#9aadb4';
+  const teal = '#08746a';
+  const blue = '#285aa3';
+  const red = '#a64324';
+  const gold = '#a56614';
+  const wash = '#dff2ec';
+  const sky = '#e2ecf9';
+
+  const path = (points, color = ink, fill = 'none', closed = false, dash = false) =>
+    '<polyline points="' + (closed ? [...points,points[0]] : points).map(([x,y])=>x+','+y).join(' ') +
+    '" stroke="'+color+'" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="'+fill+'"'+
+    (dash?' stroke-dasharray="6 5"':'')+'/>';
+  const line = (a,b,color,dash=false) => path([a,b],color,'none',false,dash);
+  const label = (x,y,value,color=ink,size=17) =>
+    '<text x="'+x+'" y="'+y+'" fill="'+color+'" font-size="'+size+'">'+value+'</text>';
+  const dot = (p,color=ink) => '<circle cx="'+p[0]+'" cy="'+p[1]+'" r="3.5" fill="'+color+'"/>';
+  const circle = ([x,y],r,color=ink) => '<circle cx="'+x+'" cy="'+y+'" r="'+r+'" fill="none" stroke="'+color+'" stroke-width="2"/>';
+  function diagram(height,title,content) {
+    return '<svg class="board-figure teaching-svg" viewBox="0 0 480 '+height+'" role="img" aria-label="'+title+'">'+content+'</svg>';
+  }
+  function shape(p,keys,color,fill) {
+    return path([...keys].map(key=>p[key]),color,fill,true);
+  }
+  function edge(p,a,b,color,dash) {
+    return line(p[a],p[b],color,dash);
+  }
+  function labels(p,offsets) {
+    return Object.entries(offsets).map(([k,[dx,dy]])=>dot(p[k])+label(p[k][0]+dx,p[k][1]+dy,k)).join('');
+  }
+  function right(p,a,b,color=ink) {
+    const unit=q=>{const x=q[0]-p[0], y=q[1]-p[1], d=Math.hypot(x,y); return [9*x/d,9*y/d];};
+    const [ux,uy]=unit(a), [vx,vy]=unit(b);
+    return path([[p[0]+ux,p[1]+uy],[p[0]+ux+vx,p[1]+uy+vy],[p[0]+vx,p[1]+vy]],color);
+  }
+
+  function solid(stage) {
+    const cylinder=path([[82,53],[164,53],[164,113],[82,113]],ink,stage===1?wash:'none',true);
+    const cone=path([[82,113],[123,172],[164,113]],ink,stage===2?sky:'none',true);
+    return diagram(207,'圆柱和圆锥的正投影对照',
+      path([[82,55],[82,112],[123,171],[164,112],[164,55]],ink)+
+      '<ellipse cx="123" cy="55" rx="41" ry="12" fill="#f8fcfb" stroke="#263e48" stroke-width="2.5"/>'+
+      '<ellipse cx="123" cy="112" rx="41" ry="11" fill="none" stroke="#9aadb4" stroke-width="2"/>'+
+      line([197,110],[261,110],blue)+path([[252,104],[262,110],[252,116]],blue)+label(195,92,'水平看',blue)+
+      '<g transform="translate(223 0)">'+cylinder+cone+'</g>'+
+      label(102,194,'立体')+label(313,194,'左视图'));
+  }
+
+  function parallels(stage) {
+    const p={A:[125,49],B:[146,103],C:[174,175],D:[331,49],E:[289,103],F:[233,175]};
+    return diagram(223,'三条平行线截取的对应线段',
+      [49,103,175].map((y,i)=>line([53,y],[390,y],faint)+label(402,y+6,['l₁','l₂','l₃'][i])).join('')+
+      edge(p,'A','C')+edge(p,'D','F')+
+      (stage>=1?edge(p,'A','B',teal)+edge(p,'D','E',teal)+edge(p,'B','C',blue)+edge(p,'E','F',blue):'')+
+      labels(p,{A:[-21,-7],B:[-23,-6],C:[-20,20],D:[8,-6],E:[8,-6],F:[10,20]})+
+      label(105,83,'3',teal)+label(129,144,'4',blue)+label(272,145,'8',blue)+
+      label(310,83,stage===2?'6':'？',teal));
+  }
+
+  function similar(stage) {
+    const p={A:[235,35],B:[64,185],C:[413,185],D:[159,102],E:[342,125]};
+    return diagram(218,'三角形 ABC 与三角形 AED 的对应边',
+      shape(p,'ABC',ink,'#edf5f7')+shape(p,'ADE',teal,wash)+
+      (stage?edge(p,'A','B',blue)+edge(p,'A','E',blue)+edge(p,'A','C',gold)+edge(p,'A','D',gold):'')+
+      labels(p,{A:[-5,-10],B:[-17,17],C:[7,17],D:[-21,-5],E:[8,-4]})+
+      (stage?label(205,121,'公共角',teal)+label(173,210,'AB ↔ AE　 AC ↔ AD',blue,15):''));
+  }
+
+  function overlap(stage) {
+    const r=Math.sqrt(3), w=4+2*r;
+    const p=Object.fromEntries(Object.entries({A:[0,0],B:[0,2],C:[w,2],D:[w,0],E:[w-1,2+r],
+      F:[1,-r],G:[2*r,2],H:[4,0]}).map(([k,[x,y]])=>[k,[62+44*x,112+44*y]]));
+    return diagram(315,'重叠矩形的公共部分与两侧直角三角形',
+      shape(p,'ABCD',ink)+shape(p,'AECF',ink)+shape(p,'AGCH',teal,wash)+
+      (stage===2?shape(p,'ABG',blue,sky)+right(p.B,p.A,p.G,blue)+label(162,194,'30°',blue):'')+
+      (stage>=3?shape(p,'GEC',red,'#f9e9e2')+right(p.E,p.G,p.C,red)+label(231,216,'30°',red):'')+
+      (stage===4?edge(p,'A','G',teal)+edge(p,'G','C',teal)+label(93,162,'AG = 4',teal)+label(264,189,'GC = 4',teal):'')+
+      labels(p,{A:[-20,-6],B:[-19,17],C:[10,7],D:[8,-7],E:[4,20],F:[8,-5],G:[-5,23],H:[4,-8]})+
+      label(22,161,'2',blue));
+  }
+
+  function park(stage) {
+    const box=(x,y,w,h,fill)=>'<rect x="'+x+'" y="'+y+'" width="'+w+'" height="'+h+'" fill="'+fill+'" stroke="'+ink+'" stroke-width="1.5"/>';
+    return diagram(238,'三条等宽绿化带与剩余面积',
+      box(68,33,126,168,wash)+box(68,70,126,16,stage===1?'#e3b991':'#bccbd1')+
+      box(68,139,126,16,stage===1?'#e3b991':'#bccbd1')+box(119,33,16,168,stage===2?'#e3b991':'#bccbd1')+
+      label(100,225,'30 米')+label(12,125,'40 米')+
+      (stage>=3?label(222,123,'挪拢 →',teal)+box(304,65,100,115,wash)+label(298,204,'30 − x',teal)+label(300,48,'40 − 2x',teal):''));
+  }
+
+  function golden(stage) {
+    const p={A:[52,91],C:[194,91],B:[424,91]};
+    return diagram(174,'黄金分割短段、长段与全长',
+      edge(p,'A','C',gold)+edge(p,'C','B',teal)+labels(p,{A:[-5,27],C:[-5,27],B:[-5,27]})+
+      label(102,66,stage?'2 − x':'短段 AC',gold)+label(268,66,stage?'x':'长段 BC',teal)+
+      line([52,141],[424,141],faint)+label(182,165,'全长 2 cm',ink));
+  }
+
+  function squares(stage) {
+    const p={A:[95,31],B:[95,207],C:[271,207],D:[271,31],O:[183,119],
+      U:[95,119],V:[183,207],M:[95,141],N:[205,207],E:[65,148],F:[213,237],G:[95,266]};
+    return diagram(282,'正方形中心到两边的距离与九十度旋转',
+      shape(p,'ABCD',ink)+shape(p,'OEGF',faint)+shape(p,'AOM',teal,wash)+
+      (stage>=3?shape(p,'CON',blue,sky):'')+
+      edge(p,'A','C',faint)+edge(p,'B','D',faint)+edge(p,'O','M',teal)+edge(p,'O','N',blue)+
+      (stage>=1?edge(p,'O','U',teal,true)+edge(p,'O','V',blue,true)+
+        label(124,111,'4',teal)+label(164,169,'4',blue):'')+
+      (stage>=2?label(46,95,'AM = 5',teal,15):'')+
+      (stage>=3?label(308,113,'OM 转 90°',teal)+label(308,139,'落到 ON',blue):'')+
+      (stage>=4?label(215,198,'CN = 3',blue,14):'')+
+      labels(p,{A:[-20,-4],B:[-18,18],C:[7,18],D:[7,-3],O:[6,-9],M:[-22,4],N:[7,19],
+        ...(stage>=1?{U:[-19,-5],V:[-12,21]}:{})}));
+  }
+
+  function angleStart() {
+    const t=2-Math.sqrt(3), c=Math.cos(Math.PI/12), s=Math.sin(Math.PI/12);
+    const p=Object.fromEntries(Object.entries({A:[0,0],B:[1,0],C:[.75,Math.sqrt(3)/4],
+      D:[Math.sqrt(3)/2,Math.sqrt(3)*t/2],E:[c*c,c*s]}).map(([k,[x,y]])=>[k,[39+390*x,204-390*y]]));
+    return diagram(231,'原图中的两个十五度角和垂足 E',
+      shape(p,'ACD',teal,wash)+shape(p,'AEB',blue,sky)+edge(p,'C','B')+
+      right(p.C,p.A,p.B)+right(p.E,p.A,p.B)+label(146,170,'15°',teal)+label(152,198,'15°',blue)+
+      labels(p,{A:[-17,17],B:[8,16],C:[-3,-10],D:[-20,-9],E:[8,-6]}));
+  }
+
+  function angleCompare() {
+    const triangle=(x,width,labels_)=>{
+      const p={A:[x,141],[labels_[0]]:[x+width,141],[labels_[1]]:[x+width,141-width*(2-Math.sqrt(3))]};
+      const [b,c]=labels_;
+      return shape(p,'A'+b+c,teal,wash)+edge(p,'A',c,red)+edge(p,b,c,blue)+right(p[b],p.A,p[c])+
+        labels(p,{A:[-14,18],[b]:[5,20],[c]:[5,-8]})+label(x+70,113,'A'+c,red)+label(x+width+9,119,b==='E'?'BE':'CD',blue);
+    };
+    return diagram(193,'三角形 ACD 和 AEB，斜边 AD 对 AB，短边 CD 对 BE',
+      triangle(28,157,'CD')+triangle(253,174,'EB')+label(112,180,'△ACD ∽ △AEB',teal));
+  }
+
+  function dilation(stage) {
+    const X=x=>248+28*x, Y=y=>173-24*y;
+    const grid=Array.from({length:15},(_,i)=>line([X(i-7),Y(-3)],[X(i-7),Y(5)],i===7?ink:'#dfe9ec')).join('')+
+      Array.from({length:9},(_,i)=>line([X(-7),Y(i-3)],[X(7),Y(i-3)],i===3?ink:'#dfe9ec')).join('');
+    const old=[[-4,4],[-6,-2],[-4,0]], rightSide=[[2,1],[3,4],[2,3]];
+    const screen=points=>points.map(([x,y])=>[X(x),Y(y)]);
+    const draw=(points,tag,color)=>path(screen(points),color,'none',true)+screen(points).map(([x,y],i)=>
+      dot([x,y],color)+label(x+(i===1?-24:5),y+(i===2?17:-7),'ABC'[i]+tag,color,14)).join('');
+    const ticks=[-6,-4,-2,2,4,6].map(x=>label(X(x)-8,Y(0)+17,String(x),ink,12)).join('')+
+      [1,2,3,4,5,-1,-2].map(y=>label(X(0)+5,Y(y)-3,String(y),ink,12)).join('');
+    return diagram(269,'位似中心 P 和以原点为中心的缩小作图',
+      grid+ticks+draw(old,'₁',blue)+draw(rightSide,'',ink)+label(X(0)+6,Y(0)+17,'O')+
+      (stage===1?old.map((point,i)=>line(screen([point])[0],screen([rightSide[i]])[0],red,true)).join('')+
+        dot([X(0),Y(2)],red)+label(X(0)-61,Y(2)-10,'P(0, 2)',red):'')+
+      (stage>=2?old.map(point=>line([X(0),Y(0)],screen([point])[0],faint,true)).join(''):'')+
+      (stage>=3?draw(old.map(([x,y])=>[x/2,y/2]),'₂',teal):''));
+  }
+
+  function rhombus(stage) {
+    const ay=177-Math.sqrt((246-38)*(336-246));
+    const p={B:[38,177],D:[187,177],C:[336,177],A:[246,ay],E:[216.5,(177+ay)/2],F:[395,ay],H:[246,177]};
+    return diagram(237,'菱形证明中的全等三角形、斜边中线和面积',
+      (stage===1?shape(p,'AEF',teal,wash)+shape(p,'DEB',blue,sky):'')+
+      (stage>=2?shape(p,'ADCF',teal,wash):'')+
+      (stage===4?shape(p,'BAD',blue,sky)+shape(p,'ADC',teal,wash)+shape(p,'AFC',red,'#faede6'):'')+
+      shape(p,'BAC',ink)+shape(p,'ADCF',ink)+edge(p,'B','F',stage===1?blue:faint)+
+      right(p.A,p.B,p.C)+
+      (stage===1?edge(p,'A','E',teal)+edge(p,'D','E',blue):'')+
+      (stage===2?edge(p,'A','F',teal)+edge(p,'D','C',teal):'')+
+      (stage===3?edge(p,'A','D',red)+edge(p,'B','D',red)+edge(p,'D','C',red):'')+
+      (stage===4?edge(p,'A','H',blue,true)+right(p.H,p.A,p.C,blue)+label(252,149,'h',blue):'')+
+      labels(p,{A:[-9,-13],B:[-17,16],C:[6,17],D:[-5,21],E:[-20,-3],F:[8,2]})+
+      (stage===1?label(120,222,'△AEF ≌ △DEB',teal):stage===2?label(106,222,'AF ∥ DC，且 AF = DC',teal):
+        stage===3?label(102,222,'AD = BD = DC',red):stage===4?label(112,222,'三块三角形面积相等',teal):''));
+  }
+
+  function shadow(stage) {
+    const floor=173;
+    const source=[60,31];
+    const poles=stage===3 ? [[110,101,'A','B','G'],[220,129,'C','D','H'],[330,143,'E','F','M']] :
+      [[116,93,'A','B','G'],[196,116,'C','D','H'],[276,135,'E','F','M']];
+    return diagram(226,stage===3?'平行光下两个相似的影子三角形':'中心投影光源与第三根竹竿的影子',
+      line([24,floor],[454,floor])+((stage===1||stage===2)?dot(source,red)+label(38,26,'O',red):'')+
+      poles.map(([x,y,t,b,e],i)=>{
+        const end=stage===3?x+(floor-y)*10/9:source[0]+(x-source[0])*(floor-source[1])/(y-source[1]);
+        const ray=stage===3?line([x,y],[end,floor],i===0?blue:teal):
+          (i<2?line([x,y],[end,floor],blue)+(stage>=1?line(source,[x,y],red,true):''):
+            stage===2?line(source,[end,floor],teal):'');
+        return ray+line([x,y],[x,floor],ink)+label(x+4,y-8,t)+label(x-10,floor+24,b)+
+          ((i<2||stage>=2)?dot([end,floor],i===2?teal:blue)+label(end-5,floor+(stage===3&&i===2?42:stage!==3&&i===1?43:24),e,i===2?teal:blue):'')+
+          (i===2&&stage>=2?line([x,floor],[end,floor],teal):'');
+      }).join('')+
+      (stage===3?label(68,143,'3.6',blue)+label(119,216,'BG = 4',blue)+label(288,155,'1.5',teal):''));
+  }
+
+  function rotation(stage) {
+    const X=x=>240+31*x, Y=y=>215-31*y;
+    const p=Object.fromEntries(Object.entries({A:[0,4],B:[-6,0],C:[6,0],D:[0,0],E:[48/13,72/13],F:[24/13,36/13]})
+      .map(([k,[x,y]])=>[k,[X(x),Y(y)]]));
+    return diagram(259,'图 3 旋转前后的对应三角形与垂直平分线',
+      (stage===1?shape(p,'ABD',blue,sky)+shape(p,'ACE',teal,wash):'')+
+      shape(p,'ABC',ink)+shape(p,'ADCE',ink)+right(p.D,p.A,p.C)+edge(p,'D','E',stage>=2?red:faint,true)+
+      (stage>=2?edge(p,'A','C',blue)+right(p.F,p.A,p.E,blue):'')+
+      labels(p,{A:[-18,-8],B:[-19,20],C:[7,20],D:[-6,22],E:[9,-7],F:[7,19]})+
+      (stage===1?label(53,70,'B → C，D → E',teal):stage>=2?label(52,66,'AC 垂直平分 DE',blue):''));
+  }
+
+  function rectangle(be,fx,fy,title,df) {
+    const X=x=>57+26*x,Y=y=>236-26*y;
+    const p=Object.fromEntries(Object.entries({A:[0,8],B:[0,0],C:[12,0],D:[12,8],E:[be,0],F:[fx,fy]})
+      .map(([k,[x,y]])=>[k,[X(x),Y(y)]]));
+    const firstSlope=8/be, secondSlope=fy/fx;
+    const distance=208/(firstSlope+secondSlope);
+    const intersection=[p.B[0]+distance,p.B[1]-secondSlope*distance];
+    return diagram(273,title,
+      shape(p,'ABCD',ink)+edge(p,'A','E',blue)+edge(p,'B','F',teal)+edge(p,'E','F',red,true)+
+      edge(p,'D','F',gold)+right(intersection,p.A,p.F,teal)+
+      labels(p,{A:[-20,-8],B:[-18,19],C:[8,17],D:[8,-6],E:[-3,21],F:fx===12?[9,6]:[-6,-10]})+
+      label(16,147,'8')+label(197,263,'12')+label(383,136,'EF = 10',red,16)+label(77,23,df,gold,15));
+  }
+
+  const entry=(step,title,draw,caption)=>({step,title,draw,caption});
+  return {
+    1:[entry(0,'立体与左视图',()=>solid(0)),entry(1,'圆柱投影为矩形',()=>solid(1)),entry(2,'圆锥投影为三角形',()=>solid(2))],
+    3:[entry(0,'三条平行线',()=>parallels(0)),entry(1,'用同色标出对应线段',()=>parallels(1)),entry(3,'求 DE',()=>parallels(2))],
+    4:[entry(0,'先圈两个三角形',()=>similar(0)),entry(1,'标出公共角与对应边',()=>similar(1))],
+    5:[entry(0,'两个矩形的公共部分',()=>overlap(0)),entry(2,'第一块直角三角形 ABG',()=>overlap(2)),entry(3,'第二块直角三角形 GEC',()=>overlap(3)),entry(5,'用 AG 与 GC 求周长',()=>overlap(4))],
+    6:[entry(0,'三条等宽绿化带',()=>park(0)),entry(1,'长边方向减去两条横带',()=>park(1)),entry(2,'宽边方向减去一条竖带',()=>park(2)),entry(3,'把空白块拼成矩形',()=>park(3))],
+    7:[entry(0,'短段、长段与全长',()=>golden(0)),entry(2,'标上 x 和 2 − x',()=>golden(1))],
+    8:[entry(0,'绝对值抛物线',()=>figure('absolute-start')),entry(4,'水平线 y = 4 的三个交点',()=>figure('absolute'))],
+    11:[entry(0,'两个正方形和两个三角形',()=>squares(0)),entry(1,'从 O 作两条高',()=>squares(1)),entry(2,'从面积反求 AM',()=>squares(2)),entry(3,'从 OM 旋转到 ON',()=>squares(3)),entry(4,'求 CN 与面积',()=>squares(4))],
+    13:[entry(0,'原图与两个 15°',angleStart),entry(2,'辅助线 D′ 和中点 K',()=>figure('angle')),entry(6,'相似三角形的对应边',angleCompare,'另一种思路。按图中对应边列比例，得 CD/BE = AD/AB。')],
+    15:[entry(0,'原来两组三角形',()=>dilation(0)),entry(1,'连对应点找 P',()=>dilation(1)),entry(2,'改用原点 O',()=>dilation(2)),entry(4,'坐标减半后的新图形',()=>dilation(3))],
+    16:[entry(0,'原图和直角',()=>rhombus(0)),entry(1,'两块全等三角形',()=>rhombus(1)),entry(3,'平行且相等的两条对边',()=>rhombus(2)),entry(4,'斜边中线与两条邻边',()=>rhombus(3)),entry(5,'同底等高与面积',()=>rhombus(4))],
+    18:[entry(0,'中心投影的三根竹竿',()=>shadow(0)),entry(3,'延长 AG、CH 找光源 O',()=>shadow(1)),entry(4,'从 E 延长到 M，画出 FM',()=>shadow(2)),entry(5,'平行投影的相似三角形',()=>shadow(3))],
+    19:[entry(0,'三个抛物线的共同零点',()=>figure('parabola-family')),entry(5,'截取范围与固定交点',()=>figure('parabola-intersections'))],
+    20:[entry(0,'图 1、2 的垂直和平行关系',()=>figure('perpendicular-discovery')),
+      entry(4,'图 3 的直角',()=>rotation(0)),entry(5,'把 △ABD 转到 △ACE',()=>rotation(1)),entry(6,'AC 垂直平分 DE',()=>rotation(2)),
+      entry(7,'图 4，先判断 F 所在边',()=>figure('perpendicular-rectangle')),
+      entry(8,'图 4，F 在上边的一种位置',()=>rectangle(Math.sqrt(73)-3,Math.sqrt(73)+3,8,'上边第一种位置','DF = 9 − √73')),
+      entry(8,'图 4，F 在上边的另一种位置',()=>rectangle(Math.sqrt(73)+3,Math.sqrt(73)-3,8,'上边第二种位置','DF = 15 − √73')),
+      entry(9,'图 4，F 在右边的一种位置',()=>rectangle(4,12,6,'右边第一种位置','DF = 2')),
+      entry(9,'图 4，F 在右边的另一种位置',()=>rectangle(44/13,12,66/13,'右边第二种位置','DF = 38/13'))]
+  };
+})();
+</script>
+<script>
+const advancedMethods = (() => {
+  const s3 = Math.sqrt(3);
+  const ink = '#263e48', muted = '#647f89', teal = '#08746a', blue = '#285aa3', red = '#a64324', gold = '#956015';
+  const path = (p, color = ink, fill = 'none', dash = false) =>
+    '<polyline points="' + p.map(([x,y])=>x.toFixed(2)+','+y.toFixed(2)).join(' ') + '" fill="'+fill+'" stroke="'+color+'" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"'+(dash?' stroke-dasharray="6 5"':'')+'/>';
+  const line = (p,q,color,dash)=>path([p,q],color,'none',dash);
+  const dot = ([x,y],color=ink,open=false)=>'<circle cx="'+x+'" cy="'+y+'" r="4" fill="'+(open?'white':color)+'" stroke="'+color+'" stroke-width="2"/>';
+  const txt = (x,y,text,color=ink,size=15,anchor='start')=>'<text x="'+x+'" y="'+y+'" fill="'+color+'" font-size="'+size+'" text-anchor="'+anchor+'">'+text+'</text>';
+  const svg = (h,title,content)=>'<svg class="board-figure teaching-svg method-svg" viewBox="0 0 480 '+h+'" role="img" aria-label="'+title+'">'+content+'</svg>';
+  const stage = (step,title,draw,caption)=>({step,title,draw,caption});
+  const labels = (p,offsets)=>Object.entries(offsets).map(([key,[dx,dy]])=>dot(p[key])+txt(p[key][0]+dx,p[key][1]+dy,key)).join('');
+  const shape = (p,keys,color,fill)=>path([...keys,keys[0]].map(k=>p[k]),color,fill);
+  const edges = (p,pairs)=>pairs.map(([a,b,color,dash])=>line(p[a],p[b],color,dash)).join('');
+  const unit = ([x,y],[u,v])=>{const d=Math.hypot(u-x,v-y);return [(u-x)/d,(v-y)/d];};
+  function right(p,a,b,color=ink) {
+    const [x,y]=p,[u,v]=unit(p,a),[w,z]=unit(p,b);
+    return path([[x+8*u,y+8*v],[x+8*(u+w),y+8*(v+z)],[x+8*w,y+8*z]],color);
+  }
+  function arc(p,a,b,r,color) {
+    const [u,v]=unit(p,a),[w,z]=unit(p,b);
+    return '<path d="M'+(p[0]+r*u)+' '+(p[1]+r*v)+' A'+r+' '+r+' 0 0 '+Number(u*z-v*w>0)+' '+(p[0]+r*w)+' '+(p[1]+r*z)+'" fill="none" stroke="'+color+'" stroke-width="2"/>';
+  }
+  function angleFigure(kind) {
+    const t=2-s3, p0={A:[0,0],B:[2,0],C:[1.5,s3/2],D:[s3,s3*t],E:[1+s3/2,.5]};
+    p0.P=[s3,1]; p0.H=[s3,0];
+    p0['D′']=[2*p0.E[0]-p0.D[0],2*p0.E[1]-p0.D[1]];
+    p0.K=p0['D′'].map(n=>n/2);
+    const p=Object.fromEntries(Object.entries(p0).map(([k,[x,y]])=>[k,[42+183*x,221-183*y]]));
+    const marks={A:[-18,15],B:[9,18],C:[-14,-9],D:[-21,-8],E:[9,4]};
+    let extra='', emphasis='';
+    if(kind==='mirrorB'){
+      Object.assign(marks,{P:[7,-6],H:[-11,19]});
+      emphasis=shape(p,'ACD',teal,'#e3f3ed')+shape(p,'PHB',blue,'#e4eefb');
+      extra=edges(p,[['C','P',teal,true],['P','B',blue],['P','H',red,true]])+right(p.H,p.A,p.P)+arc(p.P,p.H,p.B,28,blue)+txt(p.P[0]+11,p.P[1]+40,'15°',blue)+txt(p.H[0]-39,159,'PH = 1',red);
+    } else if(kind==='mirrorD'){
+      Object.assign(marks,{'D′':[9,-8],K:[-6,-12]});
+      extra=edges(p,[['E','D′',teal,true],['B','D′',blue,true],['B','K',red,true]])+right(p.B,p.A,p['D′'])+arc(p.B,p.A,p.K,39,red)+txt(328,216,'15°',red);
+    } else {
+      emphasis=shape(p,'ACD',teal,'#e3f3ed')+shape(p,'AEB',blue,'#e4eefb');
+    }
+    return svg(255,'第13题。'+({mirrorB:'沿 AD 翻折 B 到 P，过 P 向 AB 作垂线。',mirrorD:'把 D 关于 E 中心对称到 D′，标出 AD′ 的中点 K。',base:'标出两个十五度角、直角 C 与垂足 E。'}[kind]),
+      emphasis+edges(p,[['A','B'],['A','C',teal],['C','B'],['A','E',teal],['B','E',blue]])+extra+
+      right(p.C,p.A,p.D)+right(p.E,p.A,p.B)+arc(p.A,p.E,p.C,85,teal)+arc(p.A,p.B,p.E,120,blue)+
+      txt(128,183,'15°',teal)+txt(170,217,'15°',blue)+labels(p,marks));
+  }
+  function compare13(reflect) {
+    function triangle(x,y,w,keys) {
+      const [a,b,c]=keys;
+      const p={[a]:[x,y],[b]:[x+w,y],[c]:[x+w,y-w*(2-s3)]};
+      return shape(p,keys,ink,'#edf7f5')+edgeByKey(p,a,b,teal)+edgeByKey(p,a,c,red)+edgeByKey(p,b,c,blue)+
+        right(p[b],p[a],p[c])+arc(p[a],p[b],p[c],45,teal)+txt(x+53,y-4,'15°',teal)+
+        labels(p,{[a]:[-13,18],[b]:[7,18],[c]:[7,-5]})+
+        txt(x+w*.57,y+28,a+b,teal,16,'middle')+txt(x+w*.57,y-w*.15-10,a+c,red,16,'middle');
+    }
+    return svg(174,reflect?'相似三角形 ACD 和 PHB。AC 对 PH，AD 对 PB。':'相似三角形 ACD 和 AEB。AD 对 AB，CD 对 EB。',
+      triangle(26,114,159,'ACD')+triangle(258,114,159,reflect?'PHB':'AEB')+
+      txt(240,28,reflect?'AC ↔ PH，AD ↔ PB':'AD ↔ AB，CD ↔ EB',ink,16,'middle'));
+  }
+  function edgeByKey(p,a,b,color){return line(p[a],p[b],color);}
+  function midpoint13() {
+    const t=2-s3, length=s3*Math.hypot(1,t), de=2*Math.cos(Math.PI/12)-length;
+    const p={A:[35,90],K:[35+171*(length/2+de),90],D:[35+171*length,90],E:[35+171*(length+de),90],'D′':[35+171*(length+2*de),90]};
+    return svg(174,'在 AD′ 上看中点 K 和线段 KE。KE 是 AD 的一半。',
+      line(p.A,p['D′'],muted)+line(p.K,p.E,red)+
+      labels(p,{A:[-7,25],K:[-7,25],D:[-20,25],E:[0,25],'D′':[6,25]})+
+      line([p.A[0],57],[p.D[0],57],teal)+txt((p.A[0]+p.D[0])/2,45,'AD',teal,16,'middle')+
+      txt((p.K[0]+p.E[0])/2,76,'KE',red,16,'middle')+txt(240,152,'KE = AE − AK = AD/2',ink,17,'middle'));
+  }
+  const angleBase=stage(0,'原图与两个 15°',()=>angleFigure('base'),'AD 平分 30°，所以两边各 15°。E 在 AD 的延长线上。');
+  const ratio = 'AD / BE = 2√3';
+  const methods13 = [
+    {title:'翻折 B · 相似', answer:ratio, steps:[
+      '<strong>沿角平分线翻折。</strong>把 B 沿 AD 翻到 P。因为 AD 平分 ∠CAB，所以 P 在射线 AC 上，AP = AB。BE ⟂ AD，所以 E 也是 BP 的中点，BP = 2BE。',
+      '<strong>把 30° 用起来。</strong>过 P 作 PH ⟂ AB，垂足为 H。∠PAH = 30°，所以 PH = AP/2 = AB/2。原图中 ∠ABC = 60°，也有 AC = √3·AB/2。',
+      '<strong>找图里的两块直角三角形。</strong>PH 和 PB 分别垂直于 AB 和 AD，因此夹着的锐角 ∠HPB = ∠BAD = 15°。又 ∠ACD = ∠PHB = 90°，所以 △ACD ∽ △PHB，A↔P、C↔H、D↔B。',
+      '<strong>只取需要的对应边。</strong>AD/BP = AC/PH = (√3·AB/2)/(AB/2) = √3。再用 BP = 2BE，得 AD/BE = 2√3。'
+    ], visuals:[angleBase,stage(1,'画 P，再从 P 向 AB 作垂线',()=>angleFigure('mirrorB'),'图中按 AB = 2 绘制，PH = 1。BP 是原来 BE 的两倍。'),stage(3,'拆开两块相似三角形',()=>compare13(true),'斜边 AD 对 PB，长直角边 AC 对 PH。')]},
+    {title:'原图相似 · 无辅助线', answer:ratio, steps:[
+      '<strong>看原图的两个 15°。</strong>∠CAD = ∠BAE = 15°，又 ∠ACD = ∠AEB = 90°，所以 △ACD ∽ △AEB。斜边 AD 对 AB，短直角边 CD 对 EB。',
+      '<strong>设 BC = 1。</strong>只求比值，可以按同一比例缩放。30° 对边是斜边的一半，得 AB = 2，再由勾股得 AC = √3。设 CD = x，则 BD = 1 − x。',
+      '<strong>用角平分线分底边。</strong>CD/BD = AC/AB = √3/2，所以 x/(1 − x) = √3/2，解得 x = √3/(2 + √3) = 2√3 − 3。',
+      '<strong>把相似比转成题目要的比。</strong>CD/BE = AD/AB，所以 AD·BE = AB·CD = 2x，因而 AD/BE = AD²/(2x)。△ACD 中 AD² = 3 + x²。',
+      '<strong>化简。</strong>也可以直接利用 x = √3/(2 + √3)，得到 3/x = √3(2 + √3) = 2√3 + 3。因此 AD/BE = (3/x + x)/2 = 2√3。'
+    ], visuals:[angleBase,stage(1,'拆开原图中的两块直角三角形',()=>compare13(false),'每组对应边用同色标出。'),stage(2,'在 BC 上标出两段长度',()=>svg(137,'BC 为 1。CD 为 x，DB 为 1 减 x。',line([51,73],[425,73],muted)+line([51,73],[225,73],teal)+line([225,73],[425,73],blue)+labels({C:[51,73],D:[225,73],B:[425,73]},{C:[-5,24],D:[-5,24],B:[-5,24]})+txt(132,57,'x',teal)+txt(301,57,'1 − x',blue)+txt(240,119,'CD / DB = AC / AB',ink,16,'middle'))),stage(4,'用斜边和短边的相似比',()=>compare13(false),'AD·BE = AB·CD，把 AD/BE 化成 AD²/(AB·CD)。')]},
+    {title:'延长 AD · 斜边中线', answer:ratio, steps:[
+      '<strong>先在 B 点算角。</strong>∠ABE = 90° − 15° = 75°，∠ABD = ∠ABC = 60°，所以 ∠DBE = 15°。',
+      '<strong>延长 DE，取 ED′ = ED。</strong>BE 是 DD′ 的垂直平分线，所以 BD = BD′，∠EBD′ = ∠DBE = 15°。因此 ∠ABD′ = 75° + 15° = 90°。',
+      '<strong>取直角三角形 ABD′ 的斜边中点 K。</strong>BK = AK = AD′/2，故 ∠ABK = ∠BAK = 15°。于是 ∠KBE = 75° − 15° = 60°，∠BKE = 30°。',
+      '<strong>在直角三角形 BKE 里求比例。</strong>设 BE = u，则 30° 的对边 BE 是斜边的一半，BK = 2u。勾股得 KE = √3u。',
+      '<strong>在线段 AD′ 上找一半。</strong>AE = AD + DE，AK = (AD + 2DE)/2，所以 KE = AE − AK = AD/2。代回得到 AD/BE = 2√3。'
+    ],visuals:[angleBase,stage(2,'取对称点 D′ 和斜边中点 K',()=>angleFigure('mirrorD'),'A、K、D、E、D′ 共线。B 处标出 ∠ABD′ 的直角。'),stage(5,'看出 KE 恰好是 AD 的一半',midpoint13,'AE − AK = (AD + DE) − (AD/2 + DE)。')]},
+    {title:'三角函数 · 二倍角', answer:ratio, steps:[
+      '<strong>把两段都写成 15° 的函数。</strong>在 △ACD 中，cos 15° = AC/AD；在 △AEB 中，sin 15° = BE/AB。',
+      '<strong>相除。</strong>AD/BE = (AC/AB)/(sin 15° cos 15°)。原来的 30°–60°–90° 三角形给出 AC/AB = √3/2。',
+      '<strong>用二倍角公式。</strong>2sin 15° cos 15° = sin 30° = 1/2，所以分母为 1/4，最终得到 2√3。'
+    ],visuals:[angleBase,stage(1,'标出 15° 的邻边、对边和斜边',()=>compare13(false),'左边用 cos，右边用 sin。')]}
+  ];
+
+  function root19(a){return 3+1/a;}
+  function intersection19(a,difference=false) {
+    const X=x=>56+(x+2)*91, Y=y=>140-21.5*y;
+    const samples=fn=>Array.from({length:121},(_,i)=>{const x=-2+i/30;return [X(x),Y(fn(x))];});
+    const p=x=>a*(x+1)*(x-3), h=x=>p(x)-(x+1);
+    const grid=[-2,-1,0,1,2].map(x=>line([X(x),39],[X(x),253],x===0?muted:'#cfdfdf',x!==0)+txt(X(x),269,String(x).replace('-','−'),ink,14,'middle')).join('');
+    const second=root19(a);
+    const fixed=dot([X(-1),Y(0)],blue)+txt(X(-1)-12,Y(0)+23,'固定点',blue,14,'end');
+    const secondMark=Math.abs(second+1)<1e-8 ? txt(X(-1)+10,Y(0)-13,'两根重合',red) :
+      dot([X(second),Y(difference?0:second+1)],red)+txt(X(second)+(second>1.5?-9:9),Y(difference?0:second+1)-11,'第二根',red,14,second>1.5?'end':'start');
+    return svg(306,difference?'差函数在截取区间内的根与端点符号':'截取区间内的抛物线、直线及交点',
+      '<rect x="56" y="39" width="364" height="214" fill="#edf7f5"/>'+grid+line([35,Y(0)],[451,Y(0)],muted)+
+      txt(449,Y(0)-8,'x',ink,14)+txt(X(0)+8,36,difference?'H(x)':'y',ink,14)+
+      path(samples(difference?h:p),teal)+(difference?'':line([X(-2),Y(-1)],[X(2),Y(3)],gold,true))+
+      fixed+secondMark+
+      (difference?[-2,2].map(x=>dot([X(x),Y(h(x))],gold)+txt(X(x)+(x<0?7:-7),Y(h(x))+19,h(x)>1e-8?'＋':h(x)<-1e-8?'−':'0',gold,15,x<0?'start':'end')).join(''):
+        txt(417,48,'y = x + 1',gold,14,'end'))+
+      txt(240,291,difference?'纵坐标 = 抛物线高度 − 直线高度':'只取阴影内 −2 ≤ x ≤ 2',ink,15,'middle'));
+  }
+  function interval19() {
+    const p=(x,y)=>[74+90*(x+2),y];
+    return svg(190,'第二根横坐标对应的三个参数边界。两个端点实心，重合点空心。',
+      txt(24,32,'第二根 x₂',blue,15)+line(p(-2.4,63),p(2.4,63),muted)+line(p(-2,63),p(2,63),blue)+
+      [-2,-1,2].map((x,i)=>dot(p(x,63),blue,i===1)+txt(p(x,63)[0],49,['−2','−1','2'][i],blue,15,'middle')+line(p(x,71),p(x,130),muted,true)+
+        txt(p(x,147)[0],169,['−1/5','−1/4','−1'][i],teal,15,'middle')+dot(p(x,147),teal,i===1)).join('')+
+      line(p(-2,147),p(-1.08,147),teal)+line(p(-.92,147),p(2,147),teal)+txt(25,117,'对应参数 a',teal,15));
+  }
+  function param19() {
+    const X=x=>240+84*x,Y=a=>55-156*a;
+    const pts=Array.from({length:121},(_,i)=>{const x=-2+i/30;return [X(x),Y(1/(x-3))];});
+    return svg(254,'参数图。横轴是第二根横坐标 x，纵轴是 a。曲线向右下降，x 等于负一处为空心。',
+      '<rect x="72" y="55" width="336" height="164" fill="#edf7f5"/>'+line([48,55],[447,55],muted)+line([X(0),31],[X(0),222],muted)+
+      [-2,-1,2].map(x=>line([X(x),55],[X(x),215],'#acbec1',true)+txt(X(x),44,String(x).replace('-','−'),ink,15,'middle')).join('')+
+      path(pts.slice(0,30),teal)+path(pts.slice(31),teal)+
+      [-2,-1,2].map((x,i)=>dot([X(x),Y(1/(x-3))],red,i===1)+txt(X(x)+(i===2?-8:9),Y(1/(x-3))+17,['−1/5','−1/4','−1'][i],red,15,i===2?'end':'start')).join('')+
+      txt(259,31,'a',ink)+txt(421,44,'x₂',ink)+txt(240,242,'a = 1/(x₂ − 3)，x₂ ∈ [−2, 2]',ink,16,'middle'));
+  }
+  function sign19() {
+    const X=x=>52+94*(x+2);
+    const Y=y=>110-45*y;
+    const end=[[-2,1.5,'g(−2) = 3/2'],[2,-.5,'g(2) = −1/2']];
+    return svg(174,'示例 a 等于负二分之一，一次因式 g 在左端为正，右端为负。',
+      line([X(-2),Y(0)],[X(2),Y(0)],muted)+line([X(-2),Y(1.5)],[X(2),Y(-.5)],teal)+
+      end.map(([x,y,text],i)=>line([X(x),38],[X(x),151],muted,true)+dot([X(x),Y(y)],red)+
+        txt(X(x)+(i?-9:9),Y(y)+(i?22:-9),text,red,15,i?'end':'start')+
+        txt(X(x),Y(0)+21,String(x).replace('-','−'),ink,14,'middle')).join('')+
+      dot([X(1),Y(0)],teal)+txt(X(1)-10,Y(0)+23,'零点 x = 1',teal,15,'end'));
+  }
+  const start19=stage(0,'截取范围与固定交点',()=>intersection19(-.5),'示例 a = −1/2。无论 a 怎样变化，(−1, 0) 都是交点。');
+  const ends19=stage(3,'两个可取端点与一个排除值',interval19,'上排是第二根的横坐标，下排是对应的 a。空心处两根重合。');
+  const tangent19=step=>stage(step,'a = −1/4 时两根重合',()=>intersection19(-.25),'固定点处相切，只数一个不同交点。');
+  const answer19='a ∈ [−1, −1/4) ∪ (−1/4, −1/5]';
+  const methods19=[
+    {title:'因式分解 · 直接找根',answer:answer19,steps:[
+      '<strong>联立并提公因式。</strong>a(x + 1)(x − 3) = x + 1，所以 (x + 1)[a(x − 3) − 1] = 0。保留 x + 1，才能看见固定交点。',
+      '<strong>分别令因式为零。</strong>x₁ = −1；a ≠ 0，所以 x₂ = 3 + 1/a。固定交点已在题目给的区间内。',
+      '<strong>第二个根也要在区间内。</strong>−2 ≤ 3 + 1/a ≤ 2，故 −5 ≤ 1/a ≤ −1，a &lt; 0。令 a = −t，得 1 ≤ 1/t ≤ 5，即 1/5 ≤ t ≤ 1，因此 −1 ≤ a ≤ −1/5。',
+      '<strong>两根必须不同。</strong>3 + 1/a = −1 时 a = −1/4，要排除。a = −1 时第二根为 2；a = −1/5 时第二根为 −2，均保留。'
+    ],visuals:[start19,stage(2,'右端点恰好也相交',()=>intersection19(-1),'a = −1 时，第二个交点在 x = 2。'),ends19,tangent19(4),stage(4,'左端点恰好也相交',()=>intersection19(-.2),'a = −1/5 时，第二个交点在 x = −2。')]},
+    {title:'判别式 · 求根公式',answer:answer19,steps:[
+      '<strong>联立后写成标准形式。</strong>ax² − (2a + 1)x − (3a + 1) = 0。这里二次项系数是 a，一次项系数是 −(2a + 1)。',
+      '<strong>用判别式判断两根是否不同。</strong>Δ = (2a + 1)² + 4a(3a + 1) = (4a + 1)²。Δ &gt; 0 恰好等价于 a ≠ −1/4。',
+      '<strong>再算出根的位置。</strong>求根公式给 x = [(2a + 1) ± |4a + 1|]/(2a)。求的是一组根，± 已经包含两种符号，所以可用 ±(4a + 1)。分别化简得到 3 + 1/a 和 −1。',
+      '<strong>检查截取区间。</strong>−1 已在 [−2, 2] 内。另一根给出 −5 ≤ 1/a ≤ −1，从而 −1 ≤ a ≤ −1/5（可令 a = −t 后对正数取倒数）。再排除 Δ = 0 对应的 −1/4。'
+    ],visuals:[start19,tangent19(2),{...ends19,step:4}]},
+    {title:'韦达定理 · 根的和',answer:answer19,steps:[
+      '<strong>先找到一个根。</strong>把 x = −1 代入抛物线和直线，纵坐标都为 0。联立方程是 ax² − (2a + 1)x − (3a + 1) = 0。',
+      '<strong>用根的和找另一个根。</strong>已知 x₁ = −1。由韦达定理，x₁ + x₂ = (2a + 1)/a = 2 + 1/a，所以 x₂ = 3 + 1/a。',
+      '<strong>把区间条件转给根的和。</strong>若 x₂ ∈ [−2, 2]，则 x₁ + x₂ ∈ [−3, 1]。代入 2 + 1/a 得 −5 ≤ 1/a ≤ −1，即 −1 ≤ a ≤ −1/5。',
+      '<strong>根的和为 −2 时两根重合。</strong>因为 x₁ = −1，此时 x₂ 也只能是 −1。解 2 + 1/a = −2，排除 a = −1/4。'
+    ],visuals:[start19,ends19,tangent19(4)]},
+    {title:'端点符号 · 不解根',answer:answer19,steps:[
+      '<strong>先保留固定根。</strong>抛物线减去直线，差 H(x) = (x + 1)g(x)，其中 g(x) = a(x − 3) − 1。第一个因式给固定根 −1。',
+      '<strong>只看一次函数 g。</strong>a ≠ 0，所以 g 的图像是一条斜直线，只有一个零点。这个零点在 [−2, 2] 内，当且仅当端点值异号或至少一端为零，即 g(−2)g(2) ≤ 0。',
+      '<strong>代入端点。</strong>g(−2) = −5a − 1，g(2) = −a − 1。于是 (5a + 1)(a + 1) ≤ 0。两个分界值是 −1 和 −1/5，乘积在它们之间非正。',
+      '<strong>检查是否和固定根重合。</strong>g(−1) = −4a − 1，若它为零，两因式给的是同一个根，所以排除 a = −1/4。也可看差函数的图：在区间两端，x + 1 异号，故 g 的端点乘积 ≤ 0 对应 H 的端点乘积 ≥ 0。'
+    ],visuals:[start19,stage(2,'一次因式只看两个端点',sign19,'零点在区间内时，两端点异号或有一端为零。'),stage(3,'差函数有两个零点的示例',()=>intersection19(-.5,true),'示例 a = −1/2。两端差值都为负，区间内的零点为 −1 与 1。'),tangent19(4)]},
+    {title:'参数图像 · 反求 a',answer:answer19,steps:[
+      '<strong>先把固定交点单独写出。</strong>联立得 (x + 1)[a(x − 3) − 1] = 0，所以 x = −1 恒成立。',
+      '<strong>用第二个交点的横坐标反推参数。</strong>对于 x ≠ −1，第二因式必须为零，因此 a = 1/(x − 3)。取 x ∈ [−2, 2]，分母始终为负。',
+      '<strong>顺着参数图像读。</strong>x 从 −2 增到 2，x − 3 从 −5 增到 −1，倒数从 −1/5 连续下降到 −1。每一个中间的 a 都能对应一个 x。',
+      '<strong>挖掉固定点对应的参数。</strong>x = −1 对应 a = −1/4，图上用空心点标记。x = −2、2 对应的是闭区间端点，保留。'
+    ],visuals:[start19,stage(2,'第二根的位置决定参数 a',param19,'这张图横轴是第二根横坐标，纵轴是参数 a。'),{...ends19,step:4}]}
+  ];
+
+  const q20Cases = [
+    {t:Math.sqrt(73)-3,u:Math.sqrt(73)+3,v:8,df:'9 − √73',projection:'F 在 E 的右上方',extra:'AF − BE = 6'},
+    {t:Math.sqrt(73)+3,u:Math.sqrt(73)-3,v:8,df:'15 − √73',projection:'F 在 E 的左上方',extra:'BE − AF = 6'},
+    {t:4,u:12,v:6,df:'2',projection:'BE = 4，CF = 6',extra:'EC = 8，CF = 6'},
+    {t:44/13,u:12,v:66/13,df:'38/13',projection:'BE = 44/13，CF = 66/13',extra:'EC = 112/13，CF = 66/13'}
+  ];
+  function rectangle20(item,mode='plain') {
+    const X=x=>57+28*x, Y=y=>269-28*y;
+    const {t,u,v}=item, top=v===8, m=t/8;
+    const ix=8/(8/t+m);
+    const p0={A:[0,8],B:[0,0],C:[12,0],D:[12,8],E:[t,0],F:[u,v],O:[ix,m*ix],H:[u,0]};
+    const p=Object.fromEntries(Object.entries(p0).map(([k,[x,y]])=>[k,[X(x),Y(y)]]));
+    const marks={A:[-19,-6],B:[-19,17],C:[8,17],D:[9,-6],E:[-5,20],F:top?[-5,-9]:[9,4],O:[-18,0]};
+    let fills='', helper='';
+    if(mode==='similar'){
+      fills=shape(p,'ABE',blue,'#e4eefb')+shape(p,top?'BAF':'BCF',teal,'#e3f3ed');
+      if(top) {
+        helper=edgeByKey(p,'F','H',red)+right(p.H,p.E,p.F,red);
+        if(u<t) delete marks.O;
+        marks.H=[-6,20];
+      } else helper=right(p.C,p.E,p.F,red);
+    }
+    if(mode==='coord'){
+      const xEnd=[416,Y(0)], yEnd=[X(0),23];
+      helper=line(p.B,xEnd,muted)+line(p.B,yEnd,muted)+txt(420,Y(0)+6,'x')+txt(X(0)-3,17,'y')+
+        txt(206,313,top?'E(t, 0)，F(u, 8)':'E(t, 0)，F(12, v)',blue,16,'middle');
+    }
+    if(mode==='sum'){
+      fills=shape(p,'ABO',blue,'#e4eefb')+shape(p,'EFO',blue,'#e4eefb');
+      helper=edges(p,[['B','E',teal],['A','F',teal]])+txt(240,313,'AB² + EF² = BE² + AF²',blue,16,'middle');
+    }
+    return svg(325,'矩形 ABCD。'+item.projection+'，AE 垂直 BF，EF 等于 10，DF 等于 '+item.df,
+      fills+shape(p,'ABCD',muted,'none')+helper+
+      edges(p,[['A','E',blue],['B','F',teal],['E','F',red,true],['D','F',gold]])+
+      right(p.O,p.A,p.F)+right(p.B,p.A,p.C)+labels(p,marks)+
+      txt(22,161,'8')+txt(227,295,'BC = 12',ink,14,'middle')+txt(406,228,'EF = 10',red,13)+
+      txt(195,24,'DF = '+item.df,gold,16,'middle'));
+  }
+  function locus20() {
+    const X=x=>59+27*x,Y=y=>259-27*y;
+    const B=[X(0),Y(0)],D=[X(12),Y(8)],A=[X(0),Y(8)],C=[X(12),Y(0)],T=[X(16/3),Y(0)];
+    return svg(310,'从 B 出发的垂线只能在上边或右边离开矩形，过 D 时 BE 等于 16/3。',
+      path([A,B,C,D,A],ink)+line(A,D,teal)+line(D,C,blue)+line(B,D,muted,true)+line(A,T,gold,true)+
+      line(B,[X(7),Y(8)],teal)+line(B,[X(12),Y(5)],blue)+dot(T,gold)+
+      labels({A,B,C,D},{A:[-16,-5],B:[-16,19],C:[7,18],D:[7,-6]})+
+      txt(220,27,'AD 上的 F',teal,15,'middle')+txt(391,160,'CD 上的 F',blue,13)+
+      txt(T[0],286,'BE = 16/3 时，BF 过 D',gold,15,'middle'));
+  }
+  function equal20(top) {
+    const low=top?16/3:2.6,high=top?12:16/3;
+    const bottom=top?62:98, upper=top?112:111;
+    const X=t=>57+370*(t-low)/(high-low), Y=y=>242-182*(y-bottom)/(upper-bottom);
+    const fn=top?t=>64+(64/t-t)**2:t=>(12-t)**2+(1.5*t)**2;
+    const roots=top?q20Cases.slice(0,2).map(c=>c.t):q20Cases.slice(2).map(c=>c.t).reverse();
+    const curve=Array.from({length:141},(_,i)=>{const t=low+(high-low)*i/140;return [X(t),Y(fn(t))];});
+    const rootText=top?['√73 − 3','√73 + 3']:['44/13','4'];
+    const turning=top?8:48/13;
+    return svg(296,'EF 的平方随 BE 的变化图。水平线等于 100，与曲线有两个交点。',
+      line([57,245],[449,245],muted)+line([57,251],[57,47],muted)+txt(66,41,'EF²')+txt(432,264,'BE')+
+      line([57,Y(100)],[427,Y(100)],red,true)+txt(46,Y(100)+5,'100',red,14,'end')+
+      path(curve,teal)+dot([X(turning),Y(fn(turning))],teal)+
+      roots.map((t,i)=>dot([X(t),Y(100)],red)+line([X(t),Y(100)],[X(t),244],muted,true)+txt(X(t),264,rootText[i],red,15,'middle')).join('')+
+      txt(240,286,top?'F 在 AD 上：t ≥ 16/3':'F 在 CD 上：t ≤ 16/3（放大交点附近）',ink,15,'middle'));
+  }
+
+  const answer20='DF = 2、38/13、9 − √73 或 15 − √73';
+  const first20=stage(0,'先确定 F 可能落在哪条边',locus20,'∠ABE = 90° 已满足。蓝线、绿线分别示意 BF 先碰到 CD、AD 的情形，过 D 是分界。');
+  const setup20='<strong>先定范围。</strong>E 在 BC 上，且四边形不退化，BE &gt; 0。∠ABE = 90°，两条对角线是 AE、BF，所以 AE ⟂ BF。BF 从 B 往右上方走，F 只能在 AD 或 CD。';
+  const frames20=(stepTop,stepRight,mode)=>q20Cases.map((c,i)=>stage(i<2?stepTop:stepRight,
+    (i<2?'F 在 AD':'F 在 CD')+' · '+c.projection,()=>rectangle20(c,mode),c.extra+'，所以 DF = '+c.df+'。'));
+  const methods20=[
+    {title:'相似三角形 · 勾股',answer:answer20,steps:[
+      setup20,
+      '<strong>F 在 AD 上，先找积。</strong>设 BE = t，AF = u。△ABE 与 △BAF 的 B、A 分别是直角，AB ⟂ AD，AE ⟂ BF，因此 ∠BAE = ∠AFB。故 △ABE ∽ △FAB，AB/AF = BE/AB，即 ut = 64。',
+      '<strong>再找两段的差。</strong>从 F 向 BC 作垂线 FH，FH = 8，EF = 10。勾股得 EH = 6，因此 |u − t| = 6。图要画两张，F 可能在 E 的左上或右上。',
+      '<strong>同时使用积和差。</strong>(u + t)² = (u − t)² + 4ut = 36 + 256 = 292。两段都为正，所以 u + t = 2√73。于是 u = √73 ± 3，两组 t、u 都在 (0, 12) 内。DF = 12 − u，得 9 − √73 或 15 − √73。',
+      '<strong>F 在 CD 上，还是找相似。</strong>设 CF = v。∠ABE = ∠BCF = 90°，∠BAE = ∠CBF，因为 BA ⟂ BC、AE ⟂ BF。故 △ABE ∽ △BCF，v/12 = t/8，即 v = 3t/2。',
+      '<strong>在 △ECF 里列勾股。</strong>(12 − t)² + (3t/2)² = 100。整理为 13t² − 96t + 176 = 0，即 (t − 4)(13t − 44) = 0。t = 4 或 44/13，得 v = 6 或 66/13。',
+      '<strong>最后逐个验边。</strong>两组 t 都在 (0, 12)，两组 v 都在 (0, 8)。所以 DF = 8 − v，即 2 或 38/13。两条边合计四解。'
+    ],visuals:[first20,...frames20(3,5,'similar')]},
+    {title:'坐标斜率 · 一元二次方程',answer:answer20,steps:[
+      setup20,
+      '<strong>以 B 为原点。</strong>A(0, 8)，C(12, 0)，D(12, 8)，E(t, 0)。AE 的斜率是 −8/t，所以垂线 BF 的斜率是 t/8，方程是 y = tx/8。',
+      '<strong>F 在上边时令 y = 8。</strong>设 F(u, 8)，有 u = 64/t。由距离公式 (u − t)² + 8² = 100，得 u − t = 6 或 −6。代入 u = 64/t，分别得 t² + 6t − 64 = 0 和 t² − 6t − 64 = 0。',
+      '<strong>只取符合边长的根。</strong>两式的正根是 √73 − 3 和 √73 + 3（另外两个根为负）。对应 u = √73 + 3 或 √73 − 3，均小于 12。因此 DF = 12 − u = 9 − √73 或 15 − √73。',
+      '<strong>F 在右边时令 x = 12。</strong>F(12, 3t/2)。代进 EF² = 100，得到 13t² − 96t + 176 = 0。Δ = 96² − 4·13·176 = 64，所以 t = (96 ± 8)/26，即 4 或 44/13。',
+      '<strong>检查坐标并转成 DF。</strong>两组 F 的纵坐标分别为 6、66/13，都在 (0, 8)。于是 DF = 8 − y_F = 2 或 38/13。若 F = D，则 t = 16/3，但 EF² = 976/9 ≠ 100。'
+    ],visuals:[first20,...frames20(3,5,'coord')]},
+    {title:'对角线垂直 · 边长平方和',answer:answer20,steps:[
+      setup20,
+      '<strong>用四次勾股推出平方和。</strong>设 O = AE ∩ BF，四块直角三角形给出 AB² = AO² + BO²，EF² = EO² + FO²，BE² = BO² + EO²，AF² = AO² + FO²。所以 AB² + EF² = BE² + AF²，即 BE² + AF² = 164。',
+      '<strong>F 在 AD，设 BE = t、AF = u。</strong>于是 t² + u² = 164。E、F 的竖直距离为 8，所以 (u − t)² = 36。两式相减得 2ut = 128，进而 (u + t)² = 164 + 128 = 292。',
+      '<strong>求上边两解。</strong>u + t = 2√73，u − t = ±6，所以 u = √73 ± 3，均在 (0, 12) 内，对应的 t 也在 (0, 12) 内。DF = 12 − u，得 9 − √73 或 15 − √73。',
+      '<strong>F 在 CD，设 CF = v。</strong>AF² = 12² + (8 − v)²。用平方和得 t² + v² − 16v = −44。再用 (12 − t)² + v² = 100，展开得 t² + v² − 24t = −44。两式相减得 16v = 24t。',
+      '<strong>代回并检验。</strong>v = 3t/2，代回得 (t − 4)(13t − 44) = 0。t = 4 或 44/13，对应 v = 6 或 66/13，均在右边范围内。DF = 8 − v，得 2 或 38/13。'
+    ],visuals:[first20,...frames20(3,5,'sum')]},
+    {title:'函数图像 · 数清四种位置',answer:answer20,steps:[
+      setup20,
+      '<strong>用 BE = t 描述 F 移动。</strong>取 B 为原点，BF 的斜率为 t/8。它在 x = 12 处的高度是 3t/2，与矩形的高度 8 比较可知：0 &lt; t ≤ 16/3 时先碰到 CD；16/3 ≤ t ≤ 12 时先碰到 AD。',
+      '<strong>右边这段画成抛物线。</strong>EF² = (12 − t)² + (3t/2)² = 13(t − 48/13)²/4 + 1296/13。让 EF² = 100，得到 (t − 48/13)² = (4/13)²，两个 t 为 44/13 和 4，均在右边对应范围。',
+      '<strong>把右边两解画回矩形。</strong>CF = 3t/2，分别得 CF = 66/13、6，所以 DF = 38/13、2。图中 y = 100 的两个交点分别对应一个 F。',
+      '<strong>上边这段也看水平线。</strong>AF = 64/t，所以 EF² = 64 + (64/t − t)²。64/t − t 在 [16/3, 12] 上严格下降，从 20/3 到 −20/3，因此它等于 6 和 −6 各一次。分别解得 t = √73 − 3、√73 + 3。',
+      '<strong>把上边两解画回矩形。</strong>对应 AF = √73 + 3、√73 − 3，DF = 12 − AF，得 9 − √73、15 − √73。分界 t = 16/3 的 EF² = 976/9，大于 100，F = D 没有重复算入。'
+    ],visuals:[first20,stage(3,'右边：水平线 EF² = 100 交两次',()=>equal20(false),'顶点横坐标是 48/13。只画交点附近，曲线由配方法精确确定。'),
+      ...frames20(6,4,'coord').slice(2),
+      stage(5,'上边：先降后升，水平线仍交两次',()=>equal20(true),'t = 8 时 E、F 上下对齐，EF 最短，为 8。'),
+      ...frames20(6,4,'coord').slice(0,2)]}
+  ];
+  return {
+    13:{heading:'第 13 题多种解法', methods:methods13},
+    19:{heading:'第（4）问多种解法', prompt:'已知 y = ax² − 2ax − 3a（a ≠ 0）。取 −2 ≤ x ≤ 2 上的抛物线部分 G。若 G 与直线 y = x + 1 有两个不同交点，求 a 的取值范围。', methods:methods19},
+    20:{heading:'最后一问 · 应用题多种解法', prompt:'【应用】矩形 ABCD 中，AB = 8、BC = 12。E 在 BC 上，F 在矩形的边上，EF = 10。若 ABEF 有一个内角为直角且两条对角线互相垂直，求 DF 的长。', methods:methods20}
+  };
+})();
+</script>
+<script>
+const lessonBoard = (() => {
+  const panel = document.querySelector('#chalkboard');
+  const canvas = panel.querySelector('canvas');
+  const ctx = canvas.getContext('2d');
+  const surface = panel.querySelector('.paper-surface');
+  const artwork = panel.querySelector('.paper-art');
+  const notes = panel.querySelector('textarea');
+  const status = panel.querySelector('[role="status"]');
+  const palettes = {blue:'#224f87',red:'#ac3629',black:'#263e48'};
+  const memory = new Map();
+  let key = '';
+  let state = {strokes:[],notes:''};
+  let mode = 'pen';
+  let color = palettes.blue;
+  let active = null;
+  let opener = null;
+
+  function save() {
+    if (!key) return;
+    memory.set(key,state);
+    try {
+      localStorage.setItem(key,JSON.stringify(state));
+    } catch {
+      status.textContent = '浏览器无法保存，板书可在当前网页继续使用。';
+    }
+  }
+
+  function getState(id) {
+    if (memory.has(id)) return memory.get(id);
+    try {
+      const stored=JSON.parse(localStorage.getItem(id));
+      if (Array.isArray(stored?.strokes) && typeof stored.notes==='string') return stored;
+    } catch {}
+    return {strokes:[],notes:''};
+  }
+
+  function paint(stroke,from,to) {
+    const width=canvas.width;
+    const height=canvas.height;
+    const eraser=stroke.mode==='eraser';
+    ctx.globalCompositeOperation=eraser?'destination-out':'source-over';
+    ctx.strokeStyle=stroke.color;
+    ctx.fillStyle=stroke.color;
+    ctx.lineWidth=(eraser ? .024 : .0035)*width;
+    ctx.lineCap='round';
+    ctx.lineJoin='round';
+    ctx.beginPath();
+    if (from===to) {
+      ctx.arc(from[0]*width,from[1]*height,ctx.lineWidth/2,0,Math.PI*2);
+      ctx.fill();
+    } else {
+      ctx.moveTo(from[0]*width,from[1]*height);
+      ctx.lineTo(to[0]*width,to[1]*height);
+      ctx.stroke();
+    }
+    ctx.globalCompositeOperation='source-over';
+  }
+
+  function replay() {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    for (const stroke of state.strokes) {
+      if (stroke.mode==='clear') {
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        continue;
+      }
+      const points=stroke.points;
+      if (!points?.length) continue;
+      paint(stroke,points[0],points[0]);
+      for (let i=1;i<points.length;i++) paint(stroke,points[i-1],points[i]);
+    }
+  }
+
+  function resize() {
+    if (panel.hidden) return;
+    const rect=canvas.getBoundingClientRect();
+    if (!rect.width || !rect.height) return;
+    const dpi=Math.min(devicePixelRatio,2);
+    const width=Math.round(rect.width*dpi), height=Math.round(rect.height*dpi);
+    if (width!==canvas.width || height!==canvas.height) {
+      canvas.width=width;
+      canvas.height=height;
+    }
+    replay();
+  }
+
+  function point(event) {
+    const r=canvas.getBoundingClientRect();
+    return [(event.clientX-r.left)/r.width,(event.clientY-r.top)/r.height];
+  }
+
+  function sync() {
+    const last=state.strokes.at(-1);
+    panel.querySelector('[data-paper-action="undo"]').disabled=!last;
+    panel.querySelector('[data-paper-action="clear"]').disabled=!last || last.mode==='clear';
+    for (const button of panel.querySelectorAll('[data-paper-mode]')) {
+      button.setAttribute('aria-pressed',String(button.dataset.paperMode===mode));
+    }
+    for (const button of panel.querySelectorAll('[data-ink]')) {
+      button.setAttribute('aria-pressed',String(palettes[button.dataset.ink]===color));
+    }
+    canvas.dataset.mode=mode;
+  }
+
+  function paper(style) {
+    surface.dataset.paper=style;
+    for (const button of panel.querySelectorAll('[data-paper]')) {
+      button.setAttribute('aria-pressed',String(button.dataset.paper===style));
+    }
+  }
+
+  function finish(event) {
+    if (!active || (event && event.pointerId!==active.pointer)) return;
+    active=null;
+    sync();
+    save();
+  }
+
+  function undo() {
+    finish();
+    if (!state.strokes.length) return;
+    state.strokes.pop();
+    replay();
+    sync();
+    status.textContent='已撤销上一次操作。';
+    save();
+  }
+
+  canvas.addEventListener('pointerdown',event=>{
+    if (active || event.button!==0) return;
+    event.preventDefault();
+    canvas.setPointerCapture(event.pointerId);
+    const pos=point(event);
+    const stroke={mode,color,points:[pos]};
+    active={stroke,pointer:event.pointerId};
+    state.strokes.push(stroke);
+    paint(stroke,pos,pos);
+  });
+  canvas.addEventListener('pointermove',event=>{
+    if (!active || event.pointerId!==active.pointer) return;
+    const {stroke}=active;
+    const next=point(event);
+    paint(stroke,stroke.points.at(-1),next);
+    stroke.points.push(next);
+  });
+  for (const name of ['pointerup','pointercancel','lostpointercapture']) canvas.addEventListener(name,finish);
+
+  panel.addEventListener('click',event=>{
+    const button=event.target.closest('button');
+    if (!button) return;
+    const action=button.dataset.paperAction;
+    if (action==='close') {hide();return;}
+    if (action==='undo') undo();
+    if (action==='clear') {
+      finish();
+      state.strokes.push({mode:'clear'});
+      replay();
+      status.textContent='已清空手写笔迹，可以撤销。';
+      save();
+    }
+    if (button.dataset.paper) paper(button.dataset.paper);
+    if (button.dataset.paperMode) mode=button.dataset.paperMode;
+    if (button.dataset.ink) {
+      color=palettes[button.dataset.ink];
+      mode='pen';
+    }
+    sync();
+  });
+  panel.addEventListener('keydown',event=>{
+    if (event.target!==notes && (event.ctrlKey || event.metaKey) && !event.shiftKey && event.key.toLowerCase()==='z') {
+      event.preventDefault();
+      undo();
+    }
+  });
+  function setExpanded(expanded) {
+    document.querySelector('[data-action="board"]')?.setAttribute('aria-expanded',String(expanded));
+  }
+
+  function hide() {
+    finish();
+    save();
+    panel.hidden=true;
+    setExpanded(false);
+    const focus=opener?.isConnected?opener:document.querySelector('[data-action="board"]');
+    focus?.focus({preventScroll:true});
+  }
+
+  function setFigure(markup) {
+    artwork.innerHTML=markup;
+    panel.querySelector('[data-paper="figure"]').hidden=!markup;
+    if (!markup && surface.dataset.paper==='figure') paper('grid');
+  }
+
+  notes.addEventListener('input',()=>{
+    state.notes=notes.value;
+    save();
+  });
+  new ResizeObserver(resize).observe(surface);
+
+  return {
+    get open() {return !panel.hidden;},
+    setPrompt(prompt) {panel.querySelector('.paper-question').innerHTML=prompt;},
+    setQuestion(number,prompt,figureMarkup) {
+      finish();
+      key='midterm-chalkboard-v1-q'+number;
+      state=getState(key);
+      notes.value=state.notes;
+      notes.closest('details').open=Boolean(state.notes);
+      panel.querySelector('#chalkboard-title').textContent='第 '+number+' 题 · 板书草稿纸';
+      panel.querySelector('.paper-question').innerHTML=prompt;
+      status.textContent='笔迹和文字按题保存在当前浏览器。';
+      setFigure(figureMarkup);
+      sync();
+      resize();
+    },
+    show(figureMarkup,withFigure,trigger) {
+      opener=trigger;
+      setFigure(figureMarkup);
+      if (withFigure && figureMarkup) paper('figure');
+      panel.hidden=false;
+      setExpanded(true);
+      resize();
+      panel.querySelector('#chalkboard-title').focus({preventScroll:true});
+      panel.scrollIntoView({block:'nearest'});
+    }
+  };
+})();
+</script>
+<script>
+const cleanQuestionFigures = (() => {
+  const ink='#263e48', faint='#9fb4bd', blue='#285aa3', teal='#08746a';
+  const path=(points,color=ink,fill='none',dash=false)=>'<polyline points="'+points.map(p=>p.join(',')).join(' ')+'" fill="'+fill+'" stroke="'+color+'" stroke-width="1.9" stroke-linejoin="round"'+(dash?' stroke-dasharray="5 4"':'')+'/>';
+  const line=(a,b,color,dash)=>path([a,b],color,'none',dash);
+  const text=(x,y,s,anchor='start',color=ink,size=15)=>'<text x="'+x+'" y="'+y+'" text-anchor="'+anchor+'" fill="'+color+'" font-size="'+size+'">'+s+'</text>';
+  const svg=(h,title,body)=>'<svg class="board-figure teaching-svg" viewBox="0 0 480 '+h+'" role="img" aria-label="'+title+'">'+body+'</svg>';
+  const original=n=>lessonVisuals[n][0].draw();
+
+  function topViews(){
+    const model='<ellipse cx="240" cy="33" rx="25" ry="8" fill="#f8fcfb" stroke="'+ink+'" stroke-width="1.9"/>'+
+      '<path d="M215 33V76L240 116L265 76V33M215 76Q240 89 265 76" fill="none" stroke="'+ink+'" stroke-width="1.9"/>'+
+      text(240,139,'圆柱与圆锥组成的陀螺','middle');
+    const options=[
+      '<path d="M-26 16Q-26 10 0 10Q26 10 26 16V65L0 99L-26 65ZM-26 65Q0 73 26 65" fill="none" stroke="'+ink+'" stroke-width="1.9"/>',
+      path([[-26,10],[26,10],[26,65],[0,99],[-26,65],[-26,10]])+line([-26,65],[26,65]),
+      '<circle cx="0" cy="48" r="35" fill="none" stroke="'+ink+'" stroke-width="1.9"/>',
+      '<path d="M-26 16Q-26 10 0 10Q26 10 26 16V65L0 99L-26 65Z" fill="none" stroke="'+ink+'" stroke-width="1.9"/>'
+    ];
+    return svg(293,'陀螺立体示意与 A、B、C、D 四个选项图',
+      model+options.map((option,i)=>'<g transform="translate('+[72,184,296,408][i]+' 159)">'+option+text(0,124,'ABCD'[i],'middle')+'</g>').join(''));
+  }
+  function shadowPair(){
+    const panels=[
+      {ends:[[113,60,135],[174,84,211],[235,100]],name:'图 1'},
+      {ends:[[113,60,157.64],[174,84,201.36],[235,100]],name:'图 2'}
+    ];
+    return svg(187,'图 1 和图 2 的竹竿位置及已知影子 BG、DH',
+      panels.map(({ends,name},i)=>{
+        const px=x=>x-81+i*235;
+        return line([px(86),122],[px(280),122],faint,true)+ends.map(([x,y,end],j)=>
+          line([px(x),122],[px(x),y])+text(px(x)-11,y-6,'ACE'[j])+text(px(x)-4,141,'BDF'[j])+
+          (end?line([px(x),y],[px(end),122])+text(px(end),145,'GH'[j],'middle'):'')
+        ).join('')+text(px(178),172,name,'middle');
+      }).join(''));
+  }
+  function graph19(blank){
+    const X=x=>232+30*x,Y=y=>174-18*y;
+    const lo=blank?-6:-9,hi=blank?6:6;
+    const grid=Array.from({length:13},(_,i)=>{const x=i-6;return line([X(x),Y(lo)],[X(x),Y(hi)],x===0?ink:'#d6e5e7')+(x?text(X(x),Y(0)+14,String(x),'middle',ink,11):'');}).join('')+
+      Array.from({length:hi-lo+1},(_,i)=>{const y=i+lo;return line([X(-6),Y(y)],[X(6),Y(y)],y===0?ink:'#d6e5e7')+(y?text(X(0)-6,Y(y)+4,String(y),'end',ink,11):'');}).join('');
+    const drawCurve=(a,color)=>[-1,1].map(sign=>path(Array.from({length:201},(_,i)=>1+sign*i/32).map(x=>[x,a*(x*x-2*x-3)]).filter(([x,y])=>x>=-6&&x<=6&&y>=lo&&y<=hi).map(([x,y])=>[X(x),Y(y)]),color)).join('');
+    return svg(blank?326:382,blank?'图 2，空白直角坐标系':'图 1，已画出 y₂ 和 y₃，留出 y₁ 的作图位置',
+      grid+text(X(6)+10,Y(0)-8,'x')+text(X(0)+7,Y(hi)-6,'y')+
+      (blank?'':drawCurve(2,blue)+drawCurve(-.5,teal)+text(348,91,'y₂','start',blue)+text(342,258,'y₃','start',teal))+
+      text(240,blank?310:365,blank?'图 2　作图辅助区':'图 1　按题意补画 y₁','middle'));
+  }
+  function rectangle(){
+    return svg(220,'图 4，矩形 ABCD，AB 为 8，BC 为 12，E、F 位置留空',
+      path([[102,35],[370,35],[370,185],[102,185],[102,35]])+
+      text(87,31,'A')+text(86,198,'B')+text(379,198,'C')+text(379,31,'D')+
+      text(79,112,'8','middle')+text(236,204,'12','middle'));
+  }
+  function absolute8(){
+    const X=x=>173+60*x,Y=y=>193-27*y;
+    const points=Array.from({length:111},(_,i)=>-2.2+5.5*i/110).map(x=>[X(x),Y(Math.abs(x*x-2*x-3))]);
+    const right=Array.from({length:44},(_,i)=>3.3+1.05*i/43).map(x=>[X(x),Y(Math.abs(x*x-2*x-3))]);
+    return svg(225,'绝对值二次函数的示意图',
+      line([26,Y(0)],[452,Y(0)],ink)+line([X(0),35],[X(0),209],ink)+path(points.concat(right),teal)+
+      line([X(1),Y(4)],[X(1),Y(0)],faint,true)+text(453,Y(0)+15,'x')+text(X(0)+8,31,'y')+text(X(0)-6,Y(0)+17,'O','end'));
+  }
+  function geometry20(){
+    const labelPoints=(p,offsets)=>Object.entries(offsets).map(([k,[dx,dy]])=>text(p[k][0]+dx,p[k][1]+dy,k)).join('');
+    const edge=(p,a,b)=>line(p[a],p[b]);
+    const p={A:[45,40],B:[45,153],C:[158,153],D:[133,65]};
+    const q={A:[261,54],B:[261,150],C:[405,150],D:[325,54],E:[305.31,83.54]};
+    const r={A:[218,104],B:[61,209],C:[375,209],D:[218,209],E:[314.62,64],F:[266.31,136.54]};
+    return svg(204,'第 20 题的图 1 和图 2',
+      path(['A','B','C','D','A'].map(k=>p[k]))+edge(p,'A','C')+edge(p,'B','D')+
+      path([[45,143],[55,143],[55,153]])+labelPoints(p,{A:[-15,-6],B:[-15,17],C:[7,14],D:[5,-7]})+text(108,194,'图 1','middle')+
+      path(['A','B','C','D','A'].map(k=>q[k]))+edge(q,'A','C')+edge(q,'B','D')+
+      path([[261,64],[271,64],[271,54]])+path([[261,140],[271,140],[271,150]])+
+      labelPoints(q,{A:[-16,-7],B:[-16,16],C:[8,12],D:[6,-7],E:[5,15]})+text(330,194,'图 2','middle'))+
+      svg(248,'第 20 题的图 3',
+        path(['B','A','E','C','B'].map(k=>r[k]))+edge(r,'A','D')+edge(r,'A','C')+edge(r,'D','E')+
+        labelPoints(r,{A:[-13,-10],B:[-13,17],C:[8,17],D:[-5,17],E:[8,-5],F:[7,15]})+text(238,240,'图 3','middle'));
+  }
+  const figures={
+    1:()=>topViews(),3:()=>original(3),4:()=>original(4),5:()=>original(5),6:()=>original(6),7:()=>original(7),8:()=>absolute8(),11:()=>original(11),
+    13:()=>original(13),15:()=>original(15),16:()=>original(16),18:()=>shadowPair(),
+    19:focus=>focus?graph19(true):graph19(false)+graph19(true),
+    20:focus=>focus?rectangle():geometry20()+rectangle()
+  };
+  return (n,focus)=>figures[n]?.(focus)??'';
+})();
+
+</script>
+<script>
+const questions = [
+  {
+    title:"陀螺的左视图",
+    prompt:"陀螺近似由圆柱和圆锥组合而成。如下方题图，从左边看，它的左视图是哪一个？",
+    answer:"B",
+    steps:[
+      "从左边水平看。圆柱的上、下底面沿视线方向投影成两条水平线，两侧是竖线，所以圆柱部分是一个矩形。",
+      "圆锥的轴竖直，尖端朝下。从左边看，底面投影为一条水平线，尖端投影在这条线的正下方，轮廓是等腰三角形。",
+      "圆柱与圆锥接合处就是矩形与三角形共用的水平边。逐项对照，B 画出了平直的上边和接合线。"
+    ]
+  },
+  {
+    title:"由已知根求参数",
+    prompt:"关于 x 的一元二次方程 x² + mx − 6 = 0 的一个根为 3，则 m 的值为（　）。<br>A. 3　　B. −2　　C. 5　　D. −1",
+    answer:"D，m = −1",
+    steps:[
+      "3 是方程的根，意思是把 x 换成 3 后，等式成立。代入得 3² + 3m − 6 = 0。",
+      "先算 3² = 9，再合并常数，得到 3m + 3 = 0。",
+      "等式两边减 3，得 3m = −3。两边除以 3，得 m = −1。代回核对，9 − 3 − 6 = 0。"
+    ]
+  },
+  {
+    title:"平行线分线段成比例",
+    prompt:"l₁ ∥ l₂ ∥ l₃，直线 AC 和 DF 被它们所截。已知 AB = 3，BC = 4，EF = 8，则 DE 的长为（　）。<br>A. 9　　B. 3　　C. 6　　D. 14",
+    answer:"C，DE = 6",
+    steps:[
+      "先找对应。AB 和 DE 都夹在第一、第二条平行线之间。BC 和 EF 都夹在第二、第三条平行线之间。",
+      "三条平行线截两条直线，得到 AB/BC = DE/EF。按相同顺序代入，3/4 = DE/8。",
+      "等式两边乘 8，得 DE = 8 × 3/4 = 6。也可以看出 EF 是 BC 的 2 倍，所以 DE 是 AB 的 2 倍。"
+    ]
+  },
+  {
+    title:"判断两个三角形相似",
+    prompt:"图中 D 在 AB 上，E 在 AC 上。能使 △ABC ∽ △AED 成立的条件是（　）。<br>A. ∠A = ∠A<br>B. ∠ADE = ∠AED<br>C. AC/AD = AB/AE<br>D. BC/ED = AD/AC",
+    answer:"C，AC/AD = AB/AE",
+    steps:[
+      "先按题目给出的顶点顺序配对。A ↔ A，B ↔ E，C ↔ D，所以两组夹角边分别是 AB ↔ AE、AC ↔ AD。",
+      "两三角形的夹角 ∠BAC 和 ∠EAD 是同一个角。若 AB/AE = AC/AD，两组对应边成比例，夹角又相等，可判定相似。",
+      "A 只有一个公共角。B 只说明小三角形的两个角相等。D 给出的比例和题目要求的对应关系不一致。"
+    ]
+  },
+  {
+    title:"重叠矩形的周长",
+    prompt:"两张全等的矩形纸片 ABCD、AECF 如图交叉叠放，AB = AF，AE = BC。AE 与 BC 相交于 G，AD 与 CF 相交于 H。若 ∠AGB = 30°，AB = 2，则重叠部分 AGCH 的周长为（　）。<br>A. 4　　B. 8　　C. 8√3　　D. 16",
+    answer:"D，16",
+    steps:[
+      "AG 沿 AE，CH 沿 CF。在矩形 AECF 中 AE ∥ CF，所以 AG ∥ CH。AH 沿 AD，GC 沿 BC，因此 AH ∥ GC。阴影四边形 AGCH 是平行四边形。",
+      "在直角三角形 ABG 中，∠ABG = 90°，∠AGB = 30°。30° 所对的直角边 AB 是斜边 AG 的一半，所以 AG = 2AB = 4。",
+      "看另一个直角三角形 GEC。GE 沿 AE，EC ⟂ AE，所以 ∠GEC = 90°。∠EGC 与 ∠AGB 是对顶角，也等于 30°。",
+      "矩形中 EC = AF，题目又给 AF = AB = 2，所以 GC = 2EC = 4。GC 在 △GEC 中是斜边。",
+      "平行四边形对边相等，周长为 2(AG + GC) = 2(4 + 4) = 16。"
+    ]
+  },
+  {
+    title:"绿化带与面积方程",
+    prompt:"一块长 40 米、宽 30 米的长方形场地被 3 条宽度相等的绿化带分为总面积为 680 平方米的活动场所。设绿化带宽 x 米，则所列方程为（　）。<br>A. (40 − x)(30 − x) = 680<br>B. (40 − 2x)(30 − x) = 680<br>C. (40 − 2x)(30 − x) = 1200<br>D. (40 − x)(30 − 2x) = 680",
+    answer:"B，(40 − 2x)(30 − x) = 680",
+    steps:[
+      "沿图中 40 米的长边，从上往下会跨过两条横带，各占 x 米，空白部分拼起来的长为 40 − 2x。",
+      "沿 30 米的宽边，从左往右只跨过一条竖带，占 x 米，空白部分拼起来的宽为 30 − x。",
+      "把空白的几块沿横向和竖向分别挪拢，就能拼成一个矩形。它的面积等于原来所有空白块面积之和。",
+      "所以用剩下的长乘剩下的宽，得到 (40 − 2x)(30 − x) = 680。680 是空白面积。"
+    ]
+  },
+  {
+    title:"黄金分割求线段",
+    prompt:"C 是线段 AB 的黄金分割点，且 AC &lt; BC。若 AB = 2 cm，则 BC 的长为（　）。<br>A. (√5 − 1) cm　　B. (√5 + 1) cm<br>C. (3 − √5) cm　　D. (√5 − 2) cm",
+    answer:"A，(√5 − 1) cm",
+    steps:[
+      "黄金分割满足「长段 ÷ 全长 = 短段 ÷ 长段」。长段是 BC，短段是 AC。",
+      "设 BC = x cm，则 AC = 2 − x cm。代入得 x/2 = (2 − x)/x，且 1 < x < 2。",
+      "交叉相乘得 x² = 2(2 − x) = 4 − 2x。移项得 x² + 2x − 4 = 0。",
+      "配方得 (x + 1)² = 5，因此 x = −1 ± √5。−1 − √5 为负，舍去，取 √5 − 1 cm。"
+    ]
+  },
+  {
+    title:"绝对值二次函数读图", diagram:"absolute",
+    prompt:"已知 y = |x² − 2x − 3|，下列四个结论中，正确的是哪一项？<br>A. 当 x = 1 时，函数有最大值 4。<br>B. 图像与 x 轴的交点为 (−1, 0) 和 (2, 0)。<br>C. 当 x &lt; −1 或 1 &lt; x &lt; 3 时，函数值 y 随 x 值的增大而减小。<br>D. 若直线 y = m 与函数图像至少有 3 个公共点，则 m 的取值范围是 0 &lt; m &lt; 4。",
+    answer:"C",
+    steps:[
+      "把绝对值里面因式分解，x² − 2x − 3 = (x + 1)(x − 3)。令它等于 0，得到 x = −1、3。因此 x 轴交点为 (−1, 0)、(3, 0)，B 错。",
+      "在 −1 < x < 3 时，原式为负，取绝对值相当于把下方那段向上翻。翻上来的这一段写成 4 − (x − 1)²，最高点是 (1, 4)。两端外侧的曲线还能超过 4，所以 A 说全图有最大值 4，错误。",
+      "顺着图从左向右看。x < −1 时，左边外侧曲线一直下降。1 < x < 3 时，中间弧从 (1, 4) 降到 (3, 0)，也一直下降，所以 C 正确。",
+      "把 y = m 看成一把横尺。m < 0 时没有交点，m = 0 时有 2 个。0 < m < 4 时有 4 个。m = 4 时横尺正好碰到中间最高点，两侧各有 1 个，共 3 个。m > 4 时只交两侧，共 2 个。",
+      "因此「至少 3 个」的范围是 0 < m ≤ 4。D 漏掉了 m = 4。"
+    ]
+  },
+  {
+    title:"比例式求值",
+    prompt:"已知 x/y = 3/5，求 (x + y)/y。",
+    answer:"8/5",
+    steps:[
+      "分母都是 y，可以把分子 x + y 的两项分别除以 y，得到 (x + y)/y = x/y + y/y。",
+      "题中 y ≠ 0，所以 y/y = 1。代入 x/y = 3/5，得 3/5 + 1 = 3/5 + 5/5 = 8/5。"
+    ]
+  },
+  {
+    title:"两个不相等实根",
+    prompt:"一元二次方程 x² + 2x + k − 1 = 0 有两个不相等的实数根，求 k 的取值范围。",
+    answer:"k < 2",
+    steps:[
+      "与 ax² + bx + c = 0 对照，得到 a = 1，b = 2，c = k − 1。常数项要把 k − 1 整体代入。",
+      "两个不相等的实数根要求 Δ > 0。计算 Δ = b² − 4ac = 2² − 4 × 1 × (k − 1)。",
+      "去括号得 Δ = 4 − 4k + 4 = 8 − 4k。因此 8 − 4k > 0，也就是 4k < 8，除以正数 4，得 k < 2。",
+      "当 k = 2 时，方程变成 (x + 1)² = 0，两个根相等，故端点 2 不取。"
+    ]
+  },
+  {
+    title:"两个正方形与三角形面积",
+    prompt:"边长为 8 的正方形 ABCD 中，O 是中心。另一个正方形以 O 为顶点，其相邻边 OE、OF 分别交 AB、BC 于 M、N。S△AOM = 10，求 S△CON。",
+    answer:"6",
+    steps:[
+      "从 O 分别向 AB、BC 作垂线，垂足记为 U、V。O 是正方形中心，OU = OV = 4。",
+      "以 AM 为底，△AOM 的高是 OU = 4，所以 10 = AM × 4 ÷ 2，得 AM = 5。AU = 4，所以 UM = AM − AU = 1。",
+      "OE ⟂ OF，因此 OM ⟂ ON。沿图从 O 到 M 是向左 4、向下 1。把这段方向转 90°，得到向右 1、向下 4，恰好落到 BC 上的 N。因此 VN = 1。",
+      "V 是 BC 的中点，VC = 4，所以 CN = VC − VN = 3。以 CN 为底，△CON 的高是 OV = 4，面积为 3 × 4 ÷ 2 = 6。"
+    ]
+  },
+  {
+    title:"比较抛物线上的函数值",
+    prompt:"A(4, y₁)、B(2, y₂)、C(−2, y₃) 都在 y = (x − 2)² − 1 上。用「<」连接 y₁、y₂、y₃。",
+    answer:"y₂ < y₁ < y₃",
+    steps:[
+      "对称轴是 x = 2。平方项 (x − 2)² 表示横坐标到对称轴的距离的平方。抛物线开口向上，离对称轴越远，函数值越大。",
+      "直接代入也能核对。x = 4 时，y₁ = (4 − 2)² − 1 = 3。x = 2 时，y₂ = −1。",
+      "x = −2 时，y₃ = (−2 − 2)² − 1 = 15。因为 −1 < 3 < 15，所以 y₂ < y₁ < y₃。"
+    ]
+  },
+  {
+    title:"角平分线与线段比", diagram:"angle",
+    prompt:"△ABC 中，∠ACB = 90°，∠CAB = 30°，AD 平分 ∠CAB。D 在 BC 上，BE ⟂ AD，E 为垂足。求 AD/BE。",
+    answer:"2√3",
+    steps:[
+      "AD 平分 30°，所以 ∠BAE = 15°。BE ⟂ AE，因此直角三角形 ABE 中 ∠ABE = 75°。又因为 ∠ABD = ∠ABC = 60°，所以 ∠DBE = 75° − 60° = 15°。",
+      "把 D 关于点 E 对称得到 D′，也就是沿 AD 过 E 延长 DE，使 ED′ = ED。由于 BE 垂直平分 DD′，BD 和 BD′ 关于 BE 对称，所以 ∠EBD′ = 15°。",
+      "此时 ∠ABD′ = 75° + 15° = 90°。取斜边 AD′ 的中点 K。直角三角形的斜边中线等于斜边的一半，所以 BK = AK。",
+      "△ABK 是等腰三角形，∠ABK = ∠BAK = 15°，所以 ∠KBE = 75° − 15° = 60°。在直角三角形 BKE 中，KE/BE = tan 60° = √3。",
+      "最后看同一条直线上的长度。AD′ = AD + 2DE，且 AK = AD′/2，因此 KE = AE − AK = (AD + DE) − (AD/2 + DE) = AD/2。",
+      "所以 AD/BE = 2KE/BE = 2√3。"
+    ]
+  },
+  {
+    title:"解两个一元二次方程",
+    prompt:"（1）解 x² − 3x − 1 = 0。<br>（2）解 x(x − 2) + x − 2 = 0。",
+    answer:"（1）x = (3 ± √13)/2；（2）x = −1 或 2",
+    steps:[
+      "第（1）问用公式法。a = 1，b = −3，c = −1，先算 Δ = (−3)² − 4 × 1 × (−1) = 9 + 4 = 13。",
+      "Δ > 0，有两个不相等的实数根。把 −b = 3、2a = 2 代入求根公式，得到 x₁ = (3 + √13)/2，x₂ = (3 − √13)/2。",
+      "第（2）问看共同因式。后两项 x − 2 可以写成 1·(x − 2)，所以原式是 x(x − 2) + 1·(x − 2) = (x − 2)(x + 1)。",
+      "两个因式的积为 0，至少一个因式等于 0。分别解 x − 2 = 0 和 x + 1 = 0，得到 x = 2 或 x = −1。"
+    ]
+  },
+  {
+    title:"位似中心和网格作图", diagram:"dilation",
+    prompt:"△ABC 与 △A₁B₁C₁ 关于 P 成位似图形。<br>（1）读出 P 的坐标。<br>（2）以原点 O 为位似中心，在 y 轴左侧画 △A₂B₂C₂，使 △A₁B₁C₁ 与它的相似比为 2∶1。",
+    answer:"（1）P(0, 2)；（2）A₂(−2, 2)，B₂(−3, −1)，C₂(−2, 0)",
+    steps:[
+      "位似中心在每一对对应顶点的连线上。连 AA₁、BB₁ 并看它们的交点。图上交点在 y 轴上，离原点向上 2 格，所以 P = (0, 2)。",
+      "第（2）问把中心改成 O。原三角形 A₁B₁C₁ 在 y 轴左侧，所求图形也在左侧，所以沿 OA₁、OB₁、OC₁ 的原方向取点。",
+      "相似比是「旧图∶新图 = 2∶1」，所以新点离 O 的距离是旧点的一半。以 O 为中心，横坐标和纵坐标都乘 1/2。",
+      "A₁(−4, 4) 变成 A₂(−2, 2)，B₁(−6, −2) 变成 B₂(−3, −1)，C₁(−4, 0) 变成 C₂(−2, 0)。",
+      "在网格里依次描出这三个点，再连 A₂B₂、B₂C₂、C₂A₂。核对 A₂、B₂、C₂ 分别是 OA₁、OB₁、OC₁ 的中点。"
+    ]
+  },
+  {
+    title:"证明菱形并求面积",
+    prompt:"在 Rt△ABC 中，∠BAC = 90°，D 是 BC 的中点，E 是 AD 的中点。过 A 作 AF ∥ BC，交 BE 的延长线于 F。<br>（1）证明 ADCF 是菱形。<br>（2）若 AC = 7，AB = 24，求它的面积。",
+    answer:"（1）ADCF 是菱形；（2）84",
+    steps:[
+      "看 △AEF 和 △DEB。∠AEF 与 ∠DEB 是对顶角。AF ∥ DB，所以 ∠EAF = ∠EDB。又因为 E 是 AD 的中点，AE = DE。",
+      "由两角及夹边对应相等，△AEF ≌ △DEB，得到 AF = DB。D 是 BC 中点，所以 DB = DC，即 AF = DC。",
+      "在四边形 ADCF 中，AF 与 DC 一组对边平行且相等，因此它是平行四边形。",
+      "在直角三角形 ABC 中，D 是斜边 BC 的中点，所以 AD = BD = DC。平行四边形有一组邻边 AD、DC 相等，因此 ADCF 是菱形。",
+      "设 A 到直线 BC 的高为 h。菱形以 DC 为底，面积是 DC × h。又因为 DC = BC/2，所以它的面积正好等于 △ABC 的面积 BC × h ÷ 2。",
+      "△ABC 的两条直角边为 24 和 7，因此两者的面积都是 24 × 7 ÷ 2 = 84。"
+    ]
+  },
+  {
+    title:"草莓增长率与利润",
+    prompt:"某大棚 2023 年产草莓 2500 kg，2025 年产 3600 kg，年增长率相同。草莓售价 15 元/斤时日售 200 斤，每降价 1 元多售 50 斤，进价 9 元/斤。<br>（1）求年增长率。<br>（2）日利润为 1250 元时，每斤降价多少元？",
+    answer:"（1）20%；（2）降价 1 元/斤",
+    steps:[
+      "设年增长率为 r。2023 到 2024 增长一次，产量为 2500(1 + r)。2024 到 2025 再增长一次，产量为 2500(1 + r)²。",
+      "由题意 2500(1 + r)² = 3600，两边除以 2500 得 (1 + r)² = 36/25。产量为正，取 1 + r = 6/5，所以 r = 1/5 = 20%。",
+      "设每斤降价 x 元。新售价是 15 − x，减进价 9 后，每斤利润是 6 − x。降价 x 元多卖 50x 斤，所以每天卖 200 + 50x 斤。",
+      "日利润 = 每斤利润 × 日销量，因此 (6 − x)(200 + 50x) = 1250。逐项展开，得到 1200 + 300x − 200x − 50x² = 1250。",
+      "合并并移项，得 −50x² + 100x − 50 = 0。两边除以 −50，得 x² − 2x + 1 = 0，即 (x − 1)² = 0，所以 x = 1。",
+      "检验。降价 1 元后每斤卖 14 元、每斤赚 5 元、每天卖 250 斤，日利润 5 × 250 = 1250 元。"
+    ]
+  },
+  {
+    title:"中心投影、平行投影与影长", diagram:"shadow",
+    prompt:"三根竹竿 AB、CD、EF 垂直于地面，垂足间 BD = DF = 6 米，已有影子 BG、DH。<br>（1）判断两幅图的投影类型。<br>（2）在图 1 作光源 O 和 EF 的影子 FM。<br>（3）在图 2 中，AB = 3.6 米，EF = 1.5 米，BG = 4 米，求 EF 的影长。",
+    answer:"（1）平行投影为图 2，中心投影为图 1；（2）见作图；（3）5/3 米",
+    steps:[
+      "先找同一束光的走向。竹竿顶端 A 和影子末端 G 在同一条光线上，C 和 H 也一样，因此看直线 AG 与 CH。",
+      "图 2 的 AG、CH 互相平行，是平行投影。图 1 的两条光线向上延长能交在一点，是中心投影。",
+      "在图 1 过 A、G 作直线，再过 C、H 作直线，向上延长，交点就是光源 O。用直线连接 O 与第三根竹竿的顶端 E，并向地面延长。",
+      "直线 OE 和地面交于 M。竹竿的垂足是 F，所以第三根竹竿的影子就是地面上的线段 FM。",
+      "图 2 中，EF 与 AB 都垂直地面，光线方向也一样。所以两根竹竿和各自影子组成的直角三角形相似，影长与竹竿高度的比相等。",
+      "设 EF 的影长为 L 米，则 L/1.5 = 4/3.6。两边乘 1.5，得 L = 1.5 × 4 ÷ 3.6 = 6 ÷ 3.6 = 5/3 米，约 1.67 米。"
+    ]
+  },
+  {
+    title:"二次函数的共同特征与交点个数",
+   
+    diagram:["parabola-family","parabola-intersections"],
+    prompt:"已知二次函数 y = ax² − 2ax − 3a（a ≠ 0）。<br>（1）当 a = 1 时，写出 y₁ 的解析式，并在图 1 中画出图像。图 1 已给出 y₂ = 2x² − 4x − 6 和 y₃ = −x²/2 + x + 3/2。<br>（2）写出这族二次函数的两条特征。<br>（3）当 a &lt; 0、−2 ≤ x ≤ 2 时，y 的最大值与最小值的差为 6，求 a。<br>（4）取 −2 ≤ x ≤ 2 上的抛物线部分 G。若 G 与 y = x + 1 有两个交点，求 a 的范围，可在图 2 作图。",
+    answer:"（1）y₁ = x² − 2x − 3，见图；（2）对称轴是 x = 1，且都过 (−1, 0)、(3, 0)；（3）a = −2/3；（4）−1 ≤ a ≤ −1/5，且 a ≠ −1/4。",
+    steps:[
+      "<strong>（1）先找五个点。</strong>把 a = 1 代入，得 y₁ = x² − 2x − 3 = (x − 1)² − 4。顶点是 (1, −4)，左右各取一格得到 (0, −3)、(2, −3)，各取两格得到 (−1, 0)、(3, 0)。描点后连成开口向上的抛物线。",
+      "<strong>（2）用两种写法看共同点。</strong>配方得 y = a(x − 1)² − 4a，所以对称轴始终是 x = 1。因式分解得 y = a(x + 1)(x − 3)，所以 x = −1 或 3 时，任意非零 a 都让 y = 0。",
+      "<strong>（3）先找最高点。</strong>a &lt; 0 时抛物线开口向下，顶点横坐标 1 在 [−2, 2] 里，所以最大值是 y(1) = −4a。",
+      "<strong>（3）最低点看离对称轴多远。</strong>从 x = 1 到 x = −2 有 3 格，到 x = 2 只有 1 格。因为 a &lt; 0，距离越远，a(x − 1)² 越小，所以最小值在 x = −2，为 9a − 4a = 5a。最大值减最小值是 −4a − 5a = −9a = 6，因此 a = −2/3。",
+      "<strong>（4）把两条图线的 y 写成相等。</strong>a(x + 1)(x − 3) = x + 1。把右边移到左边，提取共同的 x + 1，得到 (x + 1)[a(x − 3) − 1] = 0。",
+      "<strong>（4）两个因式，各给一个横坐标。</strong>第一个给 x₁ = −1，所以固定交点 (−1, 0) 始终在 G 上。第二个给 a(x − 3) = 1，即 x₂ = 3 + 1/a。若一开始就把两边的 x + 1 约掉，会漏掉固定交点。",
+      "<strong>（4）第二个交点也要落在截取范围里。</strong>−2 ≤ x₂ ≤ 2，等价于 −5 ≤ 1/a ≤ −1。可把 a 写成 −t（t &gt; 0），得到 1 ≤ 1/t ≤ 5，即 1/5 ≤ t ≤ 1，因此 −1 ≤ a ≤ −1/5。a = −1 时 x₂ = 2，a = −1/5 时 x₂ = −2，两个端点都可以取。",
+      "<strong>（4）最后排除重合。</strong>若 x₂ = −1，则 3 + 1/a = −1，得到 a = −1/4。此时因式积变成 −(x + 1)²/4，只有一个不同的根，图上只接触一次。最终范围是 [−1, −1/4) ∪ (−1/4, −1/5]。",
+      "<strong>（4）也可用判别式检验重合。</strong>联立后得到 ax² − (2a + 1)x − (3a + 1) = 0。Δ = (2a + 1)² + 4a(3a + 1) = 16a² + 8a + 1 = (4a + 1)²。要有两个不同的交点就要求 Δ &gt; 0，所以 a ≠ −1/4。横坐标是否在 [−2, 2] 内仍由前一步检查。"
+    ]
+  },
+  {
+    title:"直角对垂四边形",
+   
+    diagram:["perpendicular-discovery","perpendicular-rotation","perpendicular-rectangle"],
+    prompt:"【探究发现】① 如图 1，在四边形 ABCD 中，AB = BC，∠ABC = 90°，DA = DC，求 AC 与 BD 的位置关系。② 如图 2，∠ABC = ∠DAB = 90°，AC ⟂ BD 于 E，比较 AB² 与 AD·BC。<br>【抽象定义】有一个内角是直角，且对角线互相垂直的四边形称为“直角对垂四边形”。<br>【存在性】如图 3，△ABC 中 AB = AC，D 是 BC 的中点。将线段 AD 绕 A 逆时针旋转到 AE，使 ∠BAC = ∠DAE。连接 EC、DE，AC 与 DE 交于 F。证明 ADCE 是直角对垂四边形。<br>【应用】如图 4，矩形 ABCD 中，AB = 8，BC = 12，E 在 BC 上，F 在矩形的边上，EF = 10。若 ABEF 是直角对垂四边形，求 DF 的长。",
+    answer:"图 1：AC ⟂ BD。图 2：AB² = AD · BC。图 3：∠ADC = 90° 且 AC ⟂ DE。图 4：DF = 2、38/13、9 − √73 或 15 − √73。",
+    steps:[
+      "<strong>图 1｜找同时离 A、C 一样远的点。</strong>AB = BC，说明 B 到 A、C 等距。DA = DC，说明 D 到 A、C 也等距。所以 B、D 都在 AC 的垂直平分线上，连起来得到 AC ⟂ BD。",
+      "<strong>图 2｜找两个直角三角形。</strong>看 △ABD 与 △BCA。∠BAD = ∠CBA = 90°。又因为 BA ⟂ BC、BD ⟂ AC，所以 ∠ABD 与 ∠BCA 是两组对应边分别垂直的锐角，二者相等。",
+      "<strong>图 2｜按顺序写对应边。</strong>△ABD ∽ △BCA，A 对 B，B 对 C，D 对 A。于是 AB/BC = AD/BA，交叉相乘得到 AB² = AD · BC，填“＝”。",
+      "<strong>图 3｜先找四边形的直角。</strong>因为 AB = AC，所以 A 到 B、C 一样远。D 是 BC 中点，所以 AD 是 BC 的垂直平分线，∠ADC = 90°。",
+      "<strong>图 3｜把整块 △ABD 转过去。</strong>绕 A 旋转 ∠BAC，按图中的逆时针方向，射线 AB 转到 AC。由于 AB = AC，B 正好转到 C。又因为 ∠BAC = ∠DAE，D 同时转到 E。旋转保持线段长度，所以 BD = CE，同时 AD = AE。",
+      "<strong>图 3｜再找对角线为什么垂直。</strong>D 是 BC 的中点，所以 CD = BD。结合 BD = CE，得到 CD = CE。现在 A 到 D、E 等距，C 也到 D、E 等距，所以直线 AC 是 DE 的垂直平分线。四边形 ADCE 有直角 ∠ADC，且两条对角线 AC、DE 垂直，证毕。",
+      "<strong>图 4｜先确定对角线，再分位置。</strong>ABEF 的内角 ∠ABE 已经是直角，剩下的条件就是 AE ⟂ BF。设 BE = t（t &gt; 0）。从 B 向右上画出与 AE 垂直的射线，它出矩形时到 AD 或 CD，经过 D 时两种情况相接。",
+      "<strong>图 4｜F 在 AD 上。</strong>与图 2 同理，BE × AF = AB² = 64。两点的竖直距离为 8，EF = 10，所以水平距离 |AF − BE| = √(100 − 64) = 6。于是 (AF + BE)² = 6² + 4 × 64 = 292，得到 AF = √73 ± 3。两种位置都在矩形边上，DF = 12 − AF，即 9 − √73 或 15 − √73。",
+      "<strong>图 4｜F 在 CD 上。</strong>△ABE ∽ △BCF（A 对 B，B 对 C，E 对 F），所以 CF/BC = BE/AB，得 CF = 3t/2。在 △ECF 中列 (12 − t)² + (3t/2)² = 100，整理为 (t − 4)(13t − 44) = 0。t = 4 或 44/13，CF = 6 或 66/13，都小于 8。由 DF = 8 − CF，得到 2 或 38/13。"
+    ]
+  }
+];
+
+const nav = document.querySelector('#number-nav');
+const board = document.querySelector('#question-board');
+let current = 0;
+let visible = 0;
+let figureIndex = 0;
+let activeMethod = -1;
+
+function figure(name) {
+  const label = (x,y,value) => '<text x="' + x + '" y="' + y + '">' + value + '</text>';
+  const line = (x,y,u,v,color='#78929a',dash='') => '<path d="M' + x + ' ' + y + 'L' + u + ' ' + v + '" fill="none" stroke="' + color + '" stroke-width="2" ' + (dash ? 'stroke-dasharray="5 4"' : '') + '/>';
+  const dot = (x,y,color='#08746a') => '<circle cx="' + x + '" cy="' + y + '" r="3.8" fill="' + color + '"/>';
+  const poly = (points,color) => '<polyline points="' + points.map(([x,y])=>x+','+y).join(' ') + '" fill="none" stroke="' + color + '" stroke-width="2.7" stroke-linejoin="round"/>';
+  const svg = (height,title,body) => '<svg class="board-figure" viewBox="0 0 460 ' + height + '" role="img" aria-label="' + title + '">' + body + '</svg>';
+  if(name==='absolute'||name==='absolute-start'){
+    const X=x=>169+55*x, Y=y=>186-17*y;
+    const coords=Array.from({length:141},(_,i)=>-2.5+i/20).map(x=>[X(x),Y(Math.abs(x*x-2*x-3))]);
+    const compare=name==='absolute';
+    return svg(218,compare?'绝对值抛物线与 y 等于 4 的三个交点':'绝对值抛物线',
+      line(25,Y(0),435,Y(0))+line(X(0),25,X(0),197)+(compare?line(25,Y(4),435,Y(4),'#b16a27',true):'')+
+      poly(coords,'#08746a')+[-1,3].map(x=>dot(X(x),Y(0))+label(X(x)-9,Y(0)+20,String(x))).join('')+
+      (compare?[1-Math.sqrt(8),1,1+Math.sqrt(8)].map(x=>dot(X(x),Y(4),'#b16a27')).join(''):'')+
+      label(X(1)-9,Y(4)-12,'(1, 4)')+(compare?label(378,Y(4)-9,'y = 4'):'')+label(423,Y(0)-7,'x')+label(X(0)+6,32,'y'));
+  }
+  if(name==='angle'){
+    const s=Math.sqrt(3), tangent=2-s;
+    const d=s/(s+tangent), e=(1+Math.cos(Math.PI/6))/2, ey=.25;
+    const points={A:[0,0],B:[1,0],C:[.75,s/4],D:[d,d*tangent],E:[e,ey],"D′":[2*e-d,2*ey-d*tangent],K:[(2*e-d)/2,(2*ey-d*tangent)/2]};
+    const X=x=>52+322*x, Y=y=>184-322*y;
+    const pos=key=>[X(points[key][0]),Y(points[key][1])];
+    const edge=(u,v,color,dash)=>line(...pos(u),...pos(v),color,dash);
+    const offsets={A:[-16,15],B:[5,18],C:[-1,-9],D:[-15,18],E:[-5,-11],"D′":[12,-3],K:[-3,-10]};
+    return svg(212,'延长 AD 到 D′，标出中点 K',
+      edge('A','C')+edge('C','B')+edge('A','B')+edge('A','D′','#08746a')+edge('B','E')+
+      edge('B','D′','#29619b',true)+edge('B','K','#29619b',true)+
+      Object.keys(points).map(k=>{const [x,y]=pos(k);return dot(x,y)+label(x+offsets[k][0],y+offsets[k][1],k);}).join(''));
+  }
+  if(name==='dilation'){
+    const X=x=>245+26*x, Y=y=>126-21*y;
+    const old=[[-4,4],[-6,-2],[-4,0]], next=old.map(([x,y])=>[x/2,y/2]);
+    let grid='';
+    for(let x=-7;x<=7;x++)grid+=line(X(x),22,X(x),Y(-3),x===0?'#607e88':'#deebec');
+    for(let y=-3;y<=5;y++)grid+=line(X(-7),Y(y),X(7),Y(y),y===0?'#607e88':'#deebec');
+    const shape=(points,tag,color)=>poly([...points,points[0]].map(([x,y])=>[X(x),Y(y)]),color)+points.map(([x,y],i)=>dot(X(x),Y(y),color)+label(X(x)+(i===1?-23:5),Y(y)+(i===2?17:-6),'ABC'[i]+tag)).join('');
+    return svg(205,'原三角形和缩小后的三角形，A₂、B₂、C₂ 是相应线段的中点',
+      grid+old.map(([x,y])=>line(X(0),Y(0),X(x),Y(y),'#99a9ae',true)).join('')+
+      shape(old,'₁','#29619b')+shape(next,'₂','#08746a')+dot(X(0),Y(0))+label(X(0)+6,Y(0)+17,'O')+
+      label(X(7)+8,Y(0)-6,'x')+label(X(0)+6,25,'y'));
+  }
+  if(name==='shadow'){
+    const O=[39,24], floor=145;
+    const poles=[[105,80,'A','B','G'],[200,105,'C','D','H'],[295,118,'E','F','M']];
+    return svg(181,'中心投影。延长 AG 和 CH 得 O，连接 OE 交地面于 M',
+      line(24,floor,425,floor)+dot(...O,'#b16a27')+label(25,17,'O')+
+      poles.map(([x,y,top,foot,end],i)=>{
+        const shadow=O[0]+(x-O[0])*(floor-O[1])/(y-O[1]);
+        return line(...O,shadow,floor,i===2?'#b16a27':'#78929a',i!==2)+line(x,y,x,floor,'#08746a')+
+          line(x,floor,shadow,floor,i===2?'#b16a27':'#29619b')+
+          dot(x,y)+label(x+5,y-5,top)+label(x-5,floor+20,foot)+label(shadow-5,floor+20,end);
+      }).join(''));
+  }
+  if(name==='parabola-family'||name==='parabola-intersections'){
+    const intersection=name==='parabola-intersections';
+    const X=x=>188+57*x, Y=y=>96-19*y;
+    const left=intersection?-2:-2.25, right=intersection?2:3.8;
+    let grid='';
+    for(let x=-2;x<=4;x++)grid+=line(X(x),24,X(x),Y(-8)-5,x===0?'#5c7780':'#deebec')+label(X(x)-6,Y(0)+17,String(x));
+    for(let y=-7;y<=3;y++)grid+=line(43,Y(y),X(4)+10,Y(y),y===0?'#5c7780':'#deebec')+(y===0?'':label(X(0)+6,Y(y)+4,String(y)));
+    const curve=(a,color)=>poly(Array.from({length:121},(_,i)=>{
+      const x=left+(right-left)*i/120;
+      return [X(x),Y(a*(x+1)*(x-3))];
+    }),color);
+    const teal='#08746a', orange='#a3561d', blue='#29619b';
+    if(intersection){
+      return svg(273,'当 a = −1/2 时，只看 −2 到 2 内的抛物线，与直线交于 (−1, 0) 和 (1, 2)',
+        '<rect x="'+X(-2)+'" y="24" width="'+(X(2)-X(-2))+'" height="219" fill="#edf7f5"/>'+grid+
+        [-2,2].map(x=>line(X(x),24,X(x),244,'#78929a',true)).join('')+
+        curve(-.5,teal)+line(X(-2.48),Y(-1.48),X(2.55),Y(3.55),orange)+
+        dot(X(-1),Y(0),teal)+dot(X(1),Y(2),teal)+
+        label(44,123,'固定点 (−1, 0)')+label(X(1)+8,Y(2)-10,'(1, 2)')+label(329,46,'y = x + 1')+
+        label(53,260,'阴影内才是题目截取范围　·　示例 a = −1/2'));
+    }
+    return svg(273,'同一对称轴和同样的零点。绿色曲线为 a = 1，蓝色为 a = 2，橙色为 a = −1/2',
+      grid+line(X(1),22,X(1),246,'#6c8f91',true)+
+      '<svg x="42" y="23" width="384" height="225" viewBox="42 23 384 225" overflow="hidden">'+
+      curve(2,blue)+curve(-.5,orange)+curve(1,teal)+'</svg>'+
+      [[-1,0],[0,-3],[1,-4],[2,-3],[3,0]].map(([x,y])=>dot(X(x),Y(y),teal)).join('')+
+      label(X(1)+7,Y(-4)+19,'(1, −4)')+label(290,18,'对称轴 x = 1')+
+      label(56,263,'绿色 a = 1　　蓝色 a = 2　　橙色 a = −1/2'));
+  }
+  if(name==='perpendicular-discovery'){
+    const shape=(points,keys,color)=>poly([...keys,keys[0]].map(key=>points[key]),color);
+    const names=(points,offsets)=>Object.entries(offsets).map(([key,[dx,dy]])=>label(points[key][0]+dx,points[key][1]+dy,key)).join('');
+    const p={A:[51,36],B:[51,143],C:[158,143],D:[130,64]};
+    const r={A:[259,47],B:[259,137],C:[394,137],D:[319,47]};
+    return svg(202,'图 1 连接等距点 B 与 D。图 2 对照三角形 ABD 与 BCA',
+      shape(p,['A','B','C','D'],'#78929a')+line(...p.A,...p.C,'#29619b')+line(...p.B,...p.D,'#08746a')+
+      poly([[51,132],[62,132],[62,143]],'#78929a')+
+      names(p,{A:[-13,-8],B:[-13,16],C:[5,14],D:[5,-8]})+
+      shape(r,['A','B','D'],'#08746a')+shape(r,['B','C','A'],'#29619b')+line(...r.D,...r.C)+
+      poly([[259,57],[269,57],[269,47]],'#78929a')+poly([[259,127],[269,127],[269,137]],'#78929a')+
+      names(r,{A:[-15,-6],B:[-15,16],C:[6,12],D:[5,-8]})+
+      label(33,183,'图 1　看 AC 的垂直平分线')+label(246,183,'图 2　△ABD ∽ △BCA'));
+  }
+  if(name==='perpendicular-rotation'){
+    const X=x=>220+24*x, Y=y=>172-24*y;
+    const p={A:[0,4],B:[-6,0],C:[6,0],D:[0,0],E:[48/13,72/13],F:[24/13,36/13]};
+    const point=k=>[X(p[k][0]),Y(p[k][1])];
+    const edge=(u,v,color,dash)=>line(...point(u),...point(v),color,dash);
+    const names={A:[-12,-10],B:[-15,10],C:[6,10],D:[-5,17],E:[7,-1],F:[7,15]};
+    return svg(222,'图 3，D 是 BC 的中点，旋转将 B 对到 C、D 对到 E；AC 垂直平分 DE',
+      edge('B','C')+edge('B','A')+edge('A','D','#08746a')+edge('A','E','#08746a')+edge('C','E')+
+      edge('D','E','#a3561d',true)+edge('A','C','#29619b')+
+      poly([[X(0),Y(.48)],[X(.48),Y(.48)],[X(.48),Y(0)]],'#08746a')+
+      Object.keys(p).map(k=>{const [x,y]=point(k);return dot(x,y,k==='F'?'#a3561d':'#08746a')+label(x+names[k][0],y+names[k][1],k);}).join('')+
+      label(82,209,'D 处是内角直角　·　F 处是两条对角线垂直'));
+  }
+  if(name==='perpendicular-rectangle'){
+    const sample=(left,onTop)=>{
+      const X=x=>left+12*x, Y=y=>141-12*y;
+      const E=onTop?[8,0]:[4,0], F=onTop?[8,8]:[12,6];
+      const points={A:[0,8],B:[0,0],C:[12,0],D:[12,8],E,F};
+      const point=k=>[X(points[k][0]),Y(points[k][1])];
+      const offsets={A:[-13,-6],B:[-13,15],C:[4,15],D:[5,-6],E:[-3,17],F:[5,-7]};
+      return poly(['A','B','C','D','A'].map(point),'#78929a')+
+        line(...point('A'),...point('E'),'#29619b')+line(...point('B'),...point('F'),'#08746a')+
+        line(...point('E'),...point('F'),'#a3561d',true)+
+        Object.keys(points).map(k=>{const [x,y]=point(k);return dot(x,y)+label(x+offsets[k][0],y+offsets[k][1],k);}).join('')+
+        label(left+31,183,onTop?'F 在 AD 上':'F 在 CD 上');
+    };
+    return svg(203,'图 4 的两种示意位置：F 在 AD 或 CD，蓝线 AE 垂直于绿线 BF',
+      sample(38,true)+sample(266,false));
+  }
+  return '';
+}
+
+function navGroup(title,first,last){
+  return '<div class="nav-group"><h2>'+title+'</h2><div class="numbers">'+questions.slice(first,last).map((q,i)=>
+    '<button type="button" data-index="'+(first+i)+'" aria-label="第 '+(first+i+1)+' 题 '+q.title+'">'+String(first+i+1).padStart(2,'0')+'</button>'
+  ).join('')+'</div></div>';
+}
+
+function selectedMethod(){
+  return advancedMethods[current+1]?.methods[activeMethod];
+}
+
+function activePrompt(){
+  return (selectedMethod() && advancedMethods[current+1].prompt) || questions[current].prompt;
+}
+
+function activeExplanation(){
+  return selectedMethod() ?? questions[current];
+}
+
+function visualStages(){
+  return selectedMethod()?.visuals ?? lessonVisuals[current+1] ?? [];
+}
+
+function renderMethodPicker(){
+  const topic=advancedMethods[current+1];
+  const picker=board.querySelector('.method-picker');
+  picker.hidden=!topic;
+  if(!topic){
+    picker.replaceChildren();
+    return;
+  }
+  const overview=current===12?'原讲解':'全题讲解';
+  const methodButton=(title,index)=>'<button type="button" data-action="method" data-method="'+index+
+    '" aria-pressed="'+(activeMethod===index)+'">'+title+'</button>';
+  picker.innerHTML='<h3 id="method-heading">'+topic.heading+'</h3><div class="method-options" role="group" aria-labelledby="method-heading">'+
+    methodButton(overview,-1)+topic.methods.map((method,index)=>methodButton(method.title,index)).join('')+'</div>';
+}
+
+function renderSteps(){
+  const explanation=activeExplanation();
+  board.querySelector('.lesson-steps').innerHTML =
+    '<h3>'+(selectedMethod()?.title??'分步讲解')+'</h3><div class="actions"><button type="button" class="primary" data-action="step">展开第 1 步</button>'+
+    '<button type="button" data-action="step-back" disabled>退一步</button><button type="button" data-action="all">展开全部</button>'+
+    '<button type="button" data-action="reset" disabled>收起解析</button></div>'+
+    '<p class="empty">先读题，讲到哪一步就展开哪一步。</p>'+
+    '<ol class="steps">'+explanation.steps.map(text=>'<li hidden>'+text+'</li>').join('')+'</ol><p class="answer" hidden>答案　'+explanation.answer+'</p>';
+}
+
+function diagramPanel(){
+  const stages=visualStages();
+  if(!stages.length)return '';
+  return '<figure class="lesson-figure" aria-label="讲解图">'+
+    '<div class="figure-head"><h3>讲解图</h3><span class="figure-count"></span></div>'+
+    '<figcaption class="figure-stage" aria-live="polite"></figcaption>'+
+    '<div class="stage-art"></div><p class="figure-caption" hidden></p>'+
+    (selectedMethod()?'<label class="figure-select">跳到图示 <select aria-label="跳到图示"></select></label>':'')+
+    '<div class="figure-actions"><button type="button" data-action="figure-prev">上一幅</button>'+
+    '<button type="button" data-action="figure-next">下一幅</button>'+
+    '<button type="button" class="board-from-figure" data-action="board-figure">带图板书</button></div></figure>';
+}
+
+function updateFigure(followStep=false){
+  const stages=visualStages();
+  if(!stages.length)return;
+  if(followStep){
+    const targetStep=stages.reduce((step,stage)=>stage.step<=visible?Math.max(step,stage.step):step,0);
+    figureIndex=stages.findIndex(stage=>stage.step===targetStep);
+  }
+  const stage=stages[figureIndex];
+  board.querySelector('.stage-art').innerHTML=stage.draw();
+  board.querySelector('.figure-stage').textContent=stage.title;
+  board.querySelector('.figure-count').textContent=(figureIndex+1)+' / '+stages.length;
+  const select=board.querySelector('.figure-select select');
+  if(select){
+    if(!select.options.length)select.replaceChildren(...stages.map((item,i)=>new Option(item.title,String(i))));
+    select.value=String(figureIndex);
+  }
+  const caption=board.querySelector('.figure-caption');
+  caption.hidden=!stage.caption;
+  caption.textContent=stage.caption??'';
+  board.querySelector('[data-action="figure-prev"]').disabled=figureIndex===0;
+  board.querySelector('[data-action="figure-next"]').disabled=figureIndex===stages.length-1;
+}
+
+function renderSource(){
+  const q=questions[current];
+  const source=board.querySelector('.lesson-source');
+  const originalOpen=source.querySelector('details')?.open??false;
+  const drawing = cleanQuestionFigures(current+1,Boolean(selectedMethod()));
+  const showDrawing = originalOpen || current === 0;
+  source.innerHTML =
+    '<h3>题目</h3><p class="prompt">'+activePrompt()+'</p>'+
+    (q.note?'<p class="question-note">'+q.note+'</p>':'')+
+    (drawing?'<details'+(showDrawing?' open':'')+'><summary>'+ (current===0?'查看题图与选项':'查看题图')+'</summary><div class="source-list">'+drawing+'</div></details>':'')+
+    diagramPanel();
+}
+
+function render(){
+  const q=questions[current];
+  for(const b of nav.querySelectorAll('[data-index]'))b.setAttribute('aria-current',String(Number(b.dataset.index)===current));
+  board.querySelector('.question-head').innerHTML =
+    '<h2 id="question-title" tabindex="-1">第 '+(current+1)+' 题 · '+q.title+'</h2>'+
+    '<div class="actions"><button type="button" data-action="prev" '+(current===0?'disabled':'')+'>← 上一题</button>'+
+    '<button type="button" data-action="next" '+(current===questions.length-1?'disabled':'')+'>下一题 →</button>'+
+    '<button type="button" data-action="board" aria-controls="chalkboard" aria-expanded="'+lessonBoard.open+'">板书草稿纸</button></div>';
+  board.querySelector('.lesson-source').replaceChildren();
+  renderSource();
+  renderMethodPicker();
+  renderSteps();
+  updateFigure();
+  lessonBoard.setQuestion(current+1,activePrompt(),board.querySelector('.stage-art')?.innerHTML??'');
+}
+
+function go(index,moveFocus=true){
+  if(!Number.isInteger(index)||index<0||index>=questions.length)return;
+  current=index;
+  activeMethod=current===12?0:-1;
+  visible=0;
+  figureIndex=0;
+  if(location.hash!=='#q'+(current+1))history.replaceState(null,'','#q'+(current+1));
+  render();
+  if(moveFocus){
+    board.querySelector('#question-title').focus({preventScroll:true});
+    board.scrollIntoView({block:'start'});
+  }
+}
+
+function update(){
+  const steps=board.querySelectorAll('.steps li');
+  for(const [i,step] of steps.entries()){
+    step.hidden=i>=visible;
+    step.classList.toggle('latest',i===visible-1);
+  }
+  const done=visible===steps.length;
+  board.querySelector('.empty').hidden=visible>0;
+  board.querySelector('.answer').hidden=!done;
+  const button=board.querySelector('[data-action="step"]');
+  button.disabled=done;
+  button.textContent=done?'已展开全部':'展开第 '+(visible+1)+' 步';
+  board.querySelector('[data-action="all"]').disabled=done;
+  board.querySelector('[data-action="step-back"]').disabled=visible===0;
+  board.querySelector('[data-action="reset"]').disabled=visible===0;
+  updateFigure(true);
+}
+
+nav.innerHTML=navGroup('选择题',0,8)+navGroup('填空题',8,13)+navGroup('解答题',13,questions.length);
+nav.addEventListener('click',e=>{const button=e.target.closest('[data-index]');if(button)go(Number(button.dataset.index));});
+board.addEventListener('click',e=>{
+  const button=e.target.closest('[data-action]');
+  const action=button?.dataset.action;
+  if(action==='method'){
+    const method=Number(button.dataset.method);
+    if(method===activeMethod)return;
+    activeMethod=method;
+    visible=0;
+    figureIndex=0;
+    for(const option of board.querySelectorAll('[data-method]')){
+      option.setAttribute('aria-pressed',String(Number(option.dataset.method)===method));
+    }
+    renderSource();
+    renderSteps();
+    updateFigure();
+    lessonBoard.setPrompt(activePrompt());
+    return;
+  }
+  if(action==='prev'||action==='next'){go(current+(action==='next'?1:-1));return;}
+  if(action==='board'||action==='board-figure'){
+    const art=board.querySelector('.stage-art')?.innerHTML??'';
+    lessonBoard.show(art,action==='board-figure',button);
+    return;
+  }
+  if(action==='figure-prev'||action==='figure-next'){
+    figureIndex+=action==='figure-next'?1:-1;
+    updateFigure();
+    return;
+  }
+  if(action==='step'){visible=Math.min(visible+1,activeExplanation().steps.length);}
+  else if(action==='step-back'){visible=Math.max(0,visible-1);}
+  else if(action==='all'){visible=activeExplanation().steps.length;}
+  else if(action==='reset'){visible=0;}
+  else{return;}
+  update();
+});
+board.addEventListener('change',e=>{
+  if(!e.target.matches('.figure-select select'))return;
+  figureIndex=Number(e.target.value);
+  updateFigure();
+});
+document.addEventListener('keydown',e=>{
+  if(e.altKey||e.ctrlKey||e.metaKey||e.shiftKey||
+    e.target.closest('input,textarea,select,[contenteditable]')||(e.key!=='ArrowLeft'&&e.key!=='ArrowRight'))return;
+  e.preventDefault();
+  go(current+(e.key==='ArrowRight'?1:-1));
+});
+const requested=Number(location.hash.match(/^#q(\d+)$/)?.[1]);
+go(requested>=1&&requested<=questions.length?requested-1:0,false);
+</script>
+</body>
+</html>
