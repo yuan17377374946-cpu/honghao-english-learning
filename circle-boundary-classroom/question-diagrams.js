@@ -70,7 +70,7 @@ function grazing(key) {
       box(x-a,y-a,a,a,'neutral')+box(x-a,y-a,a,a)+dot(x,y)+label(229,140,'A')+label(196,102,'屋')+label(265,111,'6 m')+label(194,68,'3 m');
   }
   const x=210,y=177,r=124,a=62;
-  return [pie(x,y,r,180,270),pie(x,y-a,a,-90,0),pie(x-a,y,a,90,180)].map(d=>path(d,'shade')+path(d)).join('')+
+  return [pie(x,y,r,180,270),pie(x,y-a,a,-90,90),pie(x-a,y,a,180,0)].map(d=>path(d,'shade')+path(d)).join('')+
     line(x-a,y,x,y,'trace')+line(x,y,x,y-a,'trace')+dot(x,y)+label(224,197,'O')+label(181,199,'2 m')+label(234,151,'2 m')+label(160,117,'4 m');
 }
 

@@ -237,8 +237,8 @@
     const walls=land?fill(land,"house")+ink(land,"green")+tag(193,103,"屋"):
       ink(`M${left.join(" ")}H${anchor[0]}V${top[1]}`,"green");
     const main=isDog?dogSector:sheepSector;
-    const first=isDog?dogCorner1:pie(...top,short,-90,0);
-    const second=isDog?dogCorner2:pie(...left,short,90,180);
+    const first=isDog?dogCorner1:pie(...top,short,-90,90);
+    const second=isDog?dogCorner2:pie(...left,short,180,0);
     function run(center,radius,start,end) {
       const points=Array.from({length:37},(_,i)=>point(...center,radius,start+(end-start)*i/36));
       const [x,y]=points[0];
@@ -253,14 +253,14 @@
         `整根绳长 ${whole} m，转过 ${wideAngle}。`,fill(main,blue)+walls+
         run(anchor,large,isDog?-90:180,isDog?180:270)+tag(315,221,`可转动 ${whole} m`),{hideBase:true,duration:2.2}),
       from(`现在看上方的${isDog?"墙角":"墙端"}。贴墙的那段绳不再转，只有剩下的那段能绕角转动。`,
-        `${whole}－${wall}＝${wall} m，新增一个四分之一圆。`,fill(main,blue)+fill(first)+walls+
-        run(top,short,-90,isDog?-180:0)+tag(315,221,`可转动 ${wall} m`),{hideBase:true,duration:2.2}),
+        `${whole}－${wall}＝${wall} m，新增一个${isDog?"四分之一圆":"半圆。越过水平线还能转，直到绳子贴回墙面"}。`,fill(main,blue)+fill(first)+walls+
+        run(top,short,-90,isDog?-180:90)+tag(315,221,`可转动 ${wall} m`),{hideBase:true,duration:2.2}),
       from("再看左边，换另一个墙端当圆心。仍然只贴住一段墙。",
         row.steps[2],fill(main,blue)+fill(first)+fill(second,"green")+walls+
-        run(left,short,180,isDog?270:90)+tag(315,221,`可转动 ${wall} m`),{hideBase:true,duration:2.2}),
+        run(left,short,180,isDog?270:0)+tag(315,221,`可转动 ${wall} m`),{hideBase:true,duration:2.2}),
       from("把直接能到的大块和绕墙多出的两个小块相加。",row.steps[3],
         fill(main,blue)+fill(first)+fill(second,"green")+walls+
-        tag(310,229,isDog?"合计 98.91 m²":"合计 18.84 m²"),{hideBase:true})
+        tag(310,229,isDog?"合计 98.91 m²":"合计 25.12 m²"),{hideBase:true})
     ];
   }
 
