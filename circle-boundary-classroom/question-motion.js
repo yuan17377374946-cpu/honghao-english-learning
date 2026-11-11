@@ -69,29 +69,48 @@
       `<g transform="translate(${x} ${y}) rotate(${angle})">${fill(legTriangle,tone,i*.12)}${ink(diagonal,"green")}</g>`
     ).join("")+startingLabels+tag(94,63,"30")+tag(63,93,"30")+tag(94,173,"30")+tag(63,203,"30")+
       tag(294,111,"两张正方形，各剪两块")+tag(294,143,"一共 4 块");
-    const moved = pieces.map(({x,y,angle,end,tone},i) => {
-      const begin=.12+i*.29;
-      return `<g transform="translate(${x} ${y})">
-        <animateTransform attributeName="transform" type="translate" from="${x} ${y}" to="303 119" begin="${begin}s" dur=".88s" fill="freeze"/>
-        <g transform="rotate(${angle})">
-          <animateTransform attributeName="transform" type="rotate" from="${angle}" to="${end}" begin="${begin}s" dur=".88s" fill="freeze"/>
-          ${pieceDrawing(tone)}
-        </g>
-      </g>`;
-    }).join("");
+    const move = ({x,y,angle,end,tone}, begin) => `<g transform="translate(${x} ${y})">
+      <animateTransform attributeName="transform" type="translate" from="${x} ${y}" to="303 119" begin="${begin}s" dur="1.05s" fill="freeze"/>
+      <g transform="rotate(${angle})">
+        <animateTransform attributeName="transform" type="rotate" from="${angle}" to="${end}" begin="${begin}s" dur="1.05s" fill="freeze"/>
+        ${pieceDrawing(tone)}
+      </g>
+    </g>`;
+    const place = (piece,x,y,angle) => `<g transform="translate(${x} ${y}) rotate(${angle})">${pieceDrawing(piece.tone)}</g>`;
+    const later = (content, seconds) => `<g opacity="0"><animate attributeName="opacity" from="0" to="1" begin="${seconds}s" dur=".23s" fill="freeze"/>${content}</g>`;
     const diamond = "M303 59L363 119L303 179L243 119Z";
-    const proof = startingLabels+
-      path(square(49,43,60),"guide")+path(square(49,153,60),"guide")+path(diamond,"guide")+
-      moved+`<g opacity="0"><animate attributeName="opacity" from="0" to="1" begin="1.92s" dur=".22s" fill="freeze"/>
-        ${tag(303,39,"以 r 为边的正方形")}${tag(339,86,"r")}${tag(340,153,"r")}${tag(267,153,"r")}${tag(266,86,"r")}
-        ${tag(320,101,"30")}${tag(320,139,"30")}${tag(286,139,"30")}${tag(286,101,"30")}
-        ${tag(303,213,"r²＝4×30＝120 cm²")}
-      </g>`;
+    const workbench = startingLabels+path(square(49,43,60),"guide")+path(square(49,153,60),"guide")+path(diamond,"guide")+node(303,119);
+    const [first,second,third,fourth] = pieces;
+    const placedLeft = place(first,303,119,first.end)+place(second,303,119,second.end);
+    const placedAll = placedLeft+place(third,303,119,third.end)+place(fourth,303,119,fourth.end);
+    const firstPair = workbench+move(first,.1)+move(second,1.18)+
+      place(third,third.x,third.y,third.angle)+place(fourth,fourth.x,fourth.y,fourth.angle)+
+      later(ink("M291 119V107H303M291 119V131H303","green")+tag(317,123,"拼图中心")+tag(270,87,"r")+tag(270,157,"r"),2.25);
+    const lastPair = workbench+placedLeft+move(third,.1)+move(fourth,1.18)+
+      later(ink(diamond,"green")+tag(303,37,"四条绿色斜边都长 r")+tag(338,85,"r")+tag(338,159,"r")+tag(266,159,"r")+tag(266,85,"r"),2.25);
+    const areaOfSquare = placedAll+ink(diamond,"green")+tag(303,37,"边长都是 r")+
+      tag(320,101,"30")+tag(320,139,"30")+tag(286,139,"30")+tag(286,101,"30")+
+      tag(123,100,"4 块，每块 30 cm²")+tag(123,145,"总面积 120 cm²")+tag(303,215,"r × r＝120 cm²");
+    const circleCenter=[282,116], demoR=84;
+    const fullCircle=disk(...circleCenter,demoR);
+    const fullCircleScene = fill(square(44,74,84),"amber")+ink("M44 74H128","green")+tag(86,62,"边长 r")+tag(86,122,"r × r＝120")+
+      tag(163,117,"→")+fill(fullCircle,"blue",.35)+ink(fullCircle)+ink("M282 116H366","green")+node(282,116)+
+      tag(322,106,"半径 r")+tag(282,228,"整圆 3.14 × 120＝376.8 cm²");
+    const quarters = [-90,0,90,180].map((angle,index) =>
+      fill(pie(...circleCenter,demoR,angle,angle+90),index===0?"amber":"blue",.3+index*.22)
+    ).join("");
+    const quarterCircleScene = quarters+ink(fullCircle)+ink("M198 116H366M282 32V200","green")+
+      tag(95,101,"整圆 376.8 cm²")+tag(95,140,"平均分 4 份")+
+      later(tag(320,82,"94.2")+tag(320,159,"94.2")+tag(243,159,"94.2")+tag(243,82,"94.2"),1.5)+
+      tag(282,228,"橙色一份就是题目里的扇形");
     return [
       from("从圆心沿虚线走到弧上的顶点。这条对角线就是半径 r。","小正方形的面积是 60 cm²。",ink("M126 193L235 84")+node(126,193)+node(235,84)+tag(192,128,"r")+tag(108,216,"圆心")),
       from("把原正方形沿对角线剪开，只有两块。再取一个一模一样的正方形，也沿对角线剪开，这才凑齐四块。","每块 60÷2＝30 cm²。每块的斜边都是原正方形的对角线，长 r。",cut,{hideBase:true}),
-      from("把四块三角形的直角放在中间，四条绿色斜边围在外面。每条外边都是 r，拼成的就是边长为 r 的正方形。","4×30＝120 cm²，所以 r×r＝120 cm²。",proof,{hideBase:true,duration:2.2}),
-      from("把四分之一圆整块涂出来。求圆面积只需要 r×r，现在可以直接用 120。","3.14 × 120 ÷ 4＝94.2 cm²",block(quadrant,"扇形 94.2 cm²",212,225,blue)),
+      from("先移动原正方形剪出的两块。把它们的直角放到同一个点，一块朝上，一块朝下，两条绿色斜边留在外侧。","中间先放进两个 90°，还空着两个直角位置。",firstPair,{hideBase:true,duration:3.6}),
+      from("再把另两块放到右侧，直角也朝中间。看四条绿色斜边，它们就是拼出来的正方形的四条边。","每条绿色斜边都来自原方形的对角线，长度都是半径 r。",lastPair,{hideBase:true,duration:3.6}),
+      from("给四块三角形各写上 30。拼图的面积一方面是 4×30，另一方面是边长乘边长，也就是 r×r。","同一张拼图的面积：r×r＝4×30＝120 cm²。",areaOfSquare,{hideBase:true}),
+      from("回到圆。左边这个方块的一条边，和右边从圆心画出的半径一样长。整圆面积公式需要的正是 r×r，所以把 120 放进公式。","整圆面积＝3.14×r×r＝3.14×120＝376.8 cm²。",fullCircleScene,{hideBase:true}),
+      from("用两条互相垂直的直径把整圆切成四个一样大的扇形。原题的扇形就是橙色这一份。","一份的面积＝376.8÷4＝94.2 cm²。",quarterCircleScene,{hideBase:true}),
       from("从扇形里去掉小正方形，只剩正方形上方和右方的两块阴影。","94.2－60＝34.2 cm²",block(quadrant+innerSquare,"阴影 34.2 cm²",212,225)+ink(innerSquare,"green"))
     ];
   }
