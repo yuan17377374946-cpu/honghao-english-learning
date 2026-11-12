@@ -78,6 +78,26 @@
  .review-sheet .review-start-end{display:inline-block}
  .review-pages{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
+
+#listening #lesson-title{font-size:clamp(29px,2.7vw,37px)}
+#listening .lesson-header #question-range{font-size:16px}
+#listening #questions legend{font-size:clamp(26px,2.4vw,32px);line-height:1.4}
+#listening #questions .option{font-size:clamp(21px,1.75vw,25px);line-height:1.45}
+#listening #questions .option .letter{font-size:14px}
+#listening #questions .option span:last-child{min-width:0;overflow-wrap:break-word}
+#listening .feedback{font-size:17px;line-height:1.7}
+#listening .feedback .result{font-size:18px}
+#listening .feedback .quote{font-size:22px}
+#listening .script-line{font-size:clamp(22px,1.9vw,26px)}
+#listening .script-line .role{font-size:13px;width:66px}
+#listening .player strong,#listening #transcript h3{font-size:19px}
+#listening .player p,#listening #check-summary{font-size:15px}
+#listening .play-controls button,#listening .answer-actions button,#listening .bottom-nav button{font-size:15px}
+#listening #passage-nav button{font-size:15px}
+@media(max-width:680px){
+ #listening #passage-nav button{font-size:13px}
+ #listening .script-line .role{width:auto}
+}
 </style>
 </head>
 <body>
