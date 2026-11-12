@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#203d47">
+<meta name="description" content="英语六年级上册 Unit 4 B卷讲题，原题、线索、逐步讲解和课堂板书。">
+<title>Unit 4 力与运动｜B卷讲题</title>
+<link rel="stylesheet" href="style.css?v=writing-phrases">
+<script defer src="questions.js?v=writing-phrases"></script>
+<script defer src="vocabulary.js?v=3"></script>
+<script defer src="app.js?v=writing-phrases"></script>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand"><span class="brand-mark" aria-hidden="true">4</span><div><h1>力与运动 <span>Unit 4</span></h1><p>六年级英语 · B卷讲题</p></div></div>
+  <div class="top-actions"><button id="timer" type="button" title="点击开始或暂停计时">计时 <span>00:00</span></button><button id="focus-mode" type="button" aria-pressed="false" title="F">专注授课</button><button id="fullscreen" type="button">全屏</button></div>
+</header>
+<main class="workspace">
+  <aside class="rail" id="rail" aria-label="试卷目录">
+    <div class="rail-head"><div><h2>试卷目录</h2><p id="directory-progress"></p></div><button id="filter" type="button" aria-pressed="false">只讲错题</button></div>
+    <p class="review-legend"><span><b class="review-mark" data-status="wrong">错</b> 错题</span><span><b class="review-mark" data-status="blank">空</b> 未作答</span><span><b class="review-mark" data-status="writing">评</b> 作文</span></p>
+    <nav id="directory"></nav>
+    <p class="rail-footer">按手上试卷的题号排列<br>范围为笔试第五至第十二题</p>
+  </aside>
+  <div class="lesson">
+    <div class="stage-head">
+      <div class="crumb"><span id="group-name"></span><span id="position"></span></div>
+      <div class="nav-buttons"><button id="previous" type="button" title="←">‹ 上一题</button><button id="next" type="button" title="→">下一题 ›</button></div>
+    </div>
+    <section class="stage" aria-labelledby="question-title">
+      <div class="stage-tools" aria-label="课堂工具">
+        <button id="show-material" type="button" aria-expanded="false">看材料</button>
+        <span class="tool-divider"></span>
+        <button id="pen" type="button" aria-pressed="false">红笔</button>
+        <button id="marker" type="button" aria-pressed="false">手绘荧光笔</button>
+        <button id="word-marker" type="button" aria-pressed="false" aria-controls="vocab-instruction">单词荧光笔</button>
+        <button id="vocab-toggle" type="button" aria-expanded="false" aria-controls="vocab-panel">生词本 · 0</button>
+        <button id="undo" type="button">撤销</button>
+        <button id="clear-ink" type="button">清笔迹</button>
+        <button id="board-toggle" type="button" aria-expanded="false" title="B">板书</button>
+      </div>
+      <p id="vocab-instruction" class="vocab-instruction" hidden>点英文单词，看中文意思并加入生词本。</p>
+      <section id="vocab-panel" class="vocab-panel" aria-labelledby="vocab-heading" hidden>
+        <div class="vocab-header">
+          <h3 id="vocab-heading">课堂生词本</h3>
+          <label for="vocab-session" class="visually-hidden">选择课次</label>
+          <select id="vocab-session"></select>
+          <button id="vocab-new" type="button">开始新一节</button>
+        </div>
+        <p id="vocab-empty">点题目里的英文单词，本节课的生词就会出现在这里。</p>
+        <ul id="vocab-list"></ul>
+        <div class="vocab-actions">
+          <button id="vocab-copy" type="button">复制英文单词</button>
+          <button id="vocab-export" type="button">导出中英 CSV</button>
+        </div>
+        <textarea id="vocab-copy-fallback" aria-label="可复制的英文单词" rows="4" readonly hidden></textarea>
+        <p id="vocab-storage-note">生词按课次保存在当前浏览器。复制时每行一个英文单词。</p>
+        <div id="vocab-status" role="status"></div>
+      </section>
+      <div id="paper" class="paper">
+        <div id="question" class="question-content"></div>
+        <svg id="ink" aria-hidden="true" preserveAspectRatio="none"></svg>
+      </div>
+      <section id="material" class="material" hidden aria-labelledby="material-heading"></section>
+      <div class="reveal-actions" aria-label="逐步讲解">
+        <button id="reveal-student" type="button" aria-expanded="false">作答示例</button>
+        <button id="reveal-hint" type="button" aria-expanded="false" title="H">给个线索</button>
+        <button id="reveal-answer" type="button" aria-expanded="false" title="A">看答案</button>
+        <button id="reveal-explanation" type="button" aria-expanded="false" title="E">展开解析</button>
+        <button id="mark-done" type="button" aria-pressed="false">标为讲过</button>
+      </div>
+      <div class="reveal-content" id="reveal-content" aria-live="polite"></div>
+      <section class="board" id="board" hidden>
+        <label for="board-text">课堂板书</label><span>按题保存在当前浏览器</span>
+        <textarea id="board-text" rows="4" placeholder="写下这题的关键词、句型或课堂例句"></textarea>
+      </section>
+    </section>
+    <footer class="foot"><span>← → 翻题　H 线索　A 答案　E 解析　B 板书　F 专注</span><span>答案默认收起</span></footer>
+  </div>
+</main>
+<div id="vocab-card" class="vocab-card" role="status" hidden>
+  <strong id="vocab-card-word" lang="en"></strong>
+  <span id="vocab-card-meaning"></span>
+</div>
+<noscript>请启用浏览器的 JavaScript 后打开讲题页。</noscript>
+</body>
+</html>
