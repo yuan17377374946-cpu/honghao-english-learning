@@ -12,14 +12,17 @@
 .course-nav [aria-current="location"]{background:var(--ink);border-color:var(--ink);color:#fff}
 .exam-panel{max-width:920px;margin:auto;padding:36px 30px 60px}
 .exam-panel[hidden],.shell[hidden]{display:none}
-#reading{max-width:1440px}
-.exam-reading-layout{display:grid;gap:18px}
-.exam-reading-questions{min-width:0}
+#reading,#grammar{max-width:1440px}
+.exam-split{display:grid;gap:18px}
+.exam-reading-questions,.exam-grammar-review,#grammar-form{min-width:0}
+.exam-grammar-review h3{margin:0 0 12px}
 .exam-reading-questions .exam-instruction{margin:0 0 14px}
-.exam-reading-layout>.exam-passage:focus-visible{outline:2px solid var(--teal);outline-offset:3px}
+.exam-split>.exam-passage:focus-visible{outline:2px solid var(--teal);outline-offset:3px}
 @media(min-width:900px){
- .exam-reading-layout{grid-template-columns:minmax(0,1.08fr) minmax(0,1fr);gap:26px;align-items:start}
- .exam-reading-layout>.exam-passage{position:sticky;top:20px;max-height:calc(100vh - 40px);max-height:calc(100dvh - 40px);overflow:auto;scrollbar-gutter:stable;font-size:clamp(17px,1.45vw,20px);line-height:1.72}
+ .exam-split{grid-template-columns:minmax(0,1.08fr) minmax(0,1fr);gap:26px;align-items:start}
+ .exam-split>:is(.exam-passage,#grammar-form){position:sticky;top:20px;max-height:calc(100vh - 40px);max-height:calc(100dvh - 40px);overflow:auto;scrollbar-gutter:stable}
+ .exam-split .exam-passage{font-size:clamp(17px,1.45vw,20px);line-height:1.72}
+ #grammar .exam-split{grid-template-columns:minmax(0,1.2fr) minmax(0,1fr)}
  #reading .question legend{font-size:clamp(20px,1.6vw,25px)}
 }
 .exam-heading{margin-bottom:22px}.exam-heading p,.exam-instruction{color:#526572;font-size:15px;line-height:1.7;margin:8px 0 18px}
@@ -82,7 +85,7 @@
     <p>深中龙岗学校九上期中英语 · 第 11–15 题</p>
   </header>
   <p class="word-lookup-hint">点英文单词查中文意思，点选项圆圈作答。</p>
-  <div class="exam-reading-layout">
+  <div class="exam-split">
   <div class="exam-passage" lang="en" role="region" aria-label="阅读 A 篇原文" tabindex="0"><p><span class="exam-paragraph" lang="zh-CN">第 1 段</span>On July 15, 2026, a deliveryman（外卖员）named Wang Jibing won the Lu Xun Literature Prize, one of the top literary honors in China, for his third poetry collection <em>Flying Low</em>.</p>
 <p><span class="exam-paragraph">第 2 段</span>Writing seemed to be the only light in his dark life. Born in 1969 in Xuzhou, he lived an unhappy childhood. Later, he dropped out of middle school and took whatever jobs he could find. However busy he was, he kept writing in his spare time. In 1992, Wang returned to his hometown to make a living. Unluckily, his father was worried that writing could never support a family, so he burned all his manuscripts（手稿）, including a 200,000-character novel.</p>
 <p><span class="exam-paragraph">第 3 段</span>That was not the end and Wang never put down his pen. He then turned from writing novels to poetry. In 2018, he became a food deliveryman to support his family. In order to gather materials for his writing, he interviewed over 140 delivery workers. Based on the first-hand information, he wrote poems to describe ordinary deliverymen who live a hard life yet remain filled with hope.</p>
@@ -149,6 +152,7 @@
   </header>
   <p class="exam-instruction">在空格中填入一个适当的词，或写出括号中所给单词的正确形式。</p>
   <p class="word-lookup-hint">点短文里的英文单词查中文意思。</p>
+  <div class="exam-split">
   <form class="exam-form" id="grammar-form">
     <div class="exam-passage" lang="en"><p>Xu Xiake is known as China’s first travel writer in the Ming Dynasty. Different from most men of his time, he had little interest in serving as <label class="exam-blank" data-item="36" data-key="a"><span>36</span><input type="text" name="blank-36" aria-label="第 36 空" autocomplete="off" autocapitalize="off" spellcheck="false"></label> government official. Instead, he enjoyed reading books about mountains and rivers. Luckily, his mother encouraged him <label class="exam-blank" data-item="37" data-key="to follow"><span>37</span><input type="text" name="blank-37" aria-label="第 37 空，提示词 follow" autocomplete="off" autocapitalize="off" spellcheck="false"><span lang="en">(follow)</span></label> his dream and explore the world, so he began his long journey.</p>
 <p>Xu is famous for his travelling. He spent over 30 years travelling on foot across China. On the way, he <label class="exam-blank" data-item="38" data-key="met"><span>38</span><input type="text" name="blank-38" aria-label="第 38 空，提示词 meet" autocomplete="off" autocapitalize="off" spellcheck="false"><span lang="en">(meet)</span></label> lots of difficulties. Bad weather often troubled <label class="exam-blank" data-item="39" data-key="him"><span>39</span><input type="text" name="blank-39" aria-label="第 39 空，提示词 he" autocomplete="off" autocapitalize="off" spellcheck="false"><span lang="en">(he)</span></label>, and he was once robbed（抢劫）. In his later years, his legs hurt terribly, <label class="exam-blank" data-item="40" data-key="but|yet"><span>40</span><input type="text" name="blank-40" aria-label="第 40 空" autocomplete="off" autocapitalize="off" spellcheck="false"></label> he still refused to give up. He asked others to carry him so that he could finish his trips.</p>
@@ -156,6 +160,7 @@
 <p>Both Xu Xiake’s travelling and writing came simply from curiosity and love for nature. His life proves that if you hold on to your dream, you can become <label class="exam-blank" data-item="43" data-key="more successful"><span>43</span><input type="text" name="blank-43" aria-label="第 43 空，提示词 successful" autocomplete="off" autocapitalize="off" spellcheck="false"><span lang="en">(successful)</span></label> than you think. Today, Xu is remembered as a great <label class="exam-blank" data-item="44" data-key="explorer"><span>44</span><input type="text" name="blank-44" aria-label="第 44 空，提示词 explore" autocomplete="off" autocapitalize="off" spellcheck="false"><span lang="en">(explore)</span></label>. China Tourism Day is also celebrated in memory <label class="exam-blank" data-item="45" data-key="of"><span>45</span><input type="text" name="blank-45" aria-label="第 45 空" autocomplete="off" autocapitalize="off" spellcheck="false"></label> him.</p></div>
     <div class="answer-actions"><button class="primary" type="submit">核对语法填空</button><span class="exam-result" role="status"></span></div>
   </form>
+  <div class="exam-grammar-review">
   <h3>逐题答案与知识点</h3>
   <div class="exam-grammar-answers"><details class="exam-answer"><summary>第 36 题答案与解析</summary><p><strong lang="en">a</strong> · 冠词</p><p>government official 是单数可数名词，首次泛指一位官员。government 以辅音音素开头，用 a。</p></details>
 <details class="exam-answer"><summary>第 37 题答案与解析</summary><p><strong lang="en">to follow</strong> · 固定搭配</p><p>encourage somebody to do something 表示「鼓励某人做某事」，him 后接 to follow。</p></details>
@@ -167,6 +172,8 @@
 <details class="exam-answer"><summary>第 43 题答案与解析</summary><p><strong lang="en">more successful</strong> · 形容词比较级</p><p>than 提示比较级，become 后用形容词。successful 是多音节词，比较级为 more successful。</p></details>
 <details class="exam-answer"><summary>第 44 题答案与解析</summary><p><strong lang="en">explorer</strong> · 动词变名词</p><p>a great 后需要一个表示人的单数可数名词。explore 是「探索」，explorer 是「探险家」。</p></details>
 <details class="exam-answer"><summary>第 45 题答案与解析</summary><p><strong lang="en">of</strong> · 介词短语</p><p>in memory of somebody 表示「为了纪念某人」，所以填 of。</p></details></div>
+  </div>
+  </div>
 </section>
 <script src="app.js"></script>
 
