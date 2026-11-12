@@ -44,6 +44,17 @@
  .exam-panel{padding:24px 15px 40px}.exam-passage{padding:16px;font-size:18px}
  .exam-blank input{font-size:16px}
 }
+
+.lookup-word{cursor:pointer;border-radius:3px}
+.lookup-word:hover,.lookup-word:focus-visible{background:#fbefc9;text-decoration:underline;text-decoration-color:#a88431;text-underline-offset:3px}
+.lookup-word:focus-visible{outline:2px solid #9d7823;outline-offset:1px}
+.lookup-word.lookup-active{background:#f9e39d}
+.word-lookup-hint{font-size:13px;line-height:1.7;color:#526572;margin:0 0 16px}
+#word-card{position:fixed;z-index:20;width:min(340px,calc(100vw - 20px));padding:14px 40px 14px 16px;border:1px solid #a9c2b8;border-radius:10px;background:#fff;color:var(--ink);box-shadow:0 8px 28px #172a3726}
+#word-card p{margin:5px 0 0;font-size:14px;line-height:1.55;overflow-wrap:anywhere}
+#word-card .word-card-term{font:700 21px/1.3 Georgia,serif;color:#1c665e}
+#word-card .word-card-phrase{padding-top:8px;margin-top:8px;border-top:1px solid var(--line)}
+#word-card button{position:absolute;top:5px;right:5px;border:0;background:transparent;color:var(--ink);width:32px;height:32px;border-radius:5px;font-size:21px}
 </style>
 </head>
 <body>
@@ -70,6 +81,7 @@
     <h2 id="reading-title" tabindex="-1">阅读理解 · A 篇</h2>
     <p>深中龙岗学校九上期中英语 · 第 11–15 题</p>
   </header>
+  <p class="word-lookup-hint">点英文单词查中文意思，点选项圆圈作答。</p>
   <div class="exam-reading-layout">
   <div class="exam-passage" lang="en" role="region" aria-label="阅读 A 篇原文" tabindex="0"><p><span class="exam-paragraph" lang="zh-CN">第 1 段</span>On July 15, 2026, a deliveryman（外卖员）named Wang Jibing won the Lu Xun Literature Prize, one of the top literary honors in China, for his third poetry collection <em>Flying Low</em>.</p>
 <p><span class="exam-paragraph">第 2 段</span>Writing seemed to be the only light in his dark life. Born in 1969 in Xuzhou, he lived an unhappy childhood. Later, he dropped out of middle school and took whatever jobs he could find. However busy he was, he kept writing in his spare time. In 1992, Wang returned to his hometown to make a living. Unluckily, his father was worried that writing could never support a family, so he burned all his manuscripts（手稿）, including a 200,000-character novel.</p>
@@ -136,6 +148,7 @@
     <p>深中龙岗学校九上期中英语 · 第 36–45 题</p>
   </header>
   <p class="exam-instruction">在空格中填入一个适当的词，或写出括号中所给单词的正确形式。</p>
+  <p class="word-lookup-hint">点短文里的英文单词查中文意思。</p>
   <form class="exam-form" id="grammar-form">
     <div class="exam-passage" lang="en"><p>Xu Xiake is known as China’s first travel writer in the Ming Dynasty. Different from most men of his time, he had little interest in serving as <label class="exam-blank" data-item="36" data-key="a"><span>36</span><input type="text" name="blank-36" aria-label="第 36 空" autocomplete="off" autocapitalize="off" spellcheck="false"></label> government official. Instead, he enjoyed reading books about mountains and rivers. Luckily, his mother encouraged him <label class="exam-blank" data-item="37" data-key="to follow"><span>37</span><input type="text" name="blank-37" aria-label="第 37 空，提示词 follow" autocomplete="off" autocapitalize="off" spellcheck="false"><span lang="en">(follow)</span></label> his dream and explore the world, so he began his long journey.</p>
 <p>Xu is famous for his travelling. He spent over 30 years travelling on foot across China. On the way, he <label class="exam-blank" data-item="38" data-key="met"><span>38</span><input type="text" name="blank-38" aria-label="第 38 空，提示词 meet" autocomplete="off" autocapitalize="off" spellcheck="false"><span lang="en">(meet)</span></label> lots of difficulties. Bad weather often troubled <label class="exam-blank" data-item="39" data-key="him"><span>39</span><input type="text" name="blank-39" aria-label="第 39 空，提示词 he" autocomplete="off" autocapitalize="off" spellcheck="false"><span lang="en">(he)</span></label>, and he was once robbed（抢劫）. In his later years, his legs hurt terribly, <label class="exam-blank" data-item="40" data-key="but|yet"><span>40</span><input type="text" name="blank-40" aria-label="第 40 空" autocomplete="off" autocapitalize="off" spellcheck="false"></label> he still refused to give up. He asked others to carry him so that he could finish his trips.</p>
@@ -237,6 +250,165 @@
         + (unanswered.length ? `未作答：第 ${unanswered.join('、')} 题。` : '');
     });
   }
+})();
+</script>
+
+<div id="word-card" hidden>
+  <div role="status">
+    <strong class="word-card-term" lang="en"></strong>
+    <p class="word-card-meaning"></p>
+    <p class="word-card-phrase" hidden></p>
+  </div>
+  <button type="button" aria-label="关闭词义">×</button>
+</div>
+<script>
+(() => {
+const definitions = {"a": "一个；一位（不定冠词）", "an": "一个；一位（不定冠词）", "about": "关于；大约", "according": "依照；根据（常用 according to）", "achieve": "实现；达到", "across": "横穿；遍及", "agree": "同意；认同", "all": "所有；全部", "also": "也；还", "although": "虽然；尽管", "and": "和；并且", "are": "是；处于某种状态", "is": "是；处于某种状态", "was": "是；处于某种状态", "be": "是；处于某种状态", "being": "是；处于某种状态", "as": "作为；当……时；如同", "asked": "请求；询问（ask 的过去式）", "at": "在（地点或时间）；朝向", "attitude": "态度；看法", "award": "奖；奖项", "awards": "奖；奖项", "bad": "坏的；恶劣的", "based": "以……为依据的", "became": "成为；变得", "become": "成为；变得", "because": "因为", "began": "开始（begin 的过去式）", "belief": "信念；相信的观点", "besides": "此外；除了……之外还有", "best": "最好的", "better": "更好；更好地", "birds": "鸟（bird 的复数）", "book": "书", "books": "书", "born": "出生（常用 be born）", "both": "两者都", "burned": "烧掉；焚烧（burn 的过去式）", "busy": "忙碌的", "but": "但是；可是", "by": "由；通过；在……旁边", "came": "来；源于（come 的过去式）", "can": "能；可以（could 也可表示过去的能力）", "could": "能；可以（could 也可表示过去的能力）", "couldn’t": "不能（could not 的缩写）", "careful": "仔细的；认真的", "carry": "背；抬；搬运", "celebrated": "庆祝；纪念（celebrate 的过去分词）", "childhood": "童年", "china": "中国；中国的", "china’s": "中国；中国的", "collect": "收集", "collection": "合集；集子（这里指诗集）", "common": "普通的；常见的", "continues": "继续（continue 的第三人称单数）", "curiosity": "好奇心", "daily": "日常的；每天的", "dark": "黑暗的；（比喻）灰暗的", "darkness": "黑暗；（文中）生活的阴暗面", "day": "一天；日", "deliver": "递送", "delivery": "递送；外卖配送", "deliveryman": "送货员；外卖员（deliverymen 是复数，deliveryman’s 表示所属）", "deliverymen": "送货员；外卖员（deliverymen 是复数，deliveryman’s 表示所属）", "deliveryman’s": "送货员；外卖员（deliverymen 是复数，deliveryman’s 表示所属）", "describe": "描述；描写", "did": "做；did 也可在一般过去时问句中作助动词", "do": "做；did 也可在一般过去时问句中作助动词", "different": "不同的", "difficulties": "困难（difficulty 的复数）", "directions": "方向；走向", "discover": "发现", "down": "向下；在短语中常有不同意思", "dream": "梦想", "dreams": "梦想", "dropped": "放下；辍学（见 dropped out of）", "during": "在……期间", "dynasty": "朝代；王朝", "effort": "努力", "encouraged": "鼓励（encourage 的过去式）", "end": "结束；结局", "enjoyed": "喜欢；享受（enjoy 的过去式）", "environment": "环境", "everything": "一切；所有事物", "explore": "探索；探察", "family": "家庭；家人", "famous": "著名的；有名的", "faster": "更快；更快地", "father": "父亲；父亲的", "father’s": "父亲；父亲的", "filled": "充满（常见于 filled with）", "find": "找到；发现", "finish": "完成", "first": "第一；最初的", "first-hand": "第一手的；直接获得的", "flying": "飞行；飞翔（fly 的 -ing 形式）", "follow": "跟随；追随", "following": "接下来的；下列的", "fond": "喜欢的（be fond of）", "food": "食物", "foot": "脚；足", "for": "为了；因为；给；持续（一段时间）", "friends": "朋友", "from": "从；来自", "full-time": "全职的；全职地", "gather": "收集；聚集", "give": "给；给予", "government": "政府", "great": "伟大的；很好的", "greatest": "最大的；最伟大的", "had": "有；had 是过去式，has 是第三人称单数", "has": "有；had 是过去式，has 是第三人称单数", "hard": "艰难的；努力地", "he": "他；him 是宾格，his 表示「他的」", "him": "他；him 是宾格，his 表示「他的」", "his": "他；him 是宾格，his 表示「他的」", "heights": "高度；高处（height 的复数）", "help": "帮助", "helps": "帮助", "high": "高；在高处；高地", "hold": "握住；抓住", "hometown": "家乡；故乡", "honors": "荣誉（honor 的复数）", "hope": "希望", "how": "怎样；如何", "however": "然而；也可表示「无论多么」", "hurt": "疼痛；受伤", "if": "如果", "impossible": "不可能的", "in": "在……里；在……期间", "including": "包括", "information": "信息；资料", "instead": "反而；代替", "interest": "兴趣", "interview": "采访；访谈（interviewed 为过去式）", "interviewed": "采访；访谈（interviewed 为过去式）", "it": "它；这件事", "jibing": "计兵（王计兵的名）", "jobs": "工作；职业（job 的复数）", "journey": "旅行；旅程", "july": "七月", "kept": "保持；继续（keep 的过去式）", "kinds": "种类（kind 的复数）", "know": "知道；了解（known 也可表示「知名的」）", "known": "知道；了解（known 也可表示「知名的」）", "later": "后来；之后", "learn": "学习；了解", "legs": "腿（leg 的复数）", "life": "生活；人生", "light": "光；光亮（可比喻希望）", "literary": "文学的", "literature": "文学", "little": "少；几乎没有（修饰不可数名词）", "live": "生活；居住（lived 是过去式）", "lived": "生活；居住（lived 是过去式）", "living": "生活；生计", "long": "长的；长久的", "lots": "许多；大量（常用 lots of）", "love": "爱；热爱", "low": "低的；在低处", "low-flying": "低飞的", "lu": "鲁迅（Lu Xun）", "xun": "鲁迅（Lu Xun）", "luckily": "幸运地；幸好", "mainly": "主要地", "make": "制作；使；赚得（视搭配而定）", "makes": "制作；使；赚得（视搭配而定）", "manuscripts": "手稿（manuscript 的复数）", "materials": "材料；素材", "meaning": "含义；意义", "meet": "遇见；遇到", "memory": "记忆；纪念", "men": "男子；人（man 的复数）", "middle": "中间的；中等的", "might": "可能；也许", "ming": "明（明朝）", "model": "模范；榜样；模型", "modern": "现代的", "money": "钱", "most": "大多数；最", "mother": "母亲", "mountain": "山；山脉", "mountains": "山；山脉", "named": "名叫……的；被命名为", "natural": "自然的；天然的", "nature": "大自然；本性", "never": "从不；从未", "new": "新的", "not": "不；没有", "note": "记录；记下（作名词也指笔记）", "novel": "小说（这里指长篇小说）", "novels": "小说（这里指长篇小说）", "now": "现在；如今", "of": "……的；属于……", "official": "官员；（形容词）官方的", "often": "经常", "on": "在……上；在某一天；关于", "once": "曾经；一次", "one": "一；一个", "only": "只；仅仅", "order": "顺序；命令（in order to 表示目的）", "ordinary": "普通的；平凡的", "others": "其他人；其他事物", "out": "在外；出去（常用于短语）", "over": "超过；在……上方", "paragraph": "段落", "passage": "短文；文章", "pen": "笔（文中也借指写作）", "people": "人；人们", "poems": "诗（poem 的复数）", "poetry": "诗歌（总称）", "positive": "积极的；乐观的", "prize": "奖；奖项", "proud": "自豪的", "proves": "证明（prove 的第三人称单数）", "put": "放；放置", "raise": "筹集；提高；举起", "reach": "达到；到达", "reading": "阅读；读（read 的 -ing 形式）", "recorded": "记录（record 的过去式）", "refused": "拒绝（refuse 的过去式）", "remain": "仍然是；保持", "remembered": "记得；纪念（remember 的过去分词）", "returned": "返回（return 的过去式）", "river": "河流", "rivers": "河流", "road": "道路；（比喻）历程", "robbed": "抢劫（这里和 was 连用，表示「被抢劫」）", "rocks": "岩石（rock 的复数）", "role": "角色；作用", "saw": "看见（see 的过去式）", "says": "说（say 的第三人称单数）", "school": "学校", "seemed": "似乎；好像（seem 的过去式）", "serving": "任职；服务（serve 的 -ing 形式）", "several": "几个；若干", "shapes": "形状；形态", "should": "应该", "showing": "展示；呈现", "simply": "只是；仅仅；简单地", "so": "所以；因此；这么", "soar": "高飞；翱翔", "some": "一些；有些", "son": "儿子", "spare": "空闲的；多余的", "spent": "花费（spend 的过去式）", "spreading": "传播；传递", "started": "开始（start 的过去式）", "still": "仍然；依旧", "stronger": "更强的", "strongly": "强烈地；坚定地", "successful": "成功的", "support": "支持；供养（supported 为过去式）", "supported": "支持；供养（supported 为过去式）", "terribly": "非常；厉害地", "than": "比（用于比较）", "that": "那；那个；也可引导从句", "the": "这个；那个（定冠词）", "then": "然后；当时", "think": "认为；想", "third": "第三", "time": "时间；时代；次数", "tips": "建议；小窍门", "title": "标题；题目", "to": "到；向；也用于构成动词不定式", "today": "今天；如今", "too": "太；也", "took": "拿；接受；从事（take 的过去式）", "top": "顶尖的；最高的", "tourism": "旅游；旅游业", "towards": "对；朝向", "travel": "旅行；游历；行程", "travelling": "旅行；游历；行程", "travels": "旅行；游历；行程", "trips": "旅行；游历；行程", "troubled": "困扰（trouble 的过去式）", "try": "尝试；努力", "turned": "转变；转向（turn 的过去式）", "unhappy": "不开心的；不幸福的", "unluckily": "不幸地", "up": "向上；起来（常用于短语）", "wang": "王（王计兵的姓）；王计兵的", "wang’s": "王（王计兵的姓）；王计兵的", "warmth": "温暖；温情", "way": "方式；方法；道路", "we": "我们", "weather": "天气", "well-known": "著名的；广为人知的", "what": "什么", "whatever": "无论什么；任何……的", "when": "什么时候；当……时", "which": "哪一个；哪些", "while": "当……时；与此同时", "who": "谁；也可引导从句修饰人", "why": "为什么", "wings": "翅膀（wing 的复数）", "winning": "赢得；获得（won 是 win 的过去式）", "won": "赢得；获得（won 是 win 的过去式）", "with": "和……一起；带着；具有", "workers": "工人；工作者", "working": "工作（work 的 -ing 形式）", "workmates": "同事", "works": "作品；著作", "world": "世界", "worried": "担心的；焦虑的", "writer": "作者；作家", "writing": "写作；写（written 是过去分词，wrote 是过去式）", "written": "写作；写（written 是过去分词，wrote 是过去式）", "wrote": "写作；写（written 是过去分词，wrote 是过去式）", "xiake": "徐霞客；徐霞客的", "xiake’s": "徐霞客；徐霞客的", "xu": "徐霞客；徐霞客的", "xuzhou": "徐州", "years": "年（year 的复数）", "yet": "但；然而；还", "you": "你；你们；你的；你们的", "your": "你；你们；你的；你们的", "character": "字符；字（200,000-character 表示二十万字的）"};
+const phrases = [["turned from writing novels to poetry", "从写小说转向写诗"], ["curiosity and love for nature", "对大自然的好奇和热爱"], ["whatever jobs he could find", "他能找到的任何工作"], ["China’s first travel writer", "中国第一位旅行作家"], ["Lu Xun Literature Prize", "鲁迅文学奖"], ["remain filled with hope", "依然满怀希望"], ["first-hand information", "第一手资料"], ["had little interest in", "对……没什么兴趣"], ["hold on to your dream", "坚持自己的梦想"], ["government official", "政府官员"], ["recorded everything", "记录下所有事物"], ["natural environment", "自然环境"], ["support his family", "养家"], ["in his later years", "在他晚年"], ["refused to give up", "拒绝放弃"], ["different kinds of", "不同种类的"], ["poetry collection", "诗集"], ["in his spare time", "在他的空闲时间"], ["collect materials", "收集素材"], ["make friends with", "和……交朋友"], ["China Tourism Day", "中国旅游日"], ["support a family", "养家；供养家人"], ["put down his pen", "放下笔（文中指停止写作）"], ["food deliveryman", "外卖员"], ["gather materials", "收集素材"], ["delivery workers", "外卖配送员"], ["live a hard life", "生活艰难"], ["spreading warmth", "传递温暖"], ["attitude towards", "对……的态度"], ["river directions", "河流走向"], ["literary honors", "文学荣誉"], ["was once robbed", "曾经被抢劫"], ["the only light", "唯一的光亮（比喻唯一的希望）"], ["dropped out of", "从……辍学；退出"], ["being ordinary", "身为普通人；平凡"], ["achieve dreams", "实现梦想"], ["Different from", "与……不同"], ["middle school", "中学"], ["make a living", "谋生"], ["remembered as", "作为……而被人们铭记"], ["However busy", "无论多忙"], ["kept writing", "一直坚持写作"], ["according to", "根据；依据"], ["try to reach", "努力达到"], ["Ming Dynasty", "明朝"], ["In order to", "为了"], ["raise money", "筹款"], ["is known as", "被称为；作为……而出名"], ["Flying Low", "《低飞》（诗集名）"], ["instead of", "而不是；代替"], ["flying low", "低飞（文中比喻平凡的人也能继续前行）"], ["role model", "榜样"], ["daily life", "日常生活"], ["serving as", "担任；出任"], ["famous for", "因……而出名"], ["On the way", "在路上；途中"], ["well-known", "著名的"], ["in memory", "为纪念（完整搭配是 in memory of）"], ["Based on", "根据；基于"], ["born in", "出生于"], ["fond of", "喜欢……"], ["on foot", "步行"], ["so that", "以便；为了使"]];
+(() => {
+  const card = document.getElementById('word-card');
+  const heading = card.querySelector('.word-card-term');
+  const meaning = card.querySelector('.word-card-meaning');
+  const phraseLine = card.querySelector('.word-card-phrase');
+  const wordInfo = new WeakMap();
+  const wordGroups = new WeakMap();
+  const wordPattern = /[A-Za-z]+(?:[’'-][A-Za-z]+)*/g;
+  const normalize = text => text.toLowerCase().replace(/'/g, '’');
+  let activeWord = null;
+
+  const blocks = document.querySelectorAll(
+    '#reading .exam-passage p, #reading-form legend, #reading-form .option [lang="en"], #grammar-form .exam-passage p'
+  );
+
+  for (const block of blocks) {
+    const nodes = document.createTreeWalker(block, NodeFilter.SHOW_TEXT, {
+      acceptNode: node => node.parentElement.closest('.exam-paragraph, .exam-blank')
+        ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT
+    });
+    const texts = [];
+    for (let node = nodes.nextNode(); node; node = nodes.nextNode()) texts.push(node);
+    const words = [];
+    for (const node of texts) {
+      const text = node.data;
+      const low = normalize(text);
+      const matches = [];
+      for (const [expression, translation] of phrases) {
+        const key = normalize(expression);
+        const exact = expression === 'Flying Low' ? text : low;
+        const needle = expression === 'Flying Low' ? expression : key;
+        let start = exact.indexOf(needle);
+        while (start !== -1) {
+          const end = start + needle.length;
+          if (!/[a-z]/i.test(text[start - 1] || '') && !/[a-z]/i.test(text[end] || '')) {
+            matches.push({start, end, expression, translation});
+          }
+          start = exact.indexOf(needle, end);
+        }
+      }
+      const fragment = document.createDocumentFragment();
+      let cursor = 0;
+      for (const match of text.matchAll(wordPattern)) {
+        const term = match[0];
+        const definition = definitions[normalize(term)];
+        if (!definition) continue;
+        fragment.append(text.slice(cursor, match.index));
+        const word = document.createElement('span');
+        word.className = 'lookup-word';
+        word.textContent = term;
+        word.tabIndex = words.length === 0 ? 0 : -1;
+        word.setAttribute('role', 'button');
+        word.setAttribute('aria-label', '查词：' + term);
+        word.setAttribute('lang', 'en');
+        const phrase = matches.find(item => item.start <= match.index && item.end >= match.index + term.length);
+        wordInfo.set(word, {term, definition, phrase});
+        wordGroups.set(word, words);
+        words.push(word);
+        fragment.append(word);
+        cursor = match.index + term.length;
+      }
+      if (cursor) {
+        fragment.append(text.slice(cursor));
+        node.replaceWith(fragment);
+      }
+    }
+  }
+
+  function close() {
+    if (activeWord) activeWord.classList.remove('lookup-active');
+    activeWord = null;
+    card.hidden = true;
+  }
+
+  function open(word) {
+    if (activeWord === word) {
+      close();
+      return;
+    }
+    close();
+    const {term, definition, phrase} = wordInfo.get(word);
+    heading.textContent = term;
+    meaning.textContent = definition;
+    phraseLine.textContent = phrase ? phrase.expression + ' · ' + phrase.translation : '';
+    phraseLine.hidden = !phrase || normalize(phrase.expression) === normalize(term);
+    activeWord = word;
+    word.classList.add('lookup-active');
+    const words = wordGroups.get(word);
+    words.find(item => item.tabIndex === 0).tabIndex = -1;
+    word.tabIndex = 0;
+    card.hidden = false;
+    const bounds = word.getBoundingClientRect();
+    const left = Math.max(10, Math.min(bounds.left, innerWidth - card.offsetWidth - 10));
+    const below = bounds.bottom + 8;
+    const top = below + card.offsetHeight < innerHeight - 10
+      ? below : Math.max(10, bounds.top - card.offsetHeight - 8);
+    card.style.left = left + 'px';
+    card.style.top = top + 'px';
+  }
+
+  document.addEventListener('click', event => {
+    const word = event.target.closest('.lookup-word');
+    if (word) {
+      event.preventDefault();
+      open(word);
+    } else if (!card.contains(event.target)) close();
+  });
+
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && activeWord) {
+      const returnFocus = card.contains(document.activeElement) ? activeWord : null;
+      close();
+      returnFocus?.focus();
+      return;
+    }
+    const word = event.target.closest('.lookup-word');
+    if (!word) return;
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      open(word);
+      return;
+    }
+    const direction = {ArrowRight: 1, ArrowLeft: -1}[event.key];
+    if (!direction) return;
+    event.preventDefault();
+    const words = wordGroups.get(word);
+    const next = words[words.indexOf(word) + direction];
+    if (!next) return;
+    close();
+    word.tabIndex = -1;
+    next.tabIndex = 0;
+    next.focus();
+  });
+
+  card.querySelector('button').addEventListener('click', () => {
+    const word = activeWord;
+    close();
+    word?.focus({preventScroll: true});
+  });
+  window.addEventListener('scroll', close, {capture: true, passive: true});
+  window.addEventListener('resize', close);
+  window.addEventListener('hashchange', close);
+})();
+
 })();
 </script>
 </body></html>
