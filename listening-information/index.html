@@ -2,22 +2,227 @@
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>宏浩 · 听力信息获取</title>
-<meta name="description" content="26段对话52题，特殊疑问句与一般疑问句混合训练，点击播放、逐题作答、查看解析。">
+<title>宏浩 · 英语听力、阅读与语法填空</title>
+<meta name="description" content="26段听力对话，以及深中龙岗学校九上期中卷阅读 A 篇和语法填空。">
 <link rel="stylesheet" href="style.css">
+
+<style>
+.course-nav{display:flex;flex-wrap:wrap;gap:8px;max-width:1280px;margin:auto;padding:18px 30px 0}
+.course-nav a,.exam-next{display:inline-block;text-decoration:none;color:#1c665e;border:1px solid var(--line);background:#fff;border-radius:8px;padding:10px 15px;font-size:14px;font-weight:650}
+.course-nav [aria-current="location"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.exam-panel{max-width:920px;margin:auto;padding:36px 30px 60px}
+.exam-panel[hidden],.shell[hidden]{display:none}
+.exam-heading{margin-bottom:22px}.exam-heading p,.exam-instruction{color:#526572;font-size:15px;line-height:1.7;margin:8px 0 18px}
+.exam-passage{padding:20px 28px;background:white;border:1px solid var(--line);border-radius:13px;font:20px/1.85 Georgia,"Times New Roman",serif}
+.exam-passage p{margin:0 0 1em}.exam-passage p:last-child{margin-bottom:0}
+.exam-paragraph{margin-right:.75em;font:650 12px/1.4 system-ui,sans-serif;color:#1c665e;white-space:nowrap}
+.exam-answer{margin-top:14px;border-top:1px solid var(--line);padding:13px 0 0;line-height:1.75;font-size:14px}
+.exam-answer summary{cursor:pointer;color:#1c665e;font-weight:650;padding:4px 0}
+.exam-answer p{margin:6px 0}.exam-evidence{font:18px/1.55 Georgia,"Times New Roman",serif}
+.exam-blank{display:inline-flex;align-items:center;gap:.3em;white-space:nowrap;vertical-align:middle;margin:.14em 0}
+.exam-blank>span:first-child{font:650 12px/1 system-ui;color:#1c665e}
+.exam-blank input{font:inherit;line-height:1.35;width:8ch;min-height:34px;padding:2px 4px;border:1px solid #91aaa4;border-radius:4px;color:var(--ink);background:#f6faf7}
+.exam-blank:is([data-item="37"],[data-item="42"],[data-item="43"]) input{width:13ch}
+.exam-blank input:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
+.exam-blank input[data-result="correct"]{border-color:#438473;background:#edf6f2}
+.exam-blank input[aria-invalid="true"]{border-color:#a95942;background:#fcf0eb}
+.exam-grammar-answers{background:#fff;border:1px solid var(--line);border-radius:13px;padding:0 22px 16px}
+.exam-grammar-answers .exam-answer:first-child{border:0;margin-top:0}
+.exam-result{line-height:1.7}
+@media(max-width:680px){
+ .course-nav{padding:12px 15px 0}.course-nav a{font-size:13px;padding:9px 10px}
+ .exam-panel{padding:24px 15px 40px}.exam-passage{padding:16px;font-size:18px}
+ .exam-blank input{font-size:16px}
+}
+</style>
 </head>
 <body>
 <header class="top"><a class="brand" href="#">H<span>·</span> ENGLISH</a><span class="student">宏浩的英语课堂</span><div class="top-progress"><span id="total-progress">已答 0 / 52</span><div class="track"><i id="progress-fill"></i></div></div></header>
-<div class="shell">
+<nav class="course-nav" aria-label="本节课练习">
+  <a href="#listening">听力</a>
+  <a href="#reading">阅读 A 篇</a>
+  <a href="#grammar">语法填空</a>
+</nav>
+<div class="shell" id="listening">
 <aside><p class="eyebrow">LISTEN & UNDERSTAND</p><h1>听清问题，<br>找到答案。</h1><p class="intro">信息获取 · 听选信息<br>26段对话 / 52道题</p><div class="section-label">选择对话 <span id="nav-count">01 / 26</span></div><nav id="passage-nav" aria-label="选择对话"></nav><div class="legend"><i></i> 本段已作答</div><details class="settings"><summary>播放设置</summary><label for="voice-select">英语语音</label><select id="voice-select"><option value="">自动选择英语语音</option></select><label class="check-label"><input type="checkbox" id="read-questions" checked> 对话后朗读问题</label><p>每段对话播放两遍，读完每个问题后留8秒作答。可随时停止或重听。</p><button id="test-voice" class="plain">试听语音</button></details><button class="plain reset" id="reset">清空本次作答</button></aside>
 <main>
-<div class="lesson-header"><div><p class="eyebrow" id="passage-number">DIALOGUE 01</p><h2 id="lesson-title">听第1段对话</h2><p id="question-range">回答第1—2题</p></div><span class="pill">问句混合练习</span></div>
+<div class="lesson-header"><div><p class="eyebrow" id="passage-number">DIALOGUE 01</p><h2 id="lesson-title" tabindex="-1">听第1段对话</h2><p id="question-range">回答第1—2题</p></div><span class="pill">问句混合练习</span></div>
 <section class="player" aria-label="听力播放器"><div class="player-top"><span class="headphones" aria-hidden="true">♪</span><div><strong>先看问题，再听对话</strong><p id="play-status" role="status" aria-live="polite">准备好后，点击播放</p></div><span class="equalizer" id="equalizer" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div><div class="play-controls"><button class="primary" id="play-twice">▶ 播放两遍</button><button class="secondary" id="play-once">只听一遍</button><button class="stop" id="stop" disabled>■ 停止</button><label class="speed">语速 <select id="speed"><option value="0.75">0.75× 慢速</option><option value="0.9" selected>0.9× 稍慢</option><option value="1">1.0× 正常</option><option value="1.15">1.15×</option></select></label></div><div class="error" id="audio-error" role="alert" hidden></div></section>
 <form id="questions" aria-label="听力题目"></form>
 <div class="answer-actions"><button class="primary" id="check">核对本段答案</button><button class="plain" id="show-transcript" aria-expanded="false">显示听力原文</button><span id="check-summary" role="status"></span></div>
 <section id="transcript" class="transcript" hidden><p class="eyebrow">LISTENING SCRIPT</p><h3>听力原文</h3><div id="script-lines"></div></section>
 <div class="bottom-nav"><button id="previous" class="secondary">← 上一段</button><span id="bottom-count">1 / 26</span><button id="next" class="secondary">下一段 →</button></div>
 <p class="note">只练信息获取：听对话，从三个备选信息中选出答案。作答进度保存在当前浏览器。</p>
+<a class="exam-next" href="#reading">接着做阅读 A 篇 →</a>
 </main></div>
+<section class="exam-panel" id="reading" aria-labelledby="reading-title">
+  <header class="exam-heading">
+    <h2 id="reading-title" tabindex="-1">阅读理解 · A 篇</h2>
+    <p>深中龙岗学校九上期中英语 · 第 11–15 题</p>
+  </header>
+  <div class="exam-passage" lang="en"><p><span class="exam-paragraph">第 1 段</span>On July 15, 2026, a deliveryman（外卖员）named Wang Jibing won the Lu Xun Literature Prize, one of the top literary honors in China, for his third poetry collection <em>Flying Low</em>.</p>
+<p><span class="exam-paragraph">第 2 段</span>Writing seemed to be the only light in his dark life. Born in 1969 in Xuzhou, he lived an unhappy childhood. Later, he dropped out of middle school and took whatever jobs he could find. However busy he was, he kept writing in his spare time. In 1992, Wang returned to his hometown to make a living. Unluckily, his father was worried that writing could never support a family, so he burned all his manuscripts（手稿）, including a 200,000-character novel.</p>
+<p><span class="exam-paragraph">第 3 段</span>That was not the end and Wang never put down his pen. He then turned from writing novels to poetry. In 2018, he became a food deliveryman to support his family. In order to gather materials for his writing, he interviewed over 140 delivery workers. Based on the first-hand information, he wrote poems to describe ordinary deliverymen who live a hard life yet remain filled with hope.</p>
+<p><span class="exam-paragraph">第 4 段</span>Although some people think he is too positive, he continues spreading warmth instead of showing only darkness. "Not all wings can soar（翱翔）high, but flying low is still flying," he says—a belief that helps him discover the meaning of being ordinary.</p></div>
+  <p class="exam-instruction">第 11–13 题先找原文依据。第 14–15 题再练观点推断和选标题。</p>
+  <form class="exam-form" id="reading-form">
+    <fieldset class="question" data-item="11" data-key="B">
+  <legend lang="en">11. What do we know about Wang Jibing from Paragraph 1?</legend>
+  <div class="options"><label class="option"><input type="radio" name="read-11" value="A"><span class="letter">A</span><span lang="en">His role model is Lu Xun.</span></label><label class="option"><input type="radio" name="read-11" value="B"><span class="letter">B</span><span lang="en">He has written several poetry books.</span></label><label class="option"><input type="radio" name="read-11" value="C"><span class="letter">C</span><span lang="en">He won the award when he started writing.</span></label><label class="option"><input type="radio" name="read-11" value="D"><span class="letter">D</span><span lang="en">He makes a living mainly by writing poems.</span></label></div>
+  <details class="exam-answer">
+    <summary>第 11 题答案与解析</summary>
+    <p><strong>B · 细节推断</strong></p>
+    <p class="exam-evidence" lang="en">his third poetry collection</p>
+    <p>third 表明这已经是他的第三部诗集，所以他写过不止一本。Lu Xun 是奖项名称的一部分，原文没有说鲁迅是他的榜样。</p>
+  </details>
+</fieldset><fieldset class="question" data-item="12" data-key="D">
+  <legend lang="en">12. What is Wang’s father’s attitude towards his writing?</legend>
+  <div class="options"><label class="option"><input type="radio" name="read-12" value="A"><span class="letter">A</span><span lang="en">He strongly supported his son in writing.</span></label><label class="option"><input type="radio" name="read-12" value="B"><span class="letter">B</span><span lang="en">He was proud of his son for winning awards.</span></label><label class="option"><input type="radio" name="read-12" value="C"><span class="letter">C</span><span lang="en">He was not fond of reading Wang’s poems at all.</span></label><label class="option"><input type="radio" name="read-12" value="D"><span class="letter">D</span><span lang="en">He worried that Wang couldn’t make a living by writing.</span></label></div>
+  <details class="exam-answer">
+    <summary>第 12 题答案与解析</summary>
+    <p><strong>D · 态度与同义转述</strong></p>
+    <p class="exam-evidence" lang="en">his father was worried that writing could never support a family</p>
+    <p>先找 worried，再读出父亲担心的事。support a family 是「养家」，make a living by writing 是「靠写作谋生」。</p>
+  </details>
+</fieldset><fieldset class="question" data-item="13" data-key="C">
+  <legend lang="en">13. Why did Wang interview lots of delivery workers according to Paragraph 3?</legend>
+  <div class="options"><label class="option"><input type="radio" name="read-13" value="A"><span class="letter">A</span><span lang="en">To raise money for his new book.</span></label><label class="option"><input type="radio" name="read-13" value="B"><span class="letter">B</span><span lang="en">To make friends with new workmates.</span></label><label class="option"><input type="radio" name="read-13" value="C"><span class="letter">C</span><span lang="en">To collect materials for his poetry book.</span></label><label class="option"><input type="radio" name="read-13" value="D"><span class="letter">D</span><span lang="en">To learn how to deliver food faster and better.</span></label></div>
+  <details class="exam-answer">
+    <summary>第 13 题答案与解析</summary>
+    <p><strong>C · 目的与同义替换</strong></p>
+    <p class="exam-evidence" lang="en">In order to gather materials for his writing</p>
+    <p>Why 问原因或目的，第三段的 In order to 直接引出目的。gather materials 与 collect materials 都是「收集素材」。</p>
+  </details>
+</fieldset><fieldset class="question" data-item="14" data-key="C">
+  <legend lang="en">14. Which of the following might Wang Jibing agree with?</legend>
+  <div class="options"><label class="option"><input type="radio" name="read-14" value="A"><span class="letter">A</span><span lang="en">Low-flying birds are stronger than others.</span></label><label class="option"><input type="radio" name="read-14" value="B"><span class="letter">B</span><span lang="en">People should try to reach the greatest heights.</span></label><label class="option"><input type="radio" name="read-14" value="C"><span class="letter">C</span><span lang="en">Ordinary people can still live with hope and effort.</span></label><label class="option"><input type="radio" name="read-14" value="D"><span class="letter">D</span><span lang="en">It is impossible for common people to achieve dreams.</span></label></div>
+  <details class="exam-answer">
+    <summary>第 14 题答案与解析</summary>
+    <p><strong>C · 观点推断</strong></p>
+    <p class="exam-evidence" lang="en">Not all wings can soar high, but flying low is still flying.</p>
+    <p>「低飞」是比喻。结合第三段的 remain filled with hope，可以推断他认为平凡人也能带着希望继续努力。</p>
+  </details>
+</fieldset><fieldset class="question" data-item="15" data-key="D">
+  <legend lang="en">15. Which can be the best title of the passage?</legend>
+  <div class="options"><label class="option"><input type="radio" name="read-15" value="A"><span class="letter">A</span><span lang="en">The Daily Life of Delivery Workers</span></label><label class="option"><input type="radio" name="read-15" value="B"><span class="letter">B</span><span lang="en">Poems of Ordinary Delivery Workers</span></label><label class="option"><input type="radio" name="read-15" value="C"><span class="letter">C</span><span lang="en">Tips on Writing while Working Full-time</span></label><label class="option"><input type="radio" name="read-15" value="D"><span class="letter">D</span><span lang="en">A Deliveryman’s Road to a Literature Prize</span></label></div>
+  <details class="exam-answer">
+    <summary>第 15 题答案与解析</summary>
+    <p><strong>D · 标题与文章主线</strong></p>
+    <p class="exam-evidence" lang="en">won the Lu Xun Literature Prize … he kept writing in his spare time</p>
+    <p>首段写获奖，后几段回顾他坚持写作、转写诗歌和从送餐经历中取材的过程。D 同时概括了人物身份和写作历程。</p>
+  </details>
+</fieldset>
+    <div class="answer-actions"><button class="primary" type="submit">核对阅读答案</button><span class="exam-result" role="status"></span></div>
+  </form>
+  <a class="exam-next" href="#grammar">接着做语法填空 →</a>
+</section>
+<section class="exam-panel" id="grammar" aria-labelledby="grammar-title">
+  <header class="exam-heading">
+    <h2 id="grammar-title" tabindex="-1">语法填空 · 徐霞客</h2>
+    <p>深中龙岗学校九上期中英语 · 第 36–45 题</p>
+  </header>
+  <p class="exam-instruction">在空格中填入一个适当的词，或写出括号中所给单词的正确形式。</p>
+  <form class="exam-form" id="grammar-form">
+    <div class="exam-passage" lang="en"><p>Xu Xiake is known as China’s first travel writer in the Ming Dynasty. Different from most men of his time, he had little interest in serving as <label class="exam-blank" data-item="36" data-key="a"><span>36</span><input type="text" name="blank-36" aria-label="第 36 空" autocomplete="off" autocapitalize="off" spellcheck="false"></label> government official. Instead, he enjoyed reading books about mountains and rivers. Luckily, his mother encouraged him <label class="exam-blank" data-item="37" data-key="to follow"><span>37</span><input type="text" name="blank-37" aria-label="第 37 空，提示词 follow" autocomplete="off" autocapitalize="off" spellcheck="false"><span lang="en">(follow)</span></label> his dream and explore the world, so he began his long journey.</p>
+<p>Xu is famous for his travelling. He spent over 30 years travelling on foot across China. On the way, he <label class="exam-blank" data-item="38" data-key="met"><span>38</span><input type="text" name="blank-38" aria-label="第 38 空，提示词 meet" autocomplete="off" autocapitalize="off" spellcheck="false"><span lang="en">(meet)</span></label> lots of difficulties. Bad weather often troubled <label class="exam-blank" data-item="39" data-key="him"><span>39</span><input type="text" name="blank-39" aria-label="第 39 空，提示词 he" autocomplete="off" autocapitalize="off" spellcheck="false"><span lang="en">(he)</span></label>, and he was once robbed（抢劫）. In his later years, his legs hurt terribly, <label class="exam-blank" data-item="40" data-key="but|yet"><span>40</span><input type="text" name="blank-40" aria-label="第 40 空" autocomplete="off" autocapitalize="off" spellcheck="false"></label> he still refused to give up. He asked others to carry him so that he could finish his trips.</p>
+<p>Besides his travels, Xu is also well-known because of his writing. He <label class="exam-blank" data-item="41" data-key="carefully"><span>41</span><input type="text" name="blank-41" aria-label="第 41 空，提示词 careful" autocomplete="off" autocapitalize="off" spellcheck="false"><span lang="en">(careful)</span></label> recorded everything he saw in nature. During his travels, mountain shapes, river directions and different kinds of rocks <label class="exam-blank" data-item="42" data-key="were noted"><span>42</span><input type="text" name="blank-42" aria-label="第 42 空，提示词 note" autocomplete="off" autocapitalize="off" spellcheck="false"><span lang="en">(note)</span></label> down by him. Now, his works still help modern people learn about China’s natural environment.</p>
+<p>Both Xu Xiake’s travelling and writing came simply from curiosity and love for nature. His life proves that if you hold on to your dream, you can become <label class="exam-blank" data-item="43" data-key="more successful"><span>43</span><input type="text" name="blank-43" aria-label="第 43 空，提示词 successful" autocomplete="off" autocapitalize="off" spellcheck="false"><span lang="en">(successful)</span></label> than you think. Today, Xu is remembered as a great <label class="exam-blank" data-item="44" data-key="explorer"><span>44</span><input type="text" name="blank-44" aria-label="第 44 空，提示词 explore" autocomplete="off" autocapitalize="off" spellcheck="false"><span lang="en">(explore)</span></label>. China Tourism Day is also celebrated in memory <label class="exam-blank" data-item="45" data-key="of"><span>45</span><input type="text" name="blank-45" aria-label="第 45 空" autocomplete="off" autocapitalize="off" spellcheck="false"></label> him.</p></div>
+    <div class="answer-actions"><button class="primary" type="submit">核对语法填空</button><span class="exam-result" role="status"></span></div>
+  </form>
+  <h3>逐题答案与知识点</h3>
+  <div class="exam-grammar-answers"><details class="exam-answer"><summary>第 36 题答案与解析</summary><p><strong lang="en">a</strong> · 冠词</p><p>government official 是单数可数名词，首次泛指一位官员。government 以辅音音素开头，用 a。</p></details>
+<details class="exam-answer"><summary>第 37 题答案与解析</summary><p><strong lang="en">to follow</strong> · 固定搭配</p><p>encourage somebody to do something 表示「鼓励某人做某事」，him 后接 to follow。</p></details>
+<details class="exam-answer"><summary>第 38 题答案与解析</summary><p><strong lang="en">met</strong> · 一般过去时</p><p>这一段在回顾徐霞客过去的旅行经历。meet 的过去式是不规则形式 met。</p></details>
+<details class="exam-answer"><summary>第 39 题答案与解析</summary><p><strong lang="en">him</strong> · 人称代词宾格</p><p>troubled 是动词，空格充当它的宾语，所以用 he 的宾格 him。</p></details>
+<details class="exam-answer"><summary>第 40 题答案与解析</summary><p><strong lang="en">but</strong> · 转折连词</p><p>前面说腿疼得厉害，后面说仍然不肯放弃，两个分句是转折关系。but 是参考答案，yet 在此也能表达转折。</p></details>
+<details class="exam-answer"><summary>第 41 题答案与解析</summary><p><strong lang="en">carefully</strong> · 形容词变副词</p><p>空格修饰动词 recorded，说明记录的方式，用副词 carefully。</p></details>
+<details class="exam-answer"><summary>第 42 题答案与解析</summary><p><strong lang="en">were noted</strong> · 一般过去时的被动语态</p><p>山形、河流走向和岩石是「被记录」的，by him 提示被动。叙述过去，且主语为复数，所以用 were noted。</p></details>
+<details class="exam-answer"><summary>第 43 题答案与解析</summary><p><strong lang="en">more successful</strong> · 形容词比较级</p><p>than 提示比较级，become 后用形容词。successful 是多音节词，比较级为 more successful。</p></details>
+<details class="exam-answer"><summary>第 44 题答案与解析</summary><p><strong lang="en">explorer</strong> · 动词变名词</p><p>a great 后需要一个表示人的单数可数名词。explore 是「探索」，explorer 是「探险家」。</p></details>
+<details class="exam-answer"><summary>第 45 题答案与解析</summary><p><strong lang="en">of</strong> · 介词短语</p><p>in memory of somebody 表示「为了纪念某人」，所以填 of。</p></details></div>
+</section>
 <script src="app.js"></script>
+
+<script>
+(() => {
+  const courseLinks = [...document.querySelectorAll('.course-nav a')];
+  const topProgress = document.querySelector('.top-progress');
+  const panes = courseLinks.map(link => document.getElementById(link.hash.slice(1)));
+  const stopButton = document.getElementById('stop');
+
+  function showSection(moveFocus) {
+    const selected = Math.max(0, courseLinks.findIndex(link => link.hash === location.hash));
+    panes.forEach((pane, index) => { pane.hidden = index !== selected; });
+    courseLinks.forEach((link, index) => {
+      if (index === selected) link.setAttribute('aria-current', 'location');
+      else link.removeAttribute('aria-current');
+    });
+    topProgress.hidden = selected !== 0;
+    if (selected !== 0 && !stopButton.disabled) stopButton.click();
+    if (moveFocus) {
+      const heading = panes[selected].querySelector('h2');
+      heading.focus({preventScroll: true});
+      window.scrollTo(0, 0);
+    }
+  }
+
+  showSection(false);
+  window.addEventListener('hashchange', () => showSection(true));
+
+  for (const form of document.querySelectorAll('.exam-form')) {
+    const storage = 'honghao-midterm-' + form.id + '-v1';
+    const items = [...form.querySelectorAll('[data-item]')];
+    const inputs = [...form.querySelectorAll('input')];
+    const result = form.querySelector('.exam-result');
+    const normalize = value => value.trim().toLowerCase().replace(/\s+/g, ' ');
+
+    try {
+      const saved = JSON.parse(localStorage.getItem(storage) || '{}');
+      for (const input of inputs) {
+        if (input.type === 'radio') input.checked = saved[input.name] === input.value;
+        else if (typeof saved[input.name] === 'string') input.value = saved[input.name];
+      }
+    } catch {}
+
+    form.addEventListener('input', event => {
+      const input = event.target;
+      const item = input.closest('[data-item]');
+      if (item) {
+        item.querySelectorAll('.correct,.wrong').forEach(option => option.classList.remove('correct', 'wrong'));
+        input.removeAttribute('aria-invalid');
+        delete input.dataset.result;
+      }
+      result.textContent = '';
+      try { localStorage.setItem(storage, JSON.stringify(Object.fromEntries(new FormData(form)))); } catch {}
+    });
+
+    form.addEventListener('submit', event => {
+      event.preventDefault();
+      const unanswered = [], review = [];
+      let correct = 0;
+      for (const item of items) {
+        const field = item.querySelector('input:checked, input[type="text"]');
+        const value = normalize(field?.value || '');
+        const matches = item.dataset.key.toLowerCase().split('|').includes(value);
+        if (!value) unanswered.push(item.dataset.item);
+        else if (matches) correct += 1;
+        else review.push(item.dataset.item);
+        if (field?.type === 'text') {
+          field.toggleAttribute('data-result', matches);
+          if (matches) field.dataset.result = 'correct';
+          if (value && !matches) field.setAttribute('aria-invalid', 'true');
+          else field.removeAttribute('aria-invalid');
+        } else if (field) {
+          const option = field.closest('.option');
+          option.classList.toggle('correct', matches);
+          option.classList.toggle('wrong', !matches);
+        }
+      }
+      result.textContent = `答对 ${correct} / ${items.length} 题。`
+        + (review.length ? `待订正：第 ${review.join('、')} 题。` : '')
+        + (unanswered.length ? `未作答：第 ${unanswered.join('、')} 题。` : '');
+    });
+  }
+})();
+</script>
 </body></html>
