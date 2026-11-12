@@ -58,15 +58,61 @@
 #word-card .word-card-term{font:700 21px/1.3 Georgia,serif;color:#1c665e}
 #word-card .word-card-phrase{padding-top:8px;margin-top:8px;border-top:1px solid var(--line)}
 #word-card button{position:absolute;top:5px;right:5px;border:0;background:transparent;color:var(--ink);width:32px;height:32px;border-radius:5px;font-size:21px}
+
+#review{max-width:1170px}
+.review-layout{display:grid;grid-template-columns:minmax(170px,220px) minmax(0,1fr);gap:28px;align-items:start}
+.review-controls{position:sticky;top:18px}
+.review-pages{display:grid;gap:7px}
+.review-pages button{display:flex;align-items:center;gap:10px;width:100%;min-height:42px;padding:8px 12px;background:white;border:1px solid var(--line);border-radius:8px;color:var(--ink);text-align:left;font-size:14px}
+.review-pages button span{color:#526572;font-variant-numeric:tabular-nums}
+.review-pages button[aria-pressed="true"]{background:#e6f2ee;border-color:#8bb6ab;color:#174d46;font-weight:700}
+.review-start{display:inline-block;margin-top:14px;padding:11px 14px;border-radius:8px;background:var(--ink);color:#fff;text-decoration:none;font-size:14px;font-weight:650}
+.review-sheet{margin:0;min-width:0;max-width:720px}
+.review-sheet img{display:block;width:100%;height:auto;border:1px solid var(--line);border-radius:12px;background:#fffcf3}
+.review-sheet figcaption{display:flex;flex-wrap:wrap;gap:8px 18px;justify-content:space-between;align-items:center;margin-top:10px;color:#526572;font-size:13px}
+.review-sheet a{color:#1c665e;text-underline-offset:3px}
+.review-sheet .review-start-end{display:none;color:white;text-decoration:none}
+@media(max-width:680px){
+ .review-layout{grid-template-columns:1fr;gap:15px}
+ .review-controls{position:static}
+ .review-sheet .review-start-end{display:inline-block}
+ .review-pages{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
 </style>
 </head>
 <body>
 <header class="top"><a class="brand" href="#">H<span>·</span> ENGLISH</a><span class="student">宏浩的英语课堂</span><div class="top-progress"><span id="total-progress">已答 0 / 52</span><div class="track"><i id="progress-fill"></i></div></div></header>
 <nav class="course-nav" aria-label="本节课练习">
+  <a href="#review">课前复习</a>
   <a href="#listening">听力</a>
   <a href="#reading">阅读 A 篇</a>
   <a href="#grammar">语法填空</a>
 </nav>
+<section class="exam-panel" id="review" aria-labelledby="review-title">
+  <header class="exam-heading">
+    <h2 id="review-title" tabindex="-1">课前复习 · 特殊疑问词</h2>
+    <p>先看 5W＋1H，再用手绘时间线区分时长、等待时间和频率。</p>
+  </header>
+  <div class="review-layout">
+    <div class="review-controls">
+      <div class="review-pages" role="group" aria-label="手绘笔记页码">
+        <button type="button" data-review-image="review/page-01.webp" data-review-alt="初中英语特殊疑问词手绘笔记封面" aria-pressed="false"><span aria-hidden="true">01</span>封面</button>
+        <button type="button" data-review-image="review/page-02.webp" data-review-alt="5W＋1H 与 which、whose、whom 的问法、例句和答案" aria-pressed="true"><span aria-hidden="true">02</span>基础疑问词</button>
+        <button type="button" data-review-image="review/page-03.webp" data-review-alt="What 和 How 的常用疑问短语及典型答案" aria-pressed="false"><span aria-hidden="true">03</span>常见疑问短语</button>
+        <button type="button" data-review-image="review/page-04.webp" data-review-alt="用公交时间线区分 How long 和 How soon，并对照频率和次数" aria-pressed="false"><span aria-hidden="true">04</span>时间类易混问法</button>
+        <button type="button" data-review-image="review/page-05.webp" data-review-alt="对照 Who 与 Whose、What 与 Which、How many 与 How much" aria-pressed="false"><span aria-hidden="true">05</span>三组易混词</button>
+        <button type="button" data-review-image="review/page-06.webp" data-review-alt="含 be、情态动词及 do、does、did 的问句和主语提问" aria-pressed="false"><span aria-hidden="true">06</span>问句怎么写</button>
+        <button type="button" data-review-image="review/page-07.webp" data-review-alt="四道画线提问及参考答案" aria-pressed="false"><span aria-hidden="true">07</span>小测与答案</button>
+      </div>
+      <a class="review-start" href="#listening">开始听力 →</a>
+    </div>
+    <figure class="review-sheet">
+      <img id="review-image" src="review/page-02.webp" alt="5W＋1H 与 which、whose、whom 的问法、例句和答案" width="1440" height="1920">
+      <figcaption><span id="review-count" role="status">第 2 / 7 页 · 基础疑问词</span><a id="review-enlarge" href="review/page-02.webp" target="_blank" rel="noopener">打开大图</a></figcaption>
+      <a class="review-start review-start-end" href="#listening">开始听力 →</a>
+    </figure>
+  </div>
+</section>
 <div class="shell" id="listening">
 <aside><p class="eyebrow">LISTEN & UNDERSTAND</p><h1>听清问题，<br>找到答案。</h1><p class="intro">信息获取 · 听选信息<br>26段对话 / 52道题</p><div class="section-label">选择对话 <span id="nav-count">01 / 26</span></div><nav id="passage-nav" aria-label="选择对话"></nav><div class="legend"><i></i> 本段已作答</div><details class="settings"><summary>播放设置</summary><label for="voice-select">英语语音</label><select id="voice-select"><option value="">自动选择英语语音</option></select><label class="check-label"><input type="checkbox" id="read-questions" checked> 对话后朗读问题</label><p>每段对话播放两遍，读完每个问题后留8秒作答。可随时停止或重听。</p><button id="test-voice" class="plain">试听语音</button></details><button class="plain reset" id="reset">清空本次作答</button></aside>
 <main>
@@ -191,8 +237,9 @@
       if (index === selected) link.setAttribute('aria-current', 'location');
       else link.removeAttribute('aria-current');
     });
-    topProgress.hidden = selected !== 0;
-    if (selected !== 0 && !stopButton.disabled) stopButton.click();
+    const listening = panes[selected].id === 'listening';
+    topProgress.hidden = !listening;
+    if (!listening && !stopButton.disabled) stopButton.click();
     if (moveFocus) {
       const heading = panes[selected].querySelector('h2');
       heading.focus({preventScroll: true});
@@ -416,6 +463,25 @@ const phrases = [["turned from writing novels to poetry", "从写小说转向写
   window.addEventListener('hashchange', close);
 })();
 
+})();
+</script>
+
+<script>
+(() => {
+  const buttons = [...document.querySelectorAll('.review-pages button')];
+  const image = document.getElementById('review-image');
+  const caption = document.getElementById('review-count');
+  const enlarge = document.getElementById('review-enlarge');
+  buttons.forEach((button, index) => {
+    button.addEventListener('click', () => {
+      buttons.forEach(item => item.setAttribute('aria-pressed', String(item === button)));
+      image.src = button.dataset.reviewImage;
+      image.alt = button.dataset.reviewAlt;
+      if (image.getBoundingClientRect().top < 0) image.scrollIntoView({block: 'start'});
+      enlarge.href = button.dataset.reviewImage;
+      caption.textContent = `第 ${index + 1} / ${buttons.length} 页 · ${button.lastChild.textContent}`;
+    });
+  });
 })();
 </script>
 </body></html>
