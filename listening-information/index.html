@@ -12,6 +12,16 @@
 .course-nav [aria-current="location"]{background:var(--ink);border-color:var(--ink);color:#fff}
 .exam-panel{max-width:920px;margin:auto;padding:36px 30px 60px}
 .exam-panel[hidden],.shell[hidden]{display:none}
+#reading{max-width:1440px}
+.exam-reading-layout{display:grid;gap:18px}
+.exam-reading-questions{min-width:0}
+.exam-reading-questions .exam-instruction{margin:0 0 14px}
+.exam-reading-layout>.exam-passage:focus-visible{outline:2px solid var(--teal);outline-offset:3px}
+@media(min-width:900px){
+ .exam-reading-layout{grid-template-columns:minmax(0,1.08fr) minmax(0,1fr);gap:26px;align-items:start}
+ .exam-reading-layout>.exam-passage{position:sticky;top:20px;max-height:calc(100vh - 40px);max-height:calc(100dvh - 40px);overflow:auto;scrollbar-gutter:stable;font-size:clamp(17px,1.45vw,20px);line-height:1.72}
+ #reading .question legend{font-size:clamp(20px,1.6vw,25px)}
+}
 .exam-heading{margin-bottom:22px}.exam-heading p,.exam-instruction{color:#526572;font-size:15px;line-height:1.7;margin:8px 0 18px}
 .exam-passage{padding:20px 28px;background:white;border:1px solid var(--line);border-radius:13px;font:20px/1.85 Georgia,"Times New Roman",serif}
 .exam-passage p{margin:0 0 1em}.exam-passage p:last-child{margin-bottom:0}
@@ -60,10 +70,12 @@
     <h2 id="reading-title" tabindex="-1">阅读理解 · A 篇</h2>
     <p>深中龙岗学校九上期中英语 · 第 11–15 题</p>
   </header>
-  <div class="exam-passage" lang="en"><p><span class="exam-paragraph">第 1 段</span>On July 15, 2026, a deliveryman（外卖员）named Wang Jibing won the Lu Xun Literature Prize, one of the top literary honors in China, for his third poetry collection <em>Flying Low</em>.</p>
+  <div class="exam-reading-layout">
+  <div class="exam-passage" lang="en" role="region" aria-label="阅读 A 篇原文" tabindex="0"><p><span class="exam-paragraph" lang="zh-CN">第 1 段</span>On July 15, 2026, a deliveryman（外卖员）named Wang Jibing won the Lu Xun Literature Prize, one of the top literary honors in China, for his third poetry collection <em>Flying Low</em>.</p>
 <p><span class="exam-paragraph">第 2 段</span>Writing seemed to be the only light in his dark life. Born in 1969 in Xuzhou, he lived an unhappy childhood. Later, he dropped out of middle school and took whatever jobs he could find. However busy he was, he kept writing in his spare time. In 1992, Wang returned to his hometown to make a living. Unluckily, his father was worried that writing could never support a family, so he burned all his manuscripts（手稿）, including a 200,000-character novel.</p>
 <p><span class="exam-paragraph">第 3 段</span>That was not the end and Wang never put down his pen. He then turned from writing novels to poetry. In 2018, he became a food deliveryman to support his family. In order to gather materials for his writing, he interviewed over 140 delivery workers. Based on the first-hand information, he wrote poems to describe ordinary deliverymen who live a hard life yet remain filled with hope.</p>
 <p><span class="exam-paragraph">第 4 段</span>Although some people think he is too positive, he continues spreading warmth instead of showing only darkness. "Not all wings can soar（翱翔）high, but flying low is still flying," he says—a belief that helps him discover the meaning of being ordinary.</p></div>
+  <div class="exam-reading-questions">
   <p class="exam-instruction">第 11–13 题先找原文依据。第 14–15 题再练观点推断和选标题。</p>
   <form class="exam-form" id="reading-form">
     <fieldset class="question" data-item="11" data-key="B">
@@ -115,6 +127,8 @@
     <div class="answer-actions"><button class="primary" type="submit">核对阅读答案</button><span class="exam-result" role="status"></span></div>
   </form>
   <a class="exam-next" href="#grammar">接着做语法填空 →</a>
+  </div>
+  </div>
 </section>
 <section class="exam-panel" id="grammar" aria-labelledby="grammar-title">
   <header class="exam-heading">
