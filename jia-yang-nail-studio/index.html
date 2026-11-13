@@ -7,8 +7,8 @@
   <meta name="description" content="一间自己的穿戴甲工作室。给五片甲搭配颜色、纹路与饰品，保存灵感和实做清单。">
   <title>甲样研究所｜穿戴甲设计小游戏</title>
   <link rel="icon" type="image/svg+xml" href="mark.svg">
-  <link rel="stylesheet" href="style.css?v=5">
-  <script src="app.js?v=5" defer></script>
+  <link rel="stylesheet" href="style.css?v=12">
+  <script src="app.js?v=12" defer></script>
 </head>
 <body>
   <header class="topbar">
@@ -31,7 +31,7 @@
         <p class="intro">挑一片甲，在托盘里试底色、封层和饰品。</p>
         <div class="welcome-actions">
           <button class="button primary" id="apply-reference" type="button">套用图中同款</button>
-          <a class="button outline" href="#inspiration">看秋冬配方</a>
+          <a class="button outline" href="#daily-inspiration">看每日灵感</a>
           <button type="button" class="button random" id="random"><span data-icon="shuffle"></span> 随机一套</button>
         </div>
       </div>
@@ -78,12 +78,21 @@
           <button type="button" role="tab" id="tab-photo" data-tab="photo" aria-controls="editor-panel"><span data-icon="heart"></span>同款</button>
           <button type="button" role="tab" id="tab-shape" data-tab="shape" aria-controls="editor-panel"><span data-icon="shape"></span>甲型</button>
           <button type="button" role="tab" id="tab-color" data-tab="color" aria-controls="editor-panel"><span data-icon="color"></span>底色</button>
+          <button type="button" role="tab" id="tab-shade" data-tab="shade" aria-controls="editor-panel"><span data-icon="list"></span>色卡</button>
           <button type="button" role="tab" id="tab-art" data-tab="art" aria-controls="editor-panel"><span data-icon="art"></span>花纹</button>
           <button type="button" role="tab" id="tab-charm" data-tab="charm" aria-controls="editor-panel"><span data-icon="gem"></span>饰品</button>
         </div>
         <div id="editor-panel" class="editor-panel" role="tabpanel" tabindex="0"></div>
       </section>
     </div>
+    <section class="inspiration" id="daily-inspiration" aria-labelledby="daily-inspiration-title">
+      <div class="section-heading">
+        <div><h2 id="daily-inspiration-title">每日灵感</h2><p>小红书流行元素的写实改款。点开配方看做法和出处。</p></div>
+        <label class="photo-collection daily-date" hidden>日期<select id="daily-inspiration-date"></select></label>
+      </div>
+      <p id="daily-inspiration-status" class="small-note" role="status">正在加载每日灵感…</p>
+      <div id="daily-presets" class="preset-grid"></div>
+    </section>
     <section class="inspiration" id="inspiration" aria-labelledby="inspiration-title">
       <div class="section-heading">
         <div><h2 id="inspiration-title">秋冬款式配方</h2><p>先看五指怎么分配底色和装饰，再套用到设计台。</p></div>
@@ -91,6 +100,9 @@
       </div>
       <div class="trend-filters" id="trend-filters" role="group" aria-label="按风格筛选秋冬配方">
         <button type="button" data-filter="all" aria-pressed="true">全部</button>
+        <button type="button" data-filter="new" aria-pressed="false">新款</button>
+        <button type="button" data-filter="soft" aria-pressed="false">纯欲风</button>
+        <button type="button" data-filter="korean" aria-pressed="false">韩式美甲</button>
         <button type="button" data-filter="daily" aria-pressed="false">通勤短甲</button>
         <button type="button" data-filter="warm" aria-pressed="false">秋冬暖调</button>
         <button type="button" data-filter="cool" aria-pressed="false">清冷微光</button>

@@ -1,0 +1,648 @@
+[
+  {
+    "date": "2026-11-13",
+    "recipes": [
+      {
+        "name": "香芋绸缎波点",
+        "category": "korean",
+        "tint": "#eee4ef",
+        "detail": "灰香芋紫 · 双指缎面猫眼 · 深梅小波点",
+        "tip": "拇指和无名指薄涂灰紫猫眼，磁铁轻扫出宽光带。食指涂纯香芋紫，中指同底用点珠笔点少量深梅紫波点，小指用深梅紫收色。五指用亮面封层。",
+        "source": {
+          "label": "公开引用 · 什么值得买《2026年的秋天第一款美甲》引小红书「露露紫」",
+          "url": "https://post.smzdm.com/p/axkl9x8w/"
+        },
+        "nails": [
+          {
+            "color": "#9577a8",
+            "finish": "velvet",
+            "pattern": "none",
+            "ink": "#fff0dc",
+            "decor": [],
+            "shape": "square",
+            "length": "short"
+          },
+          {
+            "color": "#ac92b6",
+            "finish": "gloss",
+            "pattern": "none",
+            "ink": "#fff0dc",
+            "decor": [],
+            "shape": "square",
+            "length": "short"
+          },
+          {
+            "color": "#af98bb",
+            "finish": "gloss",
+            "pattern": "dots",
+            "ink": "#583850",
+            "decor": [],
+            "shape": "square",
+            "length": "short"
+          },
+          {
+            "color": "#997caf",
+            "finish": "velvet",
+            "pattern": "none",
+            "ink": "#fff0dc",
+            "decor": [],
+            "shape": "square",
+            "length": "short"
+          },
+          {
+            "color": "#65445d",
+            "finish": "gloss",
+            "pattern": "none",
+            "ink": "#fff0dc",
+            "decor": [],
+            "shape": "square",
+            "length": "short"
+          }
+        ]
+      },
+      {
+        "name": "灰蓝可可细边",
+        "category": "cool",
+        "tint": "#dce5eb",
+        "detail": "雾霾蓝 × 热可可 · 单指蓝边 · 一粒金珠",
+        "tip": "拇指和无名指用热可可棕，食指和小指用雾霾蓝。中指用透裸粉打底，拿细笔沿甲尖勾一线雾霾蓝。无名指甲根点一粒小金珠，五指用亮面封层。",
+        "source": {
+          "label": "公开引用 · COSMOPOLITAN《2026秋冬格纹美甲》摩卡棕蓝灰配色",
+          "url": "https://www.cosmopolitan.com/tw/beauty/make-up/g74184063/2026-fall-winter-checked-nails/"
+        },
+        "nails": [
+          {
+            "color": "#654037",
+            "finish": "gloss",
+            "pattern": "none",
+            "ink": "#fff0dc",
+            "decor": [],
+            "shape": "square",
+            "length": "short"
+          },
+          {
+            "color": "#7796ab",
+            "finish": "gloss",
+            "pattern": "none",
+            "ink": "#fff0dc",
+            "decor": [],
+            "shape": "square",
+            "length": "short"
+          },
+          {
+            "color": "#d9ae9e",
+            "finish": "jelly",
+            "pattern": "micro",
+            "ink": "#7796ab",
+            "decor": [],
+            "shape": "square",
+            "length": "short"
+          },
+          {
+            "color": "#654037",
+            "finish": "gloss",
+            "pattern": "none",
+            "ink": "#fff0dc",
+            "decor": [
+              {
+                "kind": "gold",
+                "x": 50,
+                "y": 125,
+                "size": 12
+              }
+            ],
+            "shape": "square",
+            "length": "short"
+          },
+          {
+            "color": "#7796ab",
+            "finish": "gloss",
+            "pattern": "none",
+            "ink": "#fff0dc",
+            "decor": [],
+            "shape": "square",
+            "length": "short"
+          }
+        ]
+      },
+      {
+        "name": "焦糖咖啡微豹纹",
+        "category": "warm",
+        "tint": "#eddcd0",
+        "detail": "深咖纯色 · 一指焦糖豹纹 · 短方甲",
+        "tip": "拇指和无名指用浓咖色，中指与小指用焦糖米棕。食指在暖裸底上点几粒焦糖斑，再用深咖给斑点描不闭合的边。五指用亮面封层。",
+        "source": {
+          "label": "公开引用 · 旭茉 JESSICA《秋冬美甲2026》引小红书@咩咩",
+          "url": "https://www.jessicahk.com/beauty-wellness/秋冬美甲-顏色-款式-推薦-氣質顯白"
+        },
+        "nails": [
+          {
+            "color": "#50312b",
+            "finish": "gloss",
+            "pattern": "none",
+            "ink": "#fff0dc",
+            "decor": [],
+            "shape": "square",
+            "length": "short"
+          },
+          {
+            "color": "#d7ab88",
+            "finish": "gloss",
+            "pattern": "leopard",
+            "ink": "#55312b",
+            "decor": [],
+            "shape": "square",
+            "length": "short"
+          },
+          {
+            "color": "#b9815b",
+            "finish": "gloss",
+            "pattern": "none",
+            "ink": "#fff0dc",
+            "decor": [],
+            "shape": "square",
+            "length": "short"
+          },
+          {
+            "color": "#50312b",
+            "finish": "gloss",
+            "pattern": "none",
+            "ink": "#fff0dc",
+            "decor": [],
+            "shape": "square",
+            "length": "short"
+          },
+          {
+            "color": "#b9815b",
+            "finish": "gloss",
+            "pattern": "none",
+            "ink": "#fff0dc",
+            "decor": [],
+            "shape": "square",
+            "length": "short"
+          }
+        ]
+      },
+      {
+        "name": "奶霜白线法式",
+        "category": "soft",
+        "tint": "#f3e9e2",
+        "detail": "桃裸底 · 奶白细边 · 一颗小珍珠",
+        "tip": "拇指、中指和小指用透桃裸底，在甲尖勾奶白细线。食指整片涂奶白，无名指保留透桃裸底，在甲根贴一颗小珍珠。五指用亮面封层。",
+        "source": {
+          "label": "公开引用 · COSMOPOLITAN《伪素甲美甲》透白法式专题",
+          "url": "https://www.cosmopolitan.com/tw/beauty/make-up/g74138509/2026-white-cat-eye-nails/"
+        },
+        "nails": [
+          {
+            "color": "#dab1a3",
+            "finish": "jelly",
+            "pattern": "micro",
+            "ink": "#fff0d8",
+            "decor": [],
+            "shape": "square",
+            "length": "short"
+          },
+          {
+            "color": "#f6ead7",
+            "finish": "gloss",
+            "pattern": "none",
+            "ink": "#fff0dc",
+            "decor": [],
+            "shape": "square",
+            "length": "short"
+          },
+          {
+            "color": "#dab1a3",
+            "finish": "jelly",
+            "pattern": "micro",
+            "ink": "#fff0d8",
+            "decor": [],
+            "shape": "square",
+            "length": "short"
+          },
+          {
+            "color": "#dab1a3",
+            "finish": "jelly",
+            "pattern": "none",
+            "ink": "#fff0dc",
+            "decor": [
+              {
+                "kind": "pearl",
+                "x": 50,
+                "y": 122,
+                "size": 13
+              }
+            ],
+            "shape": "square",
+            "length": "short"
+          },
+          {
+            "color": "#dab1a3",
+            "finish": "jelly",
+            "pattern": "micro",
+            "ink": "#fff0d8",
+            "decor": [],
+            "shape": "square",
+            "length": "short"
+          }
+        ]
+      },
+      {
+        "name": "苔绿猫眼小雏菊",
+        "category": "soft",
+        "tint": "#e4e7d5",
+        "detail": "苔绿斜光 · 透明裸底 · 单朵小雏菊",
+        "tip": "拇指和无名指用苔绿猫眼吸一道斜光，食指和小指涂同色纯胶。中指用透裸底，点五个白点围住一个奶黄色花心。五指用亮面封层。",
+        "source": {
+          "label": "公开引用 · Bella 儂儂《2026绿色玻璃珠猫眼美甲》引小红书墨绿猫眼",
+          "url": "https://www.bella.tw/articles/makeup/58829/green-glass-cat-eye-nails-2026"
+        },
+        "nails": [
+          {
+            "color": "#687450",
+            "finish": "cat",
+            "pattern": "none",
+            "ink": "#fff0dc",
+            "decor": [],
+            "shape": "square",
+            "length": "short"
+          },
+          {
+            "color": "#687450",
+            "finish": "gloss",
+            "pattern": "none",
+            "ink": "#fff0dc",
+            "decor": [],
+            "shape": "square",
+            "length": "short"
+          },
+          {
+            "color": "#dcb49f",
+            "finish": "jelly",
+            "pattern": "none",
+            "ink": "#fff0dc",
+            "decor": [
+              {
+                "kind": "flower",
+                "x": 49,
+                "y": 105,
+                "size": 17
+              }
+            ],
+            "shape": "square",
+            "length": "short"
+          },
+          {
+            "color": "#687450",
+            "finish": "cat",
+            "pattern": "none",
+            "ink": "#fff0dc",
+            "decor": [],
+            "shape": "square",
+            "length": "short"
+          },
+          {
+            "color": "#687450",
+            "finish": "gloss",
+            "pattern": "none",
+            "ink": "#fff0dc",
+            "decor": [],
+            "shape": "square",
+            "length": "short"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "date": "2026-11-12",
+    "recipes": [
+      {
+        "name": "落日鎏金琥珀",
+        "category": "warm",
+        "tint": "#eddbc5",
+        "detail": "蜜琥珀 · 金色猫眼 · 一角碎金",
+        "tip": "用半透琥珀棕统一底色。拇指吸斜光，中指把磁光围成椭圆，食指和小指做纯色，无名指靠边点一点碎金。",
+        "source": {
+          "label": "小红书灵感 · 井小七《落日鎏金猫眼》",
+          "url": "https://www.xiaohongshu.com/explore/6a9e85dd000000001200304e"
+        },
+        "nails": [
+          {
+            "color": "#a6662a",
+            "finish": "cat",
+            "pattern": "none",
+            "ink": "#fff0dc",
+            "decor": [],
+            "shape": "square",
+            "length": "short"
+          },
+          {
+            "color": "#9c5728",
+            "finish": "jelly",
+            "pattern": "none",
+            "ink": "#fff0dc",
+            "decor": [],
+            "shape": "square",
+            "length": "short"
+          },
+          {
+            "color": "#b87928",
+            "finish": "glass",
+            "pattern": "none",
+            "ink": "#fff0dc",
+            "decor": [],
+            "shape": "square",
+            "length": "short"
+          },
+          {
+            "color": "#ab6128",
+            "finish": "jelly",
+            "pattern": "none",
+            "ink": "#fff0dc",
+            "decor": [
+              {
+                "kind": "foilGold",
+                "x": 66,
+                "y": 48,
+                "size": 18
+              }
+            ],
+            "shape": "square",
+            "length": "short"
+          },
+          {
+            "color": "#a66028",
+            "finish": "jelly",
+            "pattern": "none",
+            "ink": "#fff0dc",
+            "decor": [],
+            "shape": "square",
+            "length": "short"
+          }
+        ]
+      },
+      {
+        "name": "韩式灰棕珍珠边",
+        "category": "korean",
+        "tint": "#ece0d7",
+        "detail": "透灰奶咖 · 两条细法式 · 单颗珍珠",
+        "tip": "用一层灰奶咖打底。食指和无名指勾极细深咖边，中指在甲根点一颗小珍珠，其余两片保留素色水光。",
+        "source": {
+          "label": "小红书灵感 · 秋冬低饱和灰棕奶茶",
+          "url": "https://www.xiaohongshu.com/explore/6abf86fe000000001a0261ec"
+        },
+        "nails": [
+          {
+            "color": "#ae8f7a",
+            "finish": "jelly",
+            "pattern": "none",
+            "ink": "#fff0dc",
+            "decor": [],
+            "shape": "square",
+            "length": "short"
+          },
+          {
+            "color": "#aa8b76",
+            "finish": "jelly",
+            "pattern": "micro",
+            "ink": "#4c2e25",
+            "decor": [],
+            "shape": "square",
+            "length": "short"
+          },
+          {
+            "color": "#ae8d78",
+            "finish": "jelly",
+            "pattern": "none",
+            "ink": "#fff0dc",
+            "decor": [
+              {
+                "kind": "pearl",
+                "x": 50,
+                "y": 127,
+                "size": 13
+              }
+            ],
+            "shape": "square",
+            "length": "short"
+          },
+          {
+            "color": "#a98974",
+            "finish": "jelly",
+            "pattern": "micro",
+            "ink": "#4c2e25",
+            "decor": [],
+            "shape": "square",
+            "length": "short"
+          },
+          {
+            "color": "#ac8e79",
+            "finish": "jelly",
+            "pattern": "none",
+            "ink": "#fff0dc",
+            "decor": [],
+            "shape": "square",
+            "length": "short"
+          }
+        ]
+      },
+      {
+        "name": "芭蕾透粉玻璃珠",
+        "category": "soft",
+        "tint": "#f1dee2",
+        "detail": "清透芭蕾粉 · 双指玻璃珠 · 一颗小钻",
+        "tip": "五片薄涂透粉，不需要渐变。拇指和无名指吸玻璃珠猫眼，中指的甲根点一颗小钻，留两片清透纯色。",
+        "source": {
+          "label": "小红书灵感 · Aoteman_ 裸色猫眼",
+          "url": "https://www.rednote.com/zh/discovery/item/69c7f8cb000000001a02b7a0"
+        },
+        "nails": [
+          {
+            "color": "#daa9af",
+            "finish": "glass",
+            "pattern": "none",
+            "ink": "#fff0dc",
+            "decor": [],
+            "shape": "square",
+            "length": "short"
+          },
+          {
+            "color": "#dbadb0",
+            "finish": "jelly",
+            "pattern": "none",
+            "ink": "#fff0dc",
+            "decor": [],
+            "shape": "square",
+            "length": "short"
+          },
+          {
+            "color": "#d8aaad",
+            "finish": "jelly",
+            "pattern": "none",
+            "ink": "#fff0dc",
+            "decor": [
+              {
+                "kind": "microGem",
+                "x": 51,
+                "y": 130,
+                "size": 13
+              }
+            ],
+            "shape": "square",
+            "length": "short"
+          },
+          {
+            "color": "#d9a3aa",
+            "finish": "glass",
+            "pattern": "none",
+            "ink": "#fff0dc",
+            "decor": [],
+            "shape": "square",
+            "length": "short"
+          },
+          {
+            "color": "#dcafb2",
+            "finish": "jelly",
+            "pattern": "none",
+            "ink": "#fff0dc",
+            "decor": [],
+            "shape": "square",
+            "length": "short"
+          }
+        ]
+      },
+      {
+        "name": "冰银细边水滴",
+        "category": "cool",
+        "tint": "#e5e5eb",
+        "detail": "淡冰银 · 极细银边 · 透明水滴",
+        "tip": "用低饱和银灰做底，拇指吸一条细斜光。食指和小指描极细银边，给无名指点一滴透明建构胶。",
+        "source": {
+          "label": "小红书灵感 · 银灰猫眼穿戴甲",
+          "url": "https://www.rednote.com/zh/discovery/item/68f06dba00000000070327cb"
+        },
+        "nails": [
+          {
+            "color": "#a8a9ac",
+            "finish": "cat",
+            "pattern": "none",
+            "ink": "#fff0dc",
+            "decor": [],
+            "shape": "square",
+            "length": "short"
+          },
+          {
+            "color": "#b8b0ac",
+            "finish": "jelly",
+            "pattern": "silverTip",
+            "ink": "#e8e9ef",
+            "decor": [],
+            "shape": "square",
+            "length": "short"
+          },
+          {
+            "color": "#b3b3c1",
+            "finish": "glitter",
+            "pattern": "none",
+            "ink": "#fff0dc",
+            "decor": [],
+            "shape": "square",
+            "length": "short"
+          },
+          {
+            "color": "#b3afba",
+            "finish": "jelly",
+            "pattern": "none",
+            "ink": "#fff0dc",
+            "decor": [
+              {
+                "kind": "waterDrop",
+                "x": 61,
+                "y": 59,
+                "size": 20
+              }
+            ],
+            "shape": "square",
+            "length": "short"
+          },
+          {
+            "color": "#b8b3b4",
+            "finish": "jelly",
+            "pattern": "silverTip",
+            "ink": "#e8e9ef",
+            "decor": [],
+            "shape": "square",
+            "length": "short"
+          }
+        ]
+      },
+      {
+        "name": "酒渍红丝绒",
+        "category": "warm",
+        "tint": "#eed9dd",
+        "detail": "浓酒红 · 丝绒猫眼 · 单颗金珠",
+        "tip": "用同一支酒红胶做深浅跳色。拇指和小指叠酒红丝绒猫眼，中指用深一度的红，在甲根点一颗小金珠。",
+        "source": {
+          "label": "小红书灵感 · 显白红色系美甲",
+          "url": "https://www.xiaohongshu.com/explore/69421b6c000000001d03e854"
+        },
+        "nails": [
+          {
+            "color": "#6f1826",
+            "finish": "velvet",
+            "pattern": "none",
+            "ink": "#fff0dc",
+            "decor": [],
+            "shape": "square",
+            "length": "short"
+          },
+          {
+            "color": "#841e2d",
+            "finish": "jelly",
+            "pattern": "none",
+            "ink": "#fff0dc",
+            "decor": [],
+            "shape": "square",
+            "length": "short"
+          },
+          {
+            "color": "#59101a",
+            "finish": "gloss",
+            "pattern": "none",
+            "ink": "#fff0dc",
+            "decor": [
+              {
+                "kind": "gold",
+                "x": 51,
+                "y": 129,
+                "size": 13
+              }
+            ],
+            "shape": "square",
+            "length": "short"
+          },
+          {
+            "color": "#811a26",
+            "finish": "jelly",
+            "pattern": "none",
+            "ink": "#fff0dc",
+            "decor": [],
+            "shape": "square",
+            "length": "short"
+          },
+          {
+            "color": "#6b1122",
+            "finish": "velvet",
+            "pattern": "none",
+            "ink": "#fff0dc",
+            "decor": [],
+            "shape": "square",
+            "length": "short"
+          }
+        ]
+      }
+    ]
+  }
+]

@@ -18,6 +18,67 @@ const palette = [
   ["海盐蓝","#b6d2e6"],["晴空蓝","#7eabc7"],["灰紫","#afa3bf"],["薰衣草","#c9b6e7"],["贝壳灰","#d0c9c7"],["石墨黑","#39323d"],["银白","#e8e9ef"],
   ["冰透白","#f1e9e4"],["透明裸粉","#f1d2cc"],["烟灰奶茶","#a58b7c"],["摩卡棕","#765446"],["蜂蜜琥珀","#dca162"],["黑樱桃","#491b2f"],["熟葡萄","#563762"],["香槟金","#d9b887"]
 ];
+// Base tones are visual approximations of the linked swatch photos.
+const catEyeSeries = [
+  {id:"monet", name:"莫奈睡莲", photo:"https://yunanail.com/cdn/shop/files/C9DA0F99-5632-4C11-A258-384DA22CA2D8.jpg?v=1748573886",
+    colors:["#a29dbd","#cb9ba6","#aa96b0","#b77a91","#a66c84","#a1ae75","#6d9a89","#76a6ac","#789bb7","#594262"]},
+  {id:"pets", name:"萌宠爆火", photo:"https://yunanail.com/cdn/shop/files/500B2260-117E-4F92-84C0-489705E8A0D4.jpg?v=1737778868",
+    colors:["#c08822","#344452","#a42420","#b84e67","#78334a","#463148","#b7a3b6","#a68fae","#8c9bc0","#c5bcba"]},
+  {id:"scavenger", name:"拾荒者", photo:"https://down-tw.img.susercontent.com/file/tw-11134207-7rasc-m3yx8vpu1pj4a9",
+    colors:["#c9ab9d","#c7ac95","#c6ad96","#c2a382","#cbb078","#d2a28e","#c5b18f","#bc9786","#977259","#8b7965"]},
+  {id:"kitten", name:"喵星人", photo:"https://yunanail.com/cdn/shop/files/247E2A89-C3E9-4AE0-BA86-20FC568D1B9B.jpg?v=1748660622",
+    colors:["#c7cbcc","#c4bdaf","#aebdc7","#ba9db1","#a89dbb","#c49a9b","#b5a173","#b3a0b7","#889acb","#767eb0","#184658","#b31f29"]},
+  {id:"orange", name:"橘子海", photo:"https://yunanail.com/cdn/shop/files/50A65F26-3CE1-477D-A47C-225C6F5F066D.jpg?v=1737776482",
+    colors:["#bbbcb2","#c6af99","#c899a5","#c4ac76","#bc9863","#bf9857","#9e9a9d","#9d654a","#b17b44","#76503d","#b77542","#b66d70"]},
+  {id:"amber", name:"琥珀流光", photo:"https://down-tw.img.susercontent.com/file/tw-11134207-81ztj-mhvcqb3h4hs479",
+    colors:["#a08452","#8f6c66","#9c6761","#a47719","#776238","#09666e","#3a3746","#8b4d20","#863224","#453023","#613038","#2b3731"]},
+  {id:"mocha", name:"摩卡慕斯", photo:"https://yunanail.com/cdn/shop/files/IMG_8882.jpg?v=1779485854",
+    colors:["#62432b","#875328","#b97f61","#b88a59","#a98a70","#dfc4b8","#d2b9ac","#e1c7bf","#dfd6cb"]},
+  {id:"watery", name:"水汪汪", photo:"https://yunanail.com/cdn/shop/files/BBA50D08-DC05-4ED4-B660-5E34EE71A6A1.jpg?v=1780026362&width=1600",
+    colors:["#ddd2d1","#d7bbaf","#d4c5b4","#dad7c0","#d4bfb2","#975635","#71477e","#841933"]},
+  {id:"mountain", name:"青山粉黛", photo:"https://yunanail.com/cdn/shop/files/92C41CD1-29BF-4FCB-8FF0-4CD2BE655FDD.jpg?v=1734675845",
+    colors:["#c5cfc3","#cbccaa","#d5cf94","#d6b1b5","#d5aaa8","#ba9cae"]},
+  {id:"black-bottle", name:"小黑瓶", photo:"https://down-tw.img.susercontent.com/file/tw-11134208-81ztd-mf595r5jkzkdf1",
+    colors:[
+      "#ceb59e","#ddc3c6","#c7b7d3","#b4afb3","#dad9dd","#b6c6ad","#a5bdd4","#a4aab7","#d4cbc6","#d7cec0",
+      "#c5a5b6","#d6c2d4","#b7869b","#c6a799","#91bdb1","#a1c2d9","#97a3bb","#b68c77","#bba09c","#b2a498",
+      "#c884a0","#b6aea4","#c2a497","#a5c6c6","#c1c4c6","#c595a7","#d4c396","#c3b2be","#c54985","#b46aa5",
+      "#2989a3","#7eab9c","#747caa","#a42c44","#94275b","#3f55ac","#b48785","#bc677d","#b33e65","#9dc1dc",
+      "#cc5164","#d74d91","#44a4a5","#cfac78","#c29344","#a78b45","#408ec3","#788745","#8f7746","#a66349",
+      "#35333b","#92929b","#438fc0","#c4439b","#4f8c9a","#6fbba9","#a63257","#802538","#c8a443","#807589"
+    ]},
+  {id:"garden", name:"满庭芳", photo:"https://down-tw.img.susercontent.com/file/tw-11134207-7r98w-lwehiduk42sm41",
+    colors:["#a1a28a","#a9a088","#bfa4a6","#af8a88","#b5a193","#a87e60","#9f8996","#a1aca8","#aaa0b4","#bcaaa7",
+      "#b3aaa8","#78734b","#664a47","#b94746","#397689","#841f31","#642746","#a84724","#794719","#bc7b14"]},
+  {id:"bamboo", name:"竹林深处", photo:"https://yunanail.com/cdn/shop/files/7B87CD85-1008-4718-AFAF-02B42E5AF6B0.jpg?v=1734675944",
+    colors:["#cbb8a9","#c6bbb1","#ceb3ab","#cca9a7","#cf9aa4","#c7b5c0","#cbb9c6","#bfb6c4",
+      "#a9a7bd","#b3bdb2","#b5bd68","#a0afb9","#97afb1","#90afc0","#9abcc4","#65aaab"]},
+  {id:"dew", name:"湿漉漉", photo:"https://yunanail.com/cdn/shop/files/D0039564-2675-4B4F-A84B-8A31F345471D.jpg?v=1779484422",
+    colors:["#bcaeb4","#beb3a7","#b7babc","#c2b6a1","#acb8b6","#c2afa6","#a6adb0","#c6baa1","#a6b7b5","#c3b3bb"]},
+  {id:"clear-water", name:"白开水", photo:"https://down-tw.img.susercontent.com/file/tw-11134201-81zti-mgg0fy4on6dnc8",
+    colors:["#a0b6bf","#a2adb6","#b3a9b4","#a5a5bd","#aab4a6","#b4aea4","#b9a3ac","#b9a396","#af849d"]},
+  {id:"begonia", name:"海棠未雨", photo:"https://down-tw.img.susercontent.com/file/tw-11134208-7rasj-m3zrqlwjt6xze5",
+    colors:["#8c9293","#909589","#8f887c","#a09587","#a18791","#9c8f76","#9e8979","#987b8e","#84768b","#648895","#647996","#5b8b94","#738173","#568482"]},
+  {id:"peach-bobo", name:"蜜桃啵啵", photo:"https://yunanail.com/cdn/shop/files/12DBD353-503A-48FC-A9A0-CCFAAC89D566.jpg?v=1743826743&width=720",
+    colors:["#a9b1ad","#b2aab3","#aea6a0","#b29ea9","#b6b7a1","#bcb09b","#c0af89","#c2a79b","#a6aea5","#aeb0b3","#baaaa5","#b3a38b"]},
+  {id:"soft-highlight", name:"纯欲高光", photo:"https://cdn.yamibuy.net/item/564386137a5ad13fee1a56f7c5bcffd1_757x757.webp",
+    colors:["#c3c0ad","#acbdb3","#c4a4a0","#c8ba90","#c5c481","#c8898e","#8cb09b","#b0afbc","#94abb0","#c3a38d","#c49685","#b98a35"]},
+  {id:"iced-jasmine", name:"冰茉莉气泡水", photo:"https://yunanail.com/cdn/shop/files/8C4574B0-94DF-4078-BC98-9C1CEC6DA994.jpg?v=1748573159",
+    colors:["#b8afba","#b8a9c3","#9c92c3","#68a9b5","#6c93bf","#a5adbe","#b498b4","#9589b1","#b38e8b","#539cbb"]}
+];
+const catEyeReferences = [
+  ["诗经 · 22色试色","https://www.bilibili.com/video/BV1G5411C7kC/"],
+  ["小熊曲奇 · 开箱试色","https://www.douyin.com/video/7685984731255289698"],
+  ["楼兰古城 · 商品图","https://shopee.tw/%E8%8A%B1%E6%A0%A1%E9%95%B7-%E6%A8%93%E8%98%AD%E5%8F%A4%E5%9F%8E%E7%93%B7%E7%99%BD%E8%B2%93%E7%9C%BC-%E7%8E%BB%E7%92%83%E7%8F%A0%E8%B2%93%E7%9C%BC-%E7%A7%8B%E5%86%AC%E6%B7%B1%E8%89%B2%E8%AA%BF%E8%B2%93%E7%9C%BC-8g-i.1252864.27571325112"],
+  ["彩色宝石 · 01号","https://www.yami.com/us/zh/p/cat-s-eye-colored-gemstone-shade-01-5g-per-can-free-gift-spinning-top-glass-beads-magic-tool-and-magnet-gifts-cannot-be-stacked-for-the-same-order-chocolate-brown/3194264561"],
+  ["绸缎猫眼 · 02号","https://www.yami.com/us/zht/p/gel-nail-polish-satin-cat-eye-no-02-5g-per-jar-free-matte-glow-pigment-powder-no-multiple-free-gifts-for-the-same-order/3194169671"],
+  ["香槟金与麦田守望者 · 商品图","https://yunanail.com/products/principal-flower-champion-gold-cat-eye-gel-4-5g-jar-4-colors-%E8%8A%B1%E6%A0%A1%E9%95%BF-%E9%A6%99%E6%A7%9F%E9%87%91-%E9%BA%A6%E7%94%B0%E5%AE%88%E6%9C%9B%E8%80%85-%E7%88%86%E9%97%AA%E7%8C%AB%E7%9C%BC"],
+  ["葡萄冰茶 · 试色","https://www.douyin.com/video/7595934146775174830"]
+];
+const catEyeShades = new Map(catEyeSeries.flatMap(series => series.colors.map((color,index) => {
+  const number = String(index+1).padStart(2,"0");
+  return [series.id+"-"+number, {series,number,color}];
+})));
 const patterns = {
   none: "无花纹", french: "法式边", micro: "细法式", ombre: "渐变晕染", dots: "波点", plaid: "格纹", marble: "大理石",
   flowers: "小雏菊", cherry: "小樱桃", waves: "海浪线", tortoise: "琥珀玳瑁", hearts: "小爱心", stripe: "斜纹",
@@ -54,6 +115,15 @@ function icon(name) {
 const hex = (value) => /^#[0-9a-f]{6}$/i.test(value || "") ? value.toLowerCase() : "#f3cadb";
 const copy = (value) => JSON.parse(JSON.stringify(value));
 const colorName = (value) => palette.find(([, color]) => color === value)?.[0] ?? value.toUpperCase();
+const catEyeName = (shade) => "花校长 "+shade.series.name+" "+shade.number+"号";
+function catEyeShade(item) {
+  const shade = catEyeShades.get(item.catEyeShadeId);
+  return shade && shade.color === item.color && item.finish === "glass" ? shade : null;
+}
+const nailColorName = (item) => {
+  const shade = catEyeShade(item);
+  return shade ? catEyeName(shade) : colorName(item.color);
+};
 const escapeText = (value) => String(value).replace(/[&<>"']/g, (char) => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[char]);
 const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
 function mix(color, target, amount) {
@@ -69,7 +139,7 @@ function dots(seed, count, build) {
 const nail = (color, finish = "gloss", pattern = "none", ink = "#fff0dc", decor = [], shape = "almond", length = "long") =>
   ({color, finish, pattern, ink, decor, shape, length});
 const charm = (kind, x = 50, y = 85, size = 25) => ({kind,x,y,size});
-const presets = [
+const originalRecipes = [
   {name:"草莓奶霜", detail:"莓果红 · 法式边 · 蝴蝶结", tint:"#f3d7e1", nails:[
     nail("#b83c58","gloss","french","#f3cadb", [charm("pearl",50,105,13)]),
     nail("#f3cadb","jelly","cherry","#b83c58"),
@@ -105,6 +175,7 @@ const seasonalNail = (color, finish, pattern = "none", ink = "#fff0dc", decor = 
 
 // Coordinates trace the five tips in the original 1536 × 1024 product image.
 const referenceImage = "atelier-materials.webp";
+const gelSurface = "gloss-gel.webp";
 const referenceTips = [
   {label:"玫瑰猫眼", center:266, bottom:671,
     path:"M270 326C332 324 367 370 376 434C381 475 380 529 380 572C379 626 360 653 321 666C288 674 229 672 199 658C165 642 151 616 151 577C151 522 155 477 165 428C180 366 219 329 270 326Z",
@@ -127,8 +198,164 @@ const referenceSet = {
   tip:"拇指和无名指做两种深浅的玻璃珠猫眼，食指和小指用细蕾丝，中指用奶油色立体山茶。",
   nails:referenceTips.map(({style},index) => ({...style,photo:index}))
 };
-const trendPresets = [
+const photoTips = new Map(referenceTips.map((tip,index) => [String(index), {...tip,image:referenceImage}]));
+function photoCollection(id, details, tips) {
+  const nails = tips.map(([label,color,finish,pattern,ink],cell) => {
+    const photo = id+"-"+cell;
+    const style = nail(color,finish,pattern,ink,[],"oval","medium");
+    photoTips.set(photo,{label,style,image:id+"-nails.webp",cell});
+    return {...style,photo};
+  });
+  return {...details,nails};
+}
+const featuredCollections = [
   referenceSet,
+  photoCollection("ice",{
+    name:"冰蓝贝母", category:"cool", detail:"冰透猫眼 · 珠母碎片 · 水滴", tint:"#e3e9ed",
+    tip:"用冰蓝斜光猫眼和奶白贝母交替搭配。中指保留透蓝水滴，无名指收一圈细银边。"
+  },[
+    ["冰蓝猫眼","#9fbed5","glass","none","#fff0dc"],
+    ["白贝母","#d9d8d1","pearl","none","#fff0dc"],
+    ["冰透水滴","#91aebd","jelly","none","#fff0dc"],
+    ["细银法式","#abbac3","jelly","silverTip","#e8e9ef"],
+    ["珍珠贝纹","#e4ded0","pearl","shellGrain","#fff1e5"]
+  ]),
+  photoCollection("cherry",{
+    name:"黑樱桃金箔", category:"warm", detail:"酒红猫眼 · 裸粉法式 · 碎金箔", tint:"#ecddd9",
+    tip:"深浅酒红做跳色，配一片裸粉红边和一片琥珀流纹，碎金箔集中在中指。"
+  },[
+    ["酒红猫眼","#681b32","glass","none","#fff0dc"],
+    ["黑樱桃法式","#dfadab","jelly","french","#4d1223"],
+    ["黑樱桃金箔","#4b1826","gloss","none","#fff0dc"],
+    ["琥珀流纹","#be7e70","jelly","amberFlow","#94513f"],
+    ["香槟金边","#79263d","jelly","micro","#d9b887"]
+  ])
+];
+const newCollections = [
+  photoCollection("strawberry-blush",{
+    name:"草莓牛奶腮红", category:"soft", detail:"透粉腮红 · 细银闪 · 单颗水钻", tint:"#f0dbe1",
+    tip:"先铺透奶粉，再把草莓色晕在甲面中央，边缘留透。水钻集中在中指。"
+  },[
+    ["奶粉腮红","#dfa4ac","jelly","halo","#d78b9a"],
+    ["透粉银闪","#eac0c7","glitter","none","#fff0dc"],
+    ["草莓水钻","#db939f","jelly","halo","#d46e87"],
+    ["玫粉渐变","#dfa1ad","jelly","ombre","#cc7f94"],
+    ["细粉法式","#e3b0b7","jelly","micro","#e9b9c1"]
+  ]),
+  photoCollection("pink-glass",{
+    name:"裸粉玻璃珠", category:"soft", detail:"裸玫瑰 · 玻璃珠猫眼 · 极细银边", tint:"#eee0e2",
+    tip:"让裸粉、浅玫瑰和奶白透色交替，细闪和银边各点一片。"
+  },[
+    ["裸粉珠光","#d9aeb6","glass","none","#fff0dc"],
+    ["裸玫瑰猫眼","#c68e9e","glass","none","#fff0dc"],
+    ["透粉细闪","#e2bcc3","glitter","none","#fff0dc"],
+    ["奶粉光晕","#e5c6c6","jelly","halo","#e7aeba"],
+    ["银月猫眼","#deb4bf","glass","silverTip","#e8e9ef"]
+  ]),
+  photoCollection("white-peach",{
+    name:"白桃水钻", category:"soft", detail:"白桃果冻 · 透明碎钻 · 奶白法式", tint:"#f1e0d8",
+    tip:"用浅白桃渐变配透明碎钻，白边和珠光留得细一点，保留底色的透感。"
+  },[
+    ["白桃水滴","#ecc5b8","jelly","none","#fff0dc"],
+    ["白桃渐变","#e9b4a5","jelly","ombre","#f5dfd1"],
+    ["白桃碎钻","#e6b7ab","jelly","none","#fff0dc"],
+    ["奶白法式","#e8c5b7","jelly","micro","#f4e7dc"],
+    ["透粉珠光","#eac6c5","pearl","none","#fff0dc"]
+  ]),
+  photoCollection("cream-ribbon",{
+    name:"奶油珍珠蝴蝶结", category:"korean", detail:"奶油微法式 · 小珍珠 · 透明蝴蝶结", tint:"#efe6df",
+    tip:"用奶油裸色打底，中指留一只小蝴蝶结，珍珠和极细白边分到其他指。"
+  },[
+    ["奶油微法式","#e0c2b7","jelly","micro","#fff4e6"],
+    ["香槟单珠","#ddc8b3","pearl","none","#fff0dc"],
+    ["透明奶油蝴蝶结","#dbc0b4","jelly","none","#fff0dc"],
+    ["弧形珍珠边","#e0cdbb","jelly","none","#fff0dc"],
+    ["奶白缎带线","#e2c2bd","jelly","waves","#fff3eb"]
+  ]),
+  photoCollection("latte-french",{
+    name:"奶咖极细法式", category:"korean", detail:"透奶咖 · 极细咖啡边 · 微珍珠", tint:"#ebe1d6",
+    tip:"用浅奶咖和透裸粉做底，法式边只勾细线，珍珠只点一颗。"
+  },[
+    ["奶咖细边","#ccb3a1","jelly","micro","#9b7560"],
+    ["深咖细边","#e3cec1","jelly","micro","#664439"],
+    ["裸粉双细线","#d9b7ad","jelly","micro","#956654"],
+    ["灰咖微珍珠","#ddc5b7","jelly","micro","#9c8174"],
+    ["奶油极细边","#dfc2b5","jelly","micro","#efe0d1"]
+  ]),
+  photoCollection("sakura-crystal",{
+    name:"樱花碎钻", category:"korean", detail:"淡樱粉 · 小花瓣 · 透明碎钻", tint:"#eee0e7",
+    tip:"用淡樱粉和一点浅紫跳色。细碎花瓣放在食指和小指，透明碎钻留在中指。"
+  },[
+    ["樱粉光晕","#dca9b8","jelly","halo","#d991a9"],
+    ["奶粉樱花","#e2bbc7","jelly","flowers","#ebc2d0"],
+    ["淡紫碎钻","#d9b3cb","jelly","none","#fff0dc"],
+    ["樱粉贝母","#dfbacb","pearl","shellGrain","#f7e6ec"],
+    ["淡樱细花瓣","#d9aebf","jelly","flowers","#edccd6"]
+  ])
+];
+const colorCollections = [
+  photoCollection("peach-dew",{
+    name:"蜜桃晨露", category:"daily", detail:"蜜桃果冻 · 水滴 · 珊瑚猫眼", tint:"#f3e1d8",
+    tip:"以透蜜桃色打底，拇指做水滴，中指用珊瑚色猫眼，配一片淡金箔和一片桃色流纹。"
+  },[
+    ["蜜桃水滴","#e2a693","jelly","none","#fff0dc"],
+    ["桃奶渐变","#e9aa96","jelly","ombre","#fff0dc"],
+    ["珊瑚猫眼","#c77770","glass","none","#fff0dc"],
+    ["蜜粉金箔","#e8b8a7","jelly","none","#fff0dc"],
+    ["蜜桃流纹","#eab8a2","jelly","marble","#d08d73"]
+  ]),
+  photoCollection("champagne-pearl",{
+    name:"香槟珍珠", category:"warm", detail:"香槟猫眼 · 珠母 · 立体珍珠", tint:"#eee3d3",
+    tip:"让浅香槟和暖奶白交替，中指集中点三颗小珍珠，无名指收细金边。"
+  },[
+    ["香槟猫眼","#c6ad8b","glass","none","#fff0dc"],
+    ["奶白珠母","#dfd3bf","pearl","none","#fff0dc"],
+    ["香槟珍珠","#cdb49b","jelly","none","#fff0dc"],
+    ["细金法式","#bb9f85","jelly","micro","#d9b887"],
+    ["拿铁金粉","#d5bea3","glitter","none","#fff0dc"]
+  ]),
+  photoCollection("lake-glass",{
+    name:"湖绿琉璃", category:"cool", detail:"翡翠猫眼 · 青瓷流纹 · 透明水滴", tint:"#d9e8e2",
+    tip:"用翡翠和青瓷绿做深浅跳色。中指留透明水滴，细金线只点在无名指。"
+  },[
+    ["翡翠猫眼","#41786e","glass","none","#fff0dc"],
+    ["青瓷流纹","#a8c3af","jelly","marble","#759b87"],
+    ["湖绿水滴","#5d8a88","jelly","none","#fff0dc"],
+    ["玉绿金线","#8db19d","jelly","waves","#c9ac77"],
+    ["薄荷晕染","#a5c4b3","jelly","smoke","#588e8e"]
+  ]),
+  photoCollection("silver-stardust",{
+    name:"银雾星河", category:"cool", detail:"石墨猫眼 · 银星 · 镜面银", tint:"#e0e2e8",
+    tip:"以透灰和蓝黑做跳色，用一片镜面银提亮，银星和微闪留在中指。"
+  },[
+    ["石墨猫眼","#4f515d","glass","none","#fff0dc"],
+    ["烟灰银粉","#8c8b95","glitter","none","#fff0dc"],
+    ["蓝黑银星","#343846","gloss","none","#fff0dc"],
+    ["镜面银","#babcc4","chrome","none","#fff0dc"],
+    ["雾灰银边","#686a75","jelly","silverTip","#e8e9ef"]
+  ]),
+  photoCollection("violet-wing",{
+    name:"蓝紫蝶翼", category:"cool", detail:"蓝紫猫眼 · 透明蝶翼 · 虹彩贝母", tint:"#e4deec",
+    tip:"雾蓝紫猫眼做主色，中指用透明蝶翼，无名指用贝母纹与之呼应。"
+  },[
+    ["雾紫猫眼","#9097be","glass","none","#fff0dc"],
+    ["靛紫渐变","#8d80b6","jelly","ombre","#5d589c"],
+    ["透明蝶翼","#898cbc","jelly","none","#fff0dc"],
+    ["紫虹贝母","#b3a1c5","pearl","shellGrain","#f0e8f3"],
+    ["暮紫细闪","#625880","glitter","none","#fff0dc"]
+  ]),
+  photoCollection("ivory-relief",{
+    name:"奶白浮雕", category:"daily", detail:"奶白蕾丝 · 立体山茶 · 贝纹", tint:"#efe7dc",
+    tip:"用透奶白和淡裸粉做层次，山茶放在食指，细蕾丝和贝纹各占一片。"
+  },[
+    ["奶白蕾丝","#dfc9b8","jelly","lace","#fff2e4"],
+    ["白瓷山茶","#e2d5c2","jelly","porcelain","#fff7e8"],
+    ["奶油贝纹","#e8d8c3","pearl","shellGrain","#fff1e5"],
+    ["珍珠法式","#dcbfae","jelly","french","#f9eddf"],
+    ["透白浮纹","#e4d7c8","jelly","shellGrain","#fff7e8"]
+  ])
+];
+const seasonalRecipes = [
   {name:"水光蕾丝", category:"daily", detail:"裸棕 · 莓茶猫眼 · 蕾丝与浮雕", tint:"#eddfd1",
     tip:"用裸棕和奶油白做跳色。拇指用玫瑰棕猫眼，中指用莓茶色，其余搭配细蕾丝、浮雕山茶和贝母细纹。",
     nails:[
@@ -193,6 +420,31 @@ const trendPresets = [
       nail("#563762","velvet","none","#fff0dc",[],"oval","medium")
     ]}
 ];
+
+function photographRecipes(ids, recipes) {
+  return recipes.map((recipe,index) => {
+    const id = ids[index];
+    const nails = recipe.nails.map((item,cell) => {
+      const photo = id+"-"+cell;
+      const style = {...item,finish:item.finish === "matte" ? "gloss" : item.finish};
+      const label = fingers[cell]+" · "+(item.pattern === "none" ? finishes[style.finish] : patterns[item.pattern]);
+      photoTips.set(photo,{label,style,image:id+"-nails.webp",cell});
+      return {...style,photo};
+    });
+    return {...recipe,nails};
+  });
+}
+
+const trendPresets = [
+  ...featuredCollections,
+  ...newCollections,
+  ...colorCollections,
+  ...photographRecipes(["water-lace","sheer-white","mocha-velvet","honey-tortoise","cherry-smoke","milk-plaid","grape-aura"],seasonalRecipes)
+];
+const presets = photographRecipes(["strawberry-cream","sea-salt","retro-cocoa","grape-soda"],originalRecipes);
+const photoCollections = [...trendPresets,...presets];
+const photoChoices = new Map(photoCollections.flatMap(collection =>
+  collection.nails.map(item => [String(item.photo),item])));
 
 let serial = 0;
 function petals(ink, uid) {
@@ -337,10 +589,17 @@ function chromeGlaze(id, base) {
 }
 
 function photoFor(item) {
-  const sample = referenceTips[item.photo];
+  const sample = photoTips.get(String(item.photo));
   const style = sample?.style;
   return style && item.finish === style.finish && item.pattern === style.pattern && item.shape === style.shape &&
-    (item.pattern === "none" || item.ink === style.ink) ? sample : null;
+    (item.pattern === "none" || item.ink === style.ink) && style.decor.every(({kind,x,y,size},index) => {
+      const charm = item.decor[index];
+      return charm?.kind === kind && charm.x === x && charm.y === y && charm.size === size;
+    }) ? sample : null;
+}
+
+function surfaceAsset(item) {
+  return photoFor(item)?.image ?? (item.finish === "matte" || item.finish === "chrome" ? null : gelSurface);
 }
 
 function photoColor(id, source, target) {
@@ -363,12 +622,17 @@ function charmShadow(id) {
   return '<filter id="'+id+'-charm" x="-50%" y="-50%" width="200%" height="200%"><feDropShadow dx=".6" dy="1.8" stdDeviation="1.1" flood-color="#442716" flood-opacity=".50"/></filter>';
 }
 
-function nailDecor(item, id, use) {
-  return item.decor.map(({kind,x,y,size},i) => '<g '+(use === "editor" ? 'data-charm-index="'+i+'"' : "")+' transform="translate('+x+' '+y+') scale('+size/30+')" filter="url(#'+id+'-charm)">'+
-    (use === "editor" ? '<circle r="16" fill="transparent"/>' : "") + charmMarkup(kind,id+"c"+i)+'</g>').join("");
+function nailDecor(item, id, use, baked = 0) {
+  return item.decor.map(({kind,x,y,size},i) => {
+    if (i < baked && use !== "editor") return "";
+    const hit = use === "editor" ? '<circle r="16" fill="transparent"/>' : "";
+    const art = i < baked ? "" : charmMarkup(kind,id+"c"+i);
+    return '<g '+(use === "editor" ? 'data-charm-index="'+i+'"' : "")+' transform="translate('+x+' '+y+') scale('+size/30+')"'+
+      (art ? ' filter="url(#'+id+'-charm)"' : '')+'>'+hit+art+'</g>';
+  }).join("");
 }
 
-function nailSVG(item, finger = 2, use = "", position = "", photoSource = referenceImage) {
+function nailSVG(item, finger = 2, use = "", position = "", photoSource) {
   const id = "n" + (++serial);
   const base = item.color;
   const shape = shapes[item.shape][1];
@@ -378,17 +642,26 @@ function nailSVG(item, finger = 2, use = "", position = "", photoSource = refere
   const space = '<g transform="translate(50 147) scale('+sx+' '+sy+') translate(-50 -147)" data-nail-space="">';
   const photo = photoFor(item);
   if (photo) {
-    const transform = 'translate(50 147) scale(.275 '+(.275/lengths.short[1])+') translate(-'+photo.center+' -'+photo.bottom+')';
-    const outline = '<path d="'+photo.path+'" transform="'+transform+'"';
     const tint = photoColor(id,photo.style.color,base);
+    const filter = tint ? ' filter="url(#'+id+'-tint)"' : "";
+    const href = photoSource ?? photo.image;
+    const original = photo.path !== undefined;
+    const transform = original ?
+      ' transform="translate(50 147) scale(.275 '+(.275/lengths.short[1])+') translate(-'+photo.center+' -'+photo.bottom+')"' : "";
+    const outline = '<path d="'+(photo.path ?? shape)+'"'+transform;
+    const artwork = original ?
+      '<g clip-path="url(#'+id+'-clip)"><image href="'+href+'" width="1536" height="1024" preserveAspectRatio="none"'+transform+filter+'/></g>' :
+      '<svg x="15" y="19" width="70" height="130" viewBox="'+(photo.cell*200)+' 0 200 320" preserveAspectRatio="none" overflow="hidden">'+
+      '<image href="'+href+'" width="1000" height="320"'+filter+'/></svg>';
     return start+'<defs><clipPath id="'+id+'-clip">'+outline+'/></clipPath>'+tint+charmShadow(id)+'</defs>'+space+
-      outline+' data-nail-shape="" fill="transparent"/><g clip-path="url(#'+id+'-clip)">'+
-      '<image href="'+photoSource+'" width="1536" height="1024" preserveAspectRatio="none" transform="'+transform+'"'+
-      (tint ? ' filter="url(#'+id+'-tint)"' : "")+'/>'+nailDecor(item,id,use)+'</g></g></svg>';
+      outline+' data-nail-shape="" fill="transparent"/>'+artwork+
+      '<g clip-path="url(#'+id+'-clip)">'+nailDecor(item,id,use,photo.style.decor.length)+'</g></g></svg>';
   }
   const magnetic = Object.hasOwn(magneticFinishes,item.finish);
   const sheer = item.finish === "jelly" || item.finish === "glass";
   const matte = item.finish === "matte";
+  const gel = item.finish === "matte" || item.finish === "chrome" ? "" :
+    '<image href="'+(photoSource ?? gelSurface)+'" x="14" y="19" width="72" height="130" preserveAspectRatio="none" opacity=".40" style="mix-blend-mode:soft-light"/>';
   const shade = mix(base,"#391f16",matte ? .24 : .35);
   const light = mix(base,"#fff3e6",matte ? .17 : .35);
   const inner = sheer ? mix(base,"#f8d9cb",.28) : base;
@@ -412,7 +685,7 @@ function nailSVG(item, finger = 2, use = "", position = "", photoSource = refere
     '<linearGradient id="'+id+'-pearl" x2="1" y2="1"><stop stop-color="#ffdee3" stop-opacity="0"/><stop offset=".27" stop-color="#fff0c1" stop-opacity=".47"/><stop offset=".48" stop-color="#e0f3f1" stop-opacity=".6"/><stop offset=".65" stop-color="#e0c6f0" stop-opacity=".43"/><stop offset="1" stop-color="#fbe0e8" stop-opacity="0"/></linearGradient>'+
     charmShadow(id)+'</defs>'+space+
     '<path data-nail-shape="" d="'+shape+'" fill="url(#'+id+'-base)"/><g clip-path="url(#'+id+'-clip)">'+
-    (underPattern ? material+pattern : pattern+material)+reflection+
+    gel+(underPattern ? material+pattern : pattern+material)+reflection+
     '<path d="'+shape+'" fill="none" stroke="url(#'+id+'-rim)" stroke-width="3.4" opacity="'+(matte?".52":".88")+'"/>'+
     nailDecor(item,id,use)+
     '</g></g></svg>';
@@ -432,7 +705,9 @@ function makeDesign(preset) { return {name:preset.name, tint:preset.tint, nails:
 let design = storage.read("draft", makeDesign(referenceSet));
 let saved = storage.read("collection", []);
 let selected = 2;
-let tab = design.nails.some(photoFor) ? "photo" : "color";
+let tab = catEyeShade(design.nails[selected]) ? "shade" : design.nails.some(photoFor) ? "photo" : "color";
+let catEyeSeriesId = catEyeShade(design.nails[selected])?.series.id ?? catEyeSeries[0].id;
+let photoCollectionIndex = Math.max(0,photoCollections.findIndex(set => set.nails.some(item => item.photo === design.nails[selected].photo)));
 let charmIndex = null;
 let lastRandom = -1;
 let activeRecipe;
@@ -499,6 +774,11 @@ function allTargets(change) {
 }
 function showDesign(value) {
   charmIndex = null;
+  const photoIndex = photoCollections.indexOf(value);
+  if (photoIndex >= 0) {
+    photoCollectionIndex = photoIndex;
+    tab = "photo";
+  }
   commit(() => { design = makeDesign(value); });
   $("#workbench").scrollIntoView({block:"nearest"});
 }
@@ -506,6 +786,7 @@ function setSelected(index) {
   if (selected !== index) {
     selected = index;
     charmIndex = null;
+    catEyeSeriesId = catEyeShade(design.nails[selected])?.series.id ?? catEyeSeriesId;
   }
   render();
 }
@@ -535,6 +816,29 @@ function swatches(key, current, colors, caption) {
 function optionGrid(items, four = false) {
   return '<div class="option-grid'+(four?' four':'')+'">'+items.join("")+'</div>';
 }
+function renderCatEyePalette(item) {
+  const series = catEyeSeries.find(({id}) => id === catEyeSeriesId);
+  const active = catEyeShade(item);
+  const options = catEyeSeries.map(({id,name,colors}) =>
+    '<option value="'+id+'"'+(id===catEyeSeriesId?' selected':'')+'>'+name+' · '+colors.length+'色</option>').join("");
+  const shades = series.colors.map((color,index) => {
+    const number = String(index+1).padStart(2,"0");
+    const key = series.id+"-"+number;
+    const pressed = active?.series === series && active.number === number;
+    return '<button type="button" class="shade-swatch" data-key="shade" data-value="'+key+'" aria-label="'+
+      series.name+' '+number+'号" aria-pressed="'+pressed+'"><span style="--swatch:'+color+
+      '" aria-hidden="true"></span>'+number+'</button>';
+  }).join("");
+  return panelGroup("花校长猫眼色卡",active ? active.series.name+" "+active.number+"号" : "",
+    '<label class="photo-collection">猫眼系列<select id="cat-eye-series">'+options+'</select></label>'+
+    '<div class="shade-swatches" data-series="'+series.id+'">'+shades+'</div>'+
+    '<div class="shade-reference"><a href="'+series.photo+'" target="_blank" rel="noopener noreferrer">查看'+series.name+'原色板 ↗</a>'+
+    '<p class="small-note">网页色卡按照片近似调色，实物以试色为准。</p>'+
+    '<details class="shade-sources"><summary>更多系列试色参考</summary><ul>'+
+    catEyeReferences.map(([label,url]) =>
+      '<li><a href="'+url+'" target="_blank" rel="noopener noreferrer">'+label+' ↗</a></li>').join("")+
+    '</ul></details></div>');
+}
 function renderEditor() {
   const old = editor.contains(document.activeElement) ? document.activeElement : null;
   const focused = old?.dataset.key ? '[data-key="'+old.dataset.key+'"][data-value="'+old.dataset.value+'"]' :
@@ -549,9 +853,15 @@ function renderEditor() {
   editor.setAttribute("aria-labelledby", "tab-"+tab);
   if (tab === "photo") {
     const activePhoto = photoFor(item);
-    const tips = referenceSet.nails.map((sample,index) =>
-      option("photo",index,referenceTips[index].label,activePhoto === referenceTips[index],nailSVG(sample)));
-    editor.innerHTML = panelGroup("奶油玫瑰蕾丝", activePhoto?.label ?? "任选一片",
+    const collection = photoCollections[photoCollectionIndex];
+    const tips = collection.nails.map(sample => {
+      const photo = photoFor(sample);
+      return option("photo",sample.photo,photo.label,activePhoto === photo,nailSVG(sample));
+    });
+    const collectionOptions = photoCollections.map((set,index) =>
+      '<option value="'+index+'"'+(index===photoCollectionIndex ? ' selected' : '')+'>'+set.name+'</option>').join("");
+    editor.innerHTML = panelGroup("写实甲片", activePhoto?.label ?? "任选一片",
+      '<label class="photo-collection">款式系列<select id="photo-collection">'+collectionOptions+'</select></label>'+
       '<div class="photo-options">'+tips.join("")+'</div>'+
       '<p class="small-note">先选一指，再换同款甲片。可以换底色、长度和加饰品。修改甲型、封层或花纹会切换到自由设计。</p>');
   } else if (tab === "shape") {
@@ -559,8 +869,17 @@ function renderEditor() {
       option("shape",key,label,key===item.shape,nailSVG(nail("#d9a3ba","gloss","none","#fff0dc",[],key))))))+
       panelGroup("甲片长度", lengths[item.length][0]+"款", optionGrid(Object.entries(lengths).map(([key,[label]]) => option("length",key,label+"款",key===item.length))))+
       '<p class="small-note panel-group">可以给不同指甲搭配不同甲型和长度。</p>';
+  } else if (tab === "shade") {
+    const previousGrid = editor.querySelector('.shade-swatches[data-series="'+catEyeSeriesId+'"]');
+    const scrollTop = previousGrid?.scrollTop ?? 0;
+    const referencesOpen = editor.querySelector(".shade-sources")?.open ?? false;
+    editor.innerHTML = renderCatEyePalette(item);
+    const grid = editor.querySelector(".shade-swatches");
+    const activeSwatch = grid.querySelector('[aria-pressed="true"]');
+    grid.scrollTop = previousGrid ? scrollTop : (activeSwatch?.offsetTop ?? 0);
+    editor.querySelector(".shade-sources").open = referencesOpen;
   } else if (tab === "color") {
-    editor.innerHTML = panelGroup("底色", colorName(item.color), swatches("color", item.color, palette, "自定义底色"))+
+    editor.innerHTML = panelGroup("底色", nailColorName(item), swatches("color", item.color, palette, "自定义底色"))+
       panelGroup("表面质感", finishes[item.finish], optionGrid(Object.entries(finishes).map(([key,label]) =>
         option("finish",key,label,key===item.finish,'<span class="finish-sample finish-'+key+'" aria-hidden="true"></span>'))));
   } else if (tab === "art") {
@@ -592,16 +911,66 @@ function renderPresets() {
   $("#presets").innerHTML = presets.map((preset,i) => '<button type="button" class="preset" data-preset="'+i+'">'+miniSet(preset.nails,preset.tint)+
     '<div class="preset-caption"><span><strong>'+preset.name+'</strong><small>'+preset.detail+'</small></span>'+icon("next")+'</div></button>').join("");
 }
-const trendLabels = {daily:"通勤短甲", warm:"秋冬暖调", cool:"清冷微光"};
+const trendLabels = {soft:"纯欲风", korean:"韩式美甲", daily:"通勤短甲", warm:"秋冬暖调", cool:"清冷微光"};
+function trendCard(preset, index) {
+  const name = escapeText(preset.name);
+  return '<article class="trend-card">'+
+    '<button type="button" class="trend-apply" data-trend-apply="'+index+'" aria-label="套用'+name+'">'+miniSet(preset.nails,preset.tint)+
+    '<span class="trend-caption"><span class="trend-tag">'+trendLabels[preset.category]+'</span><strong>'+name+'</strong><small>'+escapeText(preset.detail)+'</small></span></button>'+
+    '<div class="trend-actions"><button type="button" class="text-button" data-trend-recipe="'+index+'" aria-label="查看'+name+'配方">'+icon("list")+'看配方</button>'+
+    '<button type="button" class="text-button trend-load" data-trend-apply="'+index+'">套用'+icon("next")+'</button></div></article>';
+}
 function renderTrends(category = "all") {
   $("#trend-presets").innerHTML = trendPresets.map((preset,i) => {
-    if (category !== "all" && preset.category !== category) return "";
-    return '<article class="trend-card">'+
-      '<button type="button" class="trend-apply" data-trend-apply="'+i+'" aria-label="套用'+preset.name+'">'+miniSet(preset.nails,preset.tint)+
-      '<span class="trend-caption"><span class="trend-tag">'+trendLabels[preset.category]+'</span><strong>'+preset.name+'</strong><small>'+preset.detail+'</small></span></button>'+
-      '<div class="trend-actions"><button type="button" class="text-button" data-trend-recipe="'+i+'" aria-label="查看'+preset.name+'配方">'+icon("list")+'看配方</button>'+
-      '<button type="button" class="text-button trend-load" data-trend-apply="'+i+'">套用'+icon("next")+'</button></div></article>';
+    if (preset.date) return "";
+    const matches = category === "new" ? newCollections.includes(preset) : category === "all" || preset.category === category;
+    return matches ? trendCard(preset,i) : "";
   }).join("");
+}
+function renderDailyInspiration() {
+  const date = $("#daily-inspiration-date").value;
+  $("#daily-presets").innerHTML = trendPresets.map((preset,i) => preset.date === date ? trendCard(preset,i) : "").join("");
+}
+async function loadDailyInspiration() {
+  const message = $("#daily-inspiration-status");
+  try {
+    const response = await fetch("./daily-inspiration.json");
+    if (!response.ok) throw new Error("inspiration");
+    const batches = await response.json();
+    if (!batches.length) {
+      message.textContent = "第一批每日灵感即将上架。";
+      return;
+    }
+    const picker = $("#daily-inspiration-date");
+    for (const {date,recipes} of batches) {
+      picker.add(new Option(date,date));
+      recipes.forEach((recipe, index) => {
+        const image = "./daily-inspiration/"+date+"/"+index+".webp";
+        const nails = recipe.nails.map((style,cell) => {
+          const photo = "daily-"+date+"-"+index+"-"+cell;
+          const label = fingers[cell]+" · "+(style.pattern === "none" ? finishes[style.finish] : patterns[style.pattern]);
+          photoTips.set(photo,{label,style,image,cell});
+          const item = {...style,photo};
+          photoChoices.set(photo,item);
+          return item;
+        });
+        const preset = {...recipe,date,nails};
+        trendPresets.push(preset);
+        photoCollections.push(preset);
+      });
+    }
+    picker.parentElement.hidden = false;
+    message.hidden = true;
+    renderDailyInspiration();
+    const draftPhoto = design.nails[selected].photo;
+    if (typeof draftPhoto === "string" && draftPhoto.startsWith("daily-") && photoFor(design.nails[selected])) {
+      photoCollectionIndex = photoCollections.findIndex(set => set.nails.some(item => item.photo === draftPhoto));
+      if (tab === "color") tab = "photo";
+      render();
+    }
+  } catch {
+    message.textContent = "每日灵感暂时加载失败，请刷新网页重试。";
+  }
 }
 function applyTrend(index) {
   showDesign(trendPresets[index]);
@@ -635,7 +1004,8 @@ function openSave() {
   $("#work-name").select();
 }
 function recipeLine(item) {
-  const base = colorName(item.color) + (colorName(item.color) === item.color.toUpperCase() ? "" : " "+item.color.toUpperCase());
+  const name = nailColorName(item);
+  const base = catEyeShade(item) || name === item.color.toUpperCase() ? name : name+" "+item.color.toUpperCase();
   const ink = colorName(item.ink);
   const art = item.pattern === "none" ? "" : "、"+patterns[item.pattern]+
     (item.pattern === "silverTip" ? "" : "（"+ink+(ink === item.ink.toUpperCase() ? "" : " "+item.ink.toUpperCase())+"）");
@@ -651,9 +1021,10 @@ function recipeLine(item) {
 function openRecipe(work, trendIndex) {
   activeRecipe = work;
   const tip = work.tip ? '<p class="recipe-tip">'+escapeText(work.tip)+'</p>' : '';
+  const source = work.source ? '<p class="daily-source"><a href="'+escapeText(work.source.url)+'" target="_blank" rel="noopener noreferrer">'+escapeText(work.source.label)+' ↗</a><span>预览为写实设计示意</span></p>' : "";
   const apply = trendIndex === undefined ? "" : '<button type="button" class="button outline" data-apply-recipe="'+trendIndex+'">套用这套</button>';
   openDialog((work.tip ? "款式配方 · " : "实做清单 · ")+work.name,
-    tip+'<ul class="recipe-list">'+work.nails.map((item,i) => '<li><strong>'+fingers[i]+'</strong>'+escapeText(recipeLine(item))+'</li>').join("")+
+    tip+source+'<ul class="recipe-list">'+work.nails.map((item,i) => '<li><strong>'+fingers[i]+'</strong>'+escapeText(recipeLine(item))+'</li>').join("")+
     '</ul><div class="dialog-actions"><button type="button" class="button primary" id="copy-recipe">复制清单</button>'+apply+'</div>');
 }
 async function copyRecipe() {
@@ -678,8 +1049,8 @@ async function copyRecipe() {
   }
 }
 
-async function embedReferenceImage() {
-  const response = await fetch(referenceImage);
+async function embedReferenceImage(source) {
+  const response = await fetch(source);
   if (!response.ok) throw new Error("reference image");
   const blob = await response.blob();
   return new Promise((resolve,reject) => {
@@ -695,8 +1066,11 @@ async function exportPNG(work = design) {
   const width = 1200, height = 740;
   let url;
   try {
-    const image = captured.nails.some(photoFor) ? await embedReferenceImage() : undefined;
-    const art = captured.nails.map((item,i) => nailSVG(item,i,"",'x="'+(98+i*210)+'" y="151" width="168" height="311"',image)).join("");
+    const images = captured.nails.map(surfaceAsset);
+    const sources = [...new Set(images.filter(Boolean))];
+    const embedded = Object.fromEntries(await Promise.all(sources.map(async source => [source,await embedReferenceImage(source)])));
+    const art = captured.nails.map((item,i) =>
+      nailSVG(item,i,"",'x="'+(98+i*210)+'" y="151" width="168" height="311"',embedded[images[i]])).join("");
     const background = mix(captured.tint,"#ede3d4",.68);
     const svg = '<svg xmlns="http://www.w3.org/2000/svg" width="'+width+'" height="'+height+'"><defs><filter id="card-shadow" x="-20%" y="-35%" width="140%" height="180%"><feDropShadow dx="6" dy="10" stdDeviation="7" flood-color="#513221" flood-opacity=".43"/></filter></defs><rect width="1200" height="740" fill="'+background+'"/><rect x="36" y="36" width="1128" height="668" rx="24" fill="#fffbf4" stroke="#fff"/><g filter="url(#card-shadow)">'+art+'</g></svg>';
     url = URL.createObjectURL(new Blob([svg],{type:"image/svg+xml;charset=utf-8"}));
@@ -721,7 +1095,7 @@ async function exportPNG(work = design) {
       ctx.fillStyle = "#765363";
       ctx.font = '20px "PingFang SC", "Microsoft YaHei", sans-serif';
       ctx.fillText(shapes[item.shape][0]+lengths[item.length][0]+"款 · "+finishes[item.finish],x,534,180);
-      ctx.fillText(colorName(item.color),x,565,180);
+      ctx.fillText(nailColorName(item),x,565,180);
       ctx.fillStyle = item.color;
       ctx.beginPath(); ctx.arc(x,603,10,0,2*Math.PI); ctx.fill();
       ctx.strokeStyle = "#8e6079"; ctx.lineWidth = 1; ctx.stroke();
@@ -743,32 +1117,11 @@ async function exportPNG(work = design) {
 }
 
 function randomDesign() {
-  const themes = [
-    ["浆果晚宴","#ead5e4",["#832442","#f3cadb","#613451","#d08ca6"],"almond","long"],
-    ["蜜桃冰茶","#f0dad3",["#f3c7b5","#f3ab87","#b9584d","#fff0dc"],"oval","medium"],
-    ["蓝调星光","#e3e4f1",["#7eabc7","#e8e9ef","#b6d2e6","#afa3bf"],"stiletto","long"],
-    ["春日奶油","#e8eddb",["#d2dda9","#6e936c","#fff0dc","#f5dda1"],"square","short"],
-    ["焦糖拿铁","#ecded5",["#6a4038","#dbc0ae","#b67b58","#fff0dc"],"coffin","medium"],
-    ["薰衣草糖","#e9deef",["#c9b6e7","#fff0dc","#613451","#f3cadb"],"almond","medium"],
-    ["莓果格纹","#efdee6",["#b83c58","#fff0dc","#d08ca6","#832442"],"square","medium"],
-    ["日落贝壳","#f1dedd",["#f3ab87","#fff0dc","#d08ca6","#f5dda1"],"oval","long"],
-    ["琥珀糖","#efdbbb",["#dca162","#dbc0ae","#765446","#6a4038"],"square","short"],
-    ["葡萄糖霜","#e3d6ee",["#563762","#c9b6e7","#d08ca6","#afa3bf"],"oval","medium"]
-  ];
-  const pick = (values) => values[Math.floor(Math.random()*values.length)];
-  const choices = themes.map((_,i)=>i).filter((i)=>i!==lastRandom);
-  lastRandom = pick(choices);
-  const [name,tint,[a,b,c,d],shape,length] = themes[lastRandom];
-  const jewel = pick(["bow","heart","shell","star","diamond","butterfly","flower","clover"]);
-  const nails = [
-    nail(a,pick(["cat","gloss","jelly","velvet"]),pick(["none","french","waves","amberFlow"]),b,[],shape,length),
-    nail(b,pick(["gloss","pearl","matte"]),pick(["plaid","flowers","dots","hearts","softPlaid","leopard"]),a,[],shape,length),
-    nail(c,pick(["cat","jelly","glitter","glass"]),"none",b,[charm(jewel,50,87,32)],shape,length),
-    nail(d,pick(["gloss","jelly","pearl"]),pick(["ombre","micro","french","halo","silverTip"]),a,[charm("pearl",50,111,14)],shape,length),
-    nail(a,pick(["gloss","glitter","jelly"]),pick(["none","micro","marble"]),d,[],shape,length)
-  ];
-  showDesign({name,tint,nails});
-  announce("试试「"+name+"」");
+  const choices = photoCollections.map((_,index) => index).filter(index => index !== lastRandom);
+  lastRandom = choices[Math.floor(Math.random()*choices.length)];
+  const preset = photoCollections[lastRandom];
+  showDesign(preset);
+  announce("试试「"+preset.name+"」");
 }
 
 function addCharm(kind) {
@@ -792,14 +1145,36 @@ function setOption(button) {
     addCharm(value);
     return;
   }
-  if (key === "photo") {
-    const sample = referenceSet.nails[Number(value)];
-    if (sample) commit(() => allTargets((item) => {
-      Object.assign(item,{...sample,decor:item.decor,length:item.length});
+  if (key === "shade") {
+    const shade = catEyeShades.get(value);
+    if (!shade) return;
+    commit(() => allTargets((item) => {
+      Object.assign(item,{color:shade.color,finish:"glass",catEyeShadeId:value});
+      delete item.photo;
     }));
+    announce("已试涂 "+catEyeName(shade));
     return;
   }
-  commit(() => allTargets((item) => { item[key] = value; }));
+  if (key === "photo") {
+    const sample = photoChoices.get(value);
+    let overLimit = false;
+    if (sample) commit(() => allTargets((item) => {
+      const previousBaked = photoFor(item)?.style.decor.length ?? 0;
+      const decor = [...copy(sample.decor),...item.decor.slice(previousBaked)];
+      if (decor.length > 6) {
+        overLimit = true;
+        return;
+      }
+      Object.assign(item,{...sample,decor,length:item.length});
+      delete item.catEyeShadeId;
+    }));
+    if (overLimit) announce("这片甲的饰品已满，移除一个后再换款");
+    return;
+  }
+  commit(() => allTargets((item) => {
+    if (item[key] !== value && (key === "color" || key === "finish")) delete item.catEyeShadeId;
+    item[key] = value;
+  }));
 }
 function setTab(next) {
   tab = next;
@@ -843,11 +1218,25 @@ editor.addEventListener("input", (event) => {
   const key = control.dataset.colorKey;
   if (control.id !== "charm-size" && !key) return;
   rangeStart ??= copy(design);
-  if (key) allTargets((item)=>{ item[key] = hex(control.value); });
+  if (key) allTargets((item)=>{
+    const color = hex(control.value);
+    if (key === "color" && item.color !== color) delete item.catEyeShadeId;
+    item[key] = color;
+  });
   else if (design.nails[selected].decor[charmIndex]) design.nails[selected].decor[charmIndex].size = Number(control.value);
   renderStage();
 });
 editor.addEventListener("change", (event) => {
+  if (event.target.id === "photo-collection") {
+    photoCollectionIndex = Number(event.target.value);
+    renderEditor();
+    return;
+  }
+  if (event.target.id === "cat-eye-series") {
+    catEyeSeriesId = event.target.value;
+    renderEditor();
+    return;
+  }
   if (!rangeStart) return;
   remember(rangeStart);
   rangeStart = null;
@@ -959,7 +1348,7 @@ $("#trend-filters").addEventListener("click", (event) => {
   });
   renderTrends(filter.dataset.filter);
 });
-$("#trend-presets").addEventListener("click", (event) => {
+function handleTrendClick(event) {
   const apply = event.target.closest("[data-trend-apply]");
   const recipe = event.target.closest("[data-trend-recipe]");
   if (apply) {
@@ -969,7 +1358,10 @@ $("#trend-presets").addEventListener("click", (event) => {
     const i = Number(recipe.dataset.trendRecipe);
     openRecipe(trendPresets[i], i);
   }
-});
+}
+$("#trend-presets").addEventListener("click", handleTrendClick);
+$("#daily-presets").addEventListener("click", handleTrendClick);
+$("#daily-inspiration-date").addEventListener("change", renderDailyInspiration);
 $("#presets").addEventListener("click", (event) => {
   const button = event.target.closest("[data-preset]");
   if (button) showDesign(presets[Number(button.dataset.preset)]);
@@ -1045,3 +1437,4 @@ renderTrends();
 renderPresets();
 renderCount();
 render();
+loadDailyInspiration();
