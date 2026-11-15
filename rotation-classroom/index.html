@@ -1,0 +1,896 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f4f2e9">
+<meta name="description" content="小学数学旋转互动演示：七个课堂动画，十八道有图、有动画的生活练习。">
+<title>图形的旋转｜互动课件</title>
+<style>
+:root {
+  color-scheme:light; --ink:#172b29; --muted:#506561; --paper:#f4f2e9; --white:#fffdf7;
+  --line:#d9dfd4; --teal:#146357; --teal-dark:#10443c; --mint:#e5eee5; --rust:#a13f28;
+  --orange:#c24f31; --slate:#627f79; --axis:#a7beb4;
+}
+* {box-sizing:border-box}
+body {margin:0;background:var(--paper);color:var(--ink);font:16px/1.6 "Instrument Sans","Noto Sans CJK SC","PingFang SC","Microsoft YaHei",sans-serif;}
+button,select,input {font:inherit;color:inherit;}
+button,select {cursor:pointer;}
+button {touch-action:manipulation;}
+button:focus-visible,select:focus-visible,input:focus-visible,a:focus-visible {outline:3px solid #b65333;outline-offset:3px;}
+.skip {position:absolute;left:12px;top:12px;z-index:1;padding:8px 14px;background:#fffdf7;color:var(--teal-dark);transform:translateY(-200%);}
+.skip:focus {transform:none;}
+[hidden] {display:none!important;}
+::selection {background:#f2d0b1;color:#172b29;}
+.wrap {width:min(1250px,calc(100% - 64px));margin:auto;}
+header {padding:32px 0 20px;border-bottom:1px solid var(--line);}
+.mast {display:flex;justify-content:space-between;align-items:end;gap:18px;}
+h1,h2,p {margin:0;}
+h1 {font-family:"Noto Serif CJK SC","Songti SC",serif;font-weight:900;line-height:1.12;font-size:clamp(36px,5.4vw,66px);letter-spacing:.015em;}
+.mast p {color:var(--muted);font-weight:650;padding-bottom:3px;}
+main {padding-bottom:36px;}
+nav {display:flex;flex-wrap:wrap;gap:8px;padding:16px 0 19px;}
+nav button {border:1px solid var(--line);border-radius:8px;min-height:46px;background:var(--white);padding:6px 12px;display:flex;align-items:center;gap:8px;font-weight:700;}
+nav button:hover {border-color:#779d88;}
+nav button[aria-pressed="true"] {background:var(--teal-dark);border-color:var(--teal-dark);color:#fffef5;}
+.index {font-feature-settings:"tnum";font-size:13px;font-weight:800;color:var(--teal);}
+nav button[aria-pressed="true"] .index {color:#bae2c8;}
+nav button.life-tab:not([aria-pressed="true"]) {border-color:#86a499;background:#e5eee5;color:var(--teal-dark);}
+.lesson {display:grid;grid-template-columns:minmax(0,1fr) minmax(292px,350px);gap:20px;align-items:start;}
+.board,aside {border:1px solid var(--line);border-radius:15px;background:var(--white);overflow:hidden;min-width:0;}
+.board-head {display:flex;min-height:54px;padding:10px 17px;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;border-bottom:1px solid var(--line);}
+.figure-label {display:flex;align-items:center;gap:8px;font-size:14px;font-weight:750;color:var(--muted);}
+.figure-label::before {content:"";display:block;width:11px;height:11px;border-radius:50%;background:var(--teal);}
+#measure {font-weight:850;font-variant-numeric:tabular-nums;color:var(--rust);}
+.stage {display:block;width:100%;height:auto;background:#f9fbf5;aspect-ratio:640/415;}
+.stage text {font-family:inherit;font-weight:700;}
+.controls {padding:13px 17px 16px;border-top:1px solid var(--line);}
+.scrub {display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:12px;margin-bottom:10px;font-size:14px;color:var(--muted);font-weight:700;}
+.scrub input {width:100%;margin:0;accent-color:var(--teal);min-height:32px;cursor:pointer;}
+.keys {display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
+.control,select,.choice {border:1px solid #c8d5c9;background:white;border-radius:8px;padding:8px 12px;min-height:44px;font-weight:750;}
+.control:not(:disabled):hover,select:hover,.choice:hover {border-color:var(--teal);background:#f1f7ef;}
+.control:disabled {background:#f2f1e9;color:#62736e;cursor:default;}
+.control.primary {background:var(--teal);border-color:var(--teal);color:white;}
+.control.primary:hover {background:var(--teal-dark);}
+#speed-label {margin-left:auto;display:flex;gap:8px;align-items:center;font-size:14px;color:var(--muted);}
+select {max-width:100%;}
+aside {padding:19px 20px 20px;}
+#grade {font-size:13px;font-weight:800;color:var(--teal);margin-bottom:4px;letter-spacing:.06em;}
+h2 {font-family:"Noto Serif CJK SC","Songti SC",serif;font-size:clamp(24px,2.5vw,33px);line-height:1.3;font-weight:900;}
+#intro {margin-top:9px;color:var(--muted);}
+.options {display:grid;gap:9px;margin:15px 0;}
+.options label {display:grid;gap:4px;font-size:14px;font-weight:800;color:var(--muted);}
+.options select {color:var(--ink);font-size:16px;}
+.question-nav {display:flex;gap:8px;}
+.question-nav button {flex:1;}
+.challenge {border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:15px 0;margin:15px 0;}
+h3 {font-size:16px;margin:0 0 5px;color:var(--teal-dark);}
+#question {font-weight:750;margin-bottom:9px;}
+.choices {display:flex;gap:6px;flex-wrap:wrap;}
+.choice {font-size:14px;text-align:left;line-height:1.4;padding-inline:10px;}
+.choice[aria-pressed="true"] {background:var(--mint);border-color:var(--teal);color:var(--teal-dark);}
+#feedback {margin-top:8px;font-size:14px;font-weight:700;color:var(--rust);}
+#feedback.good {color:var(--teal);}
+.explain {padding:12px 13px;background:var(--mint);border-radius:9px;color:#244e45;}
+.explain p {font-size:15px;}
+details {margin-top:14px;}
+summary {color:var(--teal-dark);font-weight:750;cursor:pointer;min-height:38px;padding-top:6px;}
+details p {color:var(--muted);font-size:15px;}
+@media(max-width:900px) {.wrap {width:calc(100% - 36px);} .lesson {gap:14px;grid-template-columns:minmax(0,1fr) minmax(270px,300px);} aside {padding:15px;} }
+@media(max-width:700px) {
+  .wrap {width:calc(100% - 24px);} header {padding:21px 0 13px;} .mast {align-items:start;flex-direction:column;gap:4px;}
+  .mast p {font-size:14px;} nav {padding:12px 0;gap:6px;} nav button {font-size:14px;padding:4px 7px;gap:5px;}
+  .index {font-size:11px;} .lesson {grid-template-columns:1fr;} .board,aside {border-radius:11px;}
+  .board-head {padding:8px 11px;min-height:43px;} .figure-label,#measure {font-size:13px;}
+  .controls {padding:9px 11px 12px;} .keys {gap:6px;} .control {padding-inline:9px;font-size:14px;}
+  #speed-label {font-size:13px;gap:4px;margin-left:0;} #speed {font-size:14px;padding:6px;}
+  aside {padding:15px;} #intro {margin-top:7px;}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">跳到演示</a>
+<header><div class="wrap mast"><h1>图形的旋转</h1><p>五年级数学 · 互动课件</p></div></header>
+<main class="wrap" id="main">
+<nav id="lessons" aria-label="选择演示"></nav>
+<div class="lesson">
+  <section class="board" aria-label="动画演示">
+    <div class="board-head"><span id="figure-label" class="figure-label"></span><output id="measure" aria-label="当前动画状态" aria-live="off"></output></div>
+    <svg id="stage" class="stage" viewBox="0 0 640 415" role="img" aria-labelledby="drawing-title"><title id="drawing-title">旋转示意图</title></svg>
+    <div class="controls">
+      <label class="scrub">演示进度 <input id="timeline" type="range" min="0" max="1000" value="0"></label>
+      <div class="keys">
+        <button id="play" class="control primary" type="button">播放</button>
+        <button id="previous" class="control" type="button">上一步</button>
+        <button id="next" class="control" type="button">下一步</button>
+        <button id="reset" class="control" type="button">重置</button>
+        <label id="speed-label">速度 <select id="speed"><option value="0.5">0.5 倍</option><option value="1" selected>1 倍</option><option value="1.5">1.5 倍</option></select></label>
+      </div>
+    </div>
+  </section>
+  <aside aria-labelledby="scene-title">
+    <p id="grade"></p>
+    <h2 id="scene-title"></h2>
+    <p id="intro"></p>
+    <div id="options" class="options"></div>
+    <section class="challenge" aria-labelledby="challenge-title">
+      <h3 id="challenge-title">先猜一猜</h3>
+      <p id="question"></p>
+      <div class="choices" id="choices"></div>
+      <p id="feedback" role="status" hidden></p>
+    </section>
+    <div class="explain"><h3 id="step-title"></h3><p id="step-copy"></p></div>
+    <details id="teacher"><summary>课堂提问</summary><p id="teacher-copy"></p></details>
+  </aside>
+</div>
+</main>
+<script>
+"use strict";
+const byId = id => document.getElementById(id);
+const stage = byId("stage");
+const teal = "#146357";
+const orange = "#c24f31";
+const rust = "#a13f28";
+const ink = "#172b29";
+const muted = "#506561";
+const ghost = "#6e8780";
+const paper = "#f9fbf5";
+const startFill = "#dcece3";
+const moveFill = "#f8ddc8";
+const tau = Math.PI / 180;
+const at = (center, r, angle) => [center[0] + r * Math.cos(angle * tau), center[1] + r * Math.sin(angle * tau)];
+const length = (a,b) => Math.hypot(a[0]-b[0],a[1]-b[1]);
+const orientation = (p,o) => Math.atan2(p[1]-o[1],p[0]-o[0])/tau;
+const rotate = (p,o,angle) => at(o,length(p,o),orientation(p,o)+angle);
+const xy = p => p.map(n => Math.round(n*100)/100).join(" ");
+const offset = (p,x,y) => [p[0]+x,p[1]+y];
+const clamp = n => Math.max(0,Math.min(1,n));
+const fmt = n => Math.round(Math.abs(n));
+const pos = value => ((value % 12 + 12) % 12) || 12;
+const line = (a,b,color=ink,width=2,more="") => '<path d="M '+xy(a)+' L '+xy(b)+'" fill="none" stroke="'+color+'" stroke-width="'+width+'" stroke-linecap="round" '+more+'/>';
+const shape = (p,fill,stroke,width=3,extra="") => '<polygon points="'+p.map(xy).join(" ")+'" fill="'+fill+'" stroke="'+stroke+'" stroke-width="'+width+'" stroke-linejoin="round" '+extra+'/>';
+const dot = (p,color=ink,r=5) => '<circle cx="'+p[0]+'" cy="'+p[1]+'" r="'+r+'" fill="'+color+'" stroke="'+paper+'" stroke-width="2"/>';
+const label = (p,value,color=ink,size=18,anchor="middle") => '<text x="'+p[0]+'" y="'+p[1]+'" text-anchor="'+anchor+'" fill="'+color+'" font-size="'+size+'" paint-order="stroke fill" stroke="'+paper+'" stroke-width="3.5" stroke-linejoin="round">'+value+'</text>';
+const dash = 'stroke-dasharray="7 6"';
+const definitions = '<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="6.5" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L8 4 L0 8 Z" fill="'+orange+'"/></marker><pattern id="grid" width="32" height="32" x="0" y="16" patternUnits="userSpaceOnUse"><path d="M 32 0 L 0 0 0 32" fill="none" stroke="#dce6dc" stroke-width="1"/></pattern></defs>';
+
+function sweep(center,r,begin,delta,color=orange,arrow=true,dotted=false) {
+  if (Math.abs(delta)<0.5) return "";
+  const pieces = Math.ceil(Math.abs(delta)/165);
+  let path = "M "+xy(at(center,r,begin));
+  for (let i=1;i<=pieces;i++) {
+    path += " A "+r+" "+r+" 0 0 "+(delta>0?1:0)+" "+xy(at(center,r,begin+delta*i/pieces));
+  }
+  return '<path d="'+path+'" fill="none" stroke="'+color+'" stroke-width="3.5" stroke-linecap="round" '+(arrow?'marker-end="url(#arrow)" ':'')+(dotted?dash:"")+'/>';
+}
+function pivot(p,name="O") {
+  return dot(p,ink,6)+label(offset(p,12,22),name,ink,17,"start");
+}
+function graph(desc,body,measure) {
+  stage.innerHTML = '<title id="drawing-title">'+desc+'</title>'+definitions+body;
+  byId("measure").textContent = measure;
+}
+function grid() {
+  return '<rect x="48" y="16" width="544" height="384" rx="4" fill="url(#grid)" stroke="#dce6dc"/>';
+}
+function callout(x,y,value,color=muted) {
+  return label([x,y],value,color,17);
+}
+function clockScene(t,c) {
+  const o=[320,203], angle=(+c.start%12)*30-90;
+  const target=(c.dir==="顺时针"?1:-1)*Number(c.deg);
+  const delta=target*t;
+  let body='<circle cx="320" cy="203" r="162" fill="#fffef8" stroke="#9bb8ab" stroke-width="2"/>';
+  for(let i=0;i<60;i++) {
+    const a=-90+i*6, major=i%5===0;
+    body+=line(at(o,major?145:152,a),at(o,157,a),major?teal:"#98ac9f",major?2.8:1.2);
+    if(major) body+=label(offset(at(o,126,a),0,7),pos(i/5),ink,23);
+  }
+  body+=line(o,at(o,101,angle),ghost,3,dash);
+  body+=sweep(o,104,angle,delta);
+  body+=line(o,at(o,100,angle+delta),orange,5)+dot(at(o,100,angle+delta),orange,5)+pivot(o);
+  if(t===1) body+=callout(320,393,"指向数字 "+pos(+c.start+target/30),rust);
+  graph("钟面上指针绕钟心 O 旋转",body,"已转 "+fmt(delta)+"° · "+Math.floor((Math.abs(delta)+0.01)/30)+" 个大格");
+}
+function gridScene(t,c,triangle) {
+  const o=[320,208], a=[224,208], b=[320,80];
+  const sign=c.dir==="顺时针"?1:-1;
+  const degrees=(triangle?90:Number(c.deg))*sign;
+  const angle=degrees*t;
+  const aNow=rotate(a,o,angle), bNow=rotate(b,o,angle);
+  let body=grid();
+  if(triangle) body+=shape([o,a,b],startFill,ghost,2);
+  else body+=line(o,b,ghost,3,dash);
+  body+=label(offset(b,0,-14),"B",teal,20);
+  if(triangle) body+=label(offset(a,-12,20),"A",teal,20);
+  if(t>0.005) {
+    body+=sweep(o,128,-90,angle,orange,true,true);
+    if(triangle) body+=sweep(o,96,180,angle,orange,true,true);
+    if(triangle) body+=shape([o,aNow,bNow],moveFill,orange,3,'fill-opacity=".52"');
+    else body+=line(o,bNow,orange,5);
+    body+=dot(bNow,orange,6)+label(offset(bNow,14,bNow[1]>o[1]?21:-10),"B′",rust,20,"start");
+    if(triangle) body+=dot(aNow,orange,6)+label(offset(aNow,-11,aNow[1]>=o[1]?25:-10),"A′",rust,20,"end");
+  } else if(triangle) {
+    body+=line(o,a,teal,3)+line(o,b,teal,3);
+    body+=callout(271,235,"3 格",teal)+callout(355,143,"4 格",teal);
+  } else {
+    body+=line(o,b,teal,4)+callout(353,144,"4 格",teal);
+  }
+  body+=dot(b,teal,5)+(triangle?dot(a,teal,5):"")+pivot(o);
+  body+=callout(320,389,triangle?"OA 和 OA′ 一样长，OB 和 OB′ 一样长":"B 到 O 的距离始终是 4 格");
+  graph(triangle?"方格上三角形 AOB 绕 O 旋转":"方格上线段 OB 绕 O 旋转",body,"已转 "+fmt(angle)+"°");
+}
+function cardArt(target=false) {
+  const bg=target?"#f4f1de":"#f8e5c7";
+  return '<rect width="92" height="92" rx="4" fill="'+bg+'" stroke="#b78259" stroke-width="1.6"/><path d="M12 83 Q48 83 53 41 T78 0 M50 48Q37 38 14 38" fill="none" stroke="#53725c" stroke-width="3"/><path d="M 45 22 Q 57 14 66 22 Q 62 35 52 34 Q 44 35 41 30 L 32 34 L 38 25 L 31 18 Z" fill="#be4f31"/><circle cx="59" cy="23" r="1.6" fill="#1e302a"/><path d="M65 24 L73 27 L65 30Z" fill="#775335"/><circle cx="14" cy="38" r="5" fill="#ce704a"/><circle cx="73" cy="7" r="5" fill="#ce704a"/>';
+}
+function cardScene(t) {
+  const p=[196,229], turn=clamp(t/0.48), slide=clamp((t-0.52)/0.48);
+  const a=turn*90, dx=190*slide, dy=51*slide;
+  let body=label([150,115],"原来的位置",teal,19)+label([478,72],"目标拼图",teal,19);
+  for(const [x,y,name] of [[386,96,"2"],[478,96,"3"],[478,188,"4"]]) {
+    body+='<rect x="'+x+'" y="'+y+'" width="92" height="92" rx="3" fill="#e4eee0" stroke="#a3baaa" stroke-width="1.5"/>';
+    body+=label([x+46,y+55],name,teal,23);
+  }
+  body+='<g transform="translate(478 188) rotate(90)" opacity=".34">'+cardArt(true)+'</g>';
+  body+='<rect x="386" y="188" width="92" height="92" rx="3" fill="none" stroke="'+teal+'" stroke-width="2" '+dash+'/>';
+  body+='<rect x="104" y="137" width="92" height="92" rx="3" fill="none" stroke="#a3baaa" stroke-width="2" '+dash+'/>';
+  if(t>0 && slide===0) body+=sweep(p,117,-135,a,orange,true,true);
+  if(t>=0.52) body+=line(p,[386,280],teal,2,dash);
+  body+='<g transform="translate('+dx+' '+dy+') rotate('+a+' 196 229) translate(104 137)">'+cardArt()+'</g>';
+  if(slide===0) body+=pivot(p);
+  body+=label([150,260],"卡片 1",teal,18);
+  body+=callout(320,361,t<0.52?"看小鸟的朝向和卡片的转轴":"朝向保持一致，整张卡片一起移动");
+  graph("卡片一先绕右下角顺时针旋转再平移进入空格",body,t<0.52?"旋转 "+fmt(a)+"°":slide<1?"平移中":"拼接完成");
+}
+
+const overlapShapes=[
+  {name:"长方形",deg:180,points:[[-112,-69],[112,-69],[112,69],[-112,69]]},
+  {name:"正方形",deg:90,points:[[-86,-86],[86,-86],[86,86],[-86,86]]},
+  {name:"等边三角形",deg:120,points:Array.from({length:3},(_,i)=>at([0,0],121,-90+120*i))},
+  {name:"正六边形",deg:60,points:Array.from({length:6},(_,i)=>at([0,0],113,-90+60*i))}
+];
+function overlapScene(t,c) {
+  const g=overlapShapes.find(item=>item.name===c.shape);
+  const o=[320,203], original=g.points.map(p=>offset(o,...p)), a=t*g.deg;
+  const rotated=original.map(p=>rotate(p,o,a));
+  let body=sweep(o,151,-90,a)+shape(original,startFill,teal,4,'stroke-dasharray="9 7"');
+  if(t>0) body+=shape(rotated,moveFill,orange,3,'fill-opacity=".66"');
+  body+=dot(original[0],teal,6)+dot(rotated[0],orange,5)+pivot(o);
+  body+=callout(320,390,t===1?"轮廓重合，标记过的顶点到了另一个位置":"深绿虚线是原轮廓，橙色图形正在转动");
+  graph(g.name+"绕中心旋转到第一次与原图重合",body,"已转 "+fmt(a)+"°");
+}
+function angleScene(t,c) {
+  const large=c.example==="100° 例题";
+  const o=large?[320,209]:[320,235];
+  const a=large?at(o,100,180):at(o,119,-90);
+  const b=large?at(o,153.21,80):at(o,119,0);
+  const turn=large?100:-45, angle=turn*clamp(t/0.75);
+  const aNew=rotate(a,o,angle), bNew=rotate(b,o,angle);
+  const names=large?["B","C","B′","C′","A"]:["A","B","A₁","B₁","O"];
+  let body=shape([o,a,b],startFill,teal,3)+sweep(o,47,orientation(a,o),angle);
+  const nameAt=(p,name,color)=>label(offset(p,p[0]<o[0]?-13:13,p[1]>o[1]?21:-9),name,color,20);
+  body+=nameAt(a,names[0],teal)+nameAt(b,names[1],teal)+pivot(o,names[4]);
+  if(t>0.015) body+=shape([o,aNew,bNew],moveFill,orange,3,'fill-opacity=".38"')+nameAt(aNew,names[2],rust)+nameAt(bNew,names[3],rust)+dot(aNew,orange,5);
+  if(t>=0.75) {
+    if(large) {
+      body+=sweep(o,74,180,100,orange,false);
+      body+=label([274,125],"100°",rust,22)+label([154,192],"30°",ink,17)+label([245,233],"50°",ink,17);
+    } else {
+      body+=sweep(o,89,0,-135,teal,false,true)+label([401,165],"135°",teal,19)+label([273,179],"45°",rust,21);
+    }
+  }
+  body+=callout(320,389,large?"跟踪 AB → AB′，并观察 AB 与 AC′ 的方向":"跟踪 OA → OA₁，图上圆弧表示转过的角");
+  graph("寻找旋转前后的对应点与旋转角",body,t<0.75?"观察对应边":large?"旋转角 100°":"旋转角 45°");
+}
+function areaScene(t) {
+  const a=[252,94], b=[192,254], h=[252,254], c=[412,254], d=[412,154], end=[412,94];
+  const angle=-90*t;
+  const bn=rotate(b,a,angle), hn=rotate(h,a,angle);
+  let body=shape([a,d,c,h],startFill,teal,3);
+  body+=shape([a,b,h],"none",ghost,2,dash);
+  body+=shape([a,bn,hn],moveFill,orange,3,'fill-opacity=".9"');
+  body+=sweep(a,112,90,angle,orange,true,true);
+  if(t===1) body+=shape([a,end,c,h],"none",teal,3);
+  body+=label(offset(a,-13,-10),"A",ink,19)+dot(a,ink)+label(offset(b,-9,22),"B",ink,18)+label(offset(h,0,25),"H",ink,18);
+  body+=label(offset(c,13,21),"C",ink,18)+label(offset(d,14,6),"D",ink,18);
+  if(t>0.015) body+=label(offset(hn,16,hn[1]>140?23:-10),"H′",rust,19);
+  body+=callout(228,178,"2 dm",teal);
+  if(t===1) body+=callout(332,77,"2 dm",teal)+label([320,374],"2 × 2 = 4 dm²",rust,24);
+  else body+=callout(320,374,"绿色部分固定，橙色三角形绕 A 转");
+  graph("切出三角形 ABH 并绕点 A 逆时针转九十度拼成正方形",body,"已转 "+fmt(angle)+"°");
+}
+
+const sky="#dcebea", wood="#ead2a8", silver="#cdd8d3", blush="#f3c4a6", border="#9cb5aa";
+const lifeGroups=["全部","家里","街上与出行","游乐场","校园与工具"];
+const box=(x,y,w,h,fill,stroke="none",r=0,sw=2)=>'<rect x="'+x+'" y="'+y+'" width="'+w+'" height="'+h+'" rx="'+r+'" fill="'+fill+'" stroke="'+stroke+'" stroke-width="'+sw+'"/>';
+const round=(x,y,r,fill,stroke="none",sw=2)=>'<circle cx="'+x+'" cy="'+y+'" r="'+r+'" fill="'+fill+'" stroke="'+stroke+'" stroke-width="'+sw+'"/>';
+const art=(d,fill,stroke="none",sw=2)=>'<path d="'+d+'" fill="'+fill+'" stroke="'+stroke+'" stroke-width="'+sw+'" stroke-linecap="round" stroke-linejoin="round"/>';
+const turn=(body,o,a)=>'<g transform="rotate('+a+' '+xy(o)+')">'+body+'</g>';
+const moved=(body,x,y)=>'<g transform="translate('+x+' '+y+')">'+body+'</g>';
+const faded=(body,opacity=.38)=>'<g opacity="'+opacity+'">'+body+'</g>';
+const floor=(y=341)=>box(0,y,640,74,"#e8ece0")+line([0,y],[640,y],border,2);
+const hud=(left,right="")=>label([22,30],left,muted,15,"start")+(right?label([618,30],right,muted,15,"end"):"");
+const mark=(p,n)=>dot(p,teal,5)+label(offset(p,0,-10),n,teal,17);
+function lifeTurn(t, {o,angle,start,rad,front,moving,back="",name="O",arrow=true}) {
+  const a=angle*t;
+  return back+(t>0?faded(moving,.26):"")+turn(moving,o,a)
+    +(arrow?sweep(o,rad,start,a):"")+(name?pivot(o,name):"")+ (typeof front==="function"?front(a):front??"");
+}
+function doorLife(t) {
+  const o=[212,191], a=t*90;
+  const lock=rotate([406,191],o,a);
+  const back=hud("从门的上方往下看")+box(93,102,119,220,"#e2ecdb",border,8)+box(422,102,105,220,"#e2ecdb",border,8)
+   +box(93,191,119,34,teal)+box(422,191,106,34,teal)+label([318,325],"门内",teal,22)+label([315,109],"门外",teal,22)
+   +dot([488,231],teal,5)+label([488,257],"C · 门框",ink,17);
+  const moving=box(212,182,208,18,wood,rust,5)+box(382,173,16,12,orange,rust,3)+dot([406,191],rust,5);
+  const front=dot(o,ink,7)+label([200,171],"A · 合页",ink,17,"end")+label(offset(lock,17,-12),"B · 门锁",rust,17,"start");
+  return lifeTurn(t,{o,angle:90,start:0,rad:145,back,moving,name:"",front});
+}
+function fanLife(t) {
+  const o=[320,172];
+  const back=hud("从风扇正面观察")+floor(355)+box(306,248,28,106,silver,border,10)+box(240,348,160,20,teal,"none",9)
+   +round(320,172,112,sky,border,3)+round(320,172,98,paper,border);
+  const blade=(fill)=>art("M 313 165 C 271 140 270 101 300 91 Q 330 88 333 151 L 329 171 Z",fill,teal);
+  const moving=[0,120,240].map((v,i)=>turn(blade(i===0?blush:"#89baae"),o,v)).join("")+dot([300,105],rust,6);
+  return lifeTurn(t,{o,angle:90,start:-107,rad:119,back,moving,front:round(320,172,14,teal)+dot(o,ink,5)+label([320,317],"盯住橙色叶片上的红点",muted,18),name:""});
+}
+function tapLife(t) {
+  const o=[320,190];
+  const back=hud("从水龙头上方往下看")+box(175,81,290,265,"#e4efea",border,27)+box(201,105,238,216,"#f9fbf5",border,25)
+   +round(320,278,16,silver,border)+round(320,278,6,border)+box(303,165,34,103,silver,border,17)+round(320,190,34,sky,border);
+  const moving=box(305,179,121,22,blush,rust,9)+dot([415,190],rust,6);
+  return lifeTurn(t,{o,angle:-90,start:0,rad:122,back,moving,front:label([454,197],"起点",teal,18)+label([320,53],"停止位置",teal,18)+dot([320,95],teal,5)});
+}
+function washerLife(t) {
+  const o=[320,216];
+  const back=hud("从滚筒洗衣机正面观察")+floor(355)+box(212,59,216,299,"#e8f0eb",border,19)+box(213,80,215,49,sky)+box(239,96,60,17,teal,"none",4)
+   +round(392,104,13,paper,border)+round(320,216,94,silver,teal,4)+round(320,216,78,paper,border,3);
+  const moving=round(320,216,65,sky,border)+art("M 280 216 Q 292 245 307 248 T 347 249 Q 347 224 360 214 Q 355 192 336 192 Q 313 219 298 194 Z","#8cb6aa",teal)
+   +art("M 303 171 Q 324 154 339 172 Q 343 183 326 190 L 302 189 Z",blush,rust)+dot([321,170],rust,5);
+  return lifeTurn(t,{o,angle:120,start:-90,rad:102,back,moving,name:"",front:dot(o,ink,5)+label([346,221],"A",ink,19)+dot([320,119],teal,5)+label([345,139],"B",ink,18)+dot([320,320],teal,5)+label([342,329],"C",ink,18)});
+}
+function microwaveLife(t) {
+  const o=[311,203];
+  const back=hud("从微波炉内往下看")+box(139,66,362,277,silver,border,15)+box(158,84,306,240,"#eaf0e7",teal,11)
+   +box(471,97,20,32,teal,"none",3)+box(471,143,19,19,paper,border,3)+box(471,171,19,19,paper,border,3)
+   +round(311,203,105,paper,border,3)+round(311,203,83,sky,border);
+  const moving=round(311,203,56,"#f0e0b9",teal,2)+round(311,203,43,"#f8ecd1","#bf9b69")
+   +art("M 280 186 L 296 178 L 301 185 L 284 194 Z",blush,rust)+dot([283,183],rust,6);
+  return lifeTurn(t,{o,angle:180,start:-144,rad:112,back,moving,front:label([320,383],"跟着盘子边缘的红色记号看",muted,18)});
+}
+function scissorsLife(t) {
+  const o=[320,207], a=25*t;
+  const upper=art("M 302 203 Q 224 194 190 143 L 341 190 L 397 209 L 391 222 L 326 219 Z",silver,teal,3)
+   +art("M 387 211 Q 418 188 440 214 Q 452 244 404 247 Q 388 241 387 211 Z",blush,rust,4)+round(418,226,12,paper,rust,3);
+  const lower=art("M 306 213 Q 225 220 187 267 L 341 223 L 395 209 L 392 195 L 325 196 Z",silver,teal,3)
+   +art("M 387 203 Q 418 181 440 201 Q 449 229 410 234 Q 391 232 387 203 Z",sky,teal,4)+round(418,212,12,paper,teal,3);
+  const signed=17+25*t;
+  return hud("从剪刀侧面观察")+box(170,94,300,225,"#fffdf7",border,19)
+   +(t>0?faded(turn(upper,o,17)+turn(lower,o,-17),.33):"")+turn(upper,o,signed)+turn(lower,o,-signed)
+   +sweep(o,62,orientation([190,143],o)+17,a)+sweep(o,62,orientation([187,267],o)-17,-a)+pivot(o)+label([320,377],"跟着两片刀刃，看哪一点一直留在原地",muted,18);
+}
+function clockLife(t) {
+  const o=[320,206], a=t*120;
+  let back=hud("从墙上的钟正面观察")+box(105,42,430,331,"#edf1e7",border,16)+round(320,206,143,teal)
+   +round(320,206,129,paper,border)+round(320,206,117,"none","#d5e3d8");
+  for(let i=0;i<12;i++) {
+    const start=i*30-90;
+    back+=line(at(o,110,start),at(o,118,start),teal,3)+label(offset(at(o,94,start),0,6),pos(i),ink,20);
+  }
+  const moving=line(o,at(o,87,210),orange,5)+dot(at(o,87,210),orange,5);
+  return lifeTurn(t,{o,angle:120,start:210,rad:77,back,moving,front:t===1?label([320,395],"10 → 11 → 12 → 1 → 2",rust,18):""});
+}
+function keyLife(t) {
+  const o=[320,206];
+  const back=hud("从锁孔正面观察")+box(178,57,286,296,wood,"#b79065",17)+line([202,71],[202,340],"#d0ac81",2)
+   +line([438,71],[438,340],"#d0ac81",2)+round(320,206,68,silver,teal,3)+round(320,206,49,paper,border,3)
+   +round(320,206,32,silver,teal,2)+mark([438,208],"门板")+mark([320,113],"锁盖");
+  const moving=art("M305 198 L 353 198 Q 360 177 384 177 Q 410 177 413 203 Q 416 231 391 236 Q 365 240 353 214 L 305 214 Z",wood,rust,3)
+   +round(389,206,11,paper,rust,2)+dot([405,205],rust,5);
+  return lifeTurn(t,{o,angle:-90,start:0,rad:113,back,moving,name:"",front:dot(o,ink,6)+label([296,244],"锁孔中心",ink,17)+label([320,384],"看钥匙的红点绕哪里走",muted,18)});
+}
+function steeringLife(t) {
+  const o=[320,200];
+  const back=hud("从驾驶员位置观察")+box(132,259,376,90,"#e4ebe5",border,18)+box(148,281,132,39,"#b8d2c9",border,9)
+   +box(360,281,132,39,"#b8d2c9",border,9)+label([207,306],"左",teal,16)+label([426,306],"右",teal,16);
+  const moving=round(320,200,111,"none",teal,19)+round(320,200,96,"none",silver,4)
+   +line(o,[227,173],teal,17)+line(o,[413,173],teal,17)+line(o,[320,293],teal,17)+round(320,200,38,teal)
+   +dot([320,89],orange,10);
+  return lifeTurn(t,{o,angle:180,start:-90,rad:134,back,moving,front:label([320,386],"红点从正上方出发",muted,18)});
+}
+function bikeLife(t) {
+  const rear=[111,251], front=[252,251], movedBy=237*t, radius=58;
+  const o=offset(front,movedBy,0);
+  const back=hud("从自行车侧面观察")+floor(309)+line([47,339],[594,339],"#9bab9e",3,'stroke-dasharray="13 14"')
+   +round(...front,radius,"none",ghost,2)+label([252,365],"前车轴的起点",teal,17)
+   +label([489,365],"前车轴的停止处",teal,17)+faded(line(front,[489,251],teal,3,dash),.5);
+  const wheel=(hub,marked)=>round(...hub,radius,paper,teal,7)+round(...hub,radius-8,"none",silver,3)
+   +[0,60,120].map(a=>line(at(hub,48,a),at(hub,48,a+180),border,2)).join("")+(marked?dot(offset(hub,0,-54),orange,8):"");
+  const frame=art("M 111 251 L 156 176 L 184 251 L 111 251 M 155 176 L 222 183 L 184 251 M 252 251 L 222 183 L 216 150 L 245 150 M 151 177 L 145 160","none",teal,7)
+   +line([130,158],[160,158],ink,8)+round(184,251,10,sky,teal,3)+line([183,251],[197,262],teal,4);
+  return back+moved(turn(wheel(rear,false),rear,movedBy/radius/tau)+turn(wheel(front,true),front,movedBy/radius/tau)+frame,movedBy,0)
+   +pivot(o)+label([320,393],t===1?"车轮绕车轴转，车轴一边跟着自行车前进":"盯住前轮的红点和车轴 O",muted,18);
+}
+function barrierLife(t) {
+  const o=[220,274];
+  const back=hud("从停车场闸杆侧面观察")+floor(335)+box(169,251,67,87,silver,teal,10)+box(182,301,40,15,teal,"none",4)
+   +box(428,262,80,57,sky,border,6)+box(439,269,26,20,paper,border,3)+line([473,263],[500,263],teal,4)
+   +round(446,319,11,teal)+round(491,319,11,teal)+label([448,361],"停车场入口",teal,18);
+  let moving=box(220,262,252,24,paper,rust,7);
+  for(let x=232;x<=443;x+=42) moving+=box(x,263,21,22,orange);
+  return lifeTurn(t,{o,angle:-90,start:0,rad:190,back,moving,front:dot([220,54],teal,5)+label([150,61],"抬起位置",teal,17)});
+}
+function ferrisLife(t) {
+  const o=[320,189], a=135*t;
+  let back=hud("从摩天轮正面观察")+floor(357)+shape([[320,172],[251,356],[389,356]],"#c6ded1",teal,4)
+   +round(320,189,118,"#eef4ed",border,4)+round(320,189,96,"none",silver,2.5);
+  let moving="";
+  for(let i=0;i<8;i++){
+    const start=-90+i*45, p=at(o,110,start+a);
+    back+=round(...at(o,125,start),5,paper,teal,2);
+    moving+=line(o,p,i===0?orange:teal,i===0?4:2);
+    moving+=box(p[0]-13,p[1]-5,26,20,i===0?blush:sky,i===0?rust:teal,5)+line(offset(p,-10,2),offset(p,10,2),i===0?rust:teal,1.4);
+  }
+  if(t>0) back+=sweep(o,135,-90,a);
+  return back+moving+pivot(o)+label([320,391],"8 个座舱均匀分布，红色座舱起初在正上方",muted,18);
+}
+function carouselLife(t) {
+  const o=[320,204], a=120*t;
+  let back=hud("从旋转木马上方往下看")+round(320,204,133,sky,border,4)+round(320,204,112,paper,teal,3)+round(320,204,67,"#dae9d8",border);
+  let moving="";
+  const horse=fill=>art("M313 119 Q 332 107 332 98 L321 85 L311 89 L312 94 L302 100 L297 116 L305 120 L307 129 L312 128 Z",fill,teal,2);
+  for(let i=0;i<6;i++){
+    const b=-90+i*60;
+    back+=line(at(o,115,b),at(o,126,b),teal,2)+label(offset(at(o,154,b),0,7),i+1,teal,21);
+    moving+=turn(horse(i===0?blush:"#8ebcb1"),o,i*60);
+  }
+  moving+=dot([317,103],rust,6);
+  return back+faded(moving,.24)+turn(moving,o,a)+sweep(o,128,-90,a)+pivot(o)+label([320,398],"场地上的 1—6 号位置保持不动",muted,17);
+}
+function seesawLife(t) {
+  const o=[320,227], a=-30*t;
+  const back=hud("从跷跷板侧面观察")+floor(345)+shape([[320,221],[267,345],[373,345]],"#c3ddcd",teal,3)+round(320,227,25,silver,teal,3);
+  const moving=box(135,217,370,20,wood,rust,7)+box(145,199,62,20,sky,teal,6)+box(434,199,62,20,blush,rust,6)
+   +line([185,198],[185,177],teal,5)+line([175,177],[196,177],teal,5)+line([455,198],[455,177],teal,5)+line([444,177],[466,177],teal,5)
+   +dot([151,227],teal,7)+dot([487,227],rust,7);
+  return back+(t>0?faded(moving,.3):"")+turn(moving,o,a)+sweep(o,160,180,a)+sweep(o,161,0,a)+pivot(o)
+   +label([320,391],"比较板的两端各转过多少度",muted,18);
+}
+function windmillLife(t) {
+  const o=[320,195];
+  const back=hud("从校园风车正面观察")+floor(343)+box(314,201,12,146,silver,border,4)
+   +round(320,195,128,sky,border,3)+round(320,195,96,paper,border);
+  const blade=art("M 319 194 C 309 168 270 171 276 121 Q 290 108 321 111 Q 337 148 324 179 Z","#78a99b",teal,2);
+  const frame=[0,90,180,270].map(a=>turn(blade,o,a)).join("");
+  return back+faded(frame,.36)+turn(frame,o,90*t)+turn(dot([299,130],orange,6),o,90*t)
+   +sweep(o,123,-105,90*t)+pivot(o)+label([320,384],t===1?"四片叶子的轮廓重合，记号移到了下一片的位置":"四片叶子形状、大小相同，分布均匀",muted,18);
+}
+function screwdriverLife(t) {
+  const o=[320,202], a=270*t;
+  const back=hud("沿螺丝刀和螺丝的轴线观察")+box(158,65,324,274,wood,"#c3a477",18)+line([181,90],[458,90],"#c3a477")
+   +line([181,314],[458,314],"#c3a477")+round(320,202,95,silver,teal,3)+round(320,202,82,paper,border,3);
+  const handle=round(320,202,63,"#8ebaae",teal,3)+round(320,202,41,"#c6ded2",teal,2)+box(313,174,14,56,teal,"none",3)
+   +box(292,195,56,14,teal,"none",3)+dot([320,141],rust,8);
+  let body=back+faded(handle,.28)+turn(handle,o,a);
+  for(let i=0;i<3;i++) body+=sweep(o,108,-90+90*i,Math.max(0,Math.min(90,a-90*i)),orange,true,i%2===1);
+  return body+pivot(o)+label([320,383],"每次从上一次停下的位置继续转",muted,18);
+}
+function revolvingLife(t) {
+  const o=[320,204], a=120*t;
+  const back=hud("从商场旋转门上方往下看")+box(99,77,442,249,"#e7ede2",border,15)
+   +round(320,204,130,paper,teal,4)+sweep(o,130,19,143,teal,false)+sweep(o,130,199,143,teal,false)
+   +label([159,210],"入口",teal,22)+label([482,210],"出口",teal,22);
+  const moving=[-90,30,150].map(b=>line(o,at(o,120,b),"#568f80",11)+line(o,at(o,117,b),"#bce0d7",3)).join("");
+  const person=dot(at(o,78,-45),orange,10);
+  return back+faded(moving,.35)+turn(moving+person,o,a)+sweep(o,111,-45,a)+pivot(o)
+   +label([320,378],"透过俯视图看三扇一样的叶片",muted,18);
+}
+function photoLife(t) {
+  const o=[320,205];
+  const back=hud("从照片正面观察")+box(161,64,320,281,"#e7eee2",border,20)
+   +box(222,63,196,284,"none",teal,10)+label([467,364],"竖放的相框",teal,16);
+  const base=box(188,122,264,166,wood,rust,8)+box(202,137,236,136,sky,teal,5)
+   +art("M 203 257 L 260 166 L 294 222 L 345 152 L 437 257 L437 273 L203 273 Z","#83b29e",teal,2)
+   +round(383,167,17,"#e6a968")+dot([222,155],rust,7);
+  return lifeTurn(t,{o,angle:90,start:-153,rad:126,back,moving:base,front:label([320,388],"照片绕中点转进竖放的相框",muted,18)});
+}
+
+const lifeCases=[
+ {id:"door",group:"家里",name:"打开房门",draw:doorLife,deg:90,
+  prompt:"从上方看，一扇门正在打开。门板绕哪个点旋转？",
+  choices:["A · 合页","B · 门锁","C · 门框"],answer:"A · 合页",
+  hint:"找一找门板上哪个点在门开关时始终留在原地。",
+  work:"左侧的合页 A 连着门板和门框。开门时，A 的位置固定，门锁和整块门板都绕 A 转。",watch:"先跟踪门锁，再看合页的位置有没有移动。"},
+ {id:"fan",group:"家里",name:"电风扇叶片",draw:fanLife,deg:90,
+  prompt:"面对风扇，橙色叶片上的红点从左上方转向右上方。按图中经过上方的路线，它向哪边转？",
+  choices:["顺时针","逆时针","向右平移"],answer:"顺时针",
+  hint:"用钟表想一想，指针从 11 经 12 转到 1 是哪个方向。",
+  work:"红点沿着圆弧经过正上方，方向和钟表从 11 经 12 到 1 一样，是顺时针。",watch:"用手指着红点，跟着叶片一起转。"},
+ {id:"tap",group:"家里",name:"转动水龙头",draw:tapLife,deg:90,
+  prompt:"从上往下看，水龙头把手从正右方转到正上方，走较短的路线。把手怎样转？",
+  choices:["顺时针 90°","逆时针 90°","逆时针 180°"],answer:"逆时针 90°",
+  hint:"正右是钟面上的 3，正上是 12。沿着较短的路线比一比。",
+  work:"从 3 的方向经过 2、1 到 12，是逆时针转四分之一圈。360° ÷ 4 = 90°。",watch:"让学生用手模拟把手从右到上的路线。"},
+ {id:"washer",group:"家里",name:"洗衣机滚筒",draw:washerLife,deg:120,
+  prompt:"从正面看滚筒，A 在滚筒正中央，B 和 C 在外框上。转动的滚筒是绕哪个点转的？",
+  choices:["A · 滚筒正中央","B · 外框上方","C · 外框下方"],answer:"A · 滚筒正中央",
+  hint:"外框固定，关注滚筒内的衣物绕着哪个点走。",
+  work:"衣物和滚筒绕着滚筒正中央 A 转。外框上的 B、C 也保持不动，所以还要看哪个点在转动的圆形正中央。",watch:"固定的地方有好几处，请她说说为什么中心是 A。"},
+ {id:"microwave",group:"家里",name:"微波炉转盘",draw:microwaveLife,deg:180,
+  prompt:"微波炉的转盘从红点出发，顺时针转了半圈。它转过了多少度？",
+  choices:["90°","180°","360°"],answer:"180°",
+  hint:"想一想一圈是多少度，半圈就是其中几分之几。",
+  work:"一圈是 360°，半圈是 360° ÷ 2 = 180°，红点停在与起点相对的一边。",watch:"用盘上红点区分半圈和一整圈。"},
+ {id:"scissors",group:"家里",name:"剪刀张开",draw:scissorsLife,
+  prompt:"把剪刀张开，两片刀刃都绕哪里转？",
+  choices:["左边的刀尖","中间的螺钉 O","右边的手柄"],answer:"中间的螺钉 O",
+  hint:"追踪两片刀刃，找它们共同绕着转的那一点。",
+  work:"两片刀刃都绕中间的螺钉 O 转。它们的转动方向可以相反，旋转中心仍是同一个点。",watch:"分别指出哪一片顺时针转、哪一片逆时针转。"},
+ {id:"clock",group:"家里",name:"墙上的挂钟",draw:clockLife,deg:120,
+  prompt:"挂钟的分针从数字 10 顺时针走到数字 2，转了多少度？",
+  choices:["60°","120°","240°"],answer:"120°",
+  hint:"先按顺时针从 10 走到 2，再数刻度之间有几个大格。",
+  work:"沿 10 → 11 → 12 → 1 → 2 走了 4 个大格。每大格 30°，所以 4 × 30° = 120°。",watch:"遇到跨过 12 的题，先在图上数格。"},
+ {id:"key",group:"家里",name:"钥匙开锁",draw:keyLife,deg:90,
+  prompt:"钥匙插在锁孔里，握住钥匙把转动。图中哪一处是钥匙的旋转中心？",
+  choices:["钥匙把的红点","门板边缘","锁孔中心"],answer:"锁孔中心",
+  hint:"钥匙把在动，观察插进锁里的那一端。",
+  work:"从锁孔正面看，钥匙把上的红点绕锁孔中心走，锁孔中心的位置不动。",watch:"暂停在一半，看看红点走的是弧线还是直线。"},
+ {id:"wheel",group:"街上与出行",name:"汽车方向盘",draw:steeringLife,deg:180,
+  prompt:"从驾驶员的位置看，方向盘上的红点一开始在正上方。顺时针转 180° 后，红点在哪？",
+  choices:["正右方","正下方","正左方"],answer:"正下方",
+  hint:"180° 是半圈。沿顺时针从正上方先经过哪里？",
+  work:"红点先经过正右方，再到正下方。从起点到相对的位置转了半圈。",watch:"暂停在 90° 左右，让她指出此刻的位置。"},
+ {id:"bike",group:"街上与出行",name:"自行车车轮",draw:bikeLife,
+  prompt:"自行车沿直路前进。站在路边看，车轮和车轴分别怎样运动？",
+  choices:["车轮只转，车轴不动","车轮绕轴转，车轴向前移动","车轮只向前移动"],answer:"车轮绕轴转，车轴向前移动",
+  hint:"分别看轮胎上的红点和车轴 O，它们各自怎么走？",
+  work:"轮胎上的红点随车轮绕车轴转。整辆自行车前进时，车轴 O 也跟着向前移动。",watch:"从路边看，红点一边转一边向前走。"},
+ {id:"barrier",group:"街上与出行",name:"停车场闸杆",draw:barrierLife,deg:90,
+  prompt:"从侧面看，闸杆从水平向右抬到竖直向上。它绕支点 O 怎样旋转？",
+  choices:["顺时针 90°","逆时针 90°","逆时针 180°"],answer:"逆时针 90°",
+  hint:"把闸杆当作钟的指针，从 3 的方向转到 12 的方向。",
+  work:"闸杆从右转到上，沿较短的路线抬起，方向是逆时针。水平和竖直之间是 90°。",watch:"让她对比这题和水龙头把手的转法。"},
+ {id:"revolving",group:"街上与出行",name:"商场旋转门",draw:revolvingLife,deg:120,
+  prompt:"旋转门有三扇一样的玻璃叶片，均匀装在中心轴上。门转多少度后，三扇叶片第一次与原来的轮廓重合？",
+  choices:["90°","120°","180°"],answer:"120°",
+  hint:"门一周 360°，三扇叶片把一周分成了几份？",
+  work:"三扇叶片把一周平均分成 3 份。转过 360° ÷ 3 = 120°，每扇叶片刚好占到相邻叶片原来的位置。",watch:"看玻璃叶片的轮廓，再看门里的人有没有回到原处。"},
+ {id:"ferris",group:"游乐场",name:"摩天轮座舱",draw:ferrisLife,deg:135,
+  prompt:"摩天轮有 8 个均匀分布的座舱。红色座舱从正上方顺时针向前走 3 个座舱间隔，绕轮心转了多少度？",
+  choices:["45°","90°","135°"],answer:"135°",
+  hint:"先用 360° 除以座舱数，算一个间隔的度数。",
+  work:"一个间隔是 360° ÷ 8 = 45°。3 个间隔就是 3 × 45° = 135°。",watch:"坐舱沿圆周移动，悬挂的座舱可以保持竖直。"},
+ {id:"carousel",group:"游乐场",name:"旋转木马",draw:carouselLife,deg:120,
+  prompt:"场地上有 6 个等间隔的编号。橙色木马从 1 号位顺时针转 120°，停在哪个号码旁？",
+  choices:["2 号位","3 号位","4 号位"],answer:"3 号位",
+  hint:"一周平均分成 6 份，然后算 120° 要走几个间隔。",
+  work:"每个间隔是 360° ÷ 6 = 60°。120° ÷ 60° = 2，沿 1 → 2 → 3 数两个间隔，停在 3 号位。",watch:"编号留在原地，跟着橙色木马从一个编号数向下一个。"},
+ {id:"seesaw",group:"游乐场",name:"跷跷板两端",draw:seesawLife,deg:30,
+  prompt:"跷跷板绕支点 O 偏转，左端下落，右端上升。右端绕 O 转了 30°，左端绕 O 转了多少度？",
+  choices:["15°","30°","60°"],answer:"30°",
+  hint:"左右两端是同一块板上的点，想想板是怎么转的。",
+  work:"两端跟着同一块板绕 O 转，两端都转过了 30°。左端向下和右端向上，是因为它们在支点的两边。",watch:"在停住的画面里，指一指两端划过的两段弧线。"},
+ {id:"windmill",group:"校园与工具",name:"四叶小风车",draw:windmillLife,deg:90,
+  prompt:"四片相同的叶片均匀围在风车中心。只看叶片轮廓，风车第一次转到重合要转多少度？",
+  choices:["45°","90°","180°"],answer:"90°",
+  hint:"四片相同的叶片均匀分布，想想每片之间隔多少度。",
+  work:"360° ÷ 4 = 90°。转过 90°，每片都占到相邻叶片原来的位置。红点帮助我们看清是哪一片转过去了。",watch:"分别比较整圈轮廓和红点的位置。"},
+ {id:"screwdriver",group:"校园与工具",name:"螺丝刀拧螺丝",draw:screwdriverLife,deg:270,
+  prompt:"从手柄端看，螺丝刀连续顺时针转 3 次，每次转四分之一圈，一共转了多少度？",
+  choices:["90°","180°","270°"],answer:"270°",
+  hint:"先算四分之一圈是多少度，再把三次的度数加起来。",
+  work:"四分之一圈是 360° ÷ 4 = 90°。三次沿同一方向转，共 3 × 90° = 270°。",watch:"同样的停下位置，也可以由反方向只转 90° 到达。"},
+ {id:"photo",group:"校园与工具",name:"照片放进相框",draw:photoLife,deg:90,
+  prompt:"把一张横放的长方形照片绕中心转入竖框，最少转多少度？",
+  choices:["45°","90°","180°"],answer:"90°",
+  hint:"观察照片的长边从横过来变成竖起来，夹角是多少。",
+  work:"长边由水平方向变成竖直方向，最小需转 90°。照片的长、宽和面积都保持不变。",watch:"再问学生转 180° 后，照片是横放还是竖放。"}
+];
+
+function currentLife(c) {
+  return lifeCases.find(item=>item.id===c.case)??lifeCases[0];
+}
+function filteredLife(group) {
+  return group==="全部"?lifeCases:lifeCases.filter(item=>item.group===group);
+}
+function lifeScene(t,c) {
+  const item=currentLife(c), index=lifeCases.indexOf(item)+1;
+  let status="第 "+index+" / "+lifeCases.length+" 题";
+  if(t>0) status=item.deg?"已转 "+Math.round(t*item.deg)+"°":t===1?"演示完成":"演示中";
+  graph(item.name+"的旋转演示",item.draw(t),status);
+}
+const lifeLesson={
+  tab:"生活练习 · 18 题", title:"生活里的旋转", grade:"生活练习", figure:"生活里的旋转",
+  intro:"先看图答题，再播放动画验证。", seconds:4.3, options:[], markers:[0,1/3,2/3,1], draw:lifeScene,
+  ask(c) {
+    const item=currentLife(c);
+    return [item.prompt,item.choices,item.answer,item.work,item.hint];
+  },
+  steps(c) {
+    const item=currentLife(c);
+    return [["观察起始位置","看看图上有什么，找出正在研究的物体。"],
+      ["看物体怎么动",item.watch],["接着追踪同一个点","拖动进度，比较转动前后的位置。"],
+      ["核对答案",item.work]];
+  }
+};
+
+
+const scenes=[
+  {
+    tab:"钟面", title:"指针转了几格？", grade:"认识旋转", figure:"钟面演示", seconds:3.5,
+    intro:"看住钟心 O。指针绕着它转，针尖沿着弧线走。",
+    options:[["start","从哪个数字开始",["11","12","3","6"]],["dir","旋转方向",["顺时针","逆时针"]],["deg","目标角度",["90","30","60","120","180","270"]]],
+    markers:[0,0.34,1], draw:clockScene,
+    ask(c) {
+      const sign=c.dir==="顺时针"?1:-1, end=pos(+c.start+sign*c.deg/30);
+      return [c.start+" 开始，"+c.dir+"转 "+c.deg+"°，指到几？",[pos(end-1),end,pos(end+1)].sort((a,b)=>a-b).map(String),String(end),"沿着题给方向数 "+c.deg/30+" 个大格，落在 "+end+"。","每个大格是 30°。先算要走几格，再沿题给方向数。"];
+    },
+    steps(c) {return [["找圆心","按住 O，指针从数字 "+c.start+" 出发。"],["沿指定方向数","一圈 360°，钟面有 12 个大格。360° ÷ 12 = 30°，每经过一个大格就转过 30°。"],["说完整","指针绕点 O "+c.dir+"旋转了 "+c.deg+"°。重点说出中心、方向和角度。"]];},
+    teacher:"把起点换成 11，顺时针转 90°。让学生指着钟面说出 11、12、1、2，再用手比出走了几格。"
+  },
+  {
+    tab:"线段", title:"一根线段怎么转？", grade:"方格作图 · 第一步", figure:"线段 OB", seconds:3.4,
+    intro:"从 O 往上数 4 格找到 B。先猜 B 会到哪边，再看弧线。",
+    options:[["dir","旋转方向",["顺时针","逆时针"]],["deg","目标角度",["90","180","270"]]],
+    markers:[0,0.5,1], draw:(t,c)=>gridScene(t,c,false),
+    ask(c) {
+      const dest=Number(c.deg)===180?"下方":((c.dir==="顺时针")===(Number(c.deg)===90)?"右方":"左方");
+      return ["转完后，B′ 在 O 的哪里？",["左方 4 格","右方 4 格","下方 4 格","下方 2 格"],dest+" 4 格","B′ 在 "+dest+" 4 格。OB 和 OB′ 一样长。","把 O 当作钟心。先确定方向，再从 O 数满 4 格。"];
+    },
+    steps(c) {return [["确定起点","O 固定。原线段 OB 向上，长度是 4 格。"],["看针尖的轨迹","B 沿着以 O 为中心的圆弧走，离 O 一直是 4 格。"],["在方格上定点","沿"+c.dir+"转 "+c.deg+"° 后，从 O 朝新方向数 4 格，找到 B′。"]];},
+    teacher:"分别用顺时针 270° 和逆时针 90°。问学生为什么落点一样，也让她指一指两次走的弧线。"
+  },
+  {
+    tab:"三角形", title:"两条边一起转", grade:"方格作图 · 第二步", figure:"三角形 AOB", seconds:3.8,
+    intro:"A 在 O 左边 3 格，B 在 O 上方 4 格。用刚才转线段的方法找两个落点。",
+    options:[["dir","绕 O 旋转 90° 的方向",["顺时针","逆时针"]]],
+    markers:[0,0.5,1], draw:(t,c)=>gridScene(t,c,true),
+    ask(c) {
+      return ["A′、B′ 分别在哪里？",["上 3 格，右 4 格","下 3 格，左 4 格","上 4 格，右 3 格"],c.dir==="顺时针"?"上 3 格，右 4 格":"下 3 格，左 4 格","两点都绕 O 转同一个角度，离 O 的格数各自保持。","把 OA、OB 当成两根针，分别追踪 A 和 B。"];
+    },
+    steps(c) {return [["找中心和关键线段","圈出 O，认准 OA 的 3 格和 OB 的 4 格。"],["用同样的方向转两边","OA 和 OB 都绕 O "+c.dir+"转 90°。两条弧线分别是 A、B 走过的路。"],["标点、连线和检查","标出 A′、B′，按 A′—O—B′—A′ 连起来。核对 OA′ 是 3 格、OB′ 是 4 格。"]];},
+    teacher:"先暂停在起点，让学生在纸上画答案。再播放核对。随后切换成另一个方向，让学生指着 O 逐条说两条边的变化。"
+  },
+  {
+    tab:"拼卡片", title:"先转好，再移过去", grade:"综合应用", figure:"卡片 1 拼入空位", seconds:5,
+    intro:"观察小鸟嘴巴的方向，想想卡片要怎么变，才能和空格里的图案对齐。",
+    options:[], markers:[0,0.25,0.52,1], draw:cardScene,
+    ask() {return ["小鸟起初向右。空格里的小鸟朝下，先做哪一步？",["向右平移","顺时针转 90°","逆时针转 90°"],"顺时针转 90°","朝向先从向右变为向下，再把卡片整体移到目标。","用手沿小鸟嘴巴朝向比一比，想想从右转到下要往哪边转。"];},
+    steps() {return [["对照同一张卡片","认准小鸟和树枝，找到目标拼图里对应的空格。"],["固定右下角 O","卡片整块绕 O 顺时针转，先把小鸟的朝向对齐。"],["转够 90°，再开始平移","卡片上的点一起向右、向下移动，途中朝向保持一致。"],["检查拼图","比较卡片四个边缘和目标空格，小鸟也正好对齐。"]];},
+    teacher:"播到卡片刚转好就停下来。问学生下一步要怎么挪，哪一点和整张卡片一起移动。"
+  },
+  {
+    tab:"重合", title:"转多少度会再重合？", grade:"探究旋转对称", figure:"绕图形的中心转", seconds:3.8,
+    intro:"盯住彩色顶点，再看轮廓什么时候第一次与原来完全重合。",
+    options:[["shape","选择图形",overlapShapes.map(s=>s.name)]], markers:[0,0.5,1], draw:overlapScene,
+    ask(c) {
+      const answer=overlapShapes.find(g=>g.name===c.shape).deg+"°";
+      return [c.shape+"旋转后，第一次重合要转多少度？",["60°","90°","120°","180°"],answer,"第一次重合需要转 "+answer+"。标记顶点已经换位置，整体轮廓恰好重合。","观察什么时候所有边都盖在原来的边上。"];
+    },
+    steps(c) {const g=overlapShapes.find(item=>item.name===c.shape);return [["找中心，给顶点做记号","深绿轮廓表示原来的图形，橙色表示转动中的图形。"],["比较边的位置","用上面的进度条一点一点转，观察现在还有哪些边对不上。"],["读出第一次重合的角度",g.name+"的最小重合角是 "+g.deg+"°。看一看做记号的顶点转到哪儿了。"]];},
+    teacher:"依次切换正方形和长方形。先问正方形转 90° 时长方形能不能重合，再播出来对比。"
+  },
+  {
+    tab:"求角度", title:"到哪里找旋转角？", grade:"拓展 · 角度", figure:"找一组旋转前后的对应连线", seconds:4.3,
+    intro:"选定一个顶点，沿着它到旋转中心的连线，看这条线转过多少度。",
+    options:[["example","选择例题",["45° 例题","100° 例题"]]], markers:[0,0.42,0.75,1], draw:angleScene,
+    ask(c) {
+      const large=c.example==="100° 例题";
+      return large?["哪两条线之间的角是转动的角？",["AB 与 AB′","AB 与 AC′","AB′ 与 AC"],"AB 与 AB′","A 固定，B 转到了 B′。所以跟踪 AB 转成 AB′。","认准同一个顶点 B 转到哪个点。"]:["哪两条线之间的角是转动的角？",["OB 与 OA₁","OA 与 OA₁","OA 与 OB"],"OA 与 OA₁","选同一个点 A，连接 O 与它转前、转后的位置。","沿着 A 的运动轨迹找 A₁，再看两条线都从哪里出发。"];
+    },
+    steps(c) {
+      return c.example==="100° 例题"?[["找固定点","A 在前后两张三角形中都在原地，A 是旋转中心。"],["跟踪同一个顶点","点 B 转到 B′，看 AB 顺时针转成 AB′。"],["求新三角形的顶角","对应角 ∠AB′C′ = 50°，已知 ∠AC′B′ = 30°，所以 ∠B′AC′ = 180° − 50° − 30° = 100°。"],["把计算和动画接起来","AB 与 AC′ 指向相同，所以从 AB 转到 AB′ 的角等于 ∠B′AC′，是 100°。"]]:[["找中心和原来的角","O 是旋转中心。原三角形两锐角各 45°，所以 ∠AOB = 90°。"],["跟踪 OA 转成 OA₁","A 转到 A₁，橙色小弧表示 OA 转过的角。"],["从大角里拆出小角","∠A₁OB = 135°，其中包含原来的 ∠AOB = 90°。"],["求旋转角","∠A₁OA = 135° − 90° = 45°。三角形绕 O 逆时针转了 45°。"]];
+    },
+    teacher:"让学生分别指大角和旋转角。她如果报了大角，请她沿着原来的边和对应边用手比一比。"
+  },
+  {
+    tab:"剪拼面积", title:"把四边形拼成正方形", grade:"拓展 · 剪拼", figure:"四边形 ABCD 的面积", seconds:4.2,
+    intro:"已知 AB = AD、∠BAD 与 ∠BCD 都是直角，AH 垂直 BC，AH = 2 dm。沿 AH 剪开，观察哪一块能转过去。",
+    options:[], markers:[0,0.5,1], draw:areaScene,
+    ask() {return ["橙色三角形应绕哪个点转过去？",["点 A","点 H","点 C"],"点 A","绕 A 逆时针转 90°。AB 转到 AD，刚好拼上。","找两条等长边 AB 和 AD 的共同端点。"];},
+    steps() {return [["沿 AH 拆出三角形 ABH","绿色部分留在原处，橙色部分准备绕公共顶点 A 转。"],["把 AB 对准 AD","∠BAD = 90°，且 AB = AD。绕点 A 逆时针转 90° 后，B 落在 D。"],["读出正方形的边长","AH′ 等于 AH，都是 2 dm。两块刚好拼成正方形，面积是 2 × 2 = 4 dm²。"]];},
+    teacher:"先让学生预测 B 会落到哪里。播完后请她指着正方形的四条边，说出哪条边是 AH 转过去的。"
+  }
+];
+
+scenes.push(lifeLesson);
+
+const nav=byId("lessons"), scrubber=byId("timeline"), play=byId("play"), previous=byId("previous"), next=byId("next");
+const reduced=matchMedia("(prefers-reduced-motion: reduce)");
+let scene=scenes[0], activeIndex=0, settings={}, progress=0;
+let timer=0, lastTime=null, renderedStep=-1;
+function stop() {
+  if(timer) cancelAnimationFrame(timer);
+  timer=0;
+  lastTime=null;
+  play.textContent=progress>=1?"重播":"播放";
+}
+function show(value) {
+  progress=clamp(value);
+  scrubber.value=String(Math.round(progress*1000));
+  scrubber.setAttribute("aria-valuetext",Math.round(progress*100)+"%");
+  scene.draw(progress,settings);
+  let i=0;
+  for(const [index,mark] of scene.markers.entries()) if(progress>=mark-0.00001) i=index;
+  if(i!==renderedStep) {
+    const [title,copy]=scene.steps(settings)[i];
+    byId("step-title").textContent=title;
+    byId("step-copy").textContent=copy;
+    renderedStep=i;
+  }
+  previous.disabled=progress===0;
+  next.disabled=progress===1;
+}
+function setProgress(value) {
+  stop();
+  show(value);
+  play.textContent=progress>=1?"重播":"播放";
+}
+function goToStep(forward) {
+  const values=forward?scene.markers:[...scene.markers].reverse();
+  const mark=values.find(item=>forward?item>progress+0.0001:item<progress-0.0001);
+  setProgress(mark??(forward?1:0));
+}
+function frame(now) {
+  if(lastTime!==null) {
+    const speed=Number(byId("speed").value);
+    show(progress+(now-lastTime)*speed/(scene.seconds*1000));
+  }
+  if(progress>=1) {stop();return;}
+  lastTime=now;
+  timer=requestAnimationFrame(frame);
+}
+function togglePlay() {
+  if(timer) {stop();return;}
+  if(progress>=1) show(0);
+  if(reduced.matches) {goToStep(true);return;}
+  play.textContent="暂停";
+  timer=requestAnimationFrame(frame);
+}
+function question() {
+  const [prompt,answers,correct,good,hint]=scene.ask(settings);
+  const choices=byId("choices"), feedback=byId("feedback");
+  byId("question").textContent=prompt;
+  choices.replaceChildren();
+  feedback.hidden=true;
+  feedback.textContent="";
+  for(const answer of answers) {
+    const button=document.createElement("button");
+    button.type="button";
+    button.className="choice";
+    button.textContent=answer;
+    button.setAttribute("aria-pressed","false");
+    button.addEventListener("click",()=>{
+      for(const item of choices.children) item.setAttribute("aria-pressed",String(item===button));
+      const isCorrect=answer===correct;
+      feedback.classList.toggle("good",isCorrect);
+      feedback.hidden=false;
+      feedback.textContent=isCorrect?good:hint;
+    });
+    choices.append(button);
+  }
+}
+function lifeOptions(options) {
+  const group=document.createElement("select"), cases=document.createElement("select");
+  function field(title,select) {
+    const fieldLabel=document.createElement("label");
+    fieldLabel.textContent=title;
+    fieldLabel.append(select);
+    options.append(fieldLabel);
+  }
+  for(const name of lifeGroups) group.add(new Option(name,name));
+  field("生活场景",group);
+  field("选择题目",cases);
+
+  const actions=document.createElement("div");
+  actions.className="question-nav";
+  const buttons=["上一题","下一题"].map(label=>{
+    const button=document.createElement("button");
+    button.type="button";
+    button.textContent=label;
+    button.className="control";
+    actions.append(button);
+    return button;
+  });
+  options.append(actions);
+
+  function showCase() {
+    const item=currentLife(settings), list=filteredLife(settings.group);
+    const i=list.indexOf(item);
+    cases.value=item.id;
+    buttons[0].disabled=i<=0;
+    buttons[1].disabled=i===list.length-1;
+    byId("grade").textContent=item.group+" · 生活练习";
+    byId("figure-label").textContent=item.name+" · 旋转示意图";
+    byId("scene-title").textContent=item.name;
+    byId("teacher-copy").textContent=item.watch;
+    byId("teacher").open=false;
+    renderedStep=-1;
+    question();
+    setProgress(0);
+  }
+  function showList() {
+    settings.group=group.value;
+    const list=filteredLife(settings.group);
+    cases.replaceChildren(...list.map(item=>new Option((lifeCases.indexOf(item)+1)+". "+item.name,item.id)));
+    settings.case=list[0].id;
+    showCase();
+  }
+  group.addEventListener("change",showList);
+  cases.addEventListener("change",()=>{settings.case=cases.value;showCase();});
+  for(const [j,button] of buttons.entries()) {
+    button.addEventListener("click",()=>{
+      const list=filteredLife(settings.group);
+      const item=list[list.indexOf(currentLife(settings))+(j===0?-1:1)];
+      if(item) {settings.case=item.id;showCase();}
+    });
+  }
+  showList();
+}
+function chooseScene(index) {
+  activeIndex=index;
+  scene=scenes[index];
+  settings={};
+  for(const [i,button] of [...nav.children].entries()) button.setAttribute("aria-pressed",String(i===index));
+  const options=byId("options");
+  options.replaceChildren();
+  if(scene===lifeLesson) {
+    options.hidden=false;
+    byId("intro").textContent=scene.intro;
+    byId("challenge-title").textContent="先看图做题";
+    lifeOptions(options);
+    return;
+  }
+  options.hidden=scene.options.length===0;
+  for(const [key,title,values] of scene.options) {
+    const labelEl=document.createElement("label"), select=document.createElement("select");
+    labelEl.textContent=title;
+    settings[key]=values[0];
+    for(const value of values) {
+      const option=document.createElement("option");
+      option.value=value;
+      option.textContent=key==="deg"?value+"°":value;
+      select.append(option);
+    }
+    select.addEventListener("change",()=>{
+      settings[key]=select.value;
+      renderedStep=-1;
+      question();
+      setProgress(0);
+    });
+    labelEl.append(select);
+    options.append(labelEl);
+  }
+  byId("figure-label").textContent=scene.figure;
+  byId("grade").textContent=scene.grade;
+  byId("scene-title").textContent=scene.title;
+  byId("intro").textContent=scene.intro;
+  byId("challenge-title").textContent="先猜一猜";
+  byId("teacher-copy").textContent=scene.teacher;
+  byId("teacher").open=false;
+  renderedStep=-1;
+  question();
+  setProgress(0);
+}
+
+for(const [i,item] of scenes.entries()) {
+  const button=document.createElement("button");
+  button.type="button";
+  if(item===lifeLesson) button.className="life-tab";
+  button.innerHTML='<span class="index" aria-hidden="true">'+(i+1)+'</span>'+item.tab;
+  button.addEventListener("click",()=>{if(activeIndex!==i)chooseScene(i);});
+  nav.append(button);
+}
+play.addEventListener("click",togglePlay);
+previous.addEventListener("click",()=>goToStep(false));
+next.addEventListener("click",()=>goToStep(true));
+byId("reset").addEventListener("click",()=>setProgress(0));
+scrubber.addEventListener("input",()=>setProgress(Number(scrubber.value)/1000));
+reduced.addEventListener("change",()=>stop());
+chooseScene(location.hash==="#life"?scenes.indexOf(lifeLesson):0);
+</script>
+</body>
+</html>
