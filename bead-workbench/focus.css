@@ -1,4 +1,9 @@
-.focus-dialog{width:min(1100px,calc(100vw - 26px));max-width:none;max-height:calc(100dvh - 26px);padding:14px;overflow:auto}
+.focus-dialog{width:min(1100px,calc(100vw - 26px));max-width:none;height:min(900px,calc(100dvh - 18px));max-height:calc(100dvh - 18px);padding:clamp(8px,1.5vw,14px);overflow:auto}
+.focus-dialog[open]{display:flex;flex-direction:column}
+.focus-dialog[open]>:not(.focus-scroll){flex-shrink:0}
+.focus-zoom{display:flex;align-items:center;gap:4px}
+.focus-zoom .button{min-height:32px;padding:0 8px;font-size:12px}
+.focus-zoom .button[aria-pressed=true]{background:var(--pale);color:var(--ink)}
 .focus-dialog .dialog-heading h2{font-size:clamp(15px,3vw,20px)}
 .focus-dialog .dialog-heading .button,.focus-progress .button{min-height:34px}
 .focus-controls,.focus-progress,.focus-colors{display:flex;align-items:center;flex-wrap:wrap;gap:7px 12px;margin-top:9px}
@@ -7,9 +12,11 @@
 .focus-progress output{font-size:13px;font-weight:700;color:var(--accent)}
 .focus-progress .button,.focus-colors .button{font-size:11px;padding:0 8px}
 .focus-dialog .focus-help{font-size:11px;margin:7px 0}
-.focus-scroll{height:clamp(200px,53dvh,650px);overflow:auto;overscroll-behavior:contain;background:#f9e5ee;padding:7px;border:1px solid var(--rule)}
+.focus-scroll{flex:1;min-height:80px;overflow:auto;overscroll-behavior:contain;background:#f9e5ee;padding:7px;border:1px solid var(--rule)}
+.focus-scroll[data-fit]{overflow:hidden}
+.focus-scroll[data-fit] canvas{margin:auto}
 .focus-scroll canvas{display:block;max-width:none;cursor:pointer;touch-action:pan-x pan-y}
-.focus-colors{max-height:91px;overflow:auto;align-content:start;gap:5px}
+.focus-colors{max-height:min(91px,12dvh);overflow:auto;align-content:start;gap:5px}
 .focus-colors .button{min-height:28px;gap:6px}
 .focus-colors .button[aria-pressed=true],.extras .button[aria-pressed=true]{color:white;background:var(--accent);border-color:var(--accent)}
 .focus-swatch{width:12px;height:12px;border:1px solid #96677f;border-radius:3px}

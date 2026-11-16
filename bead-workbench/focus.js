@@ -5,11 +5,15 @@ const BeadFocus = (() => {
   dialog.className = "focus-dialog";
   dialog.setAttribute("aria-labelledby", "focus-title");
   dialog.innerHTML = `
-    <header class="dialog-heading"><h2 id="focus-title"></h2><button type="button" class="button outline" data-close>返回图纸</button></header>
+    <header class="dialog-heading"><h2 id="focus-title"></h2><button type="button" class="button outline" data-close autofocus>返回图纸</button></header>
     <div class="focus-controls">
       <label>高亮色号 <select data-color></select></label>
       <label>高亮区域 <select data-region></select></label>
-      <label>格子大小 <select data-size><option value="20">小</option><option value="28">中</option><option value="39">大</option></select></label>
+      <div class="focus-zoom" role="group" aria-label="图纸缩放">
+        <button type="button" class="button outline" data-out aria-label="缩小图纸">−</button>
+        <button type="button" class="button outline" data-fit aria-pressed="true">看全图</button>
+        <button type="button" class="button outline" data-in aria-label="放大图纸">＋</button>
+      </div>
       <label class="focus-check"><input type="checkbox" data-hide> 隐去已拼</label>
     </div>
     <div class="focus-progress">
@@ -26,7 +30,9 @@ const BeadFocus = (() => {
   const pick = (name) => dialog.querySelector("[data-" + name + "]");
   const color = pick("color");
   const region = pick("region");
-  const size = pick("size");
+  const fit = pick("fit");
+  const zoomOut = pick("out");
+  const zoomIn = pick("in");
   const hide = pick("hide");
   const grid = pick("grid");
   const ctx = grid.getContext("2d");
@@ -34,6 +40,8 @@ const BeadFocus = (() => {
   const block = 10;
   let current, storageKey, finished, tiles, counts, completedByColor;
   let total = 0;
+  let zoomStep = null;
+  let drawnStep = 0;
 
   function patternKey(pattern) {
     let hash = 2166136261;
@@ -46,7 +54,7 @@ const BeadFocus = (() => {
   function persist() {
     try {
       localStorage.setItem(storageKey, JSON.stringify({
-        done: [...finished], color:color.value, tile:region.value, size:size.value, hide:hide.checked
+        done: [...finished], color:color.value, tile:region.value, hide:hide.checked
       }));
     } catch {}
   }
@@ -60,14 +68,55 @@ const BeadFocus = (() => {
     return x >= tile.x && x < tile.right && y >= tile.y && y < tile.bottom;
   }
 
+  function fitStep() {
+    const style = getComputedStyle(canvasFrame);
+    const width = canvasFrame.clientWidth - parseFloat(style.paddingLeft) - parseFloat(style.paddingRight);
+    const height = canvasFrame.clientHeight - parseFloat(style.paddingTop) - parseFloat(style.paddingBottom);
+    return Math.max(.1, Math.floor(Math.min(
+      (width - 2) / (current.width + 1),
+      (height - 2) / (current.height + 1)
+    ) * 10) / 10);
+  }
+
+  function showAll() {
+    zoomStep = null;
+    draw();
+    canvasFrame.scrollTo(0,0);
+  }
+
+  function changeZoom(factor) {
+    const next = drawnStep * factor;
+    if (next <= fitStep() * 1.05) {
+      showAll();
+      return;
+    }
+    // Keep the same part of the pattern in view when zooming a second time.
+    const frameRect = canvasFrame.getBoundingClientRect();
+    const gridRect = grid.getBoundingClientRect();
+    const x = (frameRect.left + canvasFrame.clientWidth / 2 - gridRect.left) / drawnStep;
+    const y = (frameRect.top + canvasFrame.clientHeight / 2 - gridRect.top) / drawnStep;
+    zoomStep = Math.min(Math.max(64, fitStep() * 2), next);
+    draw();
+    const nextRect = grid.getBoundingClientRect();
+    canvasFrame.scrollBy(
+      nextRect.left + x * drawnStep - frameRect.left - canvasFrame.clientWidth / 2,
+      nextRect.top + y * drawnStep - frameRect.top - canvasFrame.clientHeight / 2
+    );
+  }
+
   function draw() {
     const {width, height, palette, cells} = current;
-    const step = Number(size.value);
+    const fitted = zoomStep === null;
+    canvasFrame.toggleAttribute("data-fit",fitted);
+    const step = drawnStep = zoomStep ?? fitStep();
+    fit.setAttribute("aria-pressed",String(fitted));
+    zoomOut.disabled = fitted;
+    zoomIn.disabled = step >= Math.max(64, fitStep() * 2);
     const canvasWidth = (width + 1) * step + 1;
     const canvasHeight = (height + 1) * step + 1;
     const scale = Math.min(devicePixelRatio || 1, 2, 4200 / Math.max(canvasWidth, canvasHeight));
-    grid.width = Math.round(canvasWidth * scale);
-    grid.height = Math.round(canvasHeight * scale);
+    grid.width = Math.max(1, Math.round(canvasWidth * scale));
+    grid.height = Math.max(1, Math.round(canvasHeight * scale));
     grid.style.width = canvasWidth + "px";
     grid.style.height = canvasHeight + "px";
     ctx.setTransform(grid.width / canvasWidth,0,0,grid.height / canvasHeight,0,0);
@@ -87,6 +136,7 @@ const BeadFocus = (() => {
       ctx.globalAlpha = inScope(i) ? (done ? .46 : 1) : .19;
       ctx.fillStyle = entry.hex;
       ctx.fillRect(x,y,step,step);
+      if (step < 12) continue;
       const [r,g,b] = entry.rgb;
       ctx.fillStyle = (r * .299 + g * .587 + b * .114) > 146 ? "#251b22" : "#fff";
       ctx.font = "700 " + Math.min(17, step * .48) + "px system-ui,sans-serif";
@@ -102,9 +152,9 @@ const BeadFocus = (() => {
         ctx.moveTo(vertical ? p : step, vertical ? step : p);
         ctx.lineTo(vertical ? p : canvasWidth, vertical ? canvasHeight : p);
         ctx.stroke();
-        if (i === extent) continue;
+        if (i === extent || (step < 18 && i !== 0 && i !== extent - 1 && (i + 1) % 5 !== 0)) continue;
         ctx.fillStyle = "#63445a";
-        ctx.font = "600 11px system-ui,sans-serif";
+        ctx.font = "600 " + Math.min(11, step * .62) + "px system-ui,sans-serif";
         ctx.fillText(i + 1, vertical ? p + step / 2 : step / 2, vertical ? step / 2 : p + step / 2);
       }
     }
@@ -192,20 +242,20 @@ const BeadFocus = (() => {
     if (color.selectedIndex < 0) color.value = "";
     region.value = saved?.tile ?? "";
     if (region.selectedIndex < 0) region.value = "";
-    size.value = ["20","28","39"].includes(saved?.size) ? saved.size : "28";
+    zoomStep = null;
     hide.checked = Boolean(saved?.hide);
     dialog.querySelector("h2").textContent = name + " · 拼豆模式";
     dialog.showModal();
-    canvasFrame.scrollTo(0,0);
+    dialog.scrollTop = 0;
     refresh();
+    canvasFrame.scrollTo(0,0);
     return true;
   }
 
   grid.addEventListener("click", event => {
     const rect = grid.getBoundingClientRect();
-    const step = Number(size.value);
-    const x = Math.floor((event.clientX - rect.left) / step) - 1;
-    const y = Math.floor((event.clientY - rect.top) / step) - 1;
+    const x = Math.floor((event.clientX - rect.left) * (current.width + 1 + 1 / drawnStep) / rect.width) - 1;
+    const y = Math.floor((event.clientY - rect.top) * (current.height + 1 + 1 / drawnStep) / rect.height) - 1;
     if (x < 0 || y < 0 || x >= current.width || y >= current.height) return;
     const i = y * current.width + x;
     if (!inScope(i)) return;
@@ -213,7 +263,13 @@ const BeadFocus = (() => {
     else finished.add(i);
     refresh();
   });
-  for (const select of [color, region, size, hide]) select.addEventListener("change",refresh);
+  new ResizeObserver(() => {
+    if (dialog.open && zoomStep === null) draw();
+  }).observe(canvasFrame);
+  fit.addEventListener("click",showAll);
+  zoomOut.addEventListener("click",() => changeZoom(1 / 1.4));
+  zoomIn.addEventListener("click",() => changeZoom(1.4));
+  for (const select of [color, region, hide]) select.addEventListener("change",refresh);
   pick("colors").addEventListener("click", event => {
     const button = event.target.closest("button");
     if (!button) return;
