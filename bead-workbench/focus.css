@@ -7,8 +7,8 @@
 .focus-dialog .dialog-heading h2{font-size:clamp(15px,3vw,20px)}
 .focus-dialog .dialog-heading .button,.focus-progress .button{min-height:34px}
 .focus-controls,.focus-progress,.focus-colors{display:flex;align-items:center;flex-wrap:wrap;gap:7px 12px;margin-top:9px}
-.focus-controls label{display:inline-flex;align-items:center;gap:4px;color:var(--muted);font-size:12px}
-.focus-controls select{font:inherit;background:white;border:1px solid var(--rule);border-radius:4px;color:var(--ink);min-height:32px;max-width:185px}
+.focus-controls label,.focus-sort{display:inline-flex;align-items:center;gap:4px;color:var(--muted);font-size:12px}
+.focus-controls select,.focus-sort select{font:inherit;background:white;border:1px solid var(--rule);border-radius:4px;color:var(--ink);min-height:32px;max-width:185px}
 .focus-progress output{font-size:13px;font-weight:700;color:var(--accent)}
 .focus-progress .button,.focus-colors .button{font-size:11px;padding:0 8px}
 .focus-dialog .focus-help{font-size:11px;margin:7px 0}
@@ -16,7 +16,8 @@
 .focus-scroll[data-fit]{overflow:hidden}
 .focus-scroll[data-fit] canvas{margin:auto}
 .focus-scroll canvas{display:block;max-width:none;cursor:pointer;touch-action:pan-x pan-y}
-.focus-colors{max-height:min(91px,12dvh);overflow:auto;align-content:start;gap:5px}
+.focus-palette{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:start;gap:6px 10px;margin-top:8px}
+.focus-colors{margin-top:0;max-height:min(91px,12dvh);overflow:auto;align-content:start;gap:5px}
 .focus-colors .button{min-height:28px;gap:6px}
 .focus-colors .button[aria-pressed=true],.extras .button[aria-pressed=true]{color:white;background:var(--accent);border-color:var(--accent)}
 .focus-swatch{width:12px;height:12px;border:1px solid #96677f;border-radius:3px}

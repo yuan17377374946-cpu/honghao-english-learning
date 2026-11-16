@@ -24,11 +24,20 @@ const BeadFocus = (() => {
     </div>
     <p class="focus-help">点击格子标记已拼，再点一次可取消。高亮色号与区域可同时使用，进度保存在当前浏览器。</p>
     <div class="focus-scroll" tabindex="0" aria-label="拼豆网格"><canvas data-grid aria-label="拼豆图纸网格"></canvas></div>
-    <div class="focus-colors" data-colors aria-label="用豆清单"></div>`;
+    <div class="focus-palette">
+      <label class="focus-sort">排序 <select data-sort>
+        <option value="count">按用量（多到少）</option>
+        <option value="series">按系列（A 到 ZG）</option>
+      </select></label>
+      <div class="focus-colors" data-colors role="group" aria-label="用豆清单"></div>
+    </div>`;
   document.body.append(dialog);
 
   const pick = (name) => dialog.querySelector("[data-" + name + "]");
   const color = pick("color");
+  const sortOrder = pick("sort");
+  const paletteList = pick("colors");
+  const codeOrder = new Intl.Collator("en", {numeric:true});
   const region = pick("region");
   const fit = pick("fit");
   const zoomOut = pick("out");
@@ -166,6 +175,19 @@ const BeadFocus = (() => {
     }
   }
 
+  function sortPalette() {
+    const buttons = [...paletteList.children];
+    buttons.sort((a, b) => {
+      const left = Number(a.value);
+      const right = Number(b.value);
+      return sortOrder.value === "series"
+        ? codeOrder.compare(current.palette[left].code, current.palette[right].code)
+        : counts[right] - counts[left] || left - right;
+    });
+    paletteList.replaceChildren(...buttons);
+    paletteList.scrollTop = 0;
+  }
+
   function refresh() {
     completedByColor.fill(0);
     for (const i of finished) completedByColor[current.cells[i]]++;
@@ -176,7 +198,7 @@ const BeadFocus = (() => {
       ((color.value || region.value) ? " · 当前待拼 " + scope + " 颗" : "");
     pick("complete").disabled = !scope || (!region.value && !color.value);
     pick("reset").disabled = !finished.size;
-    for (const button of pick("colors").querySelectorAll("button")) {
+    for (const button of paletteList.children) {
       const index = Number(button.value);
       button.setAttribute("aria-pressed",String(color.value === button.value));
       button.querySelector("span:last-child").textContent = current.palette[index].code + " " + completedByColor[index] + "/" + counts[index];
@@ -211,7 +233,6 @@ const BeadFocus = (() => {
     const codes = counts.map((count,index) => ({count,index})).filter(item => item.count)
       .sort((a,b) => b.count - a.count);
     color.replaceChildren(new Option("全部色号",""));
-    const paletteList = pick("colors");
     paletteList.replaceChildren();
     for (const {index,count} of codes) {
       const entry = pattern.palette[index];
@@ -226,6 +247,7 @@ const BeadFocus = (() => {
       button.append(swatch,document.createElement("span"));
       paletteList.append(button);
     }
+    sortPalette();
     tiles = [];
     region.replaceChildren(new Option("整张图纸",""));
     for (let y = 0; y < pattern.height; y += block) {
@@ -270,7 +292,8 @@ const BeadFocus = (() => {
   zoomOut.addEventListener("click",() => changeZoom(1 / 1.4));
   zoomIn.addEventListener("click",() => changeZoom(1.4));
   for (const select of [color, region, hide]) select.addEventListener("change",refresh);
-  pick("colors").addEventListener("click", event => {
+  sortOrder.addEventListener("change",sortPalette);
+  paletteList.addEventListener("click", event => {
     const button = event.target.closest("button");
     if (!button) return;
     color.value = color.value === button.value ? "" : button.value;
