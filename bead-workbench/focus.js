@@ -14,6 +14,7 @@ const BeadFocus = (() => {
     </div>
     <div class="focus-progress">
       <output data-progress aria-live="polite"></output>
+      <progress data-meter value="0" max="100" aria-label="拼豆完成进度"></progress>
       <button type="button" class="button outline" data-complete disabled>标记当前范围</button>
       <button type="button" class="button outline" data-reset disabled>清空进度</button>
     </div>
@@ -119,6 +120,7 @@ const BeadFocus = (() => {
     completedByColor.fill(0);
     for (const i of finished) completedByColor[current.cells[i]]++;
     const pct = total ? Math.round(finished.size / total * 100) : 0;
+    pick("meter").value = pct;
     const scope = current.cells.reduce((count, _, i) => count + Number(inScope(i) && !finished.has(i)), 0);
     pick("progress").textContent = finished.size + " / " + total + " 颗已拼 · " + pct + "%" +
       ((color.value || region.value) ? " · 当前待拼 " + scope + " 颗" : "");
