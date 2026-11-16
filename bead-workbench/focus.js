@@ -137,9 +137,16 @@ const BeadFocus = (() => {
 
   function open(name, pattern, identifier) {
     current = pattern;
-    storageKey = "bead-focus:v1:" + (identifier ? identifier + ":" : "") + patternKey(pattern);
+    const prefix = "bead-focus:v1:" + (identifier ? identifier + ":" : "");
+    storageKey = prefix + patternKey(pattern);
     let saved;
-    try { saved = JSON.parse(localStorage.getItem(storageKey)); } catch {}
+    try {
+      saved = JSON.parse(localStorage.getItem(storageKey));
+      if (!saved && identifier && pattern.previousProgressKey) {
+        const previous = JSON.parse(localStorage.getItem(prefix + pattern.previousProgressKey));
+        if (previous) saved = {...previous, color:""};
+      }
+    } catch {}
     finished = new Set((Array.isArray(saved?.done) ? saved.done : [])
       .filter(i => Number.isInteger(i) && i >= 0 && i < pattern.cells.length && pattern.cells[i] >= 0));
     counts = new Array(pattern.palette.length).fill(0);

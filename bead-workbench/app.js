@@ -873,7 +873,7 @@ useSample();
 const kairoId = new URLSearchParams(location.search).get("kairo");
 if (kairoId) {
   const request = state.importId;
-  Promise.all([BeadProject.kairo(kairoId),fetch("kairo/catalog.json").then(response => {
+  Promise.all([BeadProject.kairo(kairoId),fetch("kairo/catalog.json?v=kairo-colors-1").then(response => {
     if (!response.ok) throw Error("开罗图纸目录无法读取。");
     return response.json();
   })]).then(([pattern,collections]) => {

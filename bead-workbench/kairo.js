@@ -155,7 +155,7 @@ function changeGame(next, entry = next.items[0]) {
 
 async function init() {
   try {
-    const response = await fetch("kairo/catalog.json");
+    const response = await fetch("kairo/catalog.json?v=kairo-colors-1");
     if (!response.ok) throw Error("catalog unavailable");
     games = await response.json();
     const id = new URLSearchParams(location.search).get("pattern");
