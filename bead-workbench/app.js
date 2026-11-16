@@ -6,11 +6,12 @@ const art = $("art");
 const viewport = $("viewport");
 const viewButtons = [...document.querySelectorAll("[data-mode]")];
 const toolButtons = [...document.querySelectorAll("[data-tool]")];
-const chartGutter = 1.4;
+const {gutter:chartGutter,draw:chart} = BeadChart;
 const historyLimit = 35;
 const state = {
   source:null, name:"番茄示例", isSample:true, catalog, custom:false, pattern:null,
-  mode:"bead", tool:null, selected:-1, zoom:1, undo:[], redo:[], stroke:null, importId:0
+  mode:"bead", tool:null, selected:-1, zoom:1, undo:[], redo:[], stroke:null, importId:0,
+  mirror:false, direct:false, sourceId:null, paletteLabel:null
 };
 const sample = makeSample();
 const textureCache = new Map();
@@ -80,6 +81,7 @@ function confirmRegenerate() {
 }
 
 function regenerate({ notify = false, ask = false } = {}) {
+  if (state.direct) return false;
   if (ask && !confirmRegenerate()) return false;
   const [width, height] = dimensions();
   const buffer = document.createElement("canvas");
@@ -104,7 +106,7 @@ function regenerate({ notify = false, ask = false } = {}) {
   $("fileName").textContent = state.name;
   $("fileName").title = state.name;
   $("resetSample").hidden = state.isSample;
-  $("paletteName").textContent = state.custom ? "自定义色板" : "通用色板";
+  $("paletteName").textContent = state.paletteLabel || (state.custom ? "自定义色板" : "通用色板");
   $("paletteNotice").textContent = state.custom
     ? "使用你导入的色号。颜色以实物色卡为准。"
     : "P 色号为工作台编号。使用自己的品牌色表可按实际色号配豆。";
@@ -119,7 +121,42 @@ function regenerate({ notify = false, ask = false } = {}) {
   return true;
 }
 
+function setDirect(direct) {
+  state.direct = direct;
+  $("imageSettings").hidden = direct;
+  $("imageActions").hidden = direct;
+  document.querySelector('[data-mode="source"]').disabled = direct;
+  $("openPalette").hidden = direct;
+  if (!direct) state.sourceId = null;
+}
+
+function openEditable(name,pattern,sourceId = null) {
+  state.importId++;
+  state.pattern = pattern;
+  state.name = name;
+  state.sourceId = sourceId;
+  state.isSample = false;
+  state.mode = "chart";
+  state.zoom = 1;
+  state.selected = -1;
+  state.tool = null;
+  state.undo = [];
+  state.redo = [];
+  setDirect(true);
+  $("fileName").textContent = name;
+  $("fileName").title = name;
+  $("resetSample").hidden = false;
+  $("dimensions").textContent = pattern.width + " × " + pattern.height + " 格";
+  $("paletteName").textContent = sourceId ? "MARD 291" : "作品色板";
+  $("paletteNotice").textContent = "选择色号开始绘制。";
+  viewport.scrollTo(0,0);
+  updateTools();
+  renderPalette();
+  render();
+}
+
 function useSample() {
+  setDirect(false);
   state.importId++;
   state.source = sample;
   state.name = "番茄示例";
@@ -153,6 +190,7 @@ async function loadImage(file) {
       say("图片像素过多，请缩小到 4800 万像素以下再试。");
       return;
     }
+    setDirect(false);
     state.source = img;
     state.name = file.name.replace(/\.[^.]+$/, "") || "拼豆图案";
     state.isSample = false;
@@ -202,71 +240,6 @@ function mix(rgb, target, amount) {
   return "rgb(" + rgb.map((value) => Math.round(value + (target - value) * amount)).join(",") + ")";
 }
 
-function chart(ctx, pattern, step, region = [0,0,pattern.width,pattern.height]) {
-  const [left, top, width, height] = region;
-  const gutter = chartGutter * step;
-  const fontSize = Math.max(2, step * .38);
-  const right = gutter + width * step;
-  const bottom = gutter + height * step;
-  ctx.fillStyle = "#fff";
-  ctx.fillRect(0, 0, right + 1, bottom + 1);
-  ctx.fillStyle = "#eef2fa";
-  ctx.fillRect(gutter, 0, width * step, gutter);
-  ctx.fillRect(0, gutter, gutter, height * step);
-  ctx.fillStyle = "#f8faff";
-  ctx.fillRect(gutter, gutter, width * step, height * step);
-  ctx.textAlign = "center";
-  ctx.textBaseline = "middle";
-  ctx.font = "650 " + fontSize + "px ui-monospace, monospace";
-
-  for (let y = 0; y < height; y++) {
-    for (let x = 0; x < width; x++) {
-      const index = pattern.cells[(y + top) * pattern.width + x + left];
-      if (index < 0) continue;
-      const entry = pattern.palette[index];
-      const sx = gutter + x * step;
-      const sy = gutter + y * step;
-      ctx.fillStyle = entry.hex;
-      ctx.fillRect(sx, sy, step, step);
-      if (step >= 8) {
-        const [r,g,b] = entry.rgb;
-        ctx.fillStyle = r * .299 + g * .587 + b * .114 < 126 ? "#fff" : "#171d33";
-        ctx.fillText(entry.code, sx + step / 2, sy + step / 2 + step * .025, step * .86);
-      }
-    }
-  }
-  for (let major = 0; major <= 1; major++) {
-    ctx.lineWidth = major ? Math.max(.7,step * .055) : Math.max(.25,step * .021);
-    ctx.strokeStyle = major ? "#536589bd" : "#5a678646";
-    ctx.beginPath();
-    for (let x = 0; x <= width; x++) {
-      const bold = !x || x === width || (x + left) % 5 === 0;
-      if (Number(bold) !== major) continue;
-      const sx = gutter + x * step;
-      ctx.moveTo(sx, gutter);
-      ctx.lineTo(sx, bottom);
-    }
-    for (let y = 0; y <= height; y++) {
-      const bold = !y || y === height || (y + top) % 5 === 0;
-      if (Number(bold) !== major) continue;
-      const sy = gutter + y * step;
-      ctx.moveTo(gutter, sy);
-      ctx.lineTo(right, sy);
-    }
-    ctx.stroke();
-  }
-
-  ctx.fillStyle = "#31466f";
-  for (let x = 0; x < width; x++) {
-    const n = x + left + 1;
-    if (step >= 19 || x === 0 || x === width - 1 || n % 5 === 0) ctx.fillText(n, gutter + (x + .5) * step, gutter / 2, step * .92);
-  }
-  for (let y = 0; y < height; y++) {
-    const n = y + top + 1;
-    if (step >= 19 || y === 0 || y === height - 1 || n % 5 === 0) ctx.fillText(n, gutter / 2, gutter + (y + .5) * step, gutter * .88);
-  }
-}
-
 function render() {
   const {pattern, mode, zoom, source} = state;
   if (!pattern) return;
@@ -300,9 +273,9 @@ function render() {
     ctx.setTransform(1,0,0,1,0,0);
     const unitX = art.width / w;
     const unitY = art.height / h;
-    ctx.fillStyle = "#fbfcff";
+    ctx.fillStyle = "#fffbfd";
     ctx.fillRect(0,0,art.width,art.height);
-    ctx.fillStyle = "#dce3f1";
+    ctx.fillStyle = "#edcfdf";
     for (let i = 0; i < pattern.cells.length; i++) {
       const x = i % pattern.width * unitX;
       const y = Math.floor(i / pattern.width) * unitY;
@@ -388,6 +361,7 @@ function updateTools() {
   if (state.mode === "source") hint = "原图预览。切到拼豆或色号图可编辑。";
   else if (state.tool === "erase") hint = "橡皮擦 · 在格子上点击或拖动";
   else if (state.tool === "sample") hint = "吸管 · 点一个有颜色的格子取色";
+  else if (state.tool === "fill" && color) hint = "油漆桶 · " + color.code + " · 点击填充相连的同色格";
   else if (state.tool === "paint" && color) hint = "画笔 · " + color.code + " " + color.name + " · 点击或拖动";
   $("boardHint").textContent = hint;
 }
@@ -419,6 +393,39 @@ function position(event) {
   return x >= 0 && y >= 0 && x < width && y < height ? [x,y] : null;
 }
 
+function paintCell(index,stroke) {
+  const {cells} = state.pattern;
+  if (cells[index] === stroke.color) return;
+  if (!stroke.changes.has(index)) stroke.changes.set(index,cells[index]);
+  cells[index] = stroke.color;
+}
+
+function fillArea(x,y) {
+  const {width,height,cells} = state.pattern;
+  const start = y * width + x;
+  const oldColor = cells[start];
+  const stroke = {color:state.selected,changes:new Map()};
+  if (oldColor === stroke.color) return;
+  const pending = [start];
+  paintCell(start,stroke);
+  while (pending.length) {
+    const index = pending.pop();
+    const col = index % width;
+    const neighbors = [];
+    if (col > 0) neighbors.push(index - 1);
+    if (col < width - 1) neighbors.push(index + 1);
+    if (index >= width) neighbors.push(index - width);
+    if (index < width * (height - 1)) neighbors.push(index + width);
+    for (const neighbor of neighbors) {
+      if (cells[neighbor] !== oldColor) continue;
+      paintCell(neighbor,stroke);
+      pending.push(neighbor);
+    }
+  }
+  storeStroke(stroke);
+  render();
+}
+
 function paintLine(from, to) {
   const {pattern, stroke} = state;
   let [x,y] = from || to;
@@ -427,11 +434,8 @@ function paintLine(from, to) {
   const sx = x < endX ? 1 : -1, sy = y < endY ? 1 : -1;
   let error = dx + dy;
   while (true) {
-    const index = y * pattern.width + x;
-    if (pattern.cells[index] !== stroke.color) {
-      if (!stroke.changes.has(index)) stroke.changes.set(index, pattern.cells[index]);
-      pattern.cells[index] = stroke.color;
-    }
+    paintCell(y * pattern.width + x,stroke);
+    if (state.mirror) paintCell(y * pattern.width + pattern.width - 1 - x,stroke);
     if (x === endX && y === endY) break;
     const twice = 2 * error;
     if (twice >= dy) { error += dy; x += sx; }
@@ -445,6 +449,10 @@ function finishStroke(event) {
   const stroke = state.stroke;
   if (!stroke || stroke.pointerId !== event.pointerId) return;
   state.stroke = null;
+  storeStroke(stroke);
+}
+
+function storeStroke(stroke) {
   if (!stroke.changes.size) return;
   state.undo.push(stroke);
   if (state.undo.length > historyLimit) state.undo.shift();
@@ -505,48 +513,8 @@ function patternSummary(colors) {
 }
 
 function png() {
-  const {pattern} = state;
-  const colors = usedColors();
-  const step = 27;
-  const margin = 24;
-  const header = 86;
-  const graphWidth = Math.ceil((pattern.width + chartGutter) * step);
-  const graphHeight = Math.ceil((pattern.height + chartGutter) * step);
-  const canvas = document.createElement("canvas");
-  canvas.width = Math.max(640,graphWidth + margin * 2 + 2);
-  const columns = Math.min(4, Math.floor((canvas.width - margin * 2) / 182));
-  const legendHeight = 62 + Math.ceil(colors.length / columns) * 25;
-  canvas.height = header + graphHeight + legendHeight + margin;
-  const ctx = canvas.getContext("2d");
-  ctx.fillStyle = "#fff";
-  ctx.fillRect(0,0,canvas.width,canvas.height);
-  ctx.fillStyle = "#192c69";
-  ctx.font = "bold 26px sans-serif";
-  ctx.fillText(state.name + " · 拼豆图纸",margin,36,canvas.width - margin * 2);
-  ctx.font = "16px sans-serif";
-  ctx.fillText(patternSummary(colors),margin,64);
-  ctx.save();
-  ctx.translate(margin,header);
-  chart(ctx, pattern, step);
-  ctx.restore();
-  const top = header + graphHeight + 28;
-  ctx.font = "bold 18px sans-serif";
-  ctx.fillStyle = "#192c69";
-  ctx.fillText("用豆清单",margin,top);
-  ctx.font = "13px sans-serif";
-  ctx.fillText(state.custom ? "自定义色板" : "P 色号为工作台编号",margin,top + 22);
-  ctx.font = "15px sans-serif";
-  const columnWidth = (canvas.width - margin * 2) / columns;
-  colors.forEach((entry,i) => {
-    const x = margin + i % columns * columnWidth;
-    const y = top + 45 + Math.floor(i / columns) * 25;
-    ctx.fillStyle = entry.hex;
-    ctx.fillRect(x,y - 13,16,16);
-    ctx.strokeStyle = "#69758c";
-    ctx.strokeRect(x,y - 13,16,16);
-    ctx.fillStyle = "#1e2743";
-    ctx.fillText(legendText(entry),x + 23,y,columnWidth - 30);
-  });
+  const canvas = BeadChart.page(state.pattern,state.name,
+    $("paletteName").textContent === "通用色板" ? "P 色号为工作台编号" : $("paletteName").textContent);
   canvas.toBlob((blob) => {
     if (blob) {
       download(blob,exportName() + "-拼豆图纸.png");
@@ -628,10 +596,11 @@ async function printPattern() {
   if (id === chartPrintId) window.print();
 }
 
-function updateCatalog(next, custom) {
+function updateCatalog(next, custom, label = null) {
   if (!confirmRegenerate()) return;
   state.catalog = next;
   state.custom = custom;
+  state.paletteLabel = label;
   const max = Math.min(48,next.length);
   $("maxColors").max = max;
   document.querySelector(".range-labels span:last-child").textContent = max + " 色";
@@ -677,12 +646,18 @@ viewButtons.forEach((button) => button.addEventListener("click", () => {
 }));
 toolButtons.forEach((button) => button.addEventListener("click", () => {
   state.tool = button.dataset.tool === state.tool ? null : button.dataset.tool;
-  if (state.tool === "paint" && state.selected < 0) selectColor(0);
+  if ((state.tool === "paint" || state.tool === "fill") && state.selected < 0) state.selected = 0;
   updateTools();
 }));
 $("paletteList").addEventListener("click", (event) => {
   const button = event.target.closest("[data-palette-index]");
-  if (button) selectColor(Number(button.dataset.paletteIndex));
+  if (!button) return;
+  const keepFill = state.tool === "fill";
+  selectColor(Number(button.dataset.paletteIndex));
+  if (keepFill) {
+    state.tool = "fill";
+    updateTools();
+  }
 });
 
 art.addEventListener("pointerdown", (event) => {
@@ -692,6 +667,10 @@ art.addEventListener("pointerdown", (event) => {
   if (state.tool === "sample") {
     const index = state.pattern.cells[point[1] * state.pattern.width + point[0]];
     if (index >= 0) selectColor(index);
+    return;
+  }
+  if (state.tool === "fill") {
+    fillArea(...point);
     return;
   }
   state.stroke = {pointerId:event.pointerId,color:state.tool === "erase" ? -1 : state.selected,changes:new Map(),last:null};
@@ -771,4 +750,135 @@ $("defaultPalette").addEventListener("click", () => {
   else $("paletteDialog").close();
 });
 
+const projectStorage = "bead-workbench:projects:v1";
+const projectsDialog = $("projectsDialog");
+const newDialog = $("newDialog");
+
+function savedWorks() {
+  try {
+    const works = JSON.parse(localStorage.getItem(projectStorage));
+    return Array.isArray(works) ? works.filter(work => work?.project?.format === "bead-workbench") : [];
+  } catch {
+    return [];
+  }
+}
+
+function currentProject(name = state.name) {
+  return BeadProject.snapshot(name,state.pattern,state.sourceId);
+}
+
+function projectName(value) {
+  return typeof value === "string" && value.trim() ? value.trim().slice(0,60) : "我的拼豆图纸";
+}
+
+function openProject(data) {
+  if (data?.format !== "bead-workbench" || data.version !== 1) throw Error("请选择拼豆工作台导出的图纸 JSON。");
+  const pattern = BeadProject.read(data);
+  if (!confirmRegenerate()) return;
+  const sourceId = typeof data.sourceId === "string" && BeadProject.validSource(data.sourceId) ? data.sourceId : null;
+  openEditable(projectName(data.name),pattern,sourceId);
+  projectsDialog.close();
+}
+
+function listWorks() {
+  const works = savedWorks();
+  const result = $("projectList");
+  result.replaceChildren();
+  if (!works.length) {
+    const empty = document.createElement("p");
+    empty.textContent = "暂无本地作品";
+    result.append(empty);
+    return;
+  }
+  for (const folder of new Set(works.map(work => work.folder))) {
+    const heading = document.createElement("h3");
+    heading.textContent = folder || "未分组";
+    result.append(heading);
+    for (const work of works.filter(item => item.folder === folder)) {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "button outline";
+      button.textContent = work.project.name + " · " + work.project.width + " × " + work.project.height + " 格";
+      button.addEventListener("click",() => {
+        try { openProject(work.project); } catch (error) { say(error.message); }
+      });
+      result.append(button);
+    }
+  }
+}
+
+$("newProject").addEventListener("click",() => newDialog.showModal());
+$("newForm").addEventListener("submit",async event => {
+  event.preventDefault();
+  if (!confirmRegenerate()) return;
+  const button = $("createBlank");
+  const width = $("newWidth").valueAsNumber;
+  const height = $("newHeight").valueAsNumber;
+  const name = projectName($("newName").value);
+  button.disabled = true;
+  try {
+    const colors = $("newPalette").value === "mard" ? await BeadProject.mard() : catalog;
+    openEditable(name,{width,height,palette:colors,cells:new Int16Array(width*height).fill(-1)});
+    newDialog.close();
+  } catch (error) { say(error.message); }
+  finally { button.disabled = false; }
+});
+$("openProjects").addEventListener("click",() => {
+  $("saveTitle").value = state.name;
+  listWorks();
+  projectsDialog.showModal();
+});
+$("saveProject").addEventListener("click",() => {
+  const name = projectName($("saveTitle").value);
+  const folder = $("saveFolder").value.trim().slice(0,40);
+  const works = savedWorks();
+  const existing = works.find(work => work.folder === folder && work.project.name === name);
+  if (existing && !confirm("覆盖同组同名的作品「" + name + "」？")) return;
+  try {
+    const next = [{folder,project:currentProject(name)},...works.filter(work => work !== existing)];
+    localStorage.setItem(projectStorage,JSON.stringify(next));
+    listWorks();
+    say("已保存「" + name + "」");
+  } catch { say("浏览器存储空间不足，可通过导出图纸下载 JSON。"); }
+});
+$("openProjectFile").addEventListener("click",() => $("projectFile").click());
+$("projectFile").addEventListener("change",async event => {
+  const file = event.target.files[0];
+  event.target.value = "";
+  if (!file) return;
+  if (file.size > 2 * 1024 * 1024) return say("图纸文件过大，请检查 JSON。");
+  try { openProject(JSON.parse(await file.text())); }
+  catch { say("无法读取这份图纸，请选择工作台导出的 JSON。"); }
+});
+$("exportProject").addEventListener("click",() => {
+  setExport(false);
+  download(new Blob([JSON.stringify(currentProject())],{type:"application/json"}),exportName() + ".bead.json");
+});
+$("useMard").addEventListener("click",async () => {
+  const button = $("useMard");
+  button.disabled = true;
+  try { updateCatalog(await BeadProject.mard(),true,"MARD 291"); }
+  catch (error) { $("paletteFeedback").textContent = error.message; }
+  finally { button.disabled = false; }
+});
+$("mirrorPaint").addEventListener("click",() => {
+  state.mirror = !state.mirror;
+  $("mirrorPaint").setAttribute("aria-pressed",String(state.mirror));
+});
+$("openFocus").addEventListener("click",() => {
+  if (!BeadFocus.open(state.name,state.pattern,state.sourceId)) say("图纸还没有放豆。");
+});
+
 useSample();
+const kairoId = new URLSearchParams(location.search).get("kairo");
+if (kairoId) {
+  const request = state.importId;
+  Promise.all([BeadProject.kairo(kairoId),fetch("kairo/catalog.json").then(response => {
+    if (!response.ok) throw Error("开罗图纸目录无法读取。");
+    return response.json();
+  })]).then(([pattern,collections]) => {
+    if (state.importId !== request || !confirmRegenerate()) return;
+    const item = collections.flatMap(collection => collection.items).find(item => item.id === kairoId);
+    openEditable(item?.name ?? "开罗拼豆图纸",pattern,kairoId);
+  }).catch(error => say(error.message));
+}

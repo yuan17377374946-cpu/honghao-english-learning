@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>开罗图纸库 · 拼豆工作台</title>
+<meta name="description" content="查看美食梦物语与便利店开业日记的 MARD 291 拼豆图纸。">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="kairo.css">
+<link rel="stylesheet" href="focus.css">
+<script defer src="engine.js"></script>
+<script defer src="focus.js"></script>
+<script defer src="project.js"></script>
+<script defer src="chart.js"></script>
+<script src="kairo.js?v=4" defer></script>
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="./"><span class="mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>拼豆工作台<small>BEAD STUDIO</small></span></a>
+    <a class="button outline" href="./">图片转图纸</a>
+  </div>
+</header>
+<main id="studio">
+  <div class="intro"><div><h1>开罗图纸库</h1><p>美食梦物语与便利店开业日记 · MARD 291</p></div></div>
+  <div class="kairo-layout">
+    <section class="panel kairo-library" aria-label="选择图纸">
+      <div id="gameTabs" class="game-tabs" role="group" aria-label="选择游戏"></div>
+      <div class="filters">
+        <label for="search">图纸搜索</label>
+        <input type="search" id="search" placeholder="搜名称或编号">
+        <label for="category">分类</label>
+        <select id="category"><option value="">全部分类</option></select>
+      </div>
+      <p id="count" class="result-count" role="status">正在加载图纸…</p>
+      <div id="charts" class="chart-list" aria-label="图纸结果"></div>
+    </section>
+    <section class="panel kairo-viewer" id="viewer" aria-labelledby="chartName">
+      <div class="viewer-head">
+        <div><h2 id="chartName">选择一张图纸</h2><p id="chartMeta"></p></div>
+        <div class="viewer-controls" id="controls" hidden>
+          <button type="button" class="button outline" id="zoomOut" aria-label="缩小图纸">−</button>
+          <button type="button" class="button outline" id="zoomFit" aria-label="图纸缩放复位">适合宽度</button>
+          <button type="button" class="button outline" id="zoomIn" aria-label="放大图纸">＋</button>
+          <button type="button" class="button primary" id="kairoFocus">拼豆模式</button>
+          <a class="button outline" id="editPattern">打开编辑</a>
+          <a class="button outline" id="download" download>下载</a>
+          <button type="button" class="button outline" id="print">打印</button>
+        </div>
+      </div>
+      <div class="chart-stage" id="stage" tabindex="0" aria-label="图纸预览，可滚动查看">
+        <img id="chartImage" alt="" hidden>
+        <p id="imageStatus" role="status" hidden></p>
+      </div>
+    </section>
+  </div>
+  <footer class="studio-footer"><span>游戏原画 © Kairosoft · 色值参考 BeadSheet / <a href="https://makebead.com/" target="_blank" rel="noopener">MakeBead</a></span><span>MARD 291</span></footer>
+</main>
+<div id="printArea" aria-hidden="true"><img id="printImage" alt=""></div>
+</body>
+</html>
