@@ -1,7 +1,7 @@
 "use strict";
 
 const BeadProject = (() => {
-  const gridId = /^(food|store)-[0-9]{3}$/;
+  const gridId = /^(food|store|pool)-[0-9]{3}$/;
   const paletteCode = /^[a-z0-9][a-z0-9_-]{0,7}$/i;
   let mardRequest;
   const gridRequests = new Map();
@@ -63,7 +63,7 @@ const BeadProject = (() => {
       throw error;
     });
     if (variant !== "original") {
-      reductionsRequest ??= get("kairo/reduced.json?v=1").catch(error => {
+      reductionsRequest ??= get("kairo/reduced.json?v=2").catch(error => {
         reductionsRequest = null;
         throw error;
       });
@@ -91,5 +91,9 @@ const BeadProject = (() => {
     return {format:"bead-workbench",version:1,name,sourceId,width,height,palette,cells:[...cells]};
   }
 
-  return {read,kairo,mard,snapshot,validSource:id => gridId.test(id)};
+  function kairoCatalog() {
+    return get("kairo/catalog.json?v=pool-1");
+  }
+
+  return {read,kairo,kairoCatalog,mard,snapshot,validSource:id => gridId.test(id)};
 })();

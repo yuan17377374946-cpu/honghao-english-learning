@@ -112,9 +112,12 @@ async function showChart(entry, {scroll = false, resetView = true} = {}) {
     const pattern = await BeadProject.kairo(entry.id,variant);
     if (request !== chartRequest) return;
     const colors = pattern.palette.length;
-    byId("chartMeta").textContent = meta + " · " + (reduced ? entry.colors + " → " : "") + colors + " 色";
-    const canvas = BeadChart.page(pattern,title,"MARD 291",
-      "游戏原画 © Kairosoft · 像素图来源 KairoHistory · 色值 MakeBead（CC BY 4.0）");
+    const reduction = reduced && colors < entry.colors ? entry.colors + " → " : "";
+    byId("chartMeta").textContent = meta + " · " + reduction + colors + " 色";
+    const source = entry.redrawn
+      ? "参考 Kairosoft 游戏素材 · 正面微侧重绘"
+      : "游戏原画 © Kairosoft · 像素图来源 KairoHistory";
+    const canvas = BeadChart.page(pattern,title,"MARD 291",source + " · 色值 MakeBead（CC BY 4.0）");
     const png = await new Promise(resolve => canvas.toBlob(resolve,"image/png"));
     if (request !== chartRequest) return;
     if (!png) throw Error("图纸生成失败。");
@@ -180,9 +183,7 @@ function changeGame(next, entry = next.items[0]) {
 
 async function init() {
   try {
-    const response = await fetch("kairo/catalog.json?v=kairo-colors-1");
-    if (!response.ok) throw Error("catalog unavailable");
-    games = await response.json();
+    games = await BeadProject.kairoCatalog();
     const id = params.get("pattern");
     for (const collection of games) {
       const button = document.createElement("button");
