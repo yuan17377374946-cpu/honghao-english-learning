@@ -93,6 +93,7 @@ function regenerate({ notify = false, ask = false } = {}) {
   ctx.drawImage(state.source, 0, 0, width, height);
   state.pattern = convert(ctx.getImageData(0, 0, width, height).data, width, height, state.catalog, Number($("maxColors").value), {
     removeBg:$("removeBg").checked,
+    smooth:$("smoothColors").checked,
     dither:$("dither").checked
   });
   state.undo = [];
@@ -164,6 +165,7 @@ function useSample() {
   $("widthInput").value = 32;
   $("maxColors").value = Math.min(12, state.catalog.length);
   $("removeBg").checked = false;
+  $("smoothColors").checked = true;
   $("dither").checked = false;
   regenerate();
 }
@@ -608,7 +610,13 @@ function updateCatalog(next, custom, label = null) {
   regenerate({notify:true});
 }
 
-for (const id of ["widthInput","maxColors","removeBg","dither"]) $(id).addEventListener("input", () => updateSettings(true));
+for (const id of ["widthInput","maxColors","removeBg"]) $(id).addEventListener("input", () => updateSettings(true));
+for (const [on, off] of [["smoothColors","dither"], ["dither","smoothColors"]]) {
+  $(on).addEventListener("input", () => {
+    if ($(on).checked) $(off).checked = false;
+    updateSettings(true);
+  });
+}
 $("widthInput").addEventListener("change", (event) => {
   const value = Number(event.target.value);
   event.target.value = Math.max(8,Math.min(120,Math.round(value || 32)));

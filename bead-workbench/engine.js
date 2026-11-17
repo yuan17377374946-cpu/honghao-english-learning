@@ -141,13 +141,73 @@ const BeadEngine = (() => {
     return selected;
   }
 
+  function mergeStrayColors(cells, width, height, palette) {
+    const source = cells.slice();
+    const visited = new Uint8Array(source.length);
+    const component = new Int32Array(source.length);
+    const maxDifference = 8000;
+
+    for (let start = 0; start < source.length; start++) {
+      const color = source[start];
+      if (color < 0 || visited[start]) continue;
+      visited[start] = 1;
+      component[0] = start;
+      let size = 1;
+      let onEdge = false;
+      const contact = new Map();
+
+      for (let head = 0; head < size; head++) {
+        const i = component[head];
+        const x = i % width;
+        const y = Math.floor(i / width);
+        for (let dy = -1; dy <= 1; dy++) {
+          for (let dx = -1; dx <= 1; dx++) {
+            const side = Math.abs(dx) + Math.abs(dy) === 1;
+            const nx = x + dx;
+            const ny = y + dy;
+            if (nx < 0 || nx >= width || ny < 0 || ny >= height) {
+              if (side) onEdge = true;
+              continue;
+            }
+            const next = ny * width + nx;
+            const other = source[next];
+            if (other === color && !visited[next]) {
+              visited[next] = 1;
+              component[size++] = next;
+            } else if (side && size <= 2 && other !== color) {
+              if (other < 0) onEdge = true;
+              else contact.set(other, (contact.get(other) || 0) + 1);
+            }
+          }
+        }
+      }
+
+      // Diagonal strokes count as connected. Only change small interior specks.
+      if (size > 2 || onEdge) continue;
+      let replacement = color;
+      let best = Infinity;
+      for (const [neighbor, edges] of contact) {
+        if (edges < (size === 1 ? 2 : 4)) continue;
+        const difference = distance(palette[color].rgb, palette[neighbor].rgb);
+        if (difference > maxDifference) continue;
+        const score = difference / edges;
+        if (score < best) {
+          best = score;
+          replacement = neighbor;
+        }
+      }
+      for (let n = 0; n < size; n++) cells[component[n]] = replacement;
+    }
+  }
+
   function convert(data, width, height, palette, limit, options = {}) {
     const keep = foreground(data, width, height, options.removeBg);
     const chosen = chooseColors(data, keep, palette, limit);
     const cells = new Int16Array(width * height).fill(-1);
     if (!chosen.length) return { width, height, palette:chosen, cells };
 
-    const work = options.dither ? new Float32Array(data) : data;
+    const dither = options.dither && !options.smooth;
+    const work = dither ? new Float32Array(data) : data;
     function spread(x, y, error, amount) {
       if (x < 0 || x >= width || y >= height || !keep[y * width + x]) return;
       const offset = (y * width + x) * 4;
@@ -159,7 +219,7 @@ const BeadEngine = (() => {
       const rgb = [0, 1, 2].map((k) => Math.max(0, Math.min(255, work[offset + k])));
       const index = closest(rgb, chosen);
       cells[i] = index;
-      if (options.dither) {
+      if (dither) {
         const error = rgb.map((value, k) => value - chosen[index].rgb[k]);
         const x = i % width;
         const y = Math.floor(i / width);
@@ -169,6 +229,7 @@ const BeadEngine = (() => {
         spread(x + 1, y + 1, error, 1);
       }
     }
+    if (options.smooth) mergeStrayColors(cells, width, height, chosen);
     return {width, height, palette:chosen, cells};
   }
 

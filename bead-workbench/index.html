@@ -9,11 +9,11 @@
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="focus.css?v=3">
 <link rel="stylesheet" href="playful.css?v=1">
-<script defer src="engine.js"></script>
+<script defer src="engine.js?v=2"></script>
 <script defer src="focus.js?v=8"></script>
 <script defer src="project.js?v=2"></script>
 <script defer src="chart.js"></script>
-<script defer src="app.js?v=5"></script>
+<script defer src="app.js?v=6"></script>
 </head>
 <body>
 <svg aria-hidden="true" class="symbols" xmlns="http://www.w3.org/2000/svg">
@@ -92,8 +92,12 @@
 <label for="removeBg">去除浅色背景<span>只去除与边缘相连的近白区域</span></label>
 <input class="toggle" type="checkbox" id="removeBg">
 </div>
+<div class="switch-row">
+<label for="smoothColors">减少杂色<span>把零散的近色并入附近色块</span></label>
+<input class="toggle" type="checkbox" id="smoothColors" checked>
+</div>
 <div class="switch-row last">
-<label for="dither">抖动混色<span>让照片渐变更自然</span></label>
+<label for="dither">抖动混色<span>用更多交错色格表现渐变</span></label>
 <input class="toggle" type="checkbox" id="dither">
 </div>
 </div>
