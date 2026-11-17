@@ -6,14 +6,14 @@
 <title>开罗图纸库 · 拼豆工作台</title>
 <meta name="description" content="查看美食梦物语与便利店开业日记的 MARD 291 拼豆图纸。">
 <link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="kairo.css">
+<link rel="stylesheet" href="kairo.css?v=2">
 <link rel="stylesheet" href="focus.css?v=3">
 <link rel="stylesheet" href="playful.css?v=1">
 <script defer src="engine.js"></script>
 <script defer src="focus.js?v=8"></script>
-<script defer src="project.js?v=2"></script>
+<script defer src="project.js?v=3"></script>
 <script defer src="chart.js"></script>
-<script src="kairo.js?v=5" defer></script>
+<script src="kairo.js?v=6" defer></script>
 </head>
 <body>
 <header class="site-header">
@@ -23,7 +23,7 @@
   </div>
 </header>
 <main id="studio">
-  <div class="intro"><div><h1>开罗图纸库</h1><p>美食梦物语与便利店开业日记 · P、Q、R、T、Y 系已换色</p></div></div>
+  <div class="intro"><div><h1>开罗图纸库</h1><p>美食梦物语与便利店开业日记 · 每张图纸都有减色版</p></div></div>
   <div class="kairo-layout">
     <section class="panel kairo-library" aria-label="选择图纸">
       <div id="gameTabs" class="game-tabs" role="group" aria-label="选择游戏"></div>
@@ -48,6 +48,10 @@
           <a class="button outline" id="download" download>下载</a>
           <button type="button" class="button outline" id="print">打印</button>
         </div>
+      </div>
+      <div class="variant-controls" id="variants" role="group" aria-label="图纸版本" hidden>
+        <button type="button" class="button primary" data-variant="reduced" aria-pressed="true">减色版</button>
+        <button type="button" class="button outline" data-variant="original" aria-pressed="false">原版</button>
       </div>
       <div class="chart-stage" id="stage" tabindex="0" aria-label="图纸预览，可滚动查看">
         <img id="chartImage" alt="" hidden>

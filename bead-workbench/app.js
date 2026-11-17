@@ -878,15 +878,18 @@ $("openFocus").addEventListener("click",() => {
 });
 
 useSample();
-const kairoId = new URLSearchParams(location.search).get("kairo");
+const parameters = new URLSearchParams(location.search);
+const kairoId = parameters.get("kairo");
 if (kairoId) {
+  const variant = parameters.get("variant") === "original" ? "original" : "reduced";
   const request = state.importId;
-  Promise.all([BeadProject.kairo(kairoId),fetch("kairo/catalog.json?v=kairo-colors-1").then(response => {
+  Promise.all([BeadProject.kairo(kairoId,variant),fetch("kairo/catalog.json?v=kairo-colors-1").then(response => {
     if (!response.ok) throw Error("开罗图纸目录无法读取。");
     return response.json();
   })]).then(([pattern,collections]) => {
     if (state.importId !== request || !confirmRegenerate()) return;
     const item = collections.flatMap(collection => collection.items).find(item => item.id === kairoId);
-    openEditable(item?.name ?? "开罗拼豆图纸",pattern,kairoId);
+    const name = item?.name ?? "开罗拼豆图纸";
+    openEditable(variant === "reduced" ? name + " · 减色版" : name,pattern,kairoId);
   }).catch(error => say(error.message));
 }

@@ -20,6 +20,8 @@
 .viewer-head p{font-size:12px;color:var(--muted);margin-top:4px}
 .viewer-controls{display:flex;gap:5px;flex-wrap:wrap}
 .viewer-controls .button{min-height:34px;padding:0 9px;font-size:12px}
+.variant-controls{display:flex;gap:6px;padding:0 14px 12px}
+.variant-controls .button{min-height:34px;font-size:12px}
 .chart-stage{height:clamp(330px,70vh,960px);overflow:auto;background:#f8dfeb;border-top:1px solid var(--rule);padding:12px;color:var(--muted)}
 .chart-stage img{display:block;width:100%;max-width:none;height:auto;background:#fff}
 .chart-stage p{padding:14px}

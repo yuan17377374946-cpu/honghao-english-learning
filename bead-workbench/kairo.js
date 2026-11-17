@@ -9,9 +9,14 @@ const image = byId("chartImage");
 const stage = byId("stage");
 const imageStatus = byId("imageStatus");
 const zoomFit = byId("zoomFit");
+const variants = byId("variants");
+const params = new URLSearchParams(location.search);
 let games = [];
 let game;
 let selected;
+let variant = params.get("variant") === "original" ? "original" : "reduced";
+let chartRequest = 0;
+let currentPattern;
 let zoom = 1;
 let chartUrl = "";
 const thumbs = new Map();
@@ -59,47 +64,67 @@ function updateSelection() {
   }
 }
 
-async function showChart(entry, scroll = false) {
+async function showChart(entry, {scroll = false, resetView = true} = {}) {
   selected = entry;
+  currentPattern = null;
+  const request = ++chartRequest;
+  const reduced = variant === "reduced";
+  const versionName = reduced ? "减色版" : "原版";
+  const title = entry.name + " · " + versionName;
   if (chartUrl) URL.revokeObjectURL(chartUrl);
   chartUrl = "";
   image.removeAttribute("src");
   byId("chartName").textContent = entry.name;
-  byId("chartMeta").textContent = game.title + " / " + entry.category + " / #" + entry.number + " · " +
-    entry.width + " × " + entry.height + " 格 · " + entry.colors + " 色 · " + entry.beads + " 颗";
-  image.alt = entry.name + " MARD 291 拼豆图纸";
+  const meta = game.title + " / " + entry.category + " / #" + entry.number + " · " +
+    entry.width + " × " + entry.height + " 格 · " + entry.beads + " 颗";
+  byId("chartMeta").textContent = meta;
+  image.alt = title + " MARD 291 拼豆图纸";
   image.hidden = true;
   imageStatus.hidden = false;
   imageStatus.textContent = "正在加载图纸…";
-  byId("editPattern").href = "./?kairo=" + encodeURIComponent(entry.id);
+  byId("editPattern").href = "./?" + new URLSearchParams({kairo:entry.id,variant});
   const download = byId("download");
   download.removeAttribute("href");
-  download.download = entry.name.replace(/[\/:*?"<>|]/g,"-") + "-MARD291拼豆图纸.png";
+  download.download = entry.name.replace(/[\/:*?"<>|]/g,"-") + "-" + versionName + "-MARD291拼豆图纸.png";
   byId("controls").hidden = false;
+  variants.hidden = false;
+  for (const button of variants.querySelectorAll("button")) {
+    const active = button.dataset.variant === variant;
+    button.className = "button " + (active ? "primary" : "outline");
+    button.setAttribute("aria-pressed",String(active));
+  }
   byId("print").disabled = true;
-  setZoom(1);
-  stage.scrollTo(0,0);
+  byId("kairoFocus").disabled = true;
+  if (resetView) {
+    setZoom(1);
+    stage.scrollTo(0,0);
+  }
   updateSelection();
 
   const address = new URL(location.href);
   address.searchParams.set("pattern", entry.id);
+  if (reduced) address.searchParams.delete("variant");
+  else address.searchParams.set("variant",variant);
   history.replaceState(null, "", address);
   if (scroll && matchMedia("(max-width: 720px)").matches) byId("viewer").scrollIntoView({block:"start"});
 
   try {
-    const pattern = await BeadProject.kairo(entry.id);
-    if (selected !== entry) return;
-    const canvas = BeadChart.page(pattern,entry.name,"MARD 291",
+    const pattern = await BeadProject.kairo(entry.id,variant);
+    if (request !== chartRequest) return;
+    const colors = pattern.palette.length;
+    byId("chartMeta").textContent = meta + " · " + (reduced ? entry.colors + " → " : "") + colors + " 色";
+    const canvas = BeadChart.page(pattern,title,"MARD 291",
       "游戏原画 © Kairosoft · 像素图来源 KairoHistory · 色值 MakeBead（CC BY 4.0）");
     const png = await new Promise(resolve => canvas.toBlob(resolve,"image/png"));
-    if (selected !== entry) return;
+    if (request !== chartRequest) return;
     if (!png) throw Error("图纸生成失败。");
     if (chartUrl) URL.revokeObjectURL(chartUrl);
     chartUrl = URL.createObjectURL(png);
+    currentPattern = pattern;
     download.href = chartUrl;
     image.src = chartUrl;
   } catch {
-    if (selected !== entry) return;
+    if (request !== chartRequest) return;
     imageStatus.hidden = false;
     imageStatus.textContent = "图纸加载失败，重新点击图纸再试。";
   }
@@ -158,7 +183,7 @@ async function init() {
     const response = await fetch("kairo/catalog.json?v=kairo-colors-1");
     if (!response.ok) throw Error("catalog unavailable");
     games = await response.json();
-    const id = new URLSearchParams(location.search).get("pattern");
+    const id = params.get("pattern");
     for (const collection of games) {
       const button = document.createElement("button");
       button.type = "button";
@@ -182,12 +207,19 @@ search.addEventListener("input", () => { if (game) renderList(); });
 category.addEventListener("change", () => { if (game) renderList(); });
 list.addEventListener("click", event => {
   const button = event.target.closest("[data-chart]");
-  if (button) showChart(game.items.find(entry => entry.id === button.dataset.chart), true);
+  if (button) showChart(game.items.find(entry => entry.id === button.dataset.chart), {scroll:true});
+});
+variants.addEventListener("click",event => {
+  const button = event.target.closest("[data-variant]");
+  if (!button || !selected || variant === button.dataset.variant) return;
+  variant = button.dataset.variant;
+  showChart(selected,{resetView:false});
 });
 image.addEventListener("load", () => {
   image.hidden = false;
   imageStatus.hidden = true;
   byId("print").disabled = false;
+  byId("kairoFocus").disabled = false;
 });
 image.addEventListener("error", () => {
   image.hidden = true;
@@ -208,18 +240,9 @@ byId("print").addEventListener("click", async () => {
     imageStatus.textContent = "图纸暂时无法打印，请重新打开后再试。";
   }
 });
-byId("kairoFocus").addEventListener("click",async () => {
-  const button = byId("kairoFocus");
-  const entry = selected;
-  button.disabled = true;
-  try {
-    const pattern = await BeadProject.kairo(entry.id);
-    if (selected === entry) BeadFocus.open(entry.name,pattern,entry.id);
-  } catch {
-    imageStatus.hidden = false;
-    imageStatus.textContent = "拼豆模式暂时无法读取图纸，请重试。";
-  } finally {
-    button.disabled = false;
-  }
+byId("kairoFocus").addEventListener("click",() => {
+  if (!currentPattern || !selected) return;
+  const name = variant === "reduced" ? selected.name + " · 减色版" : selected.name;
+  BeadFocus.open(name,currentPattern,selected.id);
 });
 init();

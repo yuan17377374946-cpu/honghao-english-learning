@@ -6,6 +6,7 @@ const BeadProject = (() => {
   let mardRequest;
   const gridRequests = new Map();
   let lookupRequest;
+  let reductionsRequest;
 
   function read(data) {
     const {width,height,palette,cells,previousProgressKey} = data ?? {};
@@ -34,7 +35,20 @@ const BeadProject = (() => {
     return response.json();
   }
 
-  async function kairo(id) {
+  function reduced(pattern, mapping) {
+    const {width,height,palette,cells} = pattern;
+    const indices = new Map(palette.map((entry,index) => [entry.code,index]));
+    if (!mapping || Object.entries(mapping).some(([from,to]) =>
+      !indices.has(from) || !indices.has(to) || Object.hasOwn(mapping,to))) {
+      throw Error("减色图纸数据不完整，请重新加载。");
+    }
+    const swatches = palette.filter(entry => !Object.hasOwn(mapping,entry.code));
+    const reducedIndices = new Map(swatches.map((entry,index) => [entry.code,index]));
+    const remap = palette.map(({code}) => reducedIndices.get(mapping[code] ?? code));
+    return {width,height,palette:swatches,cells:cells.map(index => index < 0 ? -1 : remap[index])};
+  }
+
+  async function kairo(id, variant = "reduced") {
     if (!gridId.test(id)) throw Error("开罗图纸编号有误。");
     const [game,number] = id.split("-");
     const group = game + "-" + Math.floor(Number(number) / 32) * 32;
@@ -48,10 +62,20 @@ const BeadProject = (() => {
       lookupRequest = null;
       throw error;
     });
-    const [grids, colors] = await Promise.all([gridRequests.get(group),lookupRequest]);
+    if (variant !== "original") {
+      reductionsRequest ??= get("kairo/reduced.json?v=1").catch(error => {
+        reductionsRequest = null;
+        throw error;
+      });
+    }
+    const [grids,colors,reductions] = await Promise.all([
+      gridRequests.get(group),lookupRequest,variant === "original" ? null : reductionsRequest
+    ]);
     if (!grids[id]) throw Error("找不到这张开罗图纸。");
     const [width,height,codes,data,previousProgressKey] = grids[id];
-    return read({width,height,palette:codes.map(code => colors.get(code)),previousProgressKey,cells:Array.from(atob(data),byte => byte.charCodeAt(0) - 1)});
+    const pattern = read({width,height,palette:codes.map(code => colors.get(code)),previousProgressKey,
+      cells:Array.from(atob(data),byte => byte.charCodeAt(0) - 1)});
+    return variant === "original" ? pattern : reduced(pattern,reductions[id]);
   }
 
   function mard() {
