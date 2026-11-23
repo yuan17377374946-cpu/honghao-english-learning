@@ -181,9 +181,9 @@ document.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)r
  if(b.dataset.stage==='review'||b.id==='review-return')openReview();
  if(b.dataset.stage==='check')openReview(true);
  if(b.dataset.stage==='exercise')selectQuestion(state.day,state.index);
- if(b.dataset.concept!==undefined){dayReview().card=Number(b.dataset.concept);persist();renderReview()}
- if(b.hasAttribute('data-concept-prev')){dayReview().card=Math.max(0,dayReview().card-1);persist();renderReview()}
- if(b.hasAttribute('data-concept-next')){if(dayReview().card<REVIEWS[state.day].cards.length-1){dayReview().card++;persist();renderReview()}else openReview(true)}
+ if(b.dataset.concept!==undefined){dayReview().card=Number(b.dataset.concept);persist();renderReview();focusConcept()}
+ if(b.hasAttribute('data-concept-prev')){dayReview().card=Math.max(0,dayReview().card-1);persist();renderReview();focusConcept()}
+ if(b.hasAttribute('data-concept-next')){if(dayReview().card<REVIEWS[state.day].cards.length-1){dayReview().card++;persist();renderReview();focusConcept()}else openReview(true)}
  if(b.dataset.check!==undefined){const index=Number(b.dataset.check),selected=Number(b.dataset.option);if(!dayReview().answers[index]){dayReview().answers[index]={selected};persist();renderReview()}}
  if(b.dataset.revisit!==undefined){const c=REVIEWS[state.day].checks[Number(b.dataset.revisit)],index=REVIEWS[state.day].cards.findIndex(x=>x.title===c.review);dayReview().card=Math.max(0,index);state.stage='review';persist();renderReview();$('#concept-title').scrollIntoView({behavior:'smooth',block:'start'})}
  if(b.hasAttribute('data-start-practice'))selectQuestion(state.day,0);
@@ -215,12 +215,13 @@ function filterLemmaIndex(){
  $('#lemma-search-result').textContent=`显示 ${count} / ${total} 条`;
  $('#lemma-search-empty').hidden=count!==0;
 }
-function updateBackButton(){const b=$('#back-to-current');if(!b)return;const y=window.scrollY||0,nearBottom=window.innerHeight&&document.documentElement.scrollHeight&&y+window.innerHeight>=document.documentElement.scrollHeight-120;b.hidden=y<500||!!nearBottom;b.textContent=state.stage==='exercise'?'回到当前题':state.stage==='check'?'回到自测':'回到知识卡'}
+function focusConcept(){$('#concept-title').scrollIntoView({behavior:'auto',block:'start'})}
+function updateBackButton(){const b=$('#back-to-current');if(!b)return;const y=window.scrollY||0,nearBottom=window.innerHeight&&document.documentElement.scrollHeight&&y+window.innerHeight>=document.documentElement.scrollHeight-120;b.hidden=y<500||!!nearBottom;b.textContent=state.stage==='exercise'?'回到当前题':state.stage==='check'?'回到自测':'回到知识目录'}
 document.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;
- if(b.dataset.definition!==undefined){dayReview().definition=Number(b.dataset.definition);persist();renderReview()}
- if(b.dataset.height!==undefined){dayReview().highVariant=Number(b.dataset.height);persist();renderReview()}
+ if(b.dataset.definition!==undefined){dayReview().definition=Number(b.dataset.definition);persist();renderReview();focusConcept()}
+ if(b.dataset.height!==undefined){dayReview().highVariant=Number(b.dataset.height);persist();renderReview();focusConcept()}
  if(b.id==='lemma-search-clear'){$('#lemma-search').value='';filterLemmaIndex();$('#lemma-search').focus?.()}
- if(b.id==='back-to-current'){const target=state.stage==='exercise'?$('#lesson-title'):state.stage==='check'?$('#review-checks'):$('#concept-title');target.scrollIntoView({behavior:'smooth',block:'start'})}
+ if(b.id==='back-to-current'){const target=state.stage==='exercise'?$('#lesson-title'):state.stage==='check'?$('#review-checks'):$('.concept-tabs');target.scrollIntoView({behavior:'auto',block:'start'})}
 });
 document.addEventListener('input',e=>{if(e.target.id==='lemma-search')filterLemmaIndex()});
 window.addEventListener?.('scroll',updateBackButton,{passive:true});
