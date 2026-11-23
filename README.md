@@ -20,6 +20,12 @@
 | Unit 3 | [语法闯关](https://yuan17377374946-cpu.github.io/honghao-english-learning/hongren-unit3-grammar/) · [句子专项](https://yuan17377374946-cpu.github.io/honghao-english-learning/hongren-unit3-grammar/sentences.html) · [单元测试](https://yuan17377374946-cpu.github.io/honghao-english-learning/hongren-unit3-test/) |
 | Unit 4 | [课堂目录](https://yuan17377374946-cpu.github.io/honghao-english-learning/hongren-unit4/) · [比较级](https://yuan17377374946-cpu.github.io/honghao-english-learning/hongren-unit4/comparatives.html) |
 
+## 五年级英语
+
+| 内容 | 在线入口 |
+| --- | --- |
+| 外研五上 Unit 4 | [A better me 五天小闯关](https://yuan17377374946-cpu.github.io/honghao-english-learning/grade5-unit4-five-days/) · 词汇、句型、故事、语音与计划写作，共76关 |
+
 ## 初中数学与深圳中考
 
 | 内容 | 在线入口 |
