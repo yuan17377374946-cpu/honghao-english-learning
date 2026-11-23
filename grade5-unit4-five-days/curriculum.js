@@ -105,7 +105,8 @@
   u.days[4].focus='综合运用 · 真实时间安排 · 我的目标卡';
   u.days[1].notes.push(['完整语境','be going to 不仅要会选一个词，也要会按主语写出整个表达：is going to be、are going to work、am going to go。']);
   u.days[3].notes.push(['用英文短答','Why 问原因或目的，可以使用 Because … 或 To … 回答。合理表达不只有参考示例一种，短答交给老师核对。']);
-  u.contentRevision=3;
+  ['#58cc02','#1cb0f6','#ffbd3e','#ad82f5','#ff8567'].forEach((color,i)=>{u.days[i].color=color;});
+  u.contentRevision=4;
   u.coverage=[
     ['24个词条','每个词都有认读配对和独立拼写入口；基础任务选重点，其余可加练。'],
     ['七类目标','七类全部进入配对，另有情境选择、目标调查表和听句理解。'],
@@ -117,3 +118,4 @@
     ['补充与选做','名言理解、完整否定改写、其他词条拼写及拓展搭配。原配听力的数字与人物答案仍需原录音核实。']
   ];
 })();
+
