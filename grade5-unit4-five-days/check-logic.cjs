@@ -1,0 +1,14 @@
+'use strict';
+const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
+const prefix=fs.existsSync(path.join(__dirname,'dist/logic.js'))?'./dist/':'./';
+const {matches}=require(prefix+'logic.js');
+assert(matches(' I’m  not going to stay up late. ',['I am not going to stay up late.']));
+assert(matches('is going to be.', ['is going to be']));
+assert(matches("They're going to work", ['They are going to work']));
+assert(matches('October.', ['October'],true));
+assert(!matches('october',['October'],true));
+assert(matches('meter',['metre','meter']));
+assert(!matches('swiming',['swimming']));
+assert(!matches('There is going to have a test.',['There is going to be a test.']));
+assert(!matches('I’m going to swimming.',['I am going to go swimming.']));
+console.log('判题验证通过：缩写、空格、大小写、英美拼写和真实语法错误均按预期区分。');

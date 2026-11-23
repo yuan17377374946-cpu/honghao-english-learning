@@ -24,7 +24,7 @@
 
 | 内容 | 在线入口 |
 | --- | --- |
-| 外研五上 Unit 4 | [A better me 五天小闯关](https://yuan17377374946-cpu.github.io/honghao-english-learning/grade5-unit4-five-days/) · 词汇、句型、故事、语音与计划写作，共76关 |
+| 外研五上 Unit 4 | [A better me 五天小闯关](https://yuan17377374946-cpu.github.io/honghao-english-learning/grade5-unit4-five-days/) · 每天12个基础任务，另有47关选做；含听句、语境填空与分步写作 |
 
 ## 初中数学与深圳中考
 
