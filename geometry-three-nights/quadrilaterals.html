@@ -15,6 +15,47 @@
 @media print{.directory,.reading-tools,.resume-card,.return-banner,.check-top,.check-summary{display:none!important}}
 
 .exam-pager{display:grid;gap:8px}.exam-pager>.quiet{font-size:13px}
+.check-visual{border:2px solid #cbdde8;border-radius:12px;margin:20px 0 3px;background:#fff;overflow:hidden}
+.check-visual>summary{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:15px 18px;background:#eef6fc;cursor:pointer;list-style:none;font-size:18px;font-weight:700;min-height:52px}
+.check-visual>summary::-webkit-details-marker{display:none}
+.check-visual>summary>span::before{content:'＋';display:inline-block;width:25px;color:#1766a1}
+.check-visual[open]>summary>span::before{content:'−'}
+.check-visual>summary small{font-size:13px;font-weight:500;white-space:nowrap;color:#466a82}
+.check-visual[open]>summary{border-bottom:1px solid #cbdde8}
+.check-visual-body{padding:21px}
+.check-visual-body>h3{font-size:23px;margin-bottom:10px;line-height:1.65}
+.check-legend{font-size:14px;color:#516879;line-height:1.85;margin-bottom:20px}
+.check-figure-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:17px;align-items:start}
+.check-figure-grid>.check-figure:only-child{grid-column:1/-1;width:100%;max-width:690px;justify-self:center}
+.check-figure{margin:0;min-width:0;padding:16px;border:1px solid #cbdce7;border-radius:12px;background:#fbfdff}
+.check-figure figcaption{font-size:17px;line-height:1.75;min-height:30px}
+.check-figure .figure-wrap{min-height:0;margin:9px 0 8px}
+.check-figure .figure-wrap svg{max-height:355px;overflow:visible}
+.check-figure>p{font-size:16px;line-height:1.85;margin:9px 0 14px;color:#365468;overflow-wrap:anywhere}
+.check-figure button{font-size:14px;padding:7px 10px}
+.check-focus-edge{stroke:#3c8c24;stroke-width:4.2;fill:none;stroke-linecap:round}
+.check-figure .figure-wrap svg .set-label,.check-zoom-content svg .set-label{font-family:'Microsoft YaHei','PingFang SC',sans-serif;font-size:24px;font-weight:700;stroke:none;fill:#193b5a}
+.check-figure .figure-wrap svg .set-note,.check-zoom-content svg .set-note{font-family:'Microsoft YaHei','PingFang SC',sans-serif;font-size:18px;font-weight:500;stroke:none;fill:#3b5d72}
+.check-reasoning{padding:0;margin:22px 0;list-style:none;counter-reset:check-step}
+.check-reasoning>li{counter-increment:check-step;position:relative;padding:16px 0 18px 40px;border-bottom:1px solid #dfE8ee}
+.check-reasoning>li::before{content:counter(check-step);position:absolute;top:19px;left:0;display:grid;place-items:center;width:27px;height:27px;border-radius:50%;background:#dff0d4;color:#336c1d;font-size:15px;font-weight:800}
+.check-reasoning h4{font-size:19px;line-height:1.7;margin:0 0 8px;color:#164f79}
+.check-reasoning p{font-size:var(--body-size);line-height:1.95;margin:0;overflow-wrap:anywhere}
+.check-conclusion,.check-trap{padding:16px 18px;border-radius:9px;margin-top:15px;font-size:17px;line-height:1.8}
+.check-conclusion{background:#edf7e6;border-left:4px solid #5e9f39}
+.check-trap{background:#fff6e5;border-left:4px solid #d99b39}
+.check-conclusion p,.check-trap p{margin:6px 0 0;font-size:18px;line-height:1.9;overflow-wrap:anywhere}
+.check-equations{background:#eef5fc;border-radius:10px;padding:15px 18px;margin-top:20px}
+.check-equations p{font-family:Cambria,'Microsoft YaHei',serif;font-size:20px;line-height:1.9;margin:4px 0;overflow-wrap:anywhere}
+.check-zoom-content{width:100%;max-width:850px;margin:auto}
+.check-zoom-content>h3{font-size:20px;margin:0 0 8px;line-height:1.7}
+.check-zoom-content>p{font-size:17px;line-height:1.85;margin:12px 0 0;overflow-wrap:anywhere}
+.check-zoom-content .figure-wrap{min-height:0}
+.check-zoom-content .figure-wrap svg{max-height:52vh}
+@media(max-width:780px){.check-visual>summary{font-size:17px;padding:12px;gap:6px}.check-visual>summary small{font-size:11px}.check-visual>summary>span::before{width:22px}.check-visual-body{padding:14px}.check-visual-body>h3{font-size:21px}.check-figure-grid{grid-template-columns:1fr;gap:14px}.check-figure{padding:13px}.check-figure figcaption{font-size:16px}.check-figure>p{font-size:16px}.check-figure .figure-wrap svg{max-height:330px}.check-reasoning>li{padding-left:33px}.check-reasoning h4{font-size:18px}.check-reasoning>li::before{width:24px;height:24px;font-size:13px}.check-conclusion,.check-trap{padding:13px}.check-conclusion p,.check-trap p{font-size:17px}.check-equations{padding:12px}.check-equations p{font-size:18px}.check-zoom-content>h3{font-size:18px}.check-zoom-content>p{font-size:16px}}
+@media print{.check-figure button{display:none!important}.check-visual-body{padding:12px}.check-figure-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.check-reasoning p{font-size:16px}.check-figure{break-inside:avoid}.check-reasoning>li{break-inside:avoid}}
+@media(max-width:780px){.check-visual-body{padding:11px}.check-figure{padding:10px}.check-figure .figure-wrap svg text{font-size:30px!important}.check-figure .figure-wrap svg .set-note{font-size:24px!important}.check-visual>summary{flex-wrap:wrap;gap:3px}.check-visual>summary small{padding-left:22px}}
+@media(max-width:780px){.check-zoom-content .figure-wrap svg text{font-size:32px!important}.check-zoom-content .figure-wrap svg .set-note{font-size:24px!important}}
 </style></head>
 <body><a class="skip-link" href="#main">跳到学习内容</a><header class="site-header"><div class="header-inner"><a class="brand" href="#home" aria-label="四边形课堂首页"><svg class="brand-icon" viewBox="0 0 48 48" aria-hidden="true"><path d="M13 6H43L35 32H5Z" fill="#58b72c" stroke="#3c8f1c" stroke-width="2.5"/><path d="M8 37H38V43H8Z" fill="#d3e9c6"/><path d="M13 6 35 32M43 6 5 32" stroke="#fff" stroke-width="2.3"/><circle cx="24" cy="19" r="3" fill="#fff"/></svg><div><strong>四边形课堂</strong><small>宏浩的几何学习课堂</small></div></a><div class="header-tools"><a href="index.html" class="return-link">返回三晚课堂</a><button data-font="-1" aria-label="减小正文字号">A−</button><button data-font="1" aria-label="增大正文字号">A＋</button></div></div><nav class="top-nav" aria-label="主要学习区域"><button data-top-nav="home">今晚课堂</button><button data-top-nav="learn">知识与推导</button><button data-top-nav="exam">中考真题</button><button data-top-nav="explore">图形探究</button><button data-top-nav="check">短题诊断</button><button data-top-nav="review">错题回练</button><span class="study-count">已独立完成 <strong id="mastery-count">0/6</strong></span></nav></header>
 <div id="storage-note" class="storage-note" hidden>当前浏览器暂时无法保存记录，请及时导出记录备份。</div><main id="main" tabindex="-1"></main><footer class="site-footer"><span>几何结论有前提，辅助线有目的。</span><span>首批6道中考真题 · 诊断题单独标注 · 学习记录保存在当前浏览器</span></footer><div id="toast" class="toast" role="status" hidden></div><dialog id="zoom-dialog"><div class="dialog-header"><h2>查看题目图形</h2><button data-close-zoom>关闭</button></div><div id="zoom-body"></div></dialog>
@@ -283,6 +324,132 @@ EXAMS.splice(1,0,{id:'exam-bj2025-1',origin:'2025北京中考 · 第1题',title:
 EXAMS.push({id:'exam-cqb2024-9',origin:'2024重庆中考 · B卷第9题',title:'正方形中的延长线与角平分线',level:'提高综合',lesson:'bisector',tags:['正方形','角平分线','全等','相似'],stem:['如图，在边长为4的正方形ABCD中，E在BC上，F在CD的延长线上，连接AE、AF，AM平分∠EAF并交CD于M。若BE＝DF＝1，则DM的长度为（　）。'],asks:[],options:['2','√5','√6','12/5'],correct:3,hint:['先比较△ABE与△ADF，能推出AE＝AF吗？','等腰△AEF中，角平分线还会是什么线？','连接EF，比较Rt△ADM与Rt△FCE，找一对相等的锐角。'],steps:[{title:'两条长线段相等',body:'AB＝AD＝4，BE＝DF＝1，∠ABE＝∠ADF＝90°，所以△ABE≌△ADF（SAS），得到AE＝AF。',why:'正方形边角性质、题设、SAS。'},{title:'角平分线转为垂线',body:'△AEF为等腰三角形，AM平分顶角∠EAF，所以AM⊥EF。这是等腰三角形的三线合一。',why:'先确认等腰，再用三线合一。'},{title:'把分散的线段放进直角三角形',body:'由BC＝4、BE＝1，得CE＝3。F在D的外侧，所以FC＝FD＋DC＝5；△FCE在C处为直角。',why:'平行垂直关系；先确认F、D、C的点序。'},{title:'利用两组垂直寻找相似',body:'△ADM与△FCE均为直角三角形。AD⊥FC且AM⊥FE，故∠DAM＝∠CFE。于是△ADM∽△FCE。',why:'两组垂线所成的相关锐角相等；AA。'},{title:'列对应边比例',body:'对应AD↔FC、DM↔CE，所以DM/CE＝AD/FC，即DM/3＝4/5，得DM＝12/5。选D。',why:'相似对应边成比例。'}],answer:'12/5，选D。',proofs:['p19','p12'],source:SOURCE_CQ,note:'原题的F在CD越过D的延长线上；M在线段CD内。',diagram:{points:{A:[0,4],B:[4,4],C:[4,0],D:[0,0],E:[4,3,12,5],F:[-1,0,-22,15],M:[2.4,0,-3,-15]},edges:[['A','B'],['B','C'],['C','D'],['D','A'],['D','F'],['A','E'],['A','F'],['A','M']],aux:[['E','F']],angles:[{p:['E','A','M']},{p:['M','A','F'],r:31}]}});
 EXAMS.forEach(q=>{q.proofs=q.proofs||[];q.hint=q.hint||[];q.tags=q.tags||[];});
 
+// Each diagnostic has its own geometric explanation. Coordinates are exact;
+// the examples illustrate a proof or disprove an overgeneralized conclusion.
+const checkPoly=(names)=>names.map((n,i)=>[n,names[(i+1)%names.length]]);
+const checkTrap=()=>({points:{A:[-3,0,-25,23],B:[3,0,10,23],C:[2,3,10,-12],D:[-2,3,-25,-12]},edges:checkPoly(['A','B','C','D']),aux:[['A','C'],['B','D']],labels:[{at:[0,0],dy:32,text:'6'},{at:[0,3],dy:-18,text:'4'}]});
+const checkRect=()=>({points:{A:[0,0,-25,22],B:[6,0,10,22],C:[6,3,10,-12],D:[0,3,-25,-12]},edges:checkPoly(['A','B','C','D']),aux:[['A','C'],['B','D']],right:[{p:['B','A','D']},{p:['A','B','C']},{p:['B','C','D']},{p:['C','D','A']}]});
+const checkKite=()=>({points:{A:[-2,0,-26,5],B:[0,3,-7,-15],C:[4,0,10,5],D:[0,-3,-7,28],O:[0,0,9,-9]},edges:checkPoly(['A','B','C','D']),aux:[['A','C'],['B','D']],right:[{p:['C','O','B']}],equal:[['B','O',2],['O','D',2]],labels:[{at:[-1,0],dy:27,text:'2'},{at:[2,0],dy:27,text:'4'},{at:[0,1.5],dx:-26,dy:5,text:'3'},{at:[0,-1.5],dx:-26,dy:5,text:'3'}]});
+const CHECK_VISUALS=[
+{
+ title:'先画反例：对角线相等，还缺什么？',
+ figures:[
+  {title:'反例：等腰梯形',diagram:{...checkTrap(),points:{...checkTrap().points,H:[-2,0,-8,25]},aux:[...checkTrap().aux,['D','H']],right:[{p:['D','H','B']}],equal:[['A','D'],['B','C'],['A','C',2],['B','D',2]],labels:[...checkTrap().labels,{at:[-2,1.5],dx:16,dy:5,text:'3'}]},caption:'AB∥CD，AB＝6、CD＝4。两条对角线都为√34，但这不是矩形。'},
+  {title:'判定成立时：先有平行四边形',diagram:checkRect(),caption:'若已知ABCD是平行四边形，再加AC＝BD，才能用这一判定得到矩形。'}
+ ],
+ steps:[['看反例满足什么','左图的两腰AD、BC相等，上下底平行。作高DH＝3。两侧水平差各为(6－4)÷2＝1，所以每条对角线的水平跨度为6－1＝5；由勾股定理，长度都为√(5²＋3²)＝√34，确实满足“对角线相等”。'],['看反例不满足什么','上下底长6和4，不相等，所以它不是平行四边形，更不是矩形。这就推翻了“任意四边形只要对角线相等就是矩形”。'],['把判定补完整','平行四边形ABCD中，AB＝CD、AD＝BC，再加AC＝BD，可由SSS得△ABC≌△BAD，推出∠ABC＝∠BAD；这两角又互补，所以都为90°。']],
+ conclusion:'不一定是矩形。要用“对角线相等”判矩形，先检查平行四边形这一前提。',
+ trap:'性质是“矩形 ⇒ 对角线相等”；反过来判断时，不能省掉图形的前提。'
+},
+{
+ title:'互相平分＋垂直，怎样推出邻边相等？',
+ figures:[{title:'把对角线交点记为O',diagram:{points:{A:[-4,0,-25,5],B:[0,3,-7,-14],C:[4,0,10,5],D:[0,-3,-7,27],O:[0,0,9,-9]},edges:checkPoly(['A','B','C','D']),aux:[['A','C'],['B','D']],right:[{p:['C','O','B']}],equal:[['A','O'],['O','C'],['B','O',2],['O','D',2]],fill:[{points:['A','O','B'],color:'#d4eaff'},{points:['C','O','B'],color:'#d9f0c9'}],labels:[{at:[-2,0],dy:27,text:'4'},{at:[2,0],dy:27,text:'4'},{at:[0,1.5],dx:17,dy:4,text:'3'}]},caption:'蓝、绿两块是△AOB与△COB。数值4、3仅作示例；证明使用的是等长、直角和公共边。'}],
+ steps:[['先用原图身份','ABCD是平行四边形，所以对角线互相平分：AO＝CO，BO＝DO。'],['再用垂直条件','AC⊥BD，所以∠AOB＝∠COB＝90°；OB又是公共边。由SAS，△AOB≌△COB。'],['把全等转成判定条件','对应边AB＝CB，即平行四边形的一组邻边相等，所以ABCD是菱形。图中AC＝8、BD＝6，并不相等，不能保证是正方形。']],
+ conclusion:'一定能判成菱形；其中的特殊成员也可以是正方形。',
+ trap:'对角线垂直不能单独保证菱形，互相平分来自题目的“平行四边形”。'
+},
+{
+ title:'逐项画图：哪些条件落在同一组对边上？',
+ figures:[
+  {title:'成立：AB∥CD且AB＝CD',diagram:{points:{A:[0,0,-24,24],B:[6,0,9,24],C:[8,3,9,-12],D:[2,3,-24,-12]},edges:checkPoly(['A','B','C','D']),aux:[['A','C']],equal:[['A','B'],['C','D']],fill:[{points:['A','B','C'],color:'#d4eaff'},{points:['A','C','D'],color:'#d9f0c9'}]},caption:'平行和等长都对应AB、CD。连AC后，可用SAS证明两块三角形全等。'},
+  {title:'不够：AB∥CD，AD＝BC',diagram:{...checkTrap(),equal:[['A','D'],['B','C']]},caption:'等腰梯形满足“一组对边平行，另一组对边相等”，但上下底不等，不能判平行四边形。'},
+  {title:'不够：只有一条平分另一条',diagram:checkKite(),caption:'AC平分BD（BO＝DO＝3），但BD不平分AC（AO＝2、OC＝4）。只满足单向平分仍不够。'}
+ ],
+ steps:[['确认是同一组','正确条件为AB∥CD且AB＝CD。不要把“AB∥CD、AD＝BC”混进来，后者落在两组不同的边上。'],['连接对角线AC','∠BAC＝∠DCA（平行线内错角），AB＝CD（已知），AC＝CA（公共边），所以△BAC≌△DCA（SAS）。'],['得到第二组平行','全等推出∠BCA＝∠DAC，因此BC∥AD。两组对边分别平行，ABCD是平行四边形。第三幅图则提醒：必须“互相平分”，单向平分不足。']],
+ conclusion:'可以使用的条件是：同一组对边平行且相等。',
+ trap:'“同一组”和“互相”都是判定里的关键词，少一个就可能被反例推翻。'
+},
+{
+ title:'正方形为什么同时属于两类？',
+ figures:[
+  {title:'正方形的两组身份条件',diagram:{points:{A:[0,0,-25,23],B:[4,0,10,23],C:[4,4,10,-12],D:[0,4,-25,-12]},edges:checkPoly(['A','B','C','D']),equal:[['A','B'],['B','C'],['C','D'],['D','A']],right:[{p:['B','A','D']},{p:['A','B','C']},{p:['B','C','D']},{p:['C','D','A']}]},caption:'四个直角使它满足矩形定义；四条边相等使它满足菱形定义。'},
+  {title:'分类关系：交叠部分就是正方形',custom:'family',caption:'矩形与菱形都属于平行四边形；同时具备两类条件的交叠部分为正方形。'}
+ ],
+ steps:[['按矩形定义检查','正方形是平行四边形，且四个角都是直角。因此，任何正方形都可以称为矩形。'],['按菱形定义检查','正方形的四条边相等。因此，任何正方形也都可以称为菱形。'],['区分包含和等同','正方形同时属于矩形、菱形；但一般长方形可能邻边不等，一般菱形可能没有直角，所以反方向不一定成立。']],
+ conclusion:'正方形既是矩形，又是菱形。',
+ trap:'分类有包含关系，“名称不同”不代表“互不属于”。'
+},
+{
+ title:'原对角线相等，传给中点四边形的是哪条性质？',
+ figures:[{title:'看两条相邻的三角形中位线',diagram:{...checkTrap(),labels:[],points:{...checkTrap().points,E:[0,0,-8,28],F:[2.5,1.5,15,5],G:[0,3,-8,-15],H:[-2.5,1.5,-29,5]},accent:[['E','F'],['F','G'],['G','H'],['H','E']],fill:[{points:['E','F','G','H'],color:'#dcf2ce'}]},caption:'E、F、G、H依次为AB、BC、CD、DA的中点。橙色为原对角线，绿色为中点四边形。此例原图不是矩形。'}],
+ steps:[['先找一条新边','在△ABC中，E、F是两边中点，所以EF∥AC，EF＝AC/2。同理，GH∥AC，GH＝AC/2。'],['再找另一条新边','在△BCD中，F、G是两边中点，所以FG∥BD，FG＝BD/2。同理，HE∥BD，HE＝BD/2。'],['把原条件传过来','已知AC＝BD，所以EF＝FG＝GH＝HE。新图四边相等，一定是菱形。只有原对角线再加垂直，新图才会同时有直角。']],
+ conclusion:'原对角线相等 ⇒ 中点四边形是菱形。',
+ trap:'原对角线“相等”传成新边“等长”；原对角线“垂直”才传成新边“垂直”。别把两种对应关系记反。'
+},
+{
+ title:'中位线同时给出方向和长度',
+ figures:[{title:'中点标记要分清两组',diagram:{points:{A:[1,5,-8,-15],B:[-3,0,-25,25],C:[7,0,10,25],D:[-1,2.5,-30,4],E:[4,2.5,12,4]},edges:checkPoly(['A','B','C']),accent:[['D','E']],equal:[['A','D'],['D','B'],['A','E',2],['E','C',2]],labels:[{at:[2,0],dy:34,text:'BC＝10'},{at:[1.5,2.5],dy:-16,text:'DE＝5'}]},caption:'一条刻痕表示AD＝DB，两条刻痕表示AE＝EC。DE是连接两边中点的线段。'}],
+ steps:[['确认中位线的前提','D在AB上且AD＝DB；E在AC上且AE＝EC。两个中点都要有，只知道其中一个不够。'],['写出完整性质','由三角形中位线定理，DE∥BC，而且DE＝BC/2。它包含“平行”和“长度一半”两条结论。'],['代入并排除错误选项','BC＝10，所以DE＝10÷2＝5。方向是平行，不是垂直；也不是DE＝BC。']],
+ conclusion:'DE∥BC，DE＝5。',
+ trap:'两组刻痕分别比较同一条边的两半，不表示AB和AC也相等。'
+},
+{
+ title:'四块为什么等面积，却未必全等？',
+ figures:[{title:'用中点把同底边上的面积平分',diagram:{points:{A:[0,0,-25,24],B:[8,0,10,24],C:[10,4,10,-13],D:[2,4,-25,-13],O:[5,2,-7,-13]},edges:checkPoly(['A','B','C','D']),aux:[['A','C'],['B','D']],equal:[['A','O'],['O','C'],['B','O',2],['O','D',2]],fill:[{points:['A','B','O'],color:'#d6eaff'},{points:['B','C','O'],color:'#dbf0ce'},{points:['C','D','O'],color:'#fff0c5'},{points:['D','A','O'],color:'#ebdefa'}],labels:[{at:[4.33,.67],text:'①',dx:-9},{at:[7.67,2],text:'②',dx:-9},{at:[5.67,3.33],text:'③',dx:-9},{at:[2.33,2],text:'④',dx:-9}]},caption:'示例AB＝8、AD＝2√5，高为4，总面积32。四块面积都是8，但相邻两块的边长并不相同。'}],
+ steps:[['第一组同高比较','O是AC中点，所以AO＝OC。△AOB和△COB以AO、OC为底，从B到AC的高相同，因此①＝②。'],['再把另外两块接进来','O也是BD中点，所以BO＝DO。△AOB、△AOD同高且底相等，得①＝④；△AOD、△COD同高且AO＝CO，得④＝③。'],['分清等面积和全等','于是四块等面积，每块是原平行四边形面积的1/4。示例中△AOB的边为8、√29、√13，△BOC的边为2√5、√29、√13，边长不同，不能四块全等。']],
+ conclusion:'一定成立的是四个小三角形等面积。',
+ trap:'对角的两块可以全等；相邻两块通常只有面积相等，不能直接说四块都全等。'
+},
+{
+ title:'用一张精确反例，检查“相等且垂直”是否足够',
+ figures:[
+  {title:'反例：交点不在两条对角线的中点',diagram:checkKite(),caption:'AC＝2＋4＝6，BD＝3＋3＝6，而且AC⊥BD；但AO≠OC，图形不是正方形。'},
+  {title:'补全条件后的正方形',diagram:{points:{A:[-3,0,-25,5],B:[0,3,-7,-14],C:[3,0,10,5],D:[0,-3,-7,27],O:[0,0,9,-9]},edges:checkPoly(['A','B','C','D']),aux:[['A','C'],['B','D']],right:[{p:['C','O','B']}],equal:[['A','O'],['O','C'],['B','O'],['O','D']]},caption:'若再有AO＝OC、BO＝DO，才补足互相平分；配合相等、垂直，可判正方形。'}
+ ],
+ steps:[['核对题目已有条件','左图两条对角线都长6，并在O处垂直。它完全满足“对角线相等且垂直”，不是随意画歪的图。'],['找缺失的前提','AO＝2、OC＝4，说明AC没有被平分。两条对角线不互相平分，所以它甚至不是平行四边形。'],['写出可靠判定链','若补上互相平分，先判平行四边形；再由对角线相等判矩形，由对角线垂直判菱形，同时满足两类条件，才是正方形。']],
+ conclusion:'不能直接判正方形，还需要补足互相平分等足够条件。',
+ trap:'不要把看起来“像正方形”的图当作证明。把每个必需条件逐一核对。'
+},
+{
+ title:'三条等长线段，怎样把直角锁定在A？',
+ figures:[{title:'连接AM，拆成两个等腰三角形',diagram:{points:{A:[-3,4,-8,-14],B:[-5,0,-25,25],C:[5,0,10,25],M:[0,0,-8,28]},edges:checkPoly(['A','B','C']),accent:[['A','M']],equal:[['A','M'],['B','M'],['M','C']],right:[{p:['B','A','C']}],fill:[{points:['A','B','M'],color:'#d5eaff'},{points:['A','M','C'],color:'#dcf1cf'}],labels:[{at:[-3.4,2.5],text:'α'},{at:[-4.25,.4],text:'α'},{at:[-1.8,2.8],text:'β'},{at:[3.2,.4],text:'β'}]},caption:'BM＝CM＝BC/2＝AM。蓝、绿两块分别是等腰三角形；A处的直角标记是推导所得。'}],
+ steps:[['把题设翻译为三条等长','M是BC中点，得BM＝CM＝BC/2；再用AM＝BC/2，得到AM＝BM＝CM。'],['用两个等腰三角形找等角','在△ABM中，AM＝BM，所以∠BAM＝∠ABM，记作α；在△ACM中，AM＝CM，所以∠MAC＝∠ACM，记作β。'],['回到大三角形内角和','△ABC的三个角分别为α、β、α＋β。因此2α＋2β＝180°，得α＋β＝90°，即∠BAC＝90°。']],
+ conclusion:'直角在A点，即∠A＝90°。',
+ trap:'AM是BC边上的中线，不表示AM⊥BC；最终的直角是∠BAC，不是自动落在M处。'
+},
+{
+ title:'平方和相等，为什么不能改成距离和相等？',
+ figures:[{title:'在4×3矩形里取P，给出数值反例',diagram:{points:{A:[0,0,-25,25],B:[4,0,10,25],C:[4,3,10,-13],D:[0,3,-25,-13],P:[1,1,10,-10],H:[1,0,-8,25],K:[0,1,-25,6]},edges:checkPoly(['A','B','C','D']),aux:[['P','A'],['P','B'],['P','C'],['P','D'],['P','H'],['P','K']],right:[{p:['B','H','P']},{p:['D','K','P']}],labels:[{at:[.5,0],dy:22,text:'1'},{at:[2.5,0],dy:22,text:'3'},{at:[0,.5],dx:-24,dy:5,text:'1'},{at:[0,2],dx:-24,dy:5,text:'2'}]},caption:'H、K为P向AB、AD作垂线的垂足。AH＝PH＝1，HB＝3，KD＝2。按小直角三角形分别用勾股定理。'}],
+ equations:['PA²＝1²＋1²＝2；PC²＝3²＋2²＝13','PB²＝3²＋1²＝10；PD²＝1²＋2²＝5','平方和：2＋13＝10＋5＝15','距离和：√2＋√13≈5.02，而√10＋√5≈5.40'],
+ steps:[['平方和确实相等','按图中的水平、竖直距离计算，可得PA²＋PC²＝15，PB²＋PD²也等于15；原来的平方和结论没有问题。'],['分别开方，保留整体','给等式两边开方，只能得到√(PA²＋PC²)＝√(PB²＋PD²)，根号里的加法不能直接拆开。比如√(2²＋3²)＝√13，并不等于2＋3。'],['用距离和核查错误变形','该例PA＋PC约为5.02，PB＋PD约为5.40，两个距离和并不相等。即使P在矩形内部，错误的拆根号也不成立。']],
+ conclusion:'不能去掉平方；平方和相等不等于距离和相等。',
+ trap:'√(x²＋y²)通常不等于x＋y。先看运算结构，不要把“平方”“开方”隔着加号直接抵消。'
+},
+{
+ title:'三个候选来自三种顺序；顺序固定后只按一种配对',
+ figures:[
+  {title:'题目固定：A—B—C—D₁',diagram:{points:{A:[0,0,-8,27],B:[4,0,10,27],C:[1,3,10,-13],'D₁':[-3,3,-33,-13],O:[.5,1.5,10,4]},edges:checkPoly(['A','B','C','D₁']),aux:[['A','C'],['B','D₁']]},caption:'只有这幅按A、B、C、D依次相邻。AC与BD₁是对角线，且共用同一个中点O。'},
+  {title:'改了顺序：A—C—B—D₂',diagram:{points:{A:[0,0,-25,4],B:[4,0,10,4],C:[1,3,-8,-15],'D₂':[3,-3,-12,27]},edges:checkPoly(['A','C','B','D₂']),aux:[['A','B'],['C','D₂']]},caption:'这一候选把AB当作对角线，已经不是题目指定的A—B—C—D顺序。'},
+  {title:'又一顺序：A—B—D₃—C',diagram:{points:{A:[0,0,-25,25],B:[4,0,10,25],C:[1,3,-25,-13],'D₃':[5,3,10,-13]},edges:checkPoly(['A','B','D₃','C']),aux:[['A','D₃'],['B','C']]},caption:'这一候选把BC当作对角线。它对应另一种顶点顺序，也不能直接当成ABCD的第四点。'}
+ ],
+ steps:[['先圈出题目要求的相邻顺序','“平行四边形ABCD”通常表示A、B、C、D依次相邻，因此对角顶点已确定为A与C、B与D。'],['按固定的对角配对求点','AC的中点O已经固定，D只能是B关于O的对称点。示例A(0,0)、B(4,0)、C(1,3)，O(0.5,1.5)，因此D(－3,3)。'],['解释另外两个候选从哪里来','若只说“三个不共线点作为顶点补平行四边形”，而不限定顺序，才可以分别让AB、BC、AC充当对角线，得到三个不同的第四点。']],
+ conclusion:'不一定有三个；顺序固定时，要先确定哪两对顶点互为对角顶点。',
+ trap:'先读“平行四边形ABCD”的字母顺序，再数候选。不要机械套“三个点一定有三个答案”。'
+},
+{
+ title:'先看允许范围：垂足在线外，最近点落在哪？',
+ figures:[
+  {title:'垂足在左边：取近端点B',diagram:{points:{A:[-2,3,-8,-13],H:[-2,0,-25,27],B:[0,0,-8,27],C:[6,0,10,27],X:[3,0,-8,27]},edges:[['B','C']],accent:[['B','C']],aux:[['A','H'],['H','B'],['A','B'],['A','X'],['A','C']],right:[{p:['A','H','B']}],labels:[{at:[-2,1.5],dx:-28,text:'3'},{at:[-1,0],dy:22,text:'2'}]},caption:'绿色BC才是点能移动的范围。H在线段外，不能取；对线段内任意X，都有HX≥HB。'},
+  {title:'垂足在右边：取近端点C',diagram:{points:{A:[8,3,-8,-13],H:[8,0,10,27],B:[0,0,-25,27],C:[6,0,-8,27],X:[3,0,-8,27]},edges:[['B','C']],accent:[['B','C']],aux:[['A','H'],['H','C'],['A','B'],['A','X'],['A','C']],right:[{p:['A','H','C']}]},caption:'另一种位置要换成C，不能把“选左端点”当成固定口诀。'}
+ ],
+ steps:[['先区分直线和线段','点到整条直线的最短距离是AH，但本题只允许点在线段BC上；若H不在线段上，AH就不是本题可取的距离。'],['用勾股比较允许点','左图任取X在线段BC上，都有HX≥HB；在直角三角形AHX中，AX²＝AH²＋HX²≥AH²＋HB²＝AB²，所以AB最短。'],['按垂足位置分类','H在左侧延长线上，最近端点是B；H在右侧延长线上，最近端点是C。也可以分别求AB、AC后比较，取较小的那个端点距离。']],
+ conclusion:'垂足不在允许线段上时，比较两个端点，取距离较小者。',
+ trap:'“垂线段最短”不能把点放到题目允许范围外；若H恰好落在BC内，才直接取H。'
+}
+];
+
+function checkFamilySvg(){return `<svg viewBox="0 0 640 360" role="img" aria-label="四边形内包含平行四边形，矩形与菱形的交叠部分是正方形"><rect x="15" y="15" width="610" height="330" rx="18" fill="#f8fbfd" stroke="#b8cbd8" stroke-width="2"/><text x="40" y="49" class="set-label">四边形</text><rect x="35" y="68" width="570" height="257" rx="18" fill="#fff" stroke="#95b981" stroke-width="2"/><text x="55" y="102" class="set-label">平行四边形</text><ellipse cx="230" cy="213" rx="160" ry="88" fill="#d6eaff" fill-opacity=".85" stroke="#4086b7" stroke-width="2"/><ellipse cx="410" cy="213" rx="160" ry="88" fill="#def0cf" fill-opacity=".7" stroke="#659b40" stroke-width="2"/><text x="165" y="211" text-anchor="middle" class="set-label">矩形</text><text x="475" y="211" text-anchor="middle" class="set-label">菱形</text><text x="320" y="220" text-anchor="middle" class="set-label">正方形</text><text x="165" y="243" text-anchor="middle" class="set-note">四角直角</text><text x="475" y="243" text-anchor="middle" class="set-note">四边相等</text></svg>`}
+
+function checkFigureSvg(f){
+ if(f.custom==='family')return checkFamilySvg();
+ let svg=draw({...f.diagram,alt:f.title+'。'+f.caption},true);
+ if(f.diagram.accent){const overlay=draw({points:f.diagram.points,edges:f.diagram.accent},false,false).match(/<line[^>]*class="geo-line"[^>]*\/>/g)||[];svg=svg.replace('<text',overlay.map(x=>x.replace('geo-line','check-focus-edge')).join('')+'<text')}
+ return svg;
+}
+
+let checkDiagramOpen={};
+function checkVisual(i,answered){const v=CHECK_VISUALS[i];if(!v)return '';const open=checkDiagramOpen[i]??(answered&&checks[i].selected!==CHECKS[i].a);return `<details class="check-visual" data-visual="${i}" ${open?'open':''}><summary><span>详细图解与推理</span><small>${v.figures.length}幅图 · ${v.steps.length}步</small></summary><div class="check-visual-body"><h3>${esc(v.title)}</h3><p class="check-legend">蓝色实线：图形边界；橙色虚线：分析用线；绿色粗线：重点线段。直角、等长等标记配合下方推导阅读。</p><div class="check-figure-grid">${v.figures.map((f,j)=>`<figure class="check-figure"><figcaption><strong>${j+1}．${esc(f.title)}</strong></figcaption><div class="figure-wrap">${checkFigureSvg(f)}</div><p>${esc(f.caption)}</p><button class="small" data-check-zoom="${i}:${j}" aria-label="放大第${i+1}题图${j+1}">放大这幅图</button></figure>`).join('')}</div>${v.equations?`<div class="check-equations">${v.equations.map(x=>`<p>${esc(x)}</p>`).join('')}</div>`:''}<ol class="check-reasoning">${v.steps.map(([h,p])=>`<li><h4>${esc(h)}</h4><p>${esc(p)}</p></li>`).join('')}</ol><div class="check-conclusion"><strong>本题结论</strong><p>${esc(v.conclusion)}</p></div><div class="check-trap"><strong>容易混淆的地方</strong><p>${esc(v.trap)}</p></div></div></details>`}
+
 function svgFigure(d,aux=false,showMarks=true){
  if(!d)return '<p>请在草稿纸上按题意画图。</p>';
  const W=560,H=390,P=48,pts=d.points||{},all=Object.values(pts).map(v=>[v[0],v[1]]);
@@ -359,8 +526,8 @@ function examPager(q,list){const i=list.findIndex(x=>x.id===q.id);return `<div c
 function exam(){let q=EXAMS.find(q=>q.id===S.exam)||EXAMS[0];const n=Math.min(counts[q.id]||0,q.steps.length);const aux=auxState[q.id]||false;const list=examList();if(!list.length&&S.filter!=='all')return title('中考真题精讲','当前筛选没有题目。')+`<section class="sheet empty-state"><h2>这里暂时没有待回练的题</h2><p>可以先浏览全部真题，做完后再标记需要回练的题。</p><button data-filter="all" class="primary">查看全部真题</button></section>`;return title('中考真题精讲','保留来源和原题条件，先独立思考，再逐层查看提示。',`<button class="small" data-focus>${S.focus?'退出专注':'课堂专注'}</button>`)+`<div class="content-layout exam-layout">${directoryStart('真题目录',q.origin)}<nav class="item-nav exam-nav" aria-label="真题目录"><div class="filter-row"><button data-filter="all" class="${S.filter==='all'?'active':''}">全部</button><button data-filter="challenge" class="${S.filter==='challenge'?'active':''}">提高</button><button data-filter="review" class="${S.filter==='review'?'active':''}">待练</button></div>${list.length?list.map(x=>`<button class="${q.id===x.id?'active':''}" data-go="exam" data-id="${x.id}"><small>${esc(x.origin)}</small><span>${esc(x.title)}</span><em>${statusLabel(x)}</em></button>`).join(''):'<p class="empty-line">这组暂时没有题目。可在全部题目中标记“待回练”。</p>'}</nav></details><article class="sheet exam-card"><header class="question-heading"><span class="pill">${esc(q.origin)}</span><span class="pill neutral">${esc(q.level)}</span><h2>${esc(q.title)}</h2><div class="tags">${q.tags.map(t=>`<span>${esc(t)}</span>`).join('')}</div></header><div class="question-grid ${!q.diagram?'no-diagram':''}"><section class="question-stem">${q.stem.map(s=>`<p>${esc(s)}</p>`).join('')}${q.asks.length?`<ol>${q.asks.map(s=>`<li>${esc(s)}</li>`).join('')}</ol>`:''}${q.shapeOptions?shapes():''}${q.options?`<div class="exam-choices">${q.options.map((o,i)=>`<button data-exam-choice="${i}" class="${progress[q.id]?.selected===i?'chosen':''}">${q.shapeOptions?'':String.fromCharCode(65+i)+'．'}${esc(o)}</button>`).join('')}</div>`:''}${q.numeric?`<form id="numeric-form"><label for="numeric-answer">我的答案</label><div class="actions"><input id="numeric-answer" inputmode="numeric" autocomplete="off" value="${esc(progress[q.id]?.draft||'')}" placeholder="输入边数"/><button class="primary" type="submit">核对</button></div></form>`:''}${progress[q.id]?.feedback?`<p class="feedback ${progress[q.id].correct?'good':'bad'}">${esc(progress[q.id].feedback)}</p>`:''}</section>${q.diagram?`<aside class="question-figure"><div class="figure-wrap" id="exam-figure">${draw(q.diagram,aux)}</div><div class="actions center"><button data-aux>${aux?'收起辅助线':'显示辅助线'}</button><button data-zoom>放大图形</button></div><p class="figure-note">深蓝实线为题设，橙色虚线为辅助线。</p></aside>`:''}</div><p class="question-note">${esc(q.note||'题图按原题条件重绘。')}</p><section class="hints"><h3>卡住时，先看一点提示</h3>${q.hint.slice(0,hintCount[q.id]||0).map((h,i)=>`<p><strong>提示${i+1}</strong> ${esc(h)}</p>`).join('')}<button class="small" data-hint ${(hintCount[q.id]||0)>=q.hint.length?'disabled':''}>${(hintCount[q.id]||0)?'再看一条提示':'给我第一条提示'}</button></section><div class="step-bar"><strong>分步解析 ${n} / ${q.steps.length}</strong><div class="actions"><button data-exam-step="-1" ${!n?'disabled':''}>退回一步</button><button class="primary" data-exam-step="1" ${n===q.steps.length?'disabled':''}>看下一步</button><button class="text-button" data-exam-all>完整解析</button></div></div><section id="exam-steps">${n?q.steps.slice(0,n).map((step,i)=>`<div class="step"><span>${i+1}</span><div><h3>${esc(step.title)}</h3><p>${esc(step.body)}</p><p class="reason">依据：${esc(step.why)}</p></div></div>`).join(''):'<p class="empty-line">在草稿纸上写下已知、目标和准备使用的判定。答案默认收起。</p>'}</section>${readingTools('exam',n,q.steps.length,!!q.diagram)}<button class="answer-toggle" data-answer>${answerOpen[q.id]?'收起答案':'核对最后答案'}</button>${answerOpen[q.id]?`<div class="answer">${esc(q.answer)}</div>`:''}<details class="related"><summary>本题用到的定理与推导</summary>${proofButtons(q.proofs)}</details><label class="note-label" for="my-note">我的思路 / 卡住的地方<span>自动保存</span></label><textarea id="my-note" rows="3" placeholder="例如：我还没找到第二组等角……">${esc(progress[q.id]?.note||'')}</textarea><div class="assessment"><strong>做完再标记</strong><button data-status="mastered" class="${progress[q.id]?.status==='mastered'?'selected':''}">已独立完成</button><button data-status="review" class="${progress[q.id]?.status==='review'?'selected orange':''}">还要回练</button><select id="wrong-reason" aria-label="选择本题卡点"><option value="">选一个主要卡点</option>${['读不出条件','判定前提不清','想不到辅助线','全等或相似','计算出错','遗漏位置分类'].map(v=>`<option ${progress[q.id]?.reason===v?'selected':''}>${v}</option>`).join('')}</select></div><footer class="source"><a href="${esc(q.source)}" target="_blank" rel="noopener noreferrer">查看题目来源</a><span>题干按原题保留，分步解析为课堂整理。</span></footer><div class="lesson-footer">${btn('回看相关知识','learn',q.lesson,'small')}${examPager(q,list)}</div></article></div>`}
 function checkPage(){
 const ids=checkIds(),done=ids.filter(i=>Number.isInteger(checks[i]?.selected)).length,correct=ids.filter(i=>checks[i]?.selected===CHECKS[i].a).length,wrong=ids.filter(i=>Number.isInteger(checks[i]?.selected)&&checks[i].selected!==CHECKS[i].a);
-return title(checkRound?'错题专项回练':'12题短诊断',checkRound?'只重练上轮答错的题，已答对的记录保留。':'自拟辨析题，先选答案，再看依据；和中考原题分开记录。')+`<div class="check-top"><div><strong>已作答 ${done} / ${ids.length}，本轮答对 ${correct} 题</strong><progress aria-label="本轮诊断进度" max="${ids.length}" value="${done}"></progress></div><div class="actions">${done<ids.length?'<button class="small primary" data-next-check>定位未做题</button>':''}<button class="small" data-redo-check>重做全部12题</button></div></div><div class="check-list">${ids.map(i=>{const c=CHECKS[i],item=checks[i],answered=Number.isInteger(item?.selected);return `<section class="sheet check-card" id="check-${i}"><h2><span class="q-number">${i+1}</span>${esc(c.q)}</h2><div class="check-options">${c.options.map((o,j)=>`<button data-check="${i}" data-option="${j}" ${answered?'disabled':''} class="${answered&&j===c.a?'correct':''} ${answered&&j===item.selected&&j!==c.a?'wrong':''}">${esc(o)}</button>`).join('')}</div>${answered?`<div id="check-feedback-${i}" tabindex="-1" role="status" class="feedback ${item.selected===c.a?'good':'bad'}"><strong>${item.selected===c.a?'这次判断正确':'这里需要再辨一辨'}</strong><p>${esc(c.why)}</p><div class="actions">${btn('回看相关知识','learn',c.lesson,'small')}${done<ids.length?'<button class="small" data-next-check>继续下一道未做题</button>':''}</div></div>`:''}</section>`}).join('')}<section class="sheet check-summary" id="check-summary"><h2>${done===ids.length?'这一轮完成了':'接下来怎么学？'}</h2><p>${done===ids.length?`本轮 ${ids.length} 题答对 ${correct} 题。${wrong.length?'先回看薄弱点，再合上提示重做。':'可以进入中考真题，把判断转成证明。'}`:`还有 ${ids.length-done} 题没有作答。可以继续完成，也可以先回顾已发现的薄弱点。`}</p><div class="actions">${done<ids.length?'<button class="primary small" data-next-check>继续未做题</button>':''}${wrongCheckIds().length?'<button class="small" data-retry-checks>只重练错题</button>':''}${btn('查看薄弱点','review','','small')}${btn('进入中考真题','exam','exam-cqb2024-21','small')}</div></section></div>`}
-function review(){let list=EXAMS.filter(q=>progress[q.id]?.status==='review');const wrongChecks=CHECKS.map((c,i)=>({c,i})).filter(({c,i})=>checks[i]&&checks[i].selected!==c.a);return title('错题与回练','先找到卡点，再合上解析独立重做。',`<button class="small" data-export>导出学习记录</button>`)+`<div class="home-columns"><section class="sheet"><h2>待回练的真题 <span class="count-badge">${list.length}</span></h2>${list.length?list.map(q=>`<div class="review-item"><span class="quiet">${esc(q.origin)}</span><h3>${esc(q.title)}</h3><p>${esc(progress[q.id]?.reason||'可以先选出这道题的主要卡点。')}</p><button class="primary" data-retry="${q.id}">开始独立回练</button></div>`).join(''):`<div class="empty-state">${figure('square',true)}<h3>这里会收集你标记的题</h3><p>在真题页点击“还要回练”，就能按卡点再做一遍。</p>${btn('去看中考真题','exam','exam-cqb2024-21','primary')}</div>`}</section><section class="sheet"><h2>短诊断的薄弱点 <span class="count-badge">${wrongChecks.length}</span></h2>${wrongChecks.length?wrongChecks.map(({c,i})=>`<div class="review-item"><h3>${i+1}．${esc(c.q)}</h3><p>${esc(c.why)}</p>${btn('回看知识','learn',c.lesson,'small')}</div>`).join(''):'<p>完成短诊断后，答错的知识点会出现在这里。</p>'}${wrongChecks.length?'<button class="primary small" data-retry-checks>只重练错题</button>':''}${btn('继续短诊断','check','','small')}<div class="import-section"><h3>更换设备时</h3><p>先导出记录，再在另一台设备导入。</p><label class="file-label" for="import-record">导入学习记录</label><input type="file" id="import-record" accept="application/json,.json" hidden/></div></section></div>`}
+return title(checkRound?'错题专项回练':'12题短诊断',checkRound?'只重练上轮答错的题，已答对的记录保留；每题可展开图解。':'自拟辨析题，每题配详细图解；先独立作答，再展开看图推理。')+`<div class="check-top"><div><strong>已作答 ${done} / ${ids.length}，本轮答对 ${correct} 题</strong><progress aria-label="本轮诊断进度" max="${ids.length}" value="${done}"></progress></div><div class="actions">${done<ids.length?'<button class="small primary" data-next-check>定位未做题</button>':''}<button class="small" data-redo-check>重做全部12题</button></div></div><div class="check-list">${ids.map(i=>{const c=CHECKS[i],item=checks[i],answered=Number.isInteger(item?.selected);return `<section class="sheet check-card" id="check-${i}"><h2><span class="q-number">${i+1}</span>${esc(c.q)}</h2><div class="check-options">${c.options.map((o,j)=>`<button data-check="${i}" data-option="${j}" ${answered?'disabled':''} class="${answered&&j===c.a?'correct':''} ${answered&&j===item.selected&&j!==c.a?'wrong':''}">${esc(o)}</button>`).join('')}</div>${answered?`<div id="check-feedback-${i}" tabindex="-1" role="status" class="feedback ${item.selected===c.a?'good':'bad'}"><strong>${item.selected===c.a?'这次判断正确':'这里需要再辨一辨'}</strong><p>${esc(c.why)}</p><div class="actions">${btn('回看相关知识','learn',c.lesson,'small')}${done<ids.length?'<button class="small" data-next-check>继续下一道未做题</button>':''}</div></div>`:''}${checkVisual(i,answered)}</section>`}).join('')}<section class="sheet check-summary" id="check-summary"><h2>${done===ids.length?'这一轮完成了':'接下来怎么学？'}</h2><p>${done===ids.length?`本轮 ${ids.length} 题答对 ${correct} 题。${wrong.length?'先回看薄弱点，再合上提示重做。':'可以进入中考真题，把判断转成证明。'}`:`还有 ${ids.length-done} 题没有作答。可以继续完成，也可以先回顾已发现的薄弱点。`}</p><div class="actions">${done<ids.length?'<button class="primary small" data-next-check>继续未做题</button>':''}${wrongCheckIds().length?'<button class="small" data-retry-checks>只重练错题</button>':''}${btn('查看薄弱点','review','','small')}${btn('进入中考真题','exam','exam-cqb2024-21','small')}</div></section></div>`}
+function review(){let list=EXAMS.filter(q=>progress[q.id]?.status==='review');const wrongChecks=CHECKS.map((c,i)=>({c,i})).filter(({c,i})=>checks[i]&&checks[i].selected!==c.a);return title('错题与回练','先找到卡点，再合上解析独立重做。',`<button class="small" data-export>导出学习记录</button>`)+`<div class="home-columns"><section class="sheet"><h2>待回练的真题 <span class="count-badge">${list.length}</span></h2>${list.length?list.map(q=>`<div class="review-item"><span class="quiet">${esc(q.origin)}</span><h3>${esc(q.title)}</h3><p>${esc(progress[q.id]?.reason||'可以先选出这道题的主要卡点。')}</p><button class="primary" data-retry="${q.id}">开始独立回练</button></div>`).join(''):`<div class="empty-state">${figure('square',true)}<h3>这里会收集你标记的题</h3><p>在真题页点击“还要回练”，就能按卡点再做一遍。</p>${btn('去看中考真题','exam','exam-cqb2024-21','primary')}</div>`}</section><section class="sheet"><h2>短诊断的薄弱点 <span class="count-badge">${wrongChecks.length}</span></h2>${wrongChecks.length?wrongChecks.map(({c,i})=>`<div class="review-item"><h3>${i+1}．${esc(c.q)}</h3><p>${esc(c.why)}</p>${checkVisual(i,true)}${btn('回看知识','learn',c.lesson,'small')}</div>`).join(''):'<p>完成短诊断后，答错的知识点会出现在这里。</p>'}${wrongChecks.length?'<button class="primary small" data-retry-checks>只重练错题</button>':''}${btn('继续短诊断','check','','small')}<div class="import-section"><h3>更换设备时</h3><p>先导出记录，再在另一台设备导入。</p><label class="file-label" for="import-record">导入学习记录</label><input type="file" id="import-record" accept="application/json,.json" hidden/></div></section></div>`}
 
 let exploreMode='para',exploreT=32,exploreDiag=true,midMode='free',rotationFrame=0;
 function explore(){return title('动手看图，再写出理由','数值用于观察；结论仍要用定理和证明说明。')+`<div class="explore-grid"><section class="sheet explorer"><h2>同一组边，可以怎样变化？</h2><div class="segmented">${[['para','平行四边形'],['rect','矩形'],['rhombus','菱形'],['square','正方形']].map(([v,l])=>`<button data-explore-mode="${v}" class="${v===exploreMode?'active':''}">${l}</button>`).join('')}</div><div id="family-figure" class="figure-wrap"></div><label class="slider-label" for="shape-slider">改变倾斜程度 <output id="shape-angle"></output></label><input type="range" id="shape-slider" min="0" max="65" value="${exploreT}" ${['rect','square'].includes(exploreMode)?'disabled':''}/><label class="check-label"><input type="checkbox" id="show-diagonals" ${exploreDiag?'checked':''}/> 显示两条对角线</label><div id="shape-observation" class="observation" aria-live="polite"></div>${btn('看性质与判定','learn','para','small')}</section><section class="sheet explorer"><h2>中点四边形怎样跟着变？</h2><div class="segmented">${[['free','一般四边形'],['rect','原图是矩形'],['rhombus','原图是菱形'],['square','原图是正方形']].map(([v,l])=>`<button data-mid-mode="${v}" class="${v===midMode?'active':''}">${l}</button>`).join('')}</div><div id="midpoint-figure" class="figure-wrap"></div><div id="midpoint-observation" class="observation" aria-live="polite"></div><p class="figure-note">深蓝为原图，绿色为中点四边形，橙色虚线为原对角线。</p>${btn('为什么看原对角线？','proof','p14','small')}</section><section class="sheet explorer rotation-explorer"><div><h2>45°半角题：旋转为什么有用？</h2><p>将△ABE绕A旋转90°，使B落到D。把BE转移到D旁边，再用全等拼出BE＋DF。</p><div class="segmented">${['原图','旋转后的图','拼出线段和'].map((l,i)=>`<button data-rotation-frame="${i}" class="${rotationFrame===i?'active':''}">${l}</button>`).join('')}</div><div id="rotation-explanation" class="observation"></div>${btn('展开完整推导','proof','p20','small')}</div><div id="rotation-figure" class="figure-wrap"></div></section><section class="sheet explorer counter-explorer"><div><h2>相等又垂直，也可能不是正方形</h2><p>这张图中AC＝BD＝6，且AC⊥BD，但AO＝2、OC＝4，两条对角线没有互相平分。</p><div class="pitfall"><strong>还缺什么？</strong><p>要从一般四边形判成正方形，还必须补足互相平分等条件。</p></div>${btn('回看正方形判定','learn','square','small')}</div>${figure('counter',true)}</section></div>`}
@@ -372,7 +539,8 @@ document.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)r
 if(b.hasAttribute('data-back-study')){const r=studyTrail.pop();if(r){navigate(r.view,r.id,false,false);window.scrollTo({top:r.y,behavior:'auto'})}return}
 if(b.dataset.go){navigate(b.dataset.go,b.dataset.id);return}if(b.dataset.topNav){studyTrail=[];navigate(b.dataset.topNav,undefined,false,false);return}
 if(b.hasAttribute('data-next-check')){nextCheck();return}
-if(b.hasAttribute('data-retry-checks')){const ids=wrongCheckIds();if(!ids.length){toast('当前没有需要重练的错题。');return}checkRound=ids;ids.forEach(i=>delete checks[i]);save();navigate('check');return}
+if(b.hasAttribute('data-retry-checks')){const ids=wrongCheckIds();if(!ids.length){toast('当前没有需要重练的错题。');return}checkRound=ids;ids.forEach(i=>{delete checks[i];delete checkDiagramOpen[i]});save();navigate('check');return}
+if(b.hasAttribute('data-check-zoom')){const [i,j]=b.dataset.checkZoom.split(':').map(Number),f=CHECK_VISUALS[i]?.figures[j];if(f){$('#zoom-body').innerHTML=`<div class="check-zoom-content"><h3>第${i+1}题 · ${esc(f.title)}</h3><div class="figure-wrap">${checkFigureSvg(f)}</div><p>${esc(f.caption)}</p></div>`;$('#zoom-dialog').showModal()}return}
 if(b.hasAttribute('data-proof-zoom')){$('#zoom-body').innerHTML=figure(PROOFS.find(p=>p.id===S.proof).fig,true);$('#zoom-dialog').showModal();return}
 if(b.dataset.font){S.font=Math.max(18,Math.min(28,S.font+Number(b.dataset.font)));saveNote();render();return}
 if(b.dataset.retry){saveNote();const id=b.dataset.retry;counts[id]=0;hintCount[id]=0;answerOpen[id]=false;auxState[id]=false;if(progress[id]){delete progress[id].feedback;delete progress[id].selected;delete progress[id].draft;}navigate('exam',id);return}
@@ -391,7 +559,7 @@ if(b.hasAttribute('data-close-zoom')){$('#zoom-dialog').close();return}
 if(b.dataset.status){saveNote();const old=progress[S.exam]||{};progress[S.exam]={...old,status:old.status===b.dataset.status?'':b.dataset.status};save();render();toast(b.dataset.status==='review'?'已更新回练题单':'已更新学习状态');return}
 if(b.hasAttribute('data-exam-choice')){const q=EXAMS.find(q=>q.id===S.exam),i=Number(b.dataset.examChoice),right=i===q.correct;progress[q.id]={...(progress[q.id]||{}),selected:i,correct:right,feedback:right?'选择正确。再说说依据是什么。':'这次选择还需要调整。可以先看提示，再检查使用条件。',...(right?{}:{status:'review'})};save();render();return}
 if(b.hasAttribute('data-check')){const i=Number(b.dataset.check),j=Number(b.dataset.option);if(!checks[i]){checks[i]={selected:j};save();render();const f=$('#check-feedback-'+i);f?.focus({preventScroll:true});f?.scrollIntoView({block:'nearest',behavior:'auto'})}return}
-if(b.hasAttribute('data-redo-check')){checks={};checkRound=null;save();navigate('check');return}
+if(b.hasAttribute('data-redo-check')){checks={};checkDiagramOpen={};checkRound=null;save();navigate('check');return}
 if(b.hasAttribute('data-export')){saveNote();const blob=new Blob([JSON.stringify({format:KEY,version:1,progress,checks,proofSeen},null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='四边形学习记录.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);return}
 if(b.dataset.exploreMode){exploreMode=b.dataset.exploreMode;render();return}
 if(b.dataset.midMode){midMode=b.dataset.midMode;render();return}
@@ -403,4 +571,6 @@ document.addEventListener('change',async e=>{if(e.target.id==='show-diagonals'){
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&S.focus){S.focus=false;render()}});
 readRoute();rememberPlace();render();
 window.quadClassroom={knowledge:KNOWLEDGE,proofs:PROOFS,exams:EXAMS,checks:CHECKS,navigate,draw,getState:()=>({view:S,progress,checks,proofSeen})};
+
+document.addEventListener('toggle',e=>{if(e.target.matches?.('.check-visual')&&e.target.isConnected)checkDiagramOpen[Number(e.target.dataset.visual)]=e.target.open},true);
 </script></body></html>
