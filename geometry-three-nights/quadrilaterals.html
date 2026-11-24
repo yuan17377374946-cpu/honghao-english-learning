@@ -597,6 +597,48 @@ PROOF_STEP_FIGURES.p19[4]=['adjacent-bisectors'];
 function teachingFigureSvg(f){let svg=checkFigureSvg(f);if(f.diagram?.compass){const d=f.diagram,ps=Object.values(d.points),xs=ps.map(p=>p[0]),ys=ps.map(p=>p[1]),minX=Math.min(...xs),maxX=Math.max(...xs),minY=Math.min(...ys),maxY=Math.max(...ys),scale=Math.min(464/(maxX-minX||1),294/(maxY-minY||1));const xy=p=>[(560-(maxX-minX)*scale)/2+(p[0]-minX)*scale,(390-(maxY-minY)*scale)/2+(maxY-p[1])*scale];const arcs=d.compass.map(a=>{const c=d.points[a.center],one=(a.angle-12)*Math.PI/180,two=(a.angle+12)*Math.PI/180,p=xy([c[0]+a.r*Math.cos(one),c[1]+a.r*Math.sin(one)]),q=xy([c[0]+a.r*Math.cos(two),c[1]+a.r*Math.sin(two)]);return `<path d="M${p[0]},${p[1]} A${a.r*scale},${a.r*scale} 0 0 0 ${q[0]},${q[1]}" class="compass-arc"/>`}).join('');svg=svg.replace('<text',arcs+'<text')}return svg}
 function teachingGallery(ids,heading='这一步的讲解配图'){if(!ids?.length)return '';return `<details class="teaching-gallery" open><summary>${esc(heading)} <small>${ids.length}幅 · 可收起</small></summary><div class="check-figure-grid">${ids.map(id=>{const f=TEACH_FIGURES[id];return `<figure class="check-figure"><figcaption><strong>${esc(f.title)}</strong></figcaption><div class="figure-wrap">${teachingFigureSvg(f)}</div><p>${esc(f.caption)}</p><button class="small" data-teach-zoom="${id}">放大讲解图</button></figure>`}).join('')}</div></details>`}
 
+// Detail the area proof without assuming the four corner areas are equal.
+const areaBasePoints=Tclone(midpointGeneral.points);
+const areaCentroid=names=>names.reduce((p,n)=>[p[0]+areaBasePoints[n][0]/names.length,p[1]+areaBasePoints[n][1]/names.length],[0,0]);
+function addAreaCorner(id,corner,u,v,e,h,color,title,caption){
+ const mid=u==='A'&&v==='C'?'N':'M';
+ const names=[corner,u,v,e,h],points=Object.fromEntries(names.map(n=>[n,Tclone(areaBasePoints[n])]));
+ points[mid]=[(points[u][0]+points[v][0])/2,(points[u][1]+points[v][1])/2,10,5];
+ const triangles=[[corner,e,h],[u,e,mid],[v,h,mid],[e,h,mid]];
+ teach(id,title,{points,edges:checkPoly([corner,u,v]),accent:[[e,h],[e,mid],[h,mid]],equal:[[corner,e],[e,u],[corner,h,2],[h,v,2],[u,mid,3],[mid,v,3]],fill:triangles.map((ns,i)=>({points:ns,color:i===0?color:['','#e9f2fa','#edf4e7','#f5eef9'][i]}))},caption);
+}
+addAreaCorner('area-quarter-A','A','B','D','E','H','#c8e3ff','先看A角：小△AEH占大△ABD的1/4','E、H分别是AB、AD中点，再取BD中点M。连接EH、EM、HM，把△ABD分成4个全等三角形；蓝色△AEH只占其中1块。M是本小图补充的BD中点。');
+addAreaCorner('area-quarter-B','B','A','C','E','F','#d8efc1','B角：小△BEF对应大△BAC','E、F分别是BA、BC中点，N是AC中点。连接三个中点，4块全等，因此S(△BEF)＝S(△ABC)/4。绿色块才是原图B角上的小三角形。');
+addAreaCorner('area-quarter-C','C','B','D','F','G','#ffe5af','C角：小△CFG对应大△CBD','F、G分别是CB、CD中点，M是BD中点。黄色小块占大△CBD的1/4，即S(△CFG)＝S(△CBD)/4。');
+addAreaCorner('area-quarter-D','D','A','C','H','G','#e6d4f7','D角：小△DGH对应大△DAC','H、G分别是DA、DC中点，N是AC中点。紫色小块占大△DAC的1/4，即S(△DGH)＝S(△ACD)/4。');
+teach('area-split-bd','沿BD切一刀：两个大三角形刚好拼满原图',{
+ ...Tclone(midpointGeneral),aux:[['B','D']],accent:[['E','H'],['F','G']],
+ fill:[{points:['A','B','D'],color:'#dceaff'},{points:['C','B','D'],color:'#fff0d1'},{points:['A','E','H'],color:'#a9d4ff'},{points:['C','F','G'],color:'#ffda88'}],
+ labels:[{at:areaCentroid(['A','B','D']),dx:-12,dy:5,text:'S₁'},{at:areaCentroid(['C','B','D']),dx:-12,dy:5,text:'S₂'}]
+},'蓝色大△ABD面积记作S₁，黄色大△CBD记作S₂。它们不重叠、不漏空，S₁＋S₂＝原面积S。A角、C角各取对应大三角形的1/4，所以两角合计(S₁＋S₂)/4＝S/4。');
+teach('area-split-ac','沿AC再切一刀：原图又完整地数了一次',{
+ ...Tclone(midpointGeneral),aux:[['A','C']],accent:[['E','F'],['G','H']],
+ fill:[{points:['A','B','C'],color:'#e3f0d8'},{points:['A','C','D'],color:'#eee2fa'},{points:['B','E','F'],color:'#c4e8a7'},{points:['D','G','H'],color:'#d8b8f1'}],
+ labels:[{at:areaCentroid(['A','B','C']),dx:-12,dy:5,text:'S₃'},{at:areaCentroid(['A','C','D']),dx:-12,dy:5,text:'S₄'}]
+},'绿色大△ABC与紫色大△ACD也刚好拼满原图，所以S₃＋S₄＝S。B角、D角合计(S₃＋S₄)/4＝S/4。两种切法各算了一整个原图，这就是“大三角形合计2S”的原因。');
+TEACH_FIGURES['midpoint-area'].title='四个角合起来：S/4＋S/4＝S/2';
+TEACH_FIGURES['midpoint-area'].caption='A角＋C角占原面积的1/4，B角＋D角也占1/4。因此四角合计S/2。这里说的是四角的总和；一般情况下，四个角上的小三角形并不等面积。';
+teach('area-middle-half','剩下的绿色中点四边形也占S/2',{
+ ...Tclone(midpointGeneral),aux:[],fill:[{points:['E','F','G','H'],color:'#d1edb8'}],
+ labels:[{at:areaCentroid(['E','F','G','H']),dx:-17,dy:7,text:'S/2'}]
+},'原四边形＝四个角上的小三角形＋中间EFGH。四角合计S/2，所以中间面积＝S－S/2＝S/2。例如原面积为38，中间就是19；结论不要求外层是平行四边形。');
+const midpointAreaProof=PROOFS.find(p=>p.id==='p14');
+midpointAreaProof.goal='证明中点四边形是平行四边形，理解特殊形状，并证明其面积为原凸四边形的一半。';
+midpointAreaProof.why='边的结论用中位线；面积先看四个角上的小三角形，再分别沿BD、AC分组，把面积关系逐组相加。';
+midpointAreaProof.steps=[...midpointAreaProof.steps.slice(0,4),
+ '面积先只看A角。E、H分别是AB、AD中点，再取BD中点M。中位线给出EH＝BD/2、EM＝AD/2、HM＝AB/2。因此分出的4个三角形都有三条对应边AB/2、AD/2、BD/2，由SSS全等。△AEH只占1块，面积是△ABD的1/4。',
+ '另外三个角完全同理：S(△BEF)＝S(△ABC)/4，S(△CFG)＝S(△CBD)/4，S(△DGH)＝S(△ACD)/4。每个小三角形都有自己对应的大三角形，不能把它们直接都说成原四边形的1/4。图中M统一表示BD中点，N统一表示AC中点。',
+ '把A角与C角放在一组。沿BD，△ABD和△CBD刚好拼成整个原四边形，所以S(△ABD)＋S(△CBD)＝S。两小角各取对应大三角形的1/4，因此S(△AEH)＋S(△CFG)＝S/4。',
+ '把B角与D角放在另一组。沿AC，△ABC和△ACD也刚好拼成整个原四边形，所以S(△ABC)＋S(△ACD)＝S。于是S(△BEF)＋S(△DGH)＝S/4。把两种切法合在一起，四个大三角形的面积就把原图完整地数了2遍。',
+ '四角总面积＝S/4＋S/4＝S/2。中间四边形EFGH的面积＝S－四角总面积＝S/2。因此中点四边形面积为原凸四边形的一半；四个角上的小三角形一般不等面积。'
+];
+PROOF_STEP_FIGURES.p14={4:['area-quarter-A'],5:['area-quarter-B','area-quarter-C','area-quarter-D'],6:['area-split-bd'],7:['area-split-ac'],8:['midpoint-area','area-middle-half']};
+
 function svgFigure(d,aux=false,showMarks=true){
  if(!d)return '<p>请在草稿纸上按题意画图。</p>';
  const W=560,H=390,P=48,pts=d.points||{},all=Object.values(pts).map(v=>[v[0],v[1]]);
