@@ -28,6 +28,8 @@
 
 ## 初中数学与深圳中考
 
+11月25日：[圆专题课堂](https://yuan17377374946-cpu.github.io/honghao-english-learning/geometry-three-nights/circles.html) · 24组知识图解、19组推导、70道自编练习、动态图形与错题回练。
+
 | 内容 | 在线入口 |
 | --- | --- |
 | 基础与计算 | [Day 27 基础摸底](https://yuan17377374946-cpu.github.io/honghao-english-learning/day27.html) · [计算专项](https://yuan17377374946-cpu.github.io/honghao-english-learning/math-calculation/) · [二次方程计算](https://yuan17377374946-cpu.github.io/honghao-english-learning/math-calculation/quadratic.html) |

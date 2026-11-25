@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#58b72c">
+<meta name="description" content="11月25日圆专题课堂：24组图解知识、19组逐步推导、分层自编练习、动态图形与错题回练。">
+<title>圆专题课堂 · 从图形到证明</title>
+<link rel="stylesheet" href="circle-style.css?v=20261125-1">
+</head>
+<body>
+<a class="skip" href="#lesson">跳到学习内容</a>
+<header class="topbar">
+ <a class="brand" href="circles.html" aria-label="圆专题首页"><svg viewBox="0 0 72 72" aria-hidden="true"><circle cx="36" cy="32" r="27" fill="#58b72c" stroke="#34851c" stroke-width="3"/><path d="M19 55 14 66M53 55 58 66" stroke="#34851c" stroke-width="7" stroke-linecap="round"/><ellipse cx="27" cy="28" rx="5" ry="8" fill="white"/><ellipse cx="45" cy="28" rx="5" ry="8" fill="white"/><circle cx="28" cy="30" r="2" fill="#193548"/><circle cx="44" cy="30" r="2" fill="#193548"/><path d="M29 43Q36 50 43 43" stroke="#245f16" stroke-width="3" fill="none" stroke-linecap="round"/></svg><span><strong>圆专题课堂</strong><small>11月25日 · 宏浩数学</small></span></a>
+ <div class="tools"><a class="plain-link" href="index.html">三晚课堂</a><a class="plain-link" href="quadrilaterals.html">四边形</a><button id="font-down" aria-label="减小字号">A−</button><button id="font-up" aria-label="增大字号">A＋</button><button id="focus">课堂专注</button></div>
+</header>
+<nav class="tabs" aria-label="学习方式">
+ <button data-tab="learn">知识图解</button><button data-tab="proof">定理推导</button><button data-tab="practice">分层练习</button><button data-tab="lab">图形探究</button><button data-tab="wrong">错题回练</button>
+</nav>
+<div class="workspace">
+ <aside class="sidebar" aria-label="专题目录">
+  <div class="side-head"><label for="search">查找知识或题目</label><input id="search" type="search" placeholder="例如：切线、弧中点、轨迹" autocomplete="off"><div class="scope"><button id="scope-tonight">今晚主线</button><button id="scope-all">完整专题</button></div><p id="side-count" aria-live="polite"></p></div>
+  <div id="item-list"></div>
+  <div class="records"><button id="export">导出学习记录</button><label class="file-button">导入记录<input id="import" type="file" accept="application/json"></label><p id="storage-state">学习记录保存在当前浏览器。</p></div>
+ </aside>
+ <main id="lesson" tabindex="-1"></main>
+</div>
+<div id="toast" role="status" hidden></div>
+<dialog id="confirm-dialog"><h2>清除本题记录？</h2><p>只清除当前题目的作答、笔记与标记。</p><div><button id="confirm-cancel">保留记录</button><button id="confirm-clear">清除本题</button></div></dialog>
+<noscript><p>请在浏览器中开启 JavaScript，以使用图解、练习和学习记录。</p></noscript>
+<script src="circle-data.js?v=20261125-1"></script><script src="circle-figures.js?v=20261125-1"></script><script src="circle-app.js?v=20261125-1"></script>
+</body></html>
