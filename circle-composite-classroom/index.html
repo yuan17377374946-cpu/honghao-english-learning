@@ -56,4 +56,4 @@ document.addEventListener('click',e=>{const b=e.target.closest('[data-symbol]');
 document.addEventListener('keydown',e=>{if($('#zoomDialog').open||e.ctrlKey||e.metaKey||e.altKey||/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName))return;if(e.key==='ArrowLeft'){e.preventDefault();go(-1)}if(e.key==='ArrowRight'){e.preventDefault();go(1)}});
 function openZoom(){const q=questions[current-1];$('#zoomTitle').textContent=`第${q.id}题 · ${q.title}`;$('#zoomSvg').innerHTML=q.svg;$('#zoomStem').textContent=q.stem;$('#zoomDialog').showModal()}
 $('#closeZoom').onclick=()=>$('#zoomDialog').close();$('#zoomDialog').addEventListener('click',e=>{if(e.target===$('#zoomDialog')){const r=e.target.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)e.target.close()}});$('#printBtn').onclick=()=>window.print();render();
-</script><script src="animations.js?v=20261125-animations-1"></script></body></html>
+</script><script src="animations.js?v=20261125-animations-2"></script></body></html>
