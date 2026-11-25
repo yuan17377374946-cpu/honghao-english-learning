@@ -5,7 +5,7 @@
 <meta name="theme-color" content="#58b72c">
 <meta name="description" content="11月25日圆专题课堂：24组图解知识、19组逐步推导、分层自编练习、动态图形与错题回练。">
 <title>圆专题课堂 · 从图形到证明</title>
-<link rel="stylesheet" href="circle-style.css?v=20261125-1">
+<link rel="stylesheet" href="circle-style.css?v=20261125-ux2">
 </head>
 <body>
 <a class="skip" href="#lesson">跳到学习内容</a>
@@ -17,15 +17,16 @@
  <button data-tab="learn">知识图解</button><button data-tab="proof">定理推导</button><button data-tab="practice">分层练习</button><button data-tab="lab">图形探究</button><button data-tab="wrong">错题回练</button>
 </nav>
 <div class="workspace">
- <aside class="sidebar" aria-label="专题目录">
-  <div class="side-head"><label for="search">查找知识或题目</label><input id="search" type="search" placeholder="例如：切线、弧中点、轨迹" autocomplete="off"><div class="scope"><button id="scope-tonight">今晚主线</button><button id="scope-all">完整专题</button></div><p id="side-count" aria-live="polite"></p></div>
+ <aside class="sidebar collapsed" aria-label="专题目录">
+  <button id="catalog-toggle" aria-expanded="false" aria-controls="item-list">展开目录、搜索与学习记录</button><div class="side-head"><label for="search">查找知识或题目</label><input id="search" type="search" placeholder="例如：切线、弧中点、轨迹" autocomplete="off"><div class="scope"><button id="scope-tonight">今晚主线</button><button id="scope-all">完整专题</button></div><p id="side-count" aria-live="polite"></p><p id="study-progress" class="scope-note"></p></div>
   <div id="item-list"></div>
   <div class="records"><button id="export">导出学习记录</button><label class="file-button">导入记录<input id="import" type="file" accept="application/json"></label><p id="storage-state">学习记录保存在当前浏览器。</p></div>
  </aside>
  <main id="lesson" tabindex="-1"></main>
 </div>
+<dialog id="figure-dialog"><button id="close-figure" aria-label="关闭大图">关闭大图 ×</button><div id="large-figure"></div></dialog>
 <div id="toast" role="status" hidden></div>
 <dialog id="confirm-dialog"><h2>清除本题记录？</h2><p>只清除当前题目的作答、笔记与标记。</p><div><button id="confirm-cancel">保留记录</button><button id="confirm-clear">清除本题</button></div></dialog>
 <noscript><p>请在浏览器中开启 JavaScript，以使用图解、练习和学习记录。</p></noscript>
-<script src="circle-data.js?v=20261125-1"></script><script src="circle-figures.js?v=20261125-1"></script><script src="circle-app.js?v=20261125-1"></script>
+<script src="circle-data.js?v=20261125-ux2"></script><script src="circle-figures.js?v=20261125-ux2"></script><script src="circle-app.js?v=20261125-ux2"></script>
 </body></html>
