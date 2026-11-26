@@ -24,6 +24,13 @@
       reviewAttempts:(r.reviewAttempts||0)+1,reviewFailures:(r.reviewFailures||0)+(ok?0:1),
       lastReviewAt:at,lastReviewSubmission:{draft:copy(draft),correct:ok,assisted,at}};
   }
-  const api={collected,dayAttempt,reviewAttempt};
+  function skipAttempt(original,{draft,at}){
+    const r=original||{},next={...r,draft:copy(draft),done:true,outcome:'skipped',collected:true,needsReview:true,mastered:false,skipped:true,updatedAt:at};
+    if(!r.firstSubmission&&!r.attempts)next.firstSubmission={draft:copy(draft),correct:null,skipped:true,at};
+    if(r.firstIndependent===undefined)next.firstIndependent=false;
+    return next;
+  }
+  const api={collected,dayAttempt,reviewAttempt,skipAttempt};
   if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.ReviewBook=api;
 })(typeof window==='undefined'?{}:window);
+

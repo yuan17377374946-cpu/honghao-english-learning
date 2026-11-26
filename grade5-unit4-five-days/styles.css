@@ -10,3 +10,8 @@
 
 /* Selected anchor must stay visible even when already paired. */
 .match-item.selected,.match-item.paired.selected{background:#e6f5ff;border-color:#1683bc;box-shadow:0 0 0 2px #1683bc;color:#163f58}
+
+/* Keep task requirements readable and locate incomplete answers. */
+.task-requirements{padding:17px 20px 17px 42px;margin:0 0 22px;background:#f2f7fc;border-radius:16px;font-size:18px;line-height:1.85;color:#24445b}
+.task-requirements li+li{margin-top:8px}.answer-input.needs-answer,.write-area.needs-answer,button.needs-answer{outline:3px solid #d89427;outline-offset:3px;background:#fff9ed}
+@media(max-width:600px){.task-requirements{font-size:17px;padding:14px 15px 14px 34px}.task-controls .button-row{justify-content:flex-end}.task-controls .secondary[data-action="skip"]{font-size:14px;min-height:44px}}

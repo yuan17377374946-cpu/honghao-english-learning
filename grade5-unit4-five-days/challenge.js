@@ -12,14 +12,14 @@ const days=[
  C('小组目标是 read more。哪一份安排既落实目标，又能检查自己是否完成？',['I am going to buy some books next month.','I am going to read for ten minutes after dinner on school days and tick my reading card.','I am going to put all my books on a new shelf.'],1,'第二项写明阅读动作、时长、时间和记录方法。买书或整理书架不等于已经阅读。','检查计划里是否真的有阅读，以及怎样知道完成了。'),
  F('根据括号提示补全短文，注意词形变化。',[['Mia wants to be ___.（健康的）','healthy'],['She eats and drinks ___.（健康地）','healthily'],['Her brother ___ every morning.（锻炼；用一般现在时）','exercises']],'be 后用形容词 healthy；描述 eat / drink 用副词 healthily；her brother 是第三人称单数，谓语用 exercises。','先判断空格在句子中起什么作用，再看主语。'),
  R('读整理行动，哪一个目标最能概括她的变化？选答案并点原文依据。',['Every evening, Eva puts her books back on the shelf. She puts dirty clothes in a basket.','Now she can find her school things quickly. She does not buy new boxes.'],['Learn something new.','Be clean and tidy.','Make new friends.'],1,[0],'归还书本、收好脏衣服，都是保持整洁的具体行动。','把几项行动放在一起想，不要只找一个相同单词。'),
- C('Leo说“I want to make new friends.”，但他每天只和同一个人说话。哪项调整最直接帮助目标？',['Talk to a new classmate and ask about his or her favourite game.','Read alone for twenty more minutes.','Buy a bigger schoolbag.'],0,'主动认识新同学并开启交流，直接帮助结交新朋友。','找能改变“交往对象没有变化”的行动。'),
+ C('Leo说“I want to make new friends.”，但他每天只和同一个人说话。哪项调整最直接帮助目标？',['Talk to a new classmate and ask about his or her favourite game.','Spend every break with his usual friend and never speak to anyone else.','Write down new classmates’ names but never talk to them.'],0,'主动认识新同学并开启交流，直接帮助结交新朋友。','找能改变“交往对象没有变化”的行动。'),
  I('用 want to + 动词原形，把“她想学习新事物”写成完整英文句子。',['She wants to learn something new.'],'She wants to learn something new. She 后用 wants；new 放在 something 后。','注意主语 she，以及 something 和 new 的位置。'),
  W('你想提高英语，但每天只有10分钟。写2句英文：用 I want to 写目标，用 I am going to + 动词原形写一项具体行动，说明何时做、做多久。','I want to …\nI am going to …','I want to get better at English.\nI am going to read English for ten minutes after dinner.',['目标和行动互相对应。','行动写明时间和时长，符合每天10分钟的条件。','检查 wants / want、am 和动词原形。'],'先选一件10分钟能做到的小事，再检查是否直接帮助英语学习。','写2句：目标＋有时间和时长的行动。')
 ],
 [
  F('用 be going to + 动词原形补全周末安排；每空把括号里的动词一起写出。',[['Amy and I ___ the classroom on Saturday. (clean)','are going to clean'],['My brother ___ something new. (learn)','is going to learn'],['I ___ a new friend at the sports club. (make)','am going to make']],'分别看 Amy and I、my brother、I，再用 are / is / am going to + 动词原形。','先圈出各句主语，别让上一个空的 be 动词影响下一个空。'),
  I('用 be going to + 动词原形写出“她下个月打算学游泳”。写完整英文句子。',['She is going to learn to swim next month.','Next month, she is going to learn to swim.'],'She is going to learn to swim next month. going to 后接 learn，learn 后还有 to swim。','句中要同时表达“打算”和“学习游泳”，不能漏掉其中一个结构。'),
- C('只看周末安排，哪句同时符合两条信息：Amy想提高英语；她已约好周日上午和Mia读英文书。',['Amy wants to get better at English, and she is going to read English books with Mia on Sunday morning.','Amy is going to get better at English yesterday, and she wants read with Mia.','Amy wants to read alone on Saturday, and Mia is not going to join her.'],0,'要同时保留英语目标、同伴、星期和上午这几个条件。','逐条核对信息，不要只看到一个熟悉的句型就选。'),
+ C('只看周末安排，哪句同时符合两条信息：Amy想提高英语；她已约好周日上午和Mia读英文书。',['Amy wants to get better at English, and she is going to read English books with Mia on Sunday morning.','Amy wants to get better at English, and she is going to read English books with Mia on Saturday morning.','Amy wants to get better at English, and she is going to watch an English film with Mia on Sunday morning.'],0,'要同时保留英语目标、同伴、星期和上午这几个条件。','逐条核对信息，不要只看到一个熟悉的句型就选。'),
  F('下面两句都有 be going to 的将来时结构。按括号动词补全，每空写出完整表达。',[['There ___ two tests next month. (be)','are going to be'],['Our class ___ a test next Friday. (have)','is going to have']],'There 后看 two tests 用 are going to be；Our class 作主语，写 is going to have。','区分 There be 的“有”和班级将参加测试。'),
  R('Ben的计划改了。Which plan is still possible? 选答案并点支持它的原文。',['Ben wants to join the basketball team. He is going to practise at the park on Saturday.','The park is closed on Saturday. The school playground is open, and Amy can practise there with him.'],['Practise with Amy at the school playground on Saturday.','Practise at the closed park on Saturday.','Stop practising and wait for the test.'],0,[1],'第二句给出了可用场地和同伴，换地点仍能落实训练目标。','把原计划与新增条件合起来判断。'),
  W('周六图书馆关门了，你仍想多读书。用2句英文调整计划：先用 be not going to + 动词原形说明不去哪里，再用 be going to + 动词原形写可执行的新安排，并写清时间。','I am not going to …\nI am going to …','I am not going to read at the library on Saturday.\nI am going to read at home for twenty minutes on Saturday morning.',['第一句是否定的将来计划。','第二句换了可行地点，仍帮助阅读目标，并写清时间。','两句都有 am，going to 后用动词原形。'],'目标仍是多读书；改变不能执行的地点，再确定新的行动。','写2句：取消原安排＋给出新安排。')
@@ -60,6 +60,18 @@ U.days.forEach((d,di)=>{
  d.focus=['目标推理 · 词形迁移 · 独立表达','多主语计划 · 结构改写 · 调整安排','问答改写 · 信息缺口 · 自主提问','联系上下文 · 因果推断 · 提出建议','多条件安排 · 综合改写 · 应变目标卡'][di];
  d.intro+=' 先热身，再完成需要自己判断和表达的进阶任务。';
 });
+const writingGuides=[
+ ['每天只有10分钟，怎样提高英语？',['写2句英文。第1句用 I want to + 动词原形写目标。','第2句用 I am going to + 动词原形写行动。','行动说明何时做、做多久，并符合每天10分钟的条件。']],
+ ['图书馆关门了，怎样调整阅读计划？',['写2句英文，目标仍是多读书。','第1句用 I am not going to + 动词原形，取消原安排。','第2句用 I am going to + 动词原形，写可行的新地点和时间。']],
+ ['向Amy问清学做饭的时间和同伴。',['写2个完整英文问句，使用 be going to + 动词原形。','第1句用 When 问什么时候；第2句用 Who … with 问和谁一起。','用 you 向Amy提问，保留 learn to cook；不用替她写回答。']],
+ ['帮男孩照顾父亲，也尽量准时到校。',['写2句英文，办法要对应路远、卖东西占时间等原因。','用 You can + 动词原形给一项具体建议。','再用 I am going to + 动词原形，替男孩写一句行动计划。','不能以不再给父亲买药作为办法。']],
+ ['做一张能够应对变化的英语目标卡。',['共写5句英文。第1句用 I want to + 动词原形写目标。','第2、3句用 I am going to + 动词原形写两项行动，每项写清时间。','假设其中一处场地关门，第4句用 I am not going to + 动词原形取消该安排。','第5句用 I am going to + 动词原形写替代计划，仍帮助同一个目标。']]
+];
+U.days.forEach((d,i)=>{const q=d.questions.find(q=>q.id===`deep-e${i+1}-6`);q.prompt=writingGuides[i][0];q.instructions=writingGuides[i][1];});
+// Equivalent place expressions and standard time placement are both accepted.
+const negative=U.days[4].questions.find(q=>q.id==='deep-e5-3');
+negative.answers.push('They are not going to read in the library tomorrow.',"They aren't going to read in the library tomorrow.",'Tomorrow, they are not going to read in the library.',"Tomorrow, they aren't going to read in the library.");
+for(const q of U.days.flatMap(d=>d.questions))if(q.type==='input'&&q.challenge)q.answers=[...new Set(q.answers.flatMap(a=>/^(Tomorrow|Next month),/.test(a)?[a,a.replace(',', '')]:[a]))];
 U.contentRevision=6;U.challengeRevision=1;
 U.coverage.push(['进阶任务','30道进阶题进入每天后半程：语境、词形、整句改写、阅读推理及带约束的自主表达。原题保留为补练。']);
 })();

@@ -24,3 +24,16 @@ assert.equal(Book.collected({helped:true,done:false}),false,'未作答时只看�
 assert.equal(Book.reviewAttempt({firstCorrect:false,done:false},{ok:true,draft:{text:'set'},at:'d'}).done,true,'旧版已作答错题复习后同步完成状态');
 assert.deepEqual(JSON.parse(JSON.stringify(r)),r,'可持久化并恢复记录');
 console.log('错题流程验证通过：答错可继续、首次作答保留、复习独立答对后标记掌握、历史不删除、辅助作答不冒充掌握、旧记录兼容。');
+
+// Skipping preserves a partial response without inventing an incorrect attempt.
+const partial={fields:{0:'are going to clean'}};
+let skipped=Book.skipAttempt({}, {draft:partial,at:'skip'});
+partial.fields[0]='changed';assert.equal(skipped.firstSubmission.draft.fields[0],'are going to clean');
+assert.equal(skipped.firstSubmission.correct,null);assert.equal(skipped.firstSubmission.skipped,true);
+assert.equal(skipped.firstCorrect,undefined);assert.equal(skipped.everWrong,undefined);assert.equal(skipped.attempts,undefined);
+assert.equal(skipped.needsReview,true);assert.equal(skipped.done,true);assert.equal(skipped.firstIndependent,false);
+const skippedFirst=JSON.stringify(skipped.firstSubmission);
+skipped=Book.reviewAttempt(skipped,{ok:true,draft:{fields:{0:'are going to clean'}},at:'review'});
+assert.equal(skipped.mastered,true);assert.equal(skipped.needsReview,false);assert.equal(JSON.stringify(skipped.firstSubmission),skippedFirst);
+assert.deepEqual(Book.skipAttempt(original,{draft:{text:'new'},at:'later'}).firstSubmission,original.firstSubmission);
+console.log('跳过验证通过：保留部分作答，不伪造首答错误，回练更新掌握且保留历史。');
