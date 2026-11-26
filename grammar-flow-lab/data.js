@@ -1,5 +1,5 @@
 window.GRAMMAR_DATA={
-  "version": "2026-11-26-v2",
+  "version": "2026-11-26-v3",
   "sources": {
     "sz22": {
       "title": "2022年深圳市中考英语",
@@ -190,7 +190,13 @@ window.GRAMMAR_DATA={
       "caseSensitive": false,
       "scene": "朗朗与音乐",
       "checkHint": "你已经选了复数。再看音乐家这个可数名词的词尾，不能仍保留单数。",
-      "contextRequired": false
+      "contextRequired": false,
+      "notebook": {
+        "title": "one of 后的名词复数",
+        "rule": "one of + the / my 等 +（形容词）+ 可数名词复数＝……之一。",
+        "example": "one of the leading musicians；musician → musicians",
+        "reminder": "one 是选出的一个，of 后面的一群要用复数。"
+      }
     },
     {
       "id": "warmly",
@@ -344,7 +350,13 @@ window.GRAMMAR_DATA={
       "caseSensitive": false,
       "scene": "雪山音乐会",
       "checkHint": "最后一步选的是修饰动作的副词。核对 warm 的副词词尾。",
-      "contextRequired": false
+      "contextRequired": false,
+      "notebook": {
+        "title": "形容词变副词",
+        "rule": "说明动作“做得怎么样”，常用副词；warm 直接加 -ly。",
+        "example": "warm → warmly；warmly welcomed＝受到热烈欢迎",
+        "reminder": "was welcomed 是被动结构；空格修饰 welcomed，不能见 was 就填形容词。"
+      }
     },
     {
       "id": "Her",
@@ -523,7 +535,13 @@ window.GRAMMAR_DATA={
       "caseSensitive": true,
       "scene": "体育与交流",
       "checkHint": "这里是“她的＋名词”；再检查这个空位于句首。",
-      "contextRequired": false
+      "contextRequired": false,
+      "notebook": {
+        "title": "所属关系与句首大写",
+        "rule": "“她的 + 名词”用 her + 名词；句首把 h 大写。",
+        "example": "her role＝她的角色；句首写 Her role",
+        "reminder": "she＝她；her + 名词＝她的……；hers 后不直接接名词。"
+      }
     },
     {
       "id": "circle",
@@ -653,7 +671,13 @@ window.GRAMMAR_DATA={
       "caseSensitive": false,
       "scene": "龙舟赛前",
       "checkHint": "这里泛指一个圈；再按 circle 开头的辅音 /s/ 检查冠词。",
-      "contextRequired": false
+      "contextRequired": false,
+      "notebook": {
+        "title": "a / an 按发音选",
+        "rule": "泛指一个可数事物常用 a / an；看紧跟冠词的词开头的发音。",
+        "example": "in a circle＝围成一个圈；circle 以辅音 /s/ 开头",
+        "reminder": "辅音音素前用 a，元音音素前用 an；按发音，不按字母。"
+      }
     },
     {
       "id": "interested",
@@ -776,7 +800,13 @@ window.GRAMMAR_DATA={
       "caseSensitive": false,
       "scene": "年轻人与科技",
       "checkHint": "回到 interested 与后面事物组成的“对……感兴趣”搭配。",
-      "contextRequired": false
+      "contextRequired": false,
+      "notebook": {
+        "title": "对……感兴趣",
+        "rule": "be interested in + 事物＝对……感兴趣。",
+        "example": "becoming more interested in technology＝对技术越来越感兴趣",
+        "reminder": "前面的 be / become 或比较程度变化，不改变 interested in 的介词搭配。"
+      }
     },
     {
       "id": "contrast",
@@ -887,7 +917,13 @@ window.GRAMMAR_DATA={
       "caseSensitive": false,
       "scene": "雪山上的演奏",
       "checkHint": "前面手指冷，后面却没有畏惧，需要表达转折。",
-      "contextRequired": false
+      "contextRequired": false,
+      "notebook": {
+        "title": "转折关系的连接词",
+        "rule": "前后是两个完整分句，意思有转折，可用 but / yet 连接。",
+        "example": "手指有点冷，but / yet 他仍没有畏惧。",
+        "reminder": "and 表并列，so 表结果；不能只看逗号，先读两边关系。"
+      }
     },
     {
       "id": "closer",
@@ -1061,7 +1097,13 @@ window.GRAMMAR_DATA={
       "caseSensitive": false,
       "scene": "文化交流",
       "checkHint": "这里需要比较级；保留 close 的字母顺序，词尾已有 e。",
-      "contextRequired": false
+      "contextRequired": false,
+      "notebook": {
+        "title": "比较级与拼写",
+        "rule": "than before＝比以前，提示比较；close 词尾已有 e，比较级只加 -r。",
+        "example": "close → closer；a closer relationship than before",
+        "reminder": "写 closer，不能写 closeer；保留 close 中的字母顺序。"
+      }
     },
     {
       "id": "third",
@@ -1184,7 +1226,13 @@ window.GRAMMAR_DATA={
       "caseSensitive": false,
       "scene": "演奏的曲目",
       "checkHint": "这里表示演奏顺序；three 的序数词需要单独记。",
-      "contextRequired": false
+      "contextRequired": false,
+      "notebook": {
+        "title": "数量和顺序",
+        "rule": "表示“几个”用基数词；表示“第几个”用序数词。",
+        "example": "three pieces＝三首曲子；the third piece＝第三首曲子",
+        "reminder": "three → third 是不规则变化，不能写 threeth。"
+      }
     },
     {
       "id": "proudly",
@@ -1332,7 +1380,13 @@ window.GRAMMAR_DATA={
       "caseSensitive": false,
       "scene": "龙舟体验",
       "checkHint": "空格说明“说得怎么样”，核对 proud 的副词形式。",
-      "contextRequired": false
+      "contextRequired": false,
+      "notebook": {
+        "title": "找到真正的修饰对象",
+        "rule": "问“说得怎么样”，是在修饰 said 这个动作，需要副词。",
+        "example": "proud → proudly；said Ole proudly＝奥勒自豪地说",
+        "reminder": "人名紧挨着空格，也不代表一定修饰人名；看句中作用。"
+      }
     },
     {
       "id": "from",
@@ -1459,7 +1513,13 @@ window.GRAMMAR_DATA={
       "caseSensitive": false,
       "scene": "国际队友",
       "checkHint": "把 coming 和 different countries 连起来，回忆“来自”的搭配。",
-      "contextRequired": false
+      "contextRequired": false,
+      "notebook": {
+        "title": "来自的固定搭配",
+        "rule": "come from + 地方＝来自……；come 的词形变化不改变搭配。",
+        "example": "students coming from different countries＝来自不同国家的学生",
+        "reminder": "先连起来看 coming … countries，判断来源，不是位置或去向。"
+      }
     },
     {
       "id": "piano",
@@ -1588,7 +1648,13 @@ window.GRAMMAR_DATA={
       "caseSensitive": false,
       "scene": "山顶演出",
       "checkHint": "把 play 与 piano 连起来，核对“弹钢琴”的常用表达。",
-      "contextRequired": false
+      "contextRequired": false,
+      "notebook": {
+        "title": "演奏乐器的常用表达",
+        "rule": "“弹钢琴”通常说 play the piano。",
+        "example": "play the piano＝弹钢琴；play basketball＝打篮球",
+        "reminder": "乐器和球类的常用表达不同；不能见到 play 就一律加 the。"
+      }
     },
     {
       "id": "himself",
@@ -1737,7 +1803,13 @@ window.GRAMMAR_DATA={
       "caseSensitive": false,
       "scene": "敖丙的选择",
       "checkHint": "动作的承受者和主语 Ao Bing 是同一人；核对“他自己”的形式。",
-      "contextRequired": false
+      "contextRequired": false,
+      "notebook": {
+        "title": "动作指向自己",
+        "rule": "动作的承受者与主语是同一人，常用反身代词；he → himself。",
+        "example": "Ao Bing sacrifices himself.＝敖丙牺牲了自己。",
+        "reminder": "him＝他（宾格）；his＝他的；himself＝他自己。"
+      }
     },
     {
       "id": "chosen",
@@ -1934,7 +2006,13 @@ window.GRAMMAR_DATA={
       "caseSensitive": false,
       "scene": "演出选曲",
       "checkHint": "这一空缺完整的被动谓语；检查单数主语对应的 be 过去式与过去分词。",
-      "contextRequired": false
+      "contextRequired": false,
+      "notebook": {
+        "title": "一般过去时的被动",
+        "rule": "一般过去时被动：was / were + 过去分词；再按主语选 was / were。",
+        "example": "The piece was chosen.；choose → chose → chosen",
+        "reminder": "单数 piece 配 was；chosen 是过去分词，不是过去式，不能漏 be。"
+      }
     },
     {
       "id": "draw",
@@ -2123,7 +2201,13 @@ window.GRAMMAR_DATA={
       "caseSensitive": false,
       "scene": "音乐与文化",
       "checkHint": "按 hope to do 检查不定式是否完整，不要受前面的 hoping 影响。",
-      "contextRequired": false
+      "contextRequired": false,
+      "notebook": {
+        "title": "hope 后接不定式",
+        "rule": "hope to do sth.＝希望做某事；hope 变为 hoping，后接形式仍是 to do。",
+        "example": "hoping to draw the audience’s interest＝希望吸引观众的兴趣",
+        "reminder": "不能见 hoping 就把后一个动词也变 -ing；本空的 to 不能漏。"
+      }
     },
     {
       "id": "importance",
@@ -2278,7 +2362,13 @@ window.GRAMMAR_DATA={
       "caseSensitive": false,
       "scene": "运动与合作",
       "checkHint": "这里需要表示“重要性”的名词，核对 important 的词族变化。",
-      "contextRequired": false
+      "contextRequired": false,
+      "notebook": {
+        "title": "形容词也能变名词",
+        "rule": "先看空位需要的词性，再变形；important 的名词是 importance。",
+        "example": "the importance of cooperation＝合作的重要性",
+        "reminder": "important＝重要的；importance＝重要性。本题需要名词，不是副词。"
+      }
     },
     {
       "id": "called",
@@ -2455,7 +2545,13 @@ window.GRAMMAR_DATA={
       "caseSensitive": false,
       "scene": "科技公司",
       "checkHint": "检查 can 后的完整被动结构，以及 call 的过去分词词尾。",
-      "contextRequired": false
+      "contextRequired": false,
+      "notebook": {
+        "title": "情态动词的被动",
+        "rule": "情态动词被动：can + be + 过去分词。",
+        "example": "can be called leaders＝可以被称为领先者",
+        "reminder": "题目已给 can，本空仍需写 be called；不能只写 called。"
+      }
     },
     {
       "id": "amazing",
@@ -2674,7 +2770,13 @@ window.GRAMMAR_DATA={
       "caseSensitive": false,
       "scene": "技术与生活",
       "checkHint": "空位描述“令人惊奇的事”，需要 -ing 形容词；amaze 词尾的 e 要处理。",
-      "contextRequired": false
+      "contextRequired": false,
+      "notebook": {
+        "title": "令人……与感到……",
+        "rule": "本题的 -ing 形容词表示“令人惊奇”；-ed 形容词表示“感到惊奇”。",
+        "example": "amaze → amazing；amazing things＝令人惊奇的事情",
+        "reminder": "amaze 去掉词尾不发音的 e 再加 -ing；按含义判断，不能机械分人和物。"
+      }
     },
     {
       "id": "company",
@@ -2805,7 +2907,13 @@ window.GRAMMAR_DATA={
       "caseSensitive": false,
       "scene": "认识DeepSeek",
       "checkHint": "前文已经介绍 DeepSeek，company 再次指同一家公司。",
-      "contextRequired": true
+      "contextRequired": true,
+      "notebook": {
+        "title": "前文已提到的特指",
+        "rule": "先看前文所指；再次指向同一个已介绍的事物，常用定冠词 the。",
+        "example": "前文介绍 DeepSeek → 后文写 the company",
+        "reminder": "不能只凭 company 是单数就填 a / an；还要判断泛指还是特指。"
+      }
     }
   ],
   "note": "原题摘句用于逐空训练；非目标空需要时已用原解析答案补全。省略部分以 … 标出；中文提示、判断选项与解析路线为教学编写。原资料为网络整理卷，模拟题单独标注，不冒称中考真题。"
