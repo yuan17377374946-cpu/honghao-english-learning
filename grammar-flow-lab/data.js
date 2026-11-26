@@ -72,7 +72,9 @@ window.GRAMMAR_DATA={
           ],
           "explain": "先确认题目有没有给词；给词不代表一定改变词形。",
           "hint": "看空格旁边有没有括号及括号里的单词。不要把原句中普通的词当成提示词。",
-          "clues": []
+          "clues": [
+            "musician"
+          ]
         },
         {
           "id": "musicians-pos",
@@ -140,7 +142,7 @@ window.GRAMMAR_DATA={
           "prompt": "one of … 表示“……中的一个”，of 后面的这群音乐家用什么数？",
           "options": [
             {
-              "text": "不可数：人不能数",
+              "text": "不变：表示职业的名词不用复数",
               "correct": false,
               "feedback": "不要只盯着 one；请把 one of 整体看。"
             },
@@ -212,7 +214,9 @@ window.GRAMMAR_DATA={
           ],
           "explain": "先确认题目有没有给词；给词不代表一定改变词形。",
           "hint": "看空格旁边有没有括号及括号里的单词。不要把原句中普通的词当成提示词。",
-          "clues": []
+          "clues": [
+            "warm"
+          ]
         },
         {
           "id": "warmly-pos",
@@ -358,7 +362,9 @@ window.GRAMMAR_DATA={
           ],
           "explain": "先确认题目有没有给词；给词不代表一定改变词形。",
           "hint": "看空格旁边有没有括号及括号里的单词。不要把原句中普通的词当成提示词。",
-          "clues": []
+          "clues": [
+            "she"
+          ]
         },
         {
           "id": "Her-pos",
@@ -866,7 +872,9 @@ window.GRAMMAR_DATA={
           ],
           "explain": "先确认题目有没有给词；给词不代表一定改变词形。",
           "hint": "看空格旁边有没有括号及括号里的单词。不要把原句中普通的词当成提示词。",
-          "clues": []
+          "clues": [
+            "close"
+          ]
         },
         {
           "id": "closer-pos",
@@ -1029,7 +1037,9 @@ window.GRAMMAR_DATA={
           ],
           "explain": "先确认题目有没有给词；给词不代表一定改变词形。",
           "hint": "看空格旁边有没有括号及括号里的单词。不要把原句中普通的词当成提示词。",
-          "clues": []
+          "clues": [
+            "three"
+          ]
         },
         {
           "id": "third-pos",
@@ -1144,7 +1154,9 @@ window.GRAMMAR_DATA={
           ],
           "explain": "先确认题目有没有给词；给词不代表一定改变词形。",
           "hint": "看空格旁边有没有括号及括号里的单词。不要把原句中普通的词当成提示词。",
-          "clues": []
+          "clues": [
+            "proud"
+          ]
         },
         {
           "id": "proudly-pos",
@@ -1523,7 +1535,9 @@ window.GRAMMAR_DATA={
           ],
           "explain": "先确认题目有没有给词；给词不代表一定改变词形。",
           "hint": "看空格旁边有没有括号及括号里的单词。不要把原句中普通的词当成提示词。",
-          "clues": []
+          "clues": [
+            "he"
+          ]
         },
         {
           "id": "himself-pos",
@@ -1663,7 +1677,9 @@ window.GRAMMAR_DATA={
           ],
           "explain": "先确认题目有没有给词；给词不代表一定改变词形。",
           "hint": "看空格旁边有没有括号及括号里的单词。不要把原句中普通的词当成提示词。",
-          "clues": []
+          "clues": [
+            "choose"
+          ]
         },
         {
           "id": "chosen-pos",
@@ -1853,7 +1869,9 @@ window.GRAMMAR_DATA={
           ],
           "explain": "先确认题目有没有给词；给词不代表一定改变词形。",
           "hint": "看空格旁边有没有括号及括号里的单词。不要把原句中普通的词当成提示词。",
-          "clues": []
+          "clues": [
+            "draw"
+          ]
         },
         {
           "id": "draw-pos",
@@ -2034,7 +2052,9 @@ window.GRAMMAR_DATA={
           ],
           "explain": "先确认题目有没有给词；给词不代表一定改变词形。",
           "hint": "看空格旁边有没有括号及括号里的单词。不要把原句中普通的词当成提示词。",
-          "clues": []
+          "clues": [
+            "important"
+          ]
         },
         {
           "id": "importance-pos",
@@ -2180,7 +2200,9 @@ window.GRAMMAR_DATA={
           ],
           "explain": "先确认题目有没有给词；给词不代表一定改变词形。",
           "hint": "看空格旁边有没有括号及括号里的单词。不要把原句中普通的词当成提示词。",
-          "clues": []
+          "clues": [
+            "call"
+          ]
         },
         {
           "id": "called-pos",
@@ -2351,7 +2373,9 @@ window.GRAMMAR_DATA={
           ],
           "explain": "先确认题目有没有给词；给词不代表一定改变词形。",
           "hint": "看空格旁边有没有括号及括号里的单词。不要把原句中普通的词当成提示词。",
-          "clues": []
+          "clues": [
+            "amaze"
+          ]
         },
         {
           "id": "amazing-pos",
