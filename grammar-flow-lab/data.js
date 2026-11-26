@@ -1,5 +1,5 @@
 window.GRAMMAR_DATA={
-  "version": "2026-11-26-v1",
+  "version": "2026-11-26-v2",
   "sources": {
     "sz22": {
       "title": "2022年深圳市中考英语",
@@ -134,7 +134,8 @@ window.GRAMMAR_DATA={
           "clues": [
             "one of",
             "leading"
-          ]
+          ],
+          "conclusion": "one of 后面要说一群人中的一个，核心名词仍是“音乐家”。"
         },
         {
           "id": "musicians-plural",
@@ -182,8 +183,14 @@ window.GRAMMAR_DATA={
       "clues": [
         "one of"
       ],
-      "answerHints": {},
-      "caseSensitive": false
+      "answerHints": {
+        "musician": "最后一步已经选了复数；你写的还是单数。看看词尾是否加上了复数标记。",
+        "musicianss": "复数词尾只加一次，不要重复加 s。"
+      },
+      "caseSensitive": false,
+      "scene": "朗朗与音乐",
+      "checkHint": "你已经选了复数。再看音乐家这个可数名词的词尾，不能仍保留单数。",
+      "contextRequired": false
     },
     {
       "id": "warmly",
@@ -330,8 +337,14 @@ window.GRAMMAR_DATA={
         "was",
         "welcomed"
       ],
-      "answerHints": {},
-      "caseSensitive": false
+      "answerHints": {
+        "warm": "你已经判断在说明“欢迎得怎么样”，这里要把形容词变成修饰动作的副词。",
+        "warmily": "warm 不以 y 结尾，不需要改字母再加副词词尾。"
+      },
+      "caseSensitive": false,
+      "scene": "雪山音乐会",
+      "checkHint": "最后一步选的是修饰动作的副词。核对 warm 的副词词尾。",
+      "contextRequired": false
     },
     {
       "id": "Her",
@@ -448,7 +461,7 @@ window.GRAMMAR_DATA={
             {
               "text": "形容词性物主代词",
               "correct": true,
-              "feedback": "she 对应的形容词性物主代词是 her；它可以放在 role 前。"
+              "feedback": "空格表示所属，后面还接 role，要选能放在名词前面的物主代词。"
             },
             {
               "text": "人称代词主格",
@@ -456,7 +469,7 @@ window.GRAMMAR_DATA={
               "feedback": "对照：she＝她；her + 名词＝她的……；hers＝她的（不带名词）；herself＝她自己。"
             }
           ],
-          "explain": "she 对应的形容词性物主代词是 her；它可以放在 role 前。",
+          "explain": "空格表示所属，后面还接 role，要选能放在名词前面的物主代词。",
           "hint": "对照：she＝她；her + 名词＝她的……；hers＝她的（不带名词）；herself＝她自己。",
           "clues": [
             "role"
@@ -475,12 +488,13 @@ window.GRAMMAR_DATA={
             {
               "text": "是",
               "correct": true,
-              "feedback": "句首需要大写，最后写 Her。"
+              "feedback": "本空位于句首。先确定代词形式，写答案时再把首字母大写。"
             }
           ],
-          "explain": "句首需要大写，最后写 Her。",
+          "explain": "本空位于句首。先确定代词形式，写答案时再把首字母大写。",
           "hint": "前一句已经结束；本空是新句的开头。",
-          "clues": []
+          "clues": [],
+          "conclusion": "本空位于句首。"
         }
       ],
       "translation": "她的角色是激励年轻人，并推动体育和文化交流。",
@@ -501,8 +515,15 @@ window.GRAMMAR_DATA={
       "clues": [
         "role"
       ],
-      "answerHints": {},
-      "caseSensitive": true
+      "answerHints": {
+        "she": "后面有 role，要表达“她的角色”，不能用“她”的主格。",
+        "hers": "这种“她的”后面不直接带名词；本题后面还有 role。",
+        "herself": "反身代词表示“她自己”，本题需要表示所属的“她的”。"
+      },
+      "caseSensitive": true,
+      "scene": "体育与交流",
+      "checkHint": "这里是“她的＋名词”；再检查这个空位于句首。",
+      "contextRequired": false
     },
     {
       "id": "circle",
@@ -553,7 +574,8 @@ window.GRAMMAR_DATA={
           ],
           "explain": "先看目标空两侧的结构，不是看到句子里有逗号就填连词。",
           "hint": "分别看目标空两边。判断的是这个空的作用，不是句中其他连接词的作用。",
-          "clues": []
+          "clues": [],
+          "conclusion": "先看目标空两侧的结构，不是看到句子里有逗号就填连词。"
         },
         {
           "id": "circle-N2",
@@ -568,14 +590,15 @@ window.GRAMMAR_DATA={
             {
               "text": "是",
               "correct": true,
-              "feedback": "in a circle 表示“围成一个圈”。这里需要冠词，不是连接两个句子。"
+              "feedback": "circle 表示“圈”。这里需要限定词，不是连接两个句子。"
             }
           ],
-          "explain": "in a circle 表示“围成一个圈”。这里需要冠词，不是连接两个句子。",
+          "explain": "circle 表示“圈”。这里需要限定词，不是连接两个句子。",
           "hint": "看空后的 circle：一个圈，是可数名词单数。",
           "clues": [
             "circle"
-          ]
+          ],
+          "conclusion": "circle 表示“圈”。"
         },
         {
           "id": "circle-article",
@@ -595,10 +618,10 @@ window.GRAMMAR_DATA={
             {
               "text": "是否泛指，以及 circle 开头的发音",
               "correct": true,
-              "feedback": "这里泛指一个圈，circle 以辅音音素 /s/ 开头，使用 a。"
+              "feedback": "这里泛指一个圈；circle 以辅音音素 /s/ 开头，按发音选择不定冠词。"
             }
           ],
-          "explain": "这里泛指一个圈，circle 以辅音音素 /s/ 开头，使用 a。",
+          "explain": "这里泛指一个圈；circle 以辅音音素 /s/ 开头，按发音选择不定冠词。",
           "hint": "a / an 按紧随其后的发音选择；不是看首字母名称，也不是所有名词前都用 the。",
           "clues": [
             "circle"
@@ -623,8 +646,14 @@ window.GRAMMAR_DATA={
       "clues": [
         "circle"
       ],
-      "answerHints": {},
-      "caseSensitive": false
+      "answerHints": {
+        "an": "circle 开头是辅音 /s/。a / an 由发音决定，再选一次。",
+        "the": "这里表示“围成一个圈”，没有指向前文某个特定的圈。"
+      },
+      "caseSensitive": false,
+      "scene": "龙舟赛前",
+      "checkHint": "这里泛指一个圈；再按 circle 开头的辅音 /s/ 检查冠词。",
+      "contextRequired": false
     },
     {
       "id": "interested",
@@ -675,7 +704,8 @@ window.GRAMMAR_DATA={
           ],
           "explain": "先看目标空两侧的结构，不是看到句子里有逗号就填连词。",
           "hint": "分别看目标空两边。判断的是这个空的作用，不是句中其他连接词的作用。",
-          "clues": []
+          "clues": [],
+          "conclusion": "先看目标空两侧的结构，不是看到句子里有逗号就填连词。"
         },
         {
           "id": "interested-N2",
@@ -698,7 +728,8 @@ window.GRAMMAR_DATA={
           "clues": [
             "interested",
             "technology"
-          ]
+          ],
+          "conclusion": "这里不是补一个、一项或特指标记，而是检查 interested 后的搭配。"
         },
         {
           "id": "interested-N3",
@@ -713,14 +744,15 @@ window.GRAMMAR_DATA={
             {
               "text": "是",
               "correct": true,
-              "feedback": "表示“对……感兴趣”，使用 be interested in。"
+              "feedback": "这里表达“对……感兴趣”，需要 interested 与事物之间的固定介词。"
             }
           ],
-          "explain": "表示“对……感兴趣”，使用 be interested in。",
+          "explain": "这里表达“对……感兴趣”，需要 interested 与事物之间的固定介词。",
           "hint": "把 interested 与后面的事物一起看，不用先翻译整篇。",
           "clues": [
             "interested"
-          ]
+          ],
+          "conclusion": "这里表达“对……感兴趣”，需要 interested 与事物之间的固定介词。"
         }
       ],
       "translation": "因此，年轻人对技术越来越感兴趣。",
@@ -737,8 +769,14 @@ window.GRAMMAR_DATA={
       "clues": [
         "interested"
       ],
-      "answerHints": {},
-      "caseSensitive": false
+      "answerHints": {
+        "on": "这不是“在……上”的关系；回想 be interested 后的固定介词。",
+        "at": "这里表达“对技术感兴趣”；检查 interested 的固定搭配。"
+      },
+      "caseSensitive": false,
+      "scene": "年轻人与科技",
+      "checkHint": "回到 interested 与后面事物组成的“对……感兴趣”搭配。",
+      "contextRequired": false
     },
     {
       "id": "contrast",
@@ -790,7 +828,8 @@ window.GRAMMAR_DATA={
           ],
           "explain": "先看目标空两侧的结构，不是看到句子里有逗号就填连词。",
           "hint": "分别看目标空两边。判断的是这个空的作用，不是句中其他连接词的作用。",
-          "clues": []
+          "clues": [],
+          "conclusion": "先看目标空两侧的结构，不是看到句子里有逗号就填连词。"
         },
         {
           "id": "contrast-relation",
@@ -800,7 +839,7 @@ window.GRAMMAR_DATA={
             {
               "text": "转折：虽然冷，但仍不害怕",
               "correct": true,
-              "feedback": "前面有困难，后面却没有畏惧，表达转折；but 和 yet 都可接受。"
+              "feedback": "前面有困难，后面却没有畏惧。选表示转折的并列连词，接下来自己写出。"
             },
             {
               "text": "顺承：只是并列列举两件事",
@@ -813,7 +852,7 @@ window.GRAMMAR_DATA={
               "feedback": "只读目标空两侧的意思：cold 与 no fear 形成转折，不是“因为冷，所以不害怕”。"
             }
           ],
-          "explain": "前面有困难，后面却没有畏惧，表达转折；but 和 yet 都可接受。",
+          "explain": "前面有困难，后面却没有畏惧。选表示转折的并列连词，接下来自己写出。",
           "hint": "只读目标空两侧的意思：cold 与 no fear 形成转折，不是“因为冷，所以不害怕”。",
           "clues": [
             "cold",
@@ -840,8 +879,15 @@ window.GRAMMAR_DATA={
         "cold",
         "no fear"
       ],
-      "answerHints": {},
-      "caseSensitive": false
+      "answerHints": {
+        "and": "这里不只是平行列举，两边存在“虽然有困难，却不畏惧”的转折。",
+        "so": "“冷”不能推出“不害怕”，因此不是因果关系。",
+        "although": "本空在前一完整分句之后连接第二句，要用这里适合的并列转折连词。"
+      },
+      "caseSensitive": false,
+      "scene": "雪山上的演奏",
+      "checkHint": "前面手指冷，后面却没有畏惧，需要表达转折。",
+      "contextRequired": false
     },
     {
       "id": "closer",
@@ -960,7 +1006,8 @@ window.GRAMMAR_DATA={
           "hint": "这不是单纯描述紧密，而是在说“比以前更紧密”。",
           "clues": [
             "than before"
-          ]
+          ],
+          "conclusion": "有“比以前”的比较，需要形容词比较级。"
         },
         {
           "id": "closer-spelling",
@@ -975,7 +1022,7 @@ window.GRAMMAR_DATA={
             {
               "text": "保留 close，只加 -r",
               "correct": true,
-              "feedback": "以不发音的 e 结尾，直接加 -r，得到 closer。"
+              "feedback": "原词以不发音的 e 结尾，直接加 -r。写的时候保留原词的字母顺序。"
             },
             {
               "text": "把中间字母交换位置",
@@ -983,7 +1030,7 @@ window.GRAMMAR_DATA={
               "feedback": "先完整保留原词，再按规则加词尾；不要改乱原词的字母顺序。"
             }
           ],
-          "explain": "以不发音的 e 结尾，直接加 -r，得到 closer。",
+          "explain": "原词以不发音的 e 结尾，直接加 -r。写的时候保留原词的字母顺序。",
           "hint": "先完整保留原词，再按规则加词尾；不要改乱原词的字母顺序。",
           "clues": [
             "close"
@@ -1005,8 +1052,16 @@ window.GRAMMAR_DATA={
         "relationship",
         "than before"
       ],
-      "answerHints": {},
-      "caseSensitive": false
+      "answerHints": {
+        "close": "than before 提示与以前比较，不能保留原级。",
+        "closeer": "close 已有 e，比较级只需补一个字母，不要把 e 重复写。",
+        "clsoer": "比较级方向对了；原词 close 中的字母顺序不能交换。",
+        "cloder": "本题原词是 close，检查原词里的 s，不要换成 d。"
+      },
+      "caseSensitive": false,
+      "scene": "文化交流",
+      "checkHint": "这里需要比较级；保留 close 的字母顺序，词尾已有 e。",
+      "contextRequired": false
     },
     {
       "id": "third",
@@ -1122,8 +1177,14 @@ window.GRAMMAR_DATA={
         "the",
         "piece"
       ],
-      "answerHints": {},
-      "caseSensitive": false
+      "answerHints": {
+        "three": "这里是“第三首”，不是“三首”；piece 仍是单数。",
+        "threeth": "three 的序数词是不规则形式，不能直接加 th。"
+      },
+      "caseSensitive": false,
+      "scene": "演奏的曲目",
+      "checkHint": "这里表示演奏顺序；three 的序数词需要单独记。",
+      "contextRequired": false
     },
     {
       "id": "proudly",
@@ -1240,10 +1301,10 @@ window.GRAMMAR_DATA={
             {
               "text": "副词",
               "correct": true,
-              "feedback": "用副词 proudly 表示“自豪地”。没有比较语境，不需要比较级。"
+              "feedback": "用副词表示“自豪地”。没有比较语境，不需要比较级。"
             }
           ],
-          "explain": "用副词 proudly 表示“自豪地”。没有比较语境，不需要比较级。",
+          "explain": "用副词表示“自豪地”。没有比较语境，不需要比较级。",
           "hint": "描述“说得怎么样”，对应副词。",
           "clues": [
             "said"
@@ -1264,8 +1325,14 @@ window.GRAMMAR_DATA={
       "clues": [
         "said"
       ],
-      "answerHints": {},
-      "caseSensitive": false
+      "answerHints": {
+        "proud": "这里不是描述一个自豪的人，而是修饰 said 这个动作，需要副词。",
+        "proudily": "proud 不以 y 结尾，直接接副词词尾，不额外插入 i。"
+      },
+      "caseSensitive": false,
+      "scene": "龙舟体验",
+      "checkHint": "空格说明“说得怎么样”，核对 proud 的副词形式。",
+      "contextRequired": false
     },
     {
       "id": "from",
@@ -1316,7 +1383,8 @@ window.GRAMMAR_DATA={
           ],
           "explain": "先看目标空两侧的结构，不是看到句子里有逗号就填连词。",
           "hint": "分别看目标空两边。判断的是这个空的作用，不是句中其他连接词的作用。",
-          "clues": []
+          "clues": [],
+          "conclusion": "先看目标空两侧的结构，不是看到句子里有逗号就填连词。"
         },
         {
           "id": "from-N2",
@@ -1339,7 +1407,8 @@ window.GRAMMAR_DATA={
           "clues": [
             "coming",
             "different countries"
-          ]
+          ],
+          "conclusion": "空位不是补冠词，而是说明这些学生来自哪里。"
         },
         {
           "id": "from-N3",
@@ -1354,14 +1423,15 @@ window.GRAMMAR_DATA={
             {
               "text": "是",
               "correct": true,
-              "feedback": "come from 表示“来自”；come 变成 coming，介词搭配仍保留。"
+              "feedback": "这里表达“来自”；come 变成 coming，原有的介词搭配仍然保留。"
             }
           ],
-          "explain": "come from 表示“来自”；come 变成 coming，介词搭配仍保留。",
+          "explain": "这里表达“来自”；come 变成 coming，原有的介词搭配仍然保留。",
           "hint": "想一想“来自中国”中的“来自”怎么说，形式变化不改变这个搭配。",
           "clues": [
             "coming"
-          ]
+          ],
+          "conclusion": "这里表达“来自”；come 变成 coming，原有的介词搭配仍然保留。"
         }
       ],
       "translation": "我的队友是来自不同国家的国际学生。",
@@ -1382,8 +1452,14 @@ window.GRAMMAR_DATA={
       "clues": [
         "coming"
       ],
-      "answerHints": {},
-      "caseSensitive": false
+      "answerHints": {
+        "in": "句子问的是这些队友来自哪些国家，不是在说他们处于哪里。",
+        "to": "这里表达来源，不是去往某个目的地。"
+      },
+      "caseSensitive": false,
+      "scene": "国际队友",
+      "checkHint": "把 coming 和 different countries 连起来，回忆“来自”的搭配。",
+      "contextRequired": false
     },
     {
       "id": "piano",
@@ -1434,7 +1510,8 @@ window.GRAMMAR_DATA={
           ],
           "explain": "先看目标空两侧的结构，不是看到句子里有逗号就填连词。",
           "hint": "分别看目标空两边。判断的是这个空的作用，不是句中其他连接词的作用。",
-          "clues": []
+          "clues": [],
+          "conclusion": "先看目标空两侧的结构，不是看到句子里有逗号就填连词。"
         },
         {
           "id": "piano-N2",
@@ -1457,7 +1534,8 @@ window.GRAMMAR_DATA={
           "clues": [
             "play",
             "piano"
-          ]
+          ],
+          "conclusion": "这里需要看 play 与乐器名词构成的演奏搭配。"
         },
         {
           "id": "piano-article",
@@ -1467,7 +1545,7 @@ window.GRAMMAR_DATA={
             {
               "text": "演奏乐器的固定表达",
               "correct": true,
-              "feedback": "弹钢琴通常说 play the piano。这里不是在数一台钢琴；打球类运动又是另一种表达。"
+              "feedback": "这里表示演奏钢琴，使用演奏乐器的常用冠词搭配；不是在数一台钢琴。打球类又是另一种表达。"
             },
             {
               "text": "所有 play 后面都填同一冠词",
@@ -1480,7 +1558,7 @@ window.GRAMMAR_DATA={
               "feedback": "看整体 play … piano，不要只按“第一次提到”机械套 a。"
             }
           ],
-          "explain": "弹钢琴通常说 play the piano。这里不是在数一台钢琴；打球类运动又是另一种表达。",
+          "explain": "这里表示演奏钢琴，使用演奏乐器的常用冠词搭配；不是在数一台钢琴。打球类又是另一种表达。",
           "hint": "看整体 play … piano，不要只按“第一次提到”机械套 a。",
           "clues": [
             "play",
@@ -1503,8 +1581,14 @@ window.GRAMMAR_DATA={
         "play",
         "piano"
       ],
-      "answerHints": {},
-      "caseSensitive": false
+      "answerHints": {
+        "a": "这里表达演奏钢琴，不是在介绍“一台钢琴”。",
+        "an": "这里不是数量表达；先按“演奏乐器”的常用搭配判断。"
+      },
+      "caseSensitive": false,
+      "scene": "山顶演出",
+      "checkHint": "把 play 与 piano 连起来，核对“弹钢琴”的常用表达。",
+      "contextRequired": false
     },
     {
       "id": "himself",
@@ -1612,7 +1696,7 @@ window.GRAMMAR_DATA={
             {
               "text": "反身代词",
               "correct": true,
-              "feedback": "he 对应的反身代词是 himself。"
+              "feedback": "用 he 对应的反身代词。接下来把“他自己”写出来。"
             },
             {
               "text": "形容词性物主代词",
@@ -1625,7 +1709,7 @@ window.GRAMMAR_DATA={
               "feedback": "he＝他，him＝他（宾格），his＝他的，himself＝他自己。"
             }
           ],
-          "explain": "he 对应的反身代词是 himself。",
+          "explain": "用 he 对应的反身代词。接下来把“他自己”写出来。",
           "hint": "he＝他，him＝他（宾格），his＝他的，himself＝他自己。",
           "clues": []
         }
@@ -1645,8 +1729,15 @@ window.GRAMMAR_DATA={
         "Ao Bing",
         "sacrifices"
       ],
-      "answerHints": {},
-      "caseSensitive": false
+      "answerHints": {
+        "him": "him 只表达“他”作宾语；这里要明确表示同一个人“自己”。",
+        "his": "his 表示“他的”，不能表达“牺牲他自己”。",
+        "he": "动词后不能用主格；这里动作又指向主语自己。"
+      },
+      "caseSensitive": false,
+      "scene": "敖丙的选择",
+      "checkHint": "动作的承受者和主语 Ao Bing 是同一人；核对“他自己”的形式。",
+      "contextRequired": false
     },
     {
       "id": "chosen",
@@ -1736,7 +1827,8 @@ window.GRAMMAR_DATA={
           ],
           "explain": "这里没有与目标空配套的助动词或情态动词，继续找本句谓语。",
           "hint": "找的是与本空配套的 be / have / can 等。不要把别处分句里的动词算到这里。",
-          "clues": []
+          "clues": [],
+          "conclusion": "这里没有与目标空配套的助动词或情态动词，继续找本句谓语。"
         },
         {
           "id": "chosen-V2",
@@ -1756,7 +1848,8 @@ window.GRAMMAR_DATA={
           ],
           "explain": "先找主语，再找它对应的谓语。带 to 或 -ing 的词不能单凭形式算谓语。",
           "hint": "只看目标空所属的句子主干。引号外的 said、其他分句里的谓语，不能替代本句谓语。",
-          "clues": []
+          "clues": [],
+          "conclusion": "先找主语，再找它对应的谓语。"
         },
         {
           "id": "chosen-voice",
@@ -1804,10 +1897,10 @@ window.GRAMMAR_DATA={
             {
               "text": "一般过去时被动：was / were + 过去分词",
               "correct": true,
-              "feedback": "用一般过去时被动。主语是单数 piece，所以 be 用 was，choose 的过去分词为 chosen。"
+              "feedback": "用一般过去时被动。先按单数主语 piece 选 be 的过去式，再接 choose 的过去分词，两个词都要写。"
             }
           ],
-          "explain": "用一般过去时被动。主语是单数 piece，所以 be 用 was，choose 的过去分词为 chosen。",
+          "explain": "用一般过去时被动。先按单数主语 piece 选 be 的过去式，再接 choose 的过去分词，两个词都要写。",
           "hint": "这一空没有预先给出 be，答案需要补齐整个被动结构。",
           "clues": [
             "The piece",
@@ -1838,7 +1931,10 @@ window.GRAMMAR_DATA={
         "chosen": "词形方向对了，但这里没有现成的 be，完整被动谓语还缺一个词。",
         "chose": "chose 是过去式；这里需要被动结构中的过去分词，并补上 be。"
       },
-      "caseSensitive": false
+      "caseSensitive": false,
+      "scene": "演出选曲",
+      "checkHint": "这一空缺完整的被动谓语；检查单数主语对应的 be 过去式与过去分词。",
+      "contextRequired": false
     },
     {
       "id": "draw",
@@ -1928,7 +2024,8 @@ window.GRAMMAR_DATA={
           ],
           "explain": "这里没有与目标空配套的助动词或情态动词，继续找本句谓语。",
           "hint": "找的是与本空配套的 be / have / can 等。不要把别处分句里的动词算到这里。",
-          "clues": []
+          "clues": [],
+          "conclusion": "这里没有与目标空配套的助动词或情态动词，继续找本句谓语。"
         },
         {
           "id": "draw-V2",
@@ -1948,7 +2045,8 @@ window.GRAMMAR_DATA={
           ],
           "explain": "先找主语，再找它对应的谓语。带 to 或 -ing 的词不能单凭形式算谓语。",
           "hint": "只看目标空所属的句子主干。引号外的 said、其他分句里的谓语，不能替代本句谓语。",
-          "clues": []
+          "clues": [],
+          "conclusion": "先找主语，再找它对应的谓语。"
         },
         {
           "id": "draw-V3",
@@ -1968,7 +2066,8 @@ window.GRAMMAR_DATA={
           ],
           "explain": "有已有谓语，还要排除并列谓语；本空再按搭配与句中作用判断。",
           "hint": "不要因为前面有动词，就直接填 -ing；看两个动作是否是同一层次的并列。",
-          "clues": []
+          "clues": [],
+          "conclusion": "有已有谓语，还要排除并列谓语；本空再按搭配与句中作用判断。"
         },
         {
           "id": "draw-pattern",
@@ -1988,10 +2087,10 @@ window.GRAMMAR_DATA={
             {
               "text": "hope to do sth.",
               "correct": true,
-              "feedback": "原句是 hoping，仍按 hope to do sth.，因此使用不定式 to draw。"
+              "feedback": "原句是 hoping，仍按 hope to do sth.。答案要包含不定式标记和后面的动词原形。"
             }
           ],
-          "explain": "原句是 hoping，仍按 hope to do sth.，因此使用不定式 to draw。",
+          "explain": "原句是 hoping，仍按 hope to do sth.。答案要包含不定式标记和后面的动词原形。",
           "hint": "不要看到 hoping 就把后面的动词也加 -ing；查的是 hope 后接什么形式。",
           "clues": [
             "hoping"
@@ -2021,7 +2120,10 @@ window.GRAMMAR_DATA={
         "draw": "搭配所需的不定式标记还没有写全。",
         "drawing": "不要被前面的 hoping 诱导；hope 后面常用 to do。"
       },
-      "caseSensitive": false
+      "caseSensitive": false,
+      "scene": "音乐与文化",
+      "checkHint": "按 hope to do 检查不定式是否完整，不要受前面的 hoping 影响。",
+      "contextRequired": false
     },
     {
       "id": "importance",
@@ -2129,7 +2231,7 @@ window.GRAMMAR_DATA={
             {
               "text": "变成表示“重要性”的名词",
               "correct": true,
-              "feedback": "important 的名词形式是 importance，表示重要性。这不是加 -s 的复数题。"
+              "feedback": "空位需要表示“重要性”的名词。这是词性转换，不能直接加 -ly 或按复数加 -s。"
             },
             {
               "text": "只在词尾加 -ly",
@@ -2142,7 +2244,7 @@ window.GRAMMAR_DATA={
               "feedback": "先定需要的词性，再回忆词族；这里不是“重要地”。"
             }
           ],
-          "explain": "important 的名词形式是 importance，表示重要性。这不是加 -s 的复数题。",
+          "explain": "空位需要表示“重要性”的名词。这是词性转换，不能直接加 -ly 或按复数加 -s。",
           "hint": "先定需要的词性，再回忆词族；这里不是“重要地”。",
           "clues": [
             "important"
@@ -2168,8 +2270,15 @@ window.GRAMMAR_DATA={
         "the",
         "of cooperation"
       ],
-      "answerHints": {},
-      "caseSensitive": false
+      "answerHints": {
+        "important": "你已经选了名词；important 仍是形容词，不能直接表示“重要性”。",
+        "importantly": "-ly 通常变副词，本题 the … of 中需要名词。",
+        "importantness": "important 的常用名词形式需要单独记；不能机械加 ness。"
+      },
+      "caseSensitive": false,
+      "scene": "运动与合作",
+      "checkHint": "这里需要表示“重要性”的名词，核对 important 的词族变化。",
+      "contextRequired": false
     },
     {
       "id": "called",
@@ -2261,7 +2370,8 @@ window.GRAMMAR_DATA={
           "hint": "找的是与本空配套的 be / have / can 等。不要把别处分句里的动词算到这里。",
           "clues": [
             "can"
-          ]
+          ],
+          "conclusion": "把前面的助动词与目标空合起来看，再决定整个结构。"
         },
         {
           "id": "called-voice",
@@ -2309,10 +2419,10 @@ window.GRAMMAR_DATA={
             {
               "text": "can + be + 过去分词",
               "correct": true,
-              "feedback": "情态动词被动是 can be done。can 已给出，本空要补 be called。"
+              "feedback": "情态动词被动是 can be done。can 已给出，本空需补 be 和 call 的过去分词，不能漏写。"
             }
           ],
-          "explain": "情态动词被动是 can be done。can 已给出，本空要补 be called。",
+          "explain": "情态动词被动是 can be done。can 已给出，本空需补 be 和 call 的过去分词，不能漏写。",
           "hint": "can 后用动词原形；被动结构中的 be 要保留，并用原形。",
           "clues": [
             "can"
@@ -2342,7 +2452,10 @@ window.GRAMMAR_DATA={
         "called": "还缺被动结构中的 be；can 后的 be 必须用原形。",
         "call": "can 后用原形没有错，但本句是被动，需要组成“被称为”。"
       },
-      "caseSensitive": false
+      "caseSensitive": false,
+      "scene": "科技公司",
+      "checkHint": "检查 can 后的完整被动结构，以及 call 的过去分词词尾。",
+      "contextRequired": false
     },
     {
       "id": "amazing",
@@ -2432,7 +2545,8 @@ window.GRAMMAR_DATA={
           ],
           "explain": "这里没有与目标空配套的助动词或情态动词，继续找本句谓语。",
           "hint": "找的是与本空配套的 be / have / can 等。不要把别处分句里的动词算到这里。",
-          "clues": []
+          "clues": [],
+          "conclusion": "这里没有与目标空配套的助动词或情态动词，继续找本句谓语。"
         },
         {
           "id": "amazing-V2",
@@ -2452,7 +2566,8 @@ window.GRAMMAR_DATA={
           ],
           "explain": "先找主语，再找它对应的谓语。带 to 或 -ing 的词不能单凭形式算谓语。",
           "hint": "只看目标空所属的句子主干。引号外的 said、其他分句里的谓语，不能替代本句谓语。",
-          "clues": []
+          "clues": [],
+          "conclusion": "先找主语，再找它对应的谓语。"
         },
         {
           "id": "amazing-V3",
@@ -2472,7 +2587,8 @@ window.GRAMMAR_DATA={
           ],
           "explain": "有已有谓语，还要排除并列谓语；本空再按搭配与句中作用判断。",
           "hint": "不要因为前面有动词，就直接填 -ing；看两个动作是否是同一层次的并列。",
-          "clues": []
+          "clues": [],
+          "conclusion": "有已有谓语，还要排除并列谓语；本空再按搭配与句中作用判断。"
         },
         {
           "id": "amazing-slot",
@@ -2510,7 +2626,7 @@ window.GRAMMAR_DATA={
             {
               "text": "事物令人产生感受：用 -ing 形容词",
               "correct": true,
-              "feedback": "这里描述 things 令人惊奇，用 amazing；不是说这些事情自己感到惊奇。"
+              "feedback": "这里描述 things 令人惊奇，需要 -ing 形容词；不是说事情自己感到惊奇。"
             },
             {
               "text": "一律按主句时态写过去式",
@@ -2523,7 +2639,7 @@ window.GRAMMAR_DATA={
               "feedback": "先判断是在说“令人……”还是“感到……”。不能机械地按人用 -ed、物用 -ing。"
             }
           ],
-          "explain": "这里描述 things 令人惊奇，用 amazing；不是说这些事情自己感到惊奇。",
+          "explain": "这里描述 things 令人惊奇，需要 -ing 形容词；不是说事情自己感到惊奇。",
           "hint": "先判断是在说“令人……”还是“感到……”。不能机械地按人用 -ed、物用 -ing。",
           "clues": [
             "things"
@@ -2551,9 +2667,14 @@ window.GRAMMAR_DATA={
         "things"
       ],
       "answerHints": {
+        "amaze": "空位要修饰 things，需要把动词变成形容词。",
+        "amazeing": "-ing 方向正确；amaze 词尾不发音的 e 要先去掉。",
         "amazed": "这里描述事情“令人惊奇”，不是说事情自己“感到惊奇”。"
       },
-      "caseSensitive": false
+      "caseSensitive": false,
+      "scene": "技术与生活",
+      "checkHint": "空位描述“令人惊奇的事”，需要 -ing 形容词；amaze 词尾的 e 要处理。",
+      "contextRequired": false
     },
     {
       "id": "company",
@@ -2604,7 +2725,8 @@ window.GRAMMAR_DATA={
           ],
           "explain": "先看目标空两侧的结构，不是看到句子里有逗号就填连词。",
           "hint": "分别看目标空两边。判断的是这个空的作用，不是句中其他连接词的作用。",
-          "clues": []
+          "clues": [],
+          "conclusion": "先看目标空两侧的结构，不是看到句子里有逗号就填连词。"
         },
         {
           "id": "company-N2",
@@ -2627,7 +2749,8 @@ window.GRAMMAR_DATA={
           "clues": [
             "company",
             "behind"
-          ]
+          ],
+          "conclusion": "空格前 behind 是介词；空后 company 这个名词短语仍需限定。"
         },
         {
           "id": "company-context",
@@ -2642,7 +2765,7 @@ window.GRAMMAR_DATA={
             {
               "text": "前文已经介绍的那家公司",
               "correct": true,
-              "feedback": "这里特指前文的 DeepSeek 公司，应使用定冠词 the。"
+              "feedback": "这里再次指向前文已经介绍的 DeepSeek 公司，应选定冠词。"
             },
             {
               "text": "无法指代，因为 company 是不可数名词",
@@ -2650,7 +2773,7 @@ window.GRAMMAR_DATA={
               "feedback": "打开上下文，寻找 company 是否已经被介绍。"
             }
           ],
-          "explain": "这里特指前文的 DeepSeek 公司，应使用定冠词 the。",
+          "explain": "这里再次指向前文已经介绍的 DeepSeek 公司，应选定冠词。",
           "hint": "打开上下文，寻找 company 是否已经被介绍。",
           "clues": [
             "company"
@@ -2675,8 +2798,14 @@ window.GRAMMAR_DATA={
       "clues": [
         "company"
       ],
-      "answerHints": {},
-      "caseSensitive": false
+      "answerHints": {
+        "a": "这不是首次介绍任意一家公司；前文已经说过 DeepSeek。",
+        "an": "先判断这里是特指，再检查冠词；不要只按“单数前加 a/an”处理。"
+      },
+      "caseSensitive": false,
+      "scene": "认识DeepSeek",
+      "checkHint": "前文已经介绍 DeepSeek，company 再次指同一家公司。",
+      "contextRequired": true
     }
   ],
   "note": "原题摘句用于逐空训练；非目标空需要时已用原解析答案补全。省略部分以 … 标出；中文提示、判断选项与解析路线为教学编写。原资料为网络整理卷，模拟题单独标注，不冒称中考真题。"

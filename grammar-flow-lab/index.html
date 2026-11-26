@@ -4,7 +4,7 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#58b72b"><meta name="description" content="深圳中考英语与区级模拟题逐空练习：看提示词、找结构、选词形，沿判断路线一步步完成语法填空。">
 <title>语法填空 · 按路线找答案</title>
-<link rel="stylesheet" href="style.css?v=20261126b">
+<link rel="stylesheet" href="style.css?v=20261126c">
 </head>
 <body>
 <header class="topbar">
@@ -13,7 +13,7 @@
 </header>
 <main class="layout">
  <aside class="sidebar" aria-label="练习目录">
-  <div class="lesson-intro"><p class="eyebrow">今晚这样练</p><h1>每一空，<br>都知道下一步。</h1><p>先做12道主练，再选6道进阶。<br>先选思路，最后自己填词。</p></div>
+  <div class="lesson-intro"><p class="eyebrow">今晚这样练</p><h1>每一空，<br>都知道下一步。</h1><p>先做12道主练，再选6道进阶。<br>先读原句，再选思路，最后自己填词。</p></div>
   <div class="group-tabs" role="group" aria-label="题目分组"><button data-filter="core" aria-pressed="true">主练 12</button><button data-filter="challenge" aria-pressed="false">进阶 6</button><button data-filter="review" aria-pressed="false">错题回练</button><button data-filter="all" aria-pressed="false">全部</button></div>
   <div class="group-progress"><span id="groupCount"></span><div class="progress-track"><span id="progressFill"></span></div></div>
   <button id="mobileDirectory" class="quiet mobile-only" aria-expanded="false">展开题目目录</button>
@@ -36,16 +36,17 @@
     <details class="source-details"><summary>查看原题出处与摘录说明</summary><div id="sourceDetails"></div></details>
     <div class="route-memory"><h3>已经走过的路线</h3><ol id="routeHistory"></ol><p id="routeEmpty">选完第一步，这里会记下你的判断。</p></div>
    </article>
-   <section class="decision-panel" aria-label="一步一步判断">
+   <section id="flowPanel" class="decision-panel" aria-label="一步一步判断">
     <div class="decision-top"><span id="stepNumber" class="step-number"></span><span id="stepTitle"></span><span id="stepMeter"></span></div>
+    <div class="flow-reference"><span>对照原句判断</span><p id="flowSentence" lang="en"></p></div>
     <div id="decisionArea"><h3 id="stepPrompt"></h3><div id="optionList" class="options" role="group" aria-labelledby="stepPrompt"></div><div id="stepFeedback" class="feedback" role="status" aria-live="polite" hidden></div><div class="step-actions"><button id="hintBtn" class="quiet">这一步不会判断</button><button id="continueBtn" class="primary" hidden>继续下一步</button></div></div>
     <div id="answerArea" hidden>
      <span class="answer-kicker">路线走完，自己写出答案</span><h3>把词形落实到拼写。</h3>
-     <form id="answerForm"><label for="answerInput">我的答案</label><div class="answer-row"><input id="answerInput" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="可能不止一个单词" maxlength="70"><button class="primary" type="submit">检查答案</button></div></form>
+     <form id="answerForm"><label for="answerInput">我的答案</label><div class="answer-row"><input id="answerInput" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="在这里输入答案" aria-describedby="answerFeedback" maxlength="70"><button class="primary" type="submit">检查答案</button></div></form>
      <div id="answerFeedback" class="feedback" role="status" aria-live="polite" hidden></div>
      <div class="answer-help"><button id="formHintBtn" class="quiet">不知道怎么变形</button><button id="revealBtn" class="quiet danger-link">查看答案和完整解析</button></div>
      <div id="formHint" class="reading-help" hidden></div>
-     <fieldset class="final-check"><legend>最后填回原句检查</legend><label><input type="checkbox" data-check="structure">结构和句意通顺</label><label><input type="checkbox" data-check="form">词形、时态、单复数正确</label><label><input type="checkbox" data-check="spelling">拼写、漏词和大小写正确</label></fieldset>
+     <fieldset id="finalCheck" class="final-check" hidden><legend>最后填回原句检查 <span id="checkCount"></span></legend><label><input type="checkbox" data-check="structure">结构和句意通顺</label><label><input type="checkbox" data-check="form">词形、时态、单复数正确</label><label><input type="checkbox" data-check="spelling">拼写、漏词和大小写正确</label></fieldset>
      <div id="explanation" class="explanation" hidden></div>
      <button id="nextBtn" class="primary next-question" hidden>完成检查，下一题</button>
     </div>
@@ -59,5 +60,5 @@
 <dialog id="wordsDialog"><div class="dialog-top"><h2>先认词的身份</h2><button data-close class="quiet">关闭</button></div><p>提示词原本的身份，与空格最后需要的身份，可能不同。</p><div class="word-grid"><article><b>名词</b><p>人或事物的名称</p><p lang="en">child / teacher / name</p></article><article><b>动词</b><p>动作或状态</p><p lang="en">write / finish / be</p></article><article><b>形容词</b><p>描述人或事物怎样</p><p lang="en">happy / cold / important</p></article><article><b>副词</b><p>常修饰动作、形容词等</p><p lang="en">happily / quickly</p></article><article><b>代词</b><p>代替人、物，或表示所属等</p><p lang="en">she / her / hers / herself</p></article><article><b>数词</b><p>数量或顺序</p><p lang="en">three / third</p></article></div><div class="reading-help">she（她）是代词；name（名字）是名词。不要因为一个词代表人，就把它都当名词。</div></dialog>
 <dialog id="sourcesDialog" class="wide-dialog"><div class="dialog-top"><h2>本课题目出处</h2><button data-close class="quiet">关闭</button></div><p>选句和答案均对照今天收集的原卷及解析；流程选项、中文提示为教学编写。2024整理卷以第1—10空编号，本课沿用该编号。</p><div id="sourcesContent"></div></dialog>
 <dialog id="reportDialog" class="wide-dialog"><div class="dialog-top"><h2>课堂记录</h2><button data-close class="quiet">关闭</button></div><div id="reportContent"></div><div class="report-buttons"><button id="downloadRecord" class="primary">下载本次记录</button><button id="printBtn" class="quiet">打印题目与出处</button></div></dialog>
-<script src="data.js?v=20261126b"></script><script src="app.js?v=20261126b"></script>
+<script src="data.js?v=20261126c"></script><script src="app.js?v=20261126c"></script>
 </body></html>
