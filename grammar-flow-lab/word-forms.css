@@ -6,3 +6,5 @@
 .category-caption{font-size:11px;color:var(--muted);margin-top:19px}.category-caption+.categories{margin-top:7px}@media(max-width:650px){.category-caption{display:none}}
 
 .save-status.error{display:block}
+
+@media(max-width:650px){.transform{grid-template-columns:1fr;gap:10px}.transform .arrow{display:none}.transform .target{padding:10px 12px;border-radius:10px;background:#eef5f8}.transform .target strong{font-size:17px}.transform #rootWord{font-size:32px;overflow-wrap:normal;word-break:normal}}

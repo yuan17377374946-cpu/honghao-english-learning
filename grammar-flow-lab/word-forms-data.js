@@ -558,8 +558,8 @@ window.WORD_FORMS_DATA={
       "formOptions": [
         "past",
         "third",
-        "base",
-        "inf"
+        "ing",
+        "base"
       ],
       "wrong": {}
     },
@@ -583,8 +583,8 @@ window.WORD_FORMS_DATA={
         "vy"
       ],
       "formOptions": [
+        "ing",
         "base",
-        "pp",
         "past",
         "third"
       ],
@@ -613,9 +613,9 @@ window.WORD_FORMS_DATA={
       ],
       "formOptions": [
         "base",
-        "inf",
+        "past",
         "third",
-        "pp"
+        "ing"
       ],
       "wrong": {}
     },
@@ -639,7 +639,7 @@ window.WORD_FORMS_DATA={
         "vhas"
       ],
       "formOptions": [
-        "pp",
+        "ing",
         "base",
         "past",
         "third"
@@ -666,9 +666,9 @@ window.WORD_FORMS_DATA={
         "vy"
       ],
       "formOptions": [
-        "pp",
-        "ing",
         "past",
+        "base",
+        "ing",
         "third"
       ],
       "wrong": {}
@@ -694,8 +694,8 @@ window.WORD_FORMS_DATA={
       ],
       "formOptions": [
         "third",
-        "inf",
         "base",
+        "past",
         "ing"
       ],
       "wrong": {}
@@ -720,10 +720,10 @@ window.WORD_FORMS_DATA={
         "vy"
       ],
       "formOptions": [
-        "inf",
+        "ing",
         "third",
-        "past",
-        "base"
+        "base",
+        "past"
       ],
       "wrong": {}
     },
@@ -747,10 +747,10 @@ window.WORD_FORMS_DATA={
         "vs"
       ],
       "formOptions": [
-        "base",
-        "inf",
+        "ing",
+        "past",
         "third",
-        "pp"
+        "base"
       ],
       "wrong": {}
     },
@@ -774,10 +774,10 @@ window.WORD_FORMS_DATA={
         "past"
       ],
       "formOptions": [
-        "ing",
-        "past",
         "pp",
-        "third"
+        "past",
+        "third",
+        "ing"
       ],
       "wrong": {}
     },
@@ -801,9 +801,9 @@ window.WORD_FORMS_DATA={
         "pp"
       ],
       "formOptions": [
-        "third",
+        "ing",
         "pp",
-        "inf",
+        "third",
         "past"
       ],
       "wrong": {}
@@ -828,10 +828,10 @@ window.WORD_FORMS_DATA={
         "d"
       ],
       "formOptions": [
-        "inf",
+        "pp",
         "past",
         "ing",
-        "base"
+        "third"
       ],
       "wrong": {
         "studyed": "先把 y 改为 i，再加过去式词尾。"
@@ -858,9 +858,9 @@ window.WORD_FORMS_DATA={
       ],
       "formOptions": [
         "past",
-        "ing",
         "pp",
-        "inf"
+        "third",
+        "ing"
       ],
       "wrong": {
         "stoped": "stop 符合双写条件，检查末尾的 p。"
@@ -886,8 +886,8 @@ window.WORD_FORMS_DATA={
         "ed"
       ],
       "formOptions": [
-        "inf",
-        "base",
+        "ing",
+        "third",
         "past",
         "pp"
       ],
@@ -915,10 +915,10 @@ window.WORD_FORMS_DATA={
         "d"
       ],
       "formOptions": [
-        "pp",
+        "ing",
         "third",
         "past",
-        "ing"
+        "pp"
       ],
       "wrong": {}
     },
@@ -942,9 +942,9 @@ window.WORD_FORMS_DATA={
         "d"
       ],
       "formOptions": [
+        "pp",
         "ing",
         "third",
-        "inf",
         "past"
       ],
       "wrong": {
@@ -973,7 +973,7 @@ window.WORD_FORMS_DATA={
       ],
       "formOptions": [
         "past",
-        "base",
+        "third",
         "ing",
         "pp"
       ],
@@ -1002,8 +1002,8 @@ window.WORD_FORMS_DATA={
         "ed"
       ],
       "formOptions": [
-        "pp",
         "ing",
+        "pp",
         "past",
         "third"
       ],
@@ -1029,9 +1029,9 @@ window.WORD_FORMS_DATA={
         "past"
       ],
       "formOptions": [
-        "inf",
         "third",
         "pp",
+        "ing",
         "past"
       ],
       "wrong": {
@@ -1059,8 +1059,8 @@ window.WORD_FORMS_DATA={
       ],
       "formOptions": [
         "ing",
-        "base",
-        "inf",
+        "pp",
+        "third",
         "past"
       ],
       "wrong": {}
@@ -1086,9 +1086,9 @@ window.WORD_FORMS_DATA={
       ],
       "formOptions": [
         "past",
+        "third",
         "pp",
-        "base",
-        "inf"
+        "ing"
       ],
       "wrong": {}
     },
@@ -1113,9 +1113,9 @@ window.WORD_FORMS_DATA={
       ],
       "formOptions": [
         "pp",
-        "past",
         "ing",
-        "inf"
+        "base",
+        "past"
       ],
       "wrong": {
         "wrote": "wrote 是过去式，本题要求过去分词。",
@@ -1144,9 +1144,9 @@ window.WORD_FORMS_DATA={
       ],
       "formOptions": [
         "pp",
+        "past",
         "base",
-        "ing",
-        "third"
+        "ing"
       ],
       "wrong": {
         "went": "went 是过去式，本题要求过去分词。"
@@ -1172,9 +1172,9 @@ window.WORD_FORMS_DATA={
         "pp"
       ],
       "formOptions": [
+        "ing",
+        "base",
         "past",
-        "inf",
-        "third",
         "pp"
       ],
       "wrong": {}
@@ -1199,10 +1199,10 @@ window.WORD_FORMS_DATA={
         "pp"
       ],
       "formOptions": [
-        "inf",
-        "base",
+        "ing",
+        "past",
         "pp",
-        "past"
+        "base"
       ],
       "wrong": {
         "chose": "chose 是过去式，本题要求过去分词。",
@@ -1229,8 +1229,8 @@ window.WORD_FORMS_DATA={
         "past"
       ],
       "formOptions": [
-        "inf",
-        "third",
+        "base",
+        "past",
         "ing",
         "pp"
       ],
@@ -1256,9 +1256,9 @@ window.WORD_FORMS_DATA={
         "pp"
       ],
       "formOptions": [
-        "ing",
-        "inf",
         "past",
+        "ing",
+        "base",
         "pp"
       ],
       "wrong": {}
@@ -1283,9 +1283,9 @@ window.WORD_FORMS_DATA={
         "ding"
       ],
       "formOptions": [
+        "past",
+        "pp",
         "base",
-        "inf",
-        "third",
         "ing"
       ],
       "wrong": {}
@@ -1311,9 +1311,9 @@ window.WORD_FORMS_DATA={
       ],
       "formOptions": [
         "ing",
+        "base",
         "past",
-        "pp",
-        "inf"
+        "pp"
       ],
       "wrong": {
         "writeing": "词尾不发音的 e 要先去掉。"
@@ -1340,9 +1340,9 @@ window.WORD_FORMS_DATA={
       ],
       "formOptions": [
         "ing",
+        "past",
         "base",
-        "pp",
-        "inf"
+        "pp"
       ],
       "wrong": {
         "runing": "run 符合双写条件，检查末尾辅音。"
@@ -1370,7 +1370,7 @@ window.WORD_FORMS_DATA={
       "formOptions": [
         "ing",
         "past",
-        "inf",
+        "base",
         "pp"
       ],
       "wrong": {
@@ -1397,9 +1397,9 @@ window.WORD_FORMS_DATA={
         "ie"
       ],
       "formOptions": [
-        "inf",
-        "third",
+        "past",
         "base",
+        "pp",
         "ing"
       ],
       "wrong": {
@@ -1427,9 +1427,9 @@ window.WORD_FORMS_DATA={
       ],
       "formOptions": [
         "ing",
-        "past",
         "base",
-        "pp"
+        "pp",
+        "past"
       ],
       "wrong": {
         "seing": "see 的 ee 要保留，不能把发音的元音删掉。"
@@ -1482,10 +1482,10 @@ window.WORD_FORMS_DATA={
         "ie"
       ],
       "formOptions": [
-        "base",
+        "pp",
         "ing",
         "past",
-        "third"
+        "base"
       ],
       "wrong": {
         "fixxing": "词尾 x 通常不双写。"
@@ -1511,10 +1511,10 @@ window.WORD_FORMS_DATA={
         "ing"
       ],
       "formOptions": [
-        "past",
         "pp",
+        "base",
         "ing",
-        "base"
+        "past"
       ],
       "wrong": {
         "bing": "be 的 e 要保留。"
@@ -1539,9 +1539,9 @@ window.WORD_FORMS_DATA={
       ],
       "formOptions": [
         "inf",
-        "ing",
+        "base",
         "past",
-        "third"
+        "ing"
       ],
       "wrong": {}
     },
@@ -1563,8 +1563,8 @@ window.WORD_FORMS_DATA={
         "base"
       ],
       "formOptions": [
-        "pp",
         "base",
+        "past",
         "ing",
         "inf"
       ],
@@ -1588,10 +1588,10 @@ window.WORD_FORMS_DATA={
         "base"
       ],
       "formOptions": [
-        "inf",
-        "past",
+        "third",
+        "ing",
         "base",
-        "third"
+        "inf"
       ],
       "wrong": {}
     },
@@ -1614,9 +1614,9 @@ window.WORD_FORMS_DATA={
       ],
       "formOptions": [
         "base",
-        "third",
         "ing",
-        "past"
+        "third",
+        "inf"
       ],
       "wrong": {}
     },
@@ -1638,10 +1638,10 @@ window.WORD_FORMS_DATA={
         "inf"
       ],
       "formOptions": [
-        "pp",
-        "base",
         "inf",
-        "past"
+        "base",
+        "ing",
+        "third"
       ],
       "wrong": {}
     },
@@ -1665,10 +1665,10 @@ window.WORD_FORMS_DATA={
         "nes"
       ],
       "formOptions": [
-        "poss",
+        "possp",
         "plural",
-        "uncount",
-        "possp"
+        "poss",
+        "uncount"
       ],
       "wrong": {}
     },
@@ -1693,9 +1693,9 @@ window.WORD_FORMS_DATA={
       ],
       "formOptions": [
         "plural",
-        "uncount",
         "possp",
-        "poss"
+        "poss",
+        "uncount"
       ],
       "wrong": {}
     },
@@ -1721,8 +1721,8 @@ window.WORD_FORMS_DATA={
       "formOptions": [
         "plural",
         "uncount",
-        "possp",
-        "poss"
+        "poss",
+        "possp"
       ],
       "wrong": {}
     },
@@ -1748,8 +1748,8 @@ window.WORD_FORMS_DATA={
       "formOptions": [
         "possp",
         "plural",
-        "poss",
-        "uncount"
+        "uncount",
+        "poss"
       ],
       "wrong": {
         "citys": "辅音字母＋y 结尾，复数要处理 y。"
@@ -1775,10 +1775,10 @@ window.WORD_FORMS_DATA={
         "oes"
       ],
       "formOptions": [
-        "poss",
         "possp",
+        "uncount",
         "plural",
-        "uncount"
+        "poss"
       ],
       "wrong": {}
     },
@@ -1802,10 +1802,10 @@ window.WORD_FORMS_DATA={
         "vesn"
       ],
       "formOptions": [
+        "possp",
         "poss",
-        "uncount",
         "plural",
-        "possp"
+        "uncount"
       ],
       "wrong": {}
     },
@@ -1829,8 +1829,8 @@ window.WORD_FORMS_DATA={
         "ni"
       ],
       "formOptions": [
-        "possp",
         "poss",
+        "possp",
         "uncount",
         "plural"
       ],
@@ -1857,9 +1857,9 @@ window.WORD_FORMS_DATA={
       ],
       "formOptions": [
         "plural",
-        "uncount",
+        "poss",
         "possp",
-        "poss"
+        "uncount"
       ],
       "wrong": {}
     },
@@ -1883,8 +1883,8 @@ window.WORD_FORMS_DATA={
         "vesn"
       ],
       "formOptions": [
-        "possp",
         "poss",
+        "possp",
         "uncount",
         "plural"
       ],
@@ -1939,9 +1939,9 @@ window.WORD_FORMS_DATA={
         "vesn"
       ],
       "formOptions": [
+        "poss",
         "possp",
         "uncount",
-        "poss",
         "plural"
       ],
       "wrong": {
@@ -1995,9 +1995,9 @@ window.WORD_FORMS_DATA={
         "same"
       ],
       "formOptions": [
-        "uncount",
         "poss",
         "possp",
+        "uncount",
         "plural"
       ],
       "wrong": {}
@@ -2023,9 +2023,9 @@ window.WORD_FORMS_DATA={
       ],
       "formOptions": [
         "uncount",
-        "poss",
+        "possp",
         "plural",
-        "possp"
+        "poss"
       ],
       "wrong": {}
     },
@@ -2049,9 +2049,9 @@ window.WORD_FORMS_DATA={
         "oes"
       ],
       "formOptions": [
+        "poss",
         "possp",
         "uncount",
-        "poss",
         "plural"
       ],
       "wrong": {}
@@ -2076,9 +2076,9 @@ window.WORD_FORMS_DATA={
         "vesn"
       ],
       "formOptions": [
+        "poss",
         "possp",
         "uncount",
-        "poss",
         "plural"
       ],
       "wrong": {
@@ -2105,10 +2105,10 @@ window.WORD_FORMS_DATA={
         "ny"
       ],
       "formOptions": [
-        "plural",
+        "possp",
         "uncount",
-        "poss",
-        "possp"
+        "plural",
+        "poss"
       ],
       "wrong": {
         "informations": "information 在本题不可数，不直接加 s。"
@@ -2163,9 +2163,9 @@ window.WORD_FORMS_DATA={
         "ni"
       ],
       "formOptions": [
-        "possp",
-        "plural",
         "poss",
+        "plural",
+        "possp",
         "uncount"
       ],
       "wrong": {}
@@ -2189,10 +2189,10 @@ window.WORD_FORMS_DATA={
         "possp"
       ],
       "formOptions": [
+        "possp",
         "uncount",
-        "plural",
         "poss",
-        "possp"
+        "plural"
       ],
       "wrong": {}
     },
@@ -2215,8 +2215,8 @@ window.WORD_FORMS_DATA={
         "possi"
       ],
       "formOptions": [
-        "possp",
         "uncount",
+        "possp",
         "plural",
         "poss"
       ],
@@ -2242,9 +2242,9 @@ window.WORD_FORMS_DATA={
       ],
       "formOptions": [
         "poss",
-        "plural",
+        "uncount",
         "possp",
-        "uncount"
+        "plural"
       ],
       "wrong": {
         "student's": "你写的是一个学生的；本题是学生们的，先变复数。",
@@ -2270,10 +2270,10 @@ window.WORD_FORMS_DATA={
         "possp"
       ],
       "formOptions": [
+        "plural",
         "poss",
-        "uncount",
         "possp",
-        "plural"
+        "uncount"
       ],
       "wrong": {
         "child's": "本题是孩子们的，先写不规则复数。",
@@ -2329,9 +2329,9 @@ window.WORD_FORMS_DATA={
         "more"
       ],
       "formOptions": [
-        "adv",
-        "advcomp",
+        "advsuper",
         "comp",
+        "adj",
         "super"
       ],
       "wrong": {}
@@ -2356,10 +2356,10 @@ window.WORD_FORMS_DATA={
         "rd"
       ],
       "formOptions": [
+        "advcomp",
         "super",
-        "adv",
         "comp",
-        "advcomp"
+        "adv"
       ],
       "wrong": {
         "closeer": "close 已有 e，比较级只加 r。"
@@ -2387,8 +2387,8 @@ window.WORD_FORMS_DATA={
       "formOptions": [
         "comp",
         "super",
-        "adv",
-        "advcomp"
+        "advsuper",
+        "adj"
       ],
       "wrong": {}
     },
@@ -2413,9 +2413,9 @@ window.WORD_FORMS_DATA={
       ],
       "formOptions": [
         "comp",
-        "advcomp",
+        "adv",
         "super",
-        "adv"
+        "advcomp"
       ],
       "wrong": {}
     },
@@ -2439,9 +2439,9 @@ window.WORD_FORMS_DATA={
         "rd"
       ],
       "formOptions": [
-        "adv",
+        "advsuper",
         "comp",
-        "advcomp",
+        "adj",
         "super"
       ],
       "wrong": {}
@@ -2466,8 +2466,8 @@ window.WORD_FORMS_DATA={
         "er"
       ],
       "formOptions": [
-        "adv",
         "advcomp",
+        "adv",
         "comp",
         "super"
       ],
@@ -2495,9 +2495,9 @@ window.WORD_FORMS_DATA={
         "re"
       ],
       "formOptions": [
+        "adj",
         "comp",
-        "advcomp",
-        "adv",
+        "advsuper",
         "super"
       ],
       "wrong": {}
@@ -2523,9 +2523,9 @@ window.WORD_FORMS_DATA={
       ],
       "formOptions": [
         "super",
-        "advcomp",
+        "adv",
         "comp",
-        "adv"
+        "advcomp"
       ],
       "wrong": {}
     },
@@ -2549,9 +2549,9 @@ window.WORD_FORMS_DATA={
         "more"
       ],
       "formOptions": [
+        "adj",
         "comp",
-        "adv",
-        "advcomp",
+        "advsuper",
         "super"
       ],
       "wrong": {}
@@ -2603,9 +2603,9 @@ window.WORD_FORMS_DATA={
         "ri"
       ],
       "formOptions": [
+        "advsuper",
         "comp",
-        "advcomp",
-        "adv",
+        "adj",
         "super"
       ],
       "wrong": {}
@@ -2633,7 +2633,7 @@ window.WORD_FORMS_DATA={
         "adv",
         "advcomp",
         "comp",
-        "super"
+        "adj"
       ],
       "wrong": {}
     },
@@ -2657,9 +2657,9 @@ window.WORD_FORMS_DATA={
         "well"
       ],
       "formOptions": [
-        "super",
         "comp",
         "advcomp",
+        "adj",
         "adv"
       ],
       "wrong": {
@@ -2687,8 +2687,8 @@ window.WORD_FORMS_DATA={
       ],
       "formOptions": [
         "adv",
+        "adj",
         "comp",
-        "super",
         "advcomp"
       ],
       "wrong": {
@@ -2716,8 +2716,8 @@ window.WORD_FORMS_DATA={
       ],
       "formOptions": [
         "adv",
-        "super",
         "comp",
+        "adj",
         "advcomp"
       ],
       "wrong": {
@@ -2744,9 +2744,9 @@ window.WORD_FORMS_DATA={
         "well"
       ],
       "formOptions": [
-        "super",
-        "comp",
         "advcomp",
+        "comp",
+        "adj",
         "adv"
       ],
       "wrong": {}
@@ -2771,10 +2771,10 @@ window.WORD_FORMS_DATA={
         "well"
       ],
       "formOptions": [
-        "advcomp",
+        "adj",
         "adv",
-        "comp",
-        "super"
+        "advcomp",
+        "comp"
       ],
       "wrong": {
         "hardly": "hardly 是几乎不；本题要求努力地。"
@@ -2801,9 +2801,9 @@ window.WORD_FORMS_DATA={
       ],
       "formOptions": [
         "adv",
-        "comp",
         "advcomp",
-        "super"
+        "comp",
+        "adj"
       ],
       "wrong": {
         "truely": "true 的副词需要先去掉 e。"
@@ -2829,10 +2829,10 @@ window.WORD_FORMS_DATA={
         "er"
       ],
       "formOptions": [
-        "adv",
+        "advsuper",
         "advcomp",
-        "super",
-        "comp"
+        "comp",
+        "adv"
       ],
       "wrong": {}
     },
@@ -2857,8 +2857,8 @@ window.WORD_FORMS_DATA={
       ],
       "formOptions": [
         "advsuper",
-        "advcomp",
         "super",
+        "comp",
         "adv"
       ],
       "wrong": {}
@@ -2885,7 +2885,7 @@ window.WORD_FORMS_DATA={
       "formOptions": [
         "advcomp",
         "adv",
-        "super",
+        "advsuper",
         "comp"
       ],
       "wrong": {}
@@ -2912,8 +2912,8 @@ window.WORD_FORMS_DATA={
       "formOptions": [
         "advsuper",
         "comp",
-        "adv",
-        "super"
+        "super",
+        "adv"
       ],
       "wrong": {}
     },
@@ -2937,9 +2937,9 @@ window.WORD_FORMS_DATA={
         "obj"
       ],
       "formOptions": [
-        "det",
-        "obj",
         "self",
+        "obj",
+        "det",
         "ind"
       ],
       "wrong": {}
@@ -2965,9 +2965,9 @@ window.WORD_FORMS_DATA={
       ],
       "formOptions": [
         "self",
-        "det",
+        "ind",
         "obj",
-        "ind"
+        "det"
       ],
       "wrong": {}
     },
@@ -2993,8 +2993,8 @@ window.WORD_FORMS_DATA={
       "formOptions": [
         "ind",
         "obj",
-        "det",
-        "self"
+        "self",
+        "det"
       ],
       "wrong": {}
     },
@@ -3020,8 +3020,8 @@ window.WORD_FORMS_DATA={
       "formOptions": [
         "obj",
         "self",
-        "det",
-        "ind"
+        "ind",
+        "det"
       ],
       "wrong": {}
     },
@@ -3045,10 +3045,10 @@ window.WORD_FORMS_DATA={
         "obj"
       ],
       "formOptions": [
-        "self",
+        "ind",
         "obj",
         "det",
-        "ind"
+        "self"
       ],
       "wrong": {}
     },
@@ -3073,9 +3073,9 @@ window.WORD_FORMS_DATA={
       ],
       "formOptions": [
         "det",
-        "self",
+        "obj",
         "ind",
-        "obj"
+        "self"
       ],
       "wrong": {}
     },
@@ -3099,9 +3099,9 @@ window.WORD_FORMS_DATA={
         "det"
       ],
       "formOptions": [
-        "self",
-        "ind",
         "obj",
+        "ind",
+        "self",
         "det"
       ],
       "wrong": {
@@ -3129,9 +3129,9 @@ window.WORD_FORMS_DATA={
       ],
       "formOptions": [
         "det",
+        "self",
         "ind",
-        "obj",
-        "self"
+        "obj"
       ],
       "wrong": {}
     },
@@ -3155,10 +3155,10 @@ window.WORD_FORMS_DATA={
         "self"
       ],
       "formOptions": [
-        "obj",
-        "det",
         "ind",
-        "self"
+        "det",
+        "self",
+        "obj"
       ],
       "wrong": {
         "it's": "it’s 表示 it is 或 it has，不表示所属。"
@@ -3184,10 +3184,10 @@ window.WORD_FORMS_DATA={
         "ind"
       ],
       "formOptions": [
-        "self",
+        "det",
         "ind",
         "obj",
-        "det"
+        "self"
       ],
       "wrong": {
         "her": "本题后面不直接带名词，要用名词性物主代词。"
@@ -3269,8 +3269,8 @@ window.WORD_FORMS_DATA={
       "formOptions": [
         "self",
         "obj",
-        "det",
-        "ind"
+        "ind",
+        "det"
       ],
       "wrong": {}
     },
@@ -3296,8 +3296,8 @@ window.WORD_FORMS_DATA={
       "formOptions": [
         "self",
         "obj",
-        "det",
-        "ind"
+        "ind",
+        "det"
       ],
       "wrong": {}
     },
@@ -3375,9 +3375,9 @@ window.WORD_FORMS_DATA={
         "det"
       ],
       "formOptions": [
+        "det",
         "obj",
         "ind",
-        "det",
         "self"
       ],
       "wrong": {}
@@ -3402,10 +3402,10 @@ window.WORD_FORMS_DATA={
         "ind"
       ],
       "formOptions": [
-        "obj",
         "det",
+        "ind",
         "self",
-        "ind"
+        "obj"
       ],
       "wrong": {}
     },
@@ -3430,8 +3430,8 @@ window.WORD_FORMS_DATA={
       ],
       "formOptions": [
         "ordinal",
-        "adv",
-        "plural"
+        "plural",
+        "adv"
       ],
       "wrong": {}
     },
@@ -3456,8 +3456,8 @@ window.WORD_FORMS_DATA={
       ],
       "formOptions": [
         "ordinal",
-        "adv",
-        "plural"
+        "plural",
+        "adv"
       ],
       "wrong": {}
     },
@@ -3482,8 +3482,8 @@ window.WORD_FORMS_DATA={
       ],
       "formOptions": [
         "ordinal",
-        "adv",
-        "plural"
+        "plural",
+        "adv"
       ],
       "wrong": {}
     },
@@ -3507,9 +3507,9 @@ window.WORD_FORMS_DATA={
         "512"
       ],
       "formOptions": [
-        "adv",
+        "plural",
         "ordinal",
-        "plural"
+        "adv"
       ],
       "wrong": {
         "threeth": "three 的序数词不规则，单独记。"
@@ -3675,8 +3675,8 @@ window.WORD_FORMS_DATA={
         "89"
       ],
       "formOptions": [
-        "plural",
         "adv",
+        "plural",
         "ordinal"
       ],
       "wrong": {}
@@ -3699,8 +3699,8 @@ window.WORD_FORMS_DATA={
         "fn"
       ],
       "formOptions": [
-        "adv",
         "adj",
+        "adv",
         "noun"
       ],
       "wrong": {
@@ -3725,8 +3725,8 @@ window.WORD_FORMS_DATA={
         "fa"
       ],
       "formOptions": [
-        "adv",
         "adj",
+        "adv",
         "noun"
       ],
       "wrong": {
@@ -3823,8 +3823,8 @@ window.WORD_FORMS_DATA={
         "fa"
       ],
       "formOptions": [
-        "adv",
         "noun",
+        "adv",
         "adj"
       ],
       "wrong": {}
@@ -3847,8 +3847,8 @@ window.WORD_FORMS_DATA={
         "fa"
       ],
       "formOptions": [
-        "adv",
         "noun",
+        "adv",
         "adj"
       ],
       "wrong": {}
@@ -3995,10 +3995,10 @@ window.WORD_FORMS_DATA={
         "pp"
       ],
       "formOptions": [
-        "third",
-        "pp",
         "past",
-        "ing"
+        "pp",
+        "ing",
+        "base"
       ],
       "wrong": {}
     },
@@ -4022,9 +4022,9 @@ window.WORD_FORMS_DATA={
         "vs"
       ],
       "formOptions": [
+        "base",
         "ing",
         "past",
-        "base",
         "third"
       ],
       "wrong": {
@@ -4082,9 +4082,9 @@ window.WORD_FORMS_DATA={
       ],
       "formOptions": [
         "pp",
-        "base",
-        "third",
-        "inf"
+        "past",
+        "ing",
+        "base"
       ],
       "wrong": {
         "wrote": "wrote 是过去式，本题要求过去分词。",
@@ -4113,9 +4113,9 @@ window.WORD_FORMS_DATA={
       ],
       "formOptions": [
         "ing",
-        "third",
-        "inf",
-        "past"
+        "past",
+        "pp",
+        "base"
       ],
       "wrong": {
         "runing": "run 符合双写条件，检查末尾辅音。"
@@ -4139,10 +4139,10 @@ window.WORD_FORMS_DATA={
         "inf"
       ],
       "formOptions": [
-        "ing",
-        "pp",
+        "past",
+        "base",
         "inf",
-        "past"
+        "ing"
       ],
       "wrong": {}
     },
@@ -4165,9 +4165,9 @@ window.WORD_FORMS_DATA={
       ],
       "formOptions": [
         "base",
+        "third",
         "ing",
-        "pp",
-        "third"
+        "inf"
       ],
       "wrong": {}
     },
@@ -4219,9 +4219,9 @@ window.WORD_FORMS_DATA={
         "poss"
       ],
       "formOptions": [
-        "uncount",
-        "possp",
         "plural",
+        "possp",
+        "uncount",
         "poss"
       ],
       "wrong": {
@@ -4278,8 +4278,8 @@ window.WORD_FORMS_DATA={
         "er"
       ],
       "formOptions": [
-        "super",
         "adv",
+        "super",
         "comp",
         "advcomp"
       ],
@@ -4309,8 +4309,8 @@ window.WORD_FORMS_DATA={
       "formOptions": [
         "comp",
         "super",
-        "advcomp",
-        "adv"
+        "advsuper",
+        "adj"
       ],
       "wrong": {}
     },
@@ -4336,7 +4336,7 @@ window.WORD_FORMS_DATA={
       "formOptions": [
         "comp",
         "adv",
-        "super",
+        "adj",
         "advcomp"
       ],
       "wrong": {
@@ -4364,9 +4364,9 @@ window.WORD_FORMS_DATA={
       ],
       "formOptions": [
         "advcomp",
-        "super",
-        "adv",
-        "comp"
+        "advsuper",
+        "comp",
+        "adv"
       ],
       "wrong": {
         "more careful": "比较级方向对了，但修饰 answered 需要副词。",
@@ -4395,8 +4395,8 @@ window.WORD_FORMS_DATA={
       "formOptions": [
         "obj",
         "self",
-        "det",
-        "ind"
+        "ind",
+        "det"
       ],
       "wrong": {}
     },
@@ -4420,10 +4420,10 @@ window.WORD_FORMS_DATA={
         "ind"
       ],
       "formOptions": [
-        "det",
-        "obj",
         "self",
-        "ind"
+        "obj",
+        "ind",
+        "det"
       ],
       "wrong": {}
     },
@@ -4447,9 +4447,9 @@ window.WORD_FORMS_DATA={
         "obj"
       ],
       "formOptions": [
-        "ind",
-        "det",
         "self",
+        "det",
+        "ind",
         "obj"
       ],
       "wrong": {
@@ -4478,8 +4478,8 @@ window.WORD_FORMS_DATA={
       "formOptions": [
         "ind",
         "self",
-        "det",
-        "obj"
+        "obj",
+        "det"
       ],
       "wrong": {
         "her": "本题后面不直接带名词，要用名词性物主代词。"
@@ -4585,8 +4585,8 @@ window.WORD_FORMS_DATA={
         "fa"
       ],
       "formOptions": [
-        "adv",
         "noun",
+        "adv",
         "adj"
       ],
       "wrong": {}
@@ -4635,8 +4635,8 @@ window.WORD_FORMS_DATA={
         "fing"
       ],
       "formOptions": [
-        "noun",
         "adv",
+        "noun",
         "adj"
       ],
       "wrong": {}
@@ -4661,10 +4661,10 @@ window.WORD_FORMS_DATA={
         "same"
       ],
       "formOptions": [
-        "poss",
+        "possp",
         "uncount",
         "plural",
-        "possp"
+        "poss"
       ],
       "wrong": {
         "citys": "辅音字母＋y 结尾，复数要处理 y。"
