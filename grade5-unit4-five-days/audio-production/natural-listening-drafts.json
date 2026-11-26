@@ -1,0 +1,625 @@
+{
+  "status": "script_ready_audio_pending",
+  "note": "自然表达改稿，待更自然的语音服务连接后配音。当前网页MP3尚未替换。",
+  "direction": "明亮、自然的儿童教学英语，清楚但不逐字顿读。对话接话流畅，问句有语调变化；关键词轻重音自然。无背景音乐、夸张音效或故意含混的发音。",
+  "voices": {
+    "adult_f": "温和、清晰的成年女声",
+    "adult_m": "亲切、清晰的成年男声",
+    "child_f": "自然明亮的女孩角色声，不模仿真实儿童",
+    "child_m": "自然轻快的男孩角色声，不模仿真实儿童"
+  },
+  "questions": [
+    {
+      "id": "listen-sort-d1",
+      "title": "Tom给妈妈的放学留言",
+      "format": "语音留言",
+      "focus": "从情境中听懂动作，3图热身",
+      "parts": [
+        {
+          "card": "B",
+          "clue": "new English book和read对应读书。",
+          "turns": [
+            {
+              "voice": "child_m",
+              "text": "Hi, Mum! I'm home. My new English book is here. I want to read it for a bit."
+            }
+          ]
+        },
+        {
+          "card": "C",
+          "clue": "thirsty是口渴，have a drink对应喝水。",
+          "turns": [
+            {
+              "voice": "child_m",
+              "text": "Oh, I'm thirsty! There's some water on the table. Let me have a drink."
+            }
+          ]
+        },
+        {
+          "card": "A",
+          "clue": "Dad在门口等，接着说一起去公园跑步。",
+          "turns": [
+            {
+              "voice": "child_m",
+              "text": "Dad is waiting by the door now. We're going to run in the park. See you later!"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "listen-sort-d1b",
+      "title": "Amy的周日小心愿",
+      "format": "第一人称小故事",
+      "focus": "用原因串起活动，3图换篇",
+      "parts": [
+        {
+          "card": "C",
+          "clue": "messy和tidy my room说明先整理房间。",
+          "turns": [
+            {
+              "voice": "child_f",
+              "text": "Look at my room. What a mess! I'm going to tidy it before Mum gets home."
+            }
+          ]
+        },
+        {
+          "card": "B",
+          "clue": "new paints和picture说明画画。",
+          "turns": [
+            {
+              "voice": "child_f",
+              "text": "My new paints are on the shelf. I want to make a picture for her, too. A big yellow cat!"
+            }
+          ]
+        },
+        {
+          "card": "A",
+          "clue": "晚饭时跟爸爸学做饭。",
+          "turns": [
+            {
+              "voice": "child_f",
+              "text": "For dinner, Dad says I can help in the kitchen. Great! I'm going to learn to cook with him."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "listen-sort-d2",
+      "title": "出门前，妈妈和Leo聊安排",
+      "format": "亲子短对话",
+      "focus": "听问答衔接，4图，第一项示例",
+      "parts": [
+        {
+          "card": "B",
+          "clue": "妈妈问书包，Leo回答正在把书装进去。",
+          "turns": [
+            {
+              "voice": "adult_f",
+              "text": "Leo, are your books in your school bag?"
+            },
+            {
+              "voice": "child_m",
+              "text": "Not yet, Mum. I'm putting them in now."
+            }
+          ]
+        },
+        {
+          "card": "D",
+          "clue": "放学后和Sam踢足球。",
+          "turns": [
+            {
+              "voice": "adult_f",
+              "text": "What are you going to do after school?"
+            },
+            {
+              "voice": "child_m",
+              "text": "Play football with Sam. He's got a new ball!"
+            }
+          ]
+        },
+        {
+          "card": "A",
+          "clue": "姐姐教歌，要跟她唱。",
+          "turns": [
+            {
+              "voice": "child_m",
+              "text": "My sister wants to teach me a song when I get home. I'm going to sing with her."
+            },
+            {
+              "voice": "adult_f",
+              "text": "That sounds fun."
+            }
+          ]
+        },
+        {
+          "card": "C",
+          "clue": "妈妈提醒晚饭前整理房间，Leo同意。",
+          "turns": [
+            {
+              "voice": "adult_f",
+              "text": "And your room? Please tidy it before dinner."
+            },
+            {
+              "voice": "child_m",
+              "text": "OK, Mum. I can do that."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "listen-sort-d2b",
+      "title": "Mia给朋友介绍周末",
+      "format": "朋友间的语音消息",
+      "focus": "根据地点和物品理解活动，4图",
+      "parts": [
+        {
+          "card": "C",
+          "clue": "pool和learn to swim对应游泳。",
+          "turns": [
+            {
+              "voice": "child_f",
+              "text": "Hi, Eva! My swimming lesson is on Saturday. I want to learn to swim, so Mum is taking me to the pool."
+            }
+          ]
+        },
+        {
+          "card": "D",
+          "clue": "周日帮妈妈做午餐。",
+          "turns": [
+            {
+              "voice": "child_f",
+              "text": "On Sunday, I'm going to help Mum cook lunch. I can wash the vegetables. What can you cook?"
+            }
+          ]
+        },
+        {
+          "card": "A",
+          "clue": "下午拿画笔，给朋友画一幅画。",
+          "turns": [
+            {
+              "voice": "child_f",
+              "text": "In the afternoon, my paints are coming out! I want to paint a picture for you."
+            }
+          ]
+        },
+        {
+          "card": "B",
+          "clue": "周一要上学，睡前把书装好。",
+          "turns": [
+            {
+              "voice": "child_f",
+              "text": "School again on Monday! Before bed, I need to put my books in my school bag. Send me your plans!"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "listen-sort-d3",
+      "title": "老师采访Anna的新目标",
+      "format": "一问一答的小采访",
+      "focus": "否定后听真实计划，5图",
+      "parts": [
+        {
+          "card": "E",
+          "clue": "Anna要少喝果汁、多喝水，目标活动是喝水。",
+          "turns": [
+            {
+              "voice": "adult_f",
+              "text": "Anna, how do you want to stay healthy?"
+            },
+            {
+              "voice": "child_f",
+              "text": "Less juice and more water! I'm going to take my water bottle to school."
+            }
+          ]
+        },
+        {
+          "card": "D",
+          "clue": "新俱乐部是游泳俱乐部。",
+          "turns": [
+            {
+              "voice": "adult_f",
+              "text": "Are you joining a new club?"
+            },
+            {
+              "voice": "child_f",
+              "text": "Yes, the swimming club. My first lesson is on Wednesday."
+            }
+          ]
+        },
+        {
+          "card": "C",
+          "clue": "否定看电视，肯定饭后读英语。看电视不在图片选项中。",
+          "turns": [
+            {
+              "voice": "adult_f",
+              "text": "And after dinner? More TV?"
+            },
+            {
+              "voice": "child_f",
+              "text": "No! I'm going to read English. Just a little every evening."
+            }
+          ]
+        },
+        {
+          "card": "B",
+          "clue": "奶奶周六教她做饭。",
+          "turns": [
+            {
+              "voice": "child_f",
+              "text": "I want to help at home, too. Grandma is going to teach me to cook on Saturday."
+            },
+            {
+              "voice": "adult_f",
+              "text": "Lovely!"
+            }
+          ]
+        },
+        {
+          "card": "A",
+          "clue": "最后提到结交新朋友。",
+          "turns": [
+            {
+              "voice": "adult_f",
+              "text": "Anything else?"
+            },
+            {
+              "voice": "child_f",
+              "text": "I'd like some new friends at my club. I'm going to say hello to someone new."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "listen-sort-d3b",
+      "title": "Ben给自己的提醒",
+      "format": "带自我提醒的小独白",
+      "focus": "听目标和对应行动，5图",
+      "parts": [
+        {
+          "card": "E",
+          "clue": "看到地上的书，提醒自己整理房间。",
+          "turns": [
+            {
+              "voice": "child_m",
+              "text": "My books are on the floor again. Come on, Ben! I want to be tidy. My room needs some work."
+            }
+          ]
+        },
+        {
+          "card": "C",
+          "clue": "找出足球鞋，加入足球队。",
+          "turns": [
+            {
+              "voice": "child_m",
+              "text": "Here's my football shoe! I need it for the school team. We're going to play after school."
+            }
+          ]
+        },
+        {
+          "card": "A",
+          "clue": "晚饭后读新故事书。",
+          "turns": [
+            {
+              "voice": "child_m",
+              "text": "There's my new storybook, too. I want to read it after dinner. It looks really good."
+            }
+          ]
+        },
+        {
+          "card": "D",
+          "clue": "运动后喝水。",
+          "turns": [
+            {
+              "voice": "child_m",
+              "text": "And I must remember my water bottle. More water after exercise, Ben!"
+            }
+          ]
+        },
+        {
+          "card": "B",
+          "clue": "最后提到音乐俱乐部里唱歌。",
+          "turns": [
+            {
+              "voice": "child_m",
+              "text": "One more thing. The music club starts on Friday. I'm going to sing there. I hope I can remember the words!"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "listen-sort-d4",
+      "title": "Lucy的周六小冒险",
+      "format": "连贯的小故事",
+      "focus": "通过事件衔接排序，6图模拟",
+      "parts": [
+        {
+          "card": "C",
+          "clue": "阳台植物需要水，Lucy负责浇水。",
+          "turns": [
+            {
+              "voice": "adult_f",
+              "text": "It's Saturday. The plants outside need water. Lucy picks up a little can and gives them a drink."
+            }
+          ]
+        },
+        {
+          "card": "E",
+          "clue": "吃早饭前读英语。",
+          "turns": [
+            {
+              "voice": "adult_f",
+              "text": "Breakfast isn't ready yet. She opens her English book. A little reading is a good start to the day."
+            }
+          ]
+        },
+        {
+          "card": "A",
+          "clue": "爸爸喊她出门，一起跑步。",
+          "turns": [
+            {
+              "voice": "adult_f",
+              "text": "Dad calls her from the door. They are going to run in the park. Lucy puts on her shoes and joins him."
+            }
+          ]
+        },
+        {
+          "card": "F",
+          "clue": "午饭后把公园画下来。",
+          "turns": [
+            {
+              "voice": "adult_f",
+              "text": "Back home after lunch, Lucy wants to paint the park. She adds a big tree and two little birds."
+            }
+          ]
+        },
+        {
+          "card": "B",
+          "clue": "画完口渴，喝了一杯水。",
+          "turns": [
+            {
+              "voice": "adult_f",
+              "text": "That takes a long time. I'm thirsty now, she says. A glass of water is just what she needs."
+            }
+          ]
+        },
+        {
+          "card": "D",
+          "clue": "画笔和书散开了，最后整理房间。",
+          "turns": [
+            {
+              "voice": "adult_f",
+              "text": "Paints and books are everywhere! Before bed, Lucy tidies her room. Now she's ready for another busy day."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "listen-sort-d4b",
+      "title": "班级广播：我们的新目标",
+      "format": "校园广播",
+      "focus": "不同表达对应图片，6图模拟",
+      "parts": [
+        {
+          "card": "D",
+          "clue": "Amy要在新学校结交朋友。",
+          "turns": [
+            {
+              "voice": "adult_f",
+              "text": "Welcome to our class radio! Amy is new here. Her goal is to make new friends. Say hello to her today!"
+            }
+          ]
+        },
+        {
+          "card": "E",
+          "clue": "Tom帮家人做饭。",
+          "turns": [
+            {
+              "voice": "adult_f",
+              "text": "Tom wants to help his family. He's learning to cook with his dad. What's for dinner, Tom?"
+            }
+          ]
+        },
+        {
+          "card": "B",
+          "clue": "Ben练篮球，不是被否定的足球。",
+          "turns": [
+            {
+              "voice": "adult_f",
+              "text": "Ben loves ball games. Not football this time. He's going to practise basketball every day."
+            }
+          ]
+        },
+        {
+          "card": "F",
+          "clue": "Mia在公园跑步。",
+          "turns": [
+            {
+              "voice": "adult_f",
+              "text": "Mia wants to get stronger. You can find her running in the park after school. Good luck, Mia!"
+            }
+          ]
+        },
+        {
+          "card": "C",
+          "clue": "Leo的新画笔用于画画。",
+          "turns": [
+            {
+              "voice": "adult_f",
+              "text": "Leo has some new paints. He wants to learn to paint animals. His first picture is a very funny cat."
+            }
+          ]
+        },
+        {
+          "card": "A",
+          "clue": "Eva睡前装书包。",
+          "turns": [
+            {
+              "voice": "adult_f",
+              "text": "And Eva? No more missing books! She's going to pack her school bag before bed. That's all for today."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "listen-sort-d5",
+      "title": "主持人聊本周计划",
+      "format": "主持人与学生轮流接话",
+      "focus": "按介绍顺序，防止按星期排序，6图",
+      "parts": [
+        {
+          "card": "D",
+          "clue": "先介绍Ben的篮球，比赛改到周五，不改变图片排序。",
+          "turns": [
+            {
+              "voice": "adult_f",
+              "text": "Ben, is your basketball game on Thursday?"
+            },
+            {
+              "voice": "child_m",
+              "text": "No, Friday! We're going to play after school."
+            }
+          ]
+        },
+        {
+          "card": "F",
+          "clue": "接着Amy介绍周一唱歌。",
+          "turns": [
+            {
+              "voice": "adult_f",
+              "text": "Amy, what about you?"
+            },
+            {
+              "voice": "child_f",
+              "text": "I'm going to sing at the music club on Monday. I'm a little excited!"
+            }
+          ]
+        },
+        {
+          "card": "A",
+          "clue": "主持人再介绍Leo周三到图书馆读英语。",
+          "turns": [
+            {
+              "voice": "adult_f",
+              "text": "Leo can't be here today. His plan is to read English at the library on Wednesday."
+            }
+          ]
+        },
+        {
+          "card": "E",
+          "clue": "Mia周六游泳。",
+          "turns": [
+            {
+              "voice": "adult_f",
+              "text": "Mia, any plans for Saturday?"
+            },
+            {
+              "voice": "child_f",
+              "text": "The pool! I'm going to swim with Dad."
+            }
+          ]
+        },
+        {
+          "card": "C",
+          "clue": "Tom去新学校，想结交朋友。",
+          "turns": [
+            {
+              "voice": "adult_f",
+              "text": "Tom is starting at a new school. He wants to make some new friends."
+            }
+          ]
+        },
+        {
+          "card": "B",
+          "clue": "最后Eva说周日整理房间，不能自行把周日放到别的位置。",
+          "turns": [
+            {
+              "voice": "adult_f",
+              "text": "And finally, Eva?"
+            },
+            {
+              "voice": "child_f",
+              "text": "My room is a mess. Sunday morning is my tidy-up time!"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "listen-sort-d5b",
+      "title": "老师带来的六条好消息",
+      "format": "老师给家长的语音周报",
+      "focus": "从自然叙述中抓行动，6图换篇",
+      "parts": [
+        {
+          "card": "D",
+          "clue": "Anna的目标是多读英语书。",
+          "turns": [
+            {
+              "voice": "adult_m",
+              "text": "Hello, everyone. Our class has some lovely new goals. Anna wants to read more English books. She's starting a new one on Thursday."
+            }
+          ]
+        },
+        {
+          "card": "F",
+          "clue": "Ben每天带水，目标是多喝水。",
+          "turns": [
+            {
+              "voice": "adult_m",
+              "text": "Ben brings his water bottle every day now. Less juice, more water. That's his idea for staying healthy."
+            }
+          ]
+        },
+        {
+          "card": "A",
+          "clue": "Tom周二跟爸爸做饭。",
+          "turns": [
+            {
+              "voice": "adult_m",
+              "text": "Tom is going to learn to cook with his dad on Tuesday. He says he wants to make dinner for the family."
+            }
+          ]
+        },
+        {
+          "card": "E",
+          "clue": "Leo周五参加俱乐部，想交朋友。",
+          "turns": [
+            {
+              "voice": "adult_m",
+              "text": "Our new pupil Leo is joining a club on Friday. He hopes to make some friends there."
+            }
+          ]
+        },
+        {
+          "card": "B",
+          "clue": "Mia游泳课改到周三；按广播中介绍顺序排图。",
+          "turns": [
+            {
+              "voice": "adult_m",
+              "text": "Mia's swimming lesson has a new time. Wednesday afternoon. She's going to the pool with her mum."
+            }
+          ]
+        },
+        {
+          "card": "C",
+          "clue": "最后Eva每天饭后整理房间。",
+          "turns": [
+            {
+              "voice": "adult_m",
+              "text": "And Eva wants to keep her room tidy. A little work after dinner each day. Small steps can make a big difference!"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
