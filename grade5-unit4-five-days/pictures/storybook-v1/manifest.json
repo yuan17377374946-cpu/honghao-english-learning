@@ -1,0 +1,87 @@
+{
+  "style": "Original generated children\u2019s gouache storybook illustrations, consistent dark-bobbed girl, coral shirt, natural anatomy, clear actions, no embedded text.",
+  "dimensions": [
+    480,
+    360
+  ],
+  "assets": [
+    {
+      "kind": "run",
+      "file": "run.webp",
+      "bytes": 19288,
+      "sha256": "8ed7f00d6877dffc528542591f81ecc099135e6ca431406ce8cc1e2ab4f33aa2"
+    },
+    {
+      "kind": "read",
+      "file": "read.webp",
+      "bytes": 27810,
+      "sha256": "06f1506c4e959728f05c0621fa37b7bd7d3b686eac8c7e351f392e4d4daff88c"
+    },
+    {
+      "kind": "drink",
+      "file": "drink.webp",
+      "bytes": 13278,
+      "sha256": "bf8b06351aaa6f4b0d15fc91c6979839136cec20302e096d0a4d0e67d2d63094"
+    },
+    {
+      "kind": "cook",
+      "file": "cook.webp",
+      "bytes": 27620,
+      "sha256": "9004e4a0ffc3f970b9e1c6e64eb5b6dd375f027f3e2a04be7c69aad649fefb81"
+    },
+    {
+      "kind": "swim",
+      "file": "swim.webp",
+      "bytes": 42334,
+      "sha256": "777121909635a82c21defc3abce60b01d90d8c9975160d9086d66b0ca1d103e8"
+    },
+    {
+      "kind": "paint",
+      "file": "paint.webp",
+      "bytes": 22874,
+      "sha256": "3708413c5eece865ef8f1038035dcff46c4a77a15bdd0aab8ba0aabcc9a5e4a9"
+    },
+    {
+      "kind": "tidy",
+      "file": "tidy.webp",
+      "bytes": 32700,
+      "sha256": "ed77988e4c64c439ac79d4f0366e5980ea52637ea8b96bf98fd1d728509d9167"
+    },
+    {
+      "kind": "sing",
+      "file": "sing.webp",
+      "bytes": 17582,
+      "sha256": "1b289a88be9eaea2aba6eb39f50d362fa0b45a9ff3c2fbbd4eb2055d4f264c01"
+    },
+    {
+      "kind": "pack",
+      "file": "pack.webp",
+      "bytes": 30334,
+      "sha256": "6ee870932befab4b84b075d9234341b2fd9cf0015bedc74e036d64f2dcc69214"
+    },
+    {
+      "kind": "football",
+      "file": "football.webp",
+      "bytes": 25086,
+      "sha256": "ecc65f9dcaaf75fcc343a585aaa4b55158808ba8fce915109e6a7e8d6085b6fc"
+    },
+    {
+      "kind": "friend",
+      "file": "friend.webp",
+      "bytes": 38018,
+      "sha256": "b2a20434ff9b9e02c96ac20a251d9e944369d895d09afe33b46d579ce3fc2fa2"
+    },
+    {
+      "kind": "plant",
+      "file": "plant.webp",
+      "bytes": 20276,
+      "sha256": "0cd8677843ff80ee836890da67d7a6500a54cf47b5b98eb4b60150d85c18dc81"
+    },
+    {
+      "kind": "basketball",
+      "file": "basketball.webp",
+      "bytes": 21734,
+      "sha256": "a6d8a59aa87317559192837d5573e6d10cb414bc52a38882d63f4f4312680cb3"
+    }
+  ]
+}

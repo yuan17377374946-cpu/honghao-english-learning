@@ -21,7 +21,7 @@ for(const old of previous){const q=all.find(q=>q.id===old.id);for(const k of ['a
 const P=require('./listening-pictures.js');
 assert.equal(P.kinds.length,13);
 assert.deepEqual([...new Set(sort.flatMap(q=>q.cards.map(c=>c.kind)))].sort(),[...P.kinds].sort());
-for(const q of sort){const html=A.board(q,{}, {},false);assert.equal((html.match(/class="picture-caption"/g)||[]).length,q.cards.length);for(const c of q.cards){assert(html.includes('>'+c.label+'</span>'));assert(P.render(c).includes('viewBox="0 0 240 180"'));}}
+for(const q of sort){const html=A.board(q,{}, {},false);assert.equal((html.match(/class="picture-caption"/g)||[]).length,q.cards.length);for(const c of q.cards){assert(html.includes('>'+c.label+'</span>'));assert(P.render(c).includes('width="480" height="360"'));assert(fs.existsSync(path.join(__dirname,P.files[c.kind])));}}
 const expectedCounts=[3,4,5,6,6];
 for(const [di,d]of U.days.entries()){assert.equal(d.coreIds.length,12);assert.equal(d.coreIds.filter(id=>all.find(q=>q.id===id).challenge).length,6);assert.equal(d.coreIds.filter(id=>all.find(q=>q.id===id).type==='listen-order').length,1);const q=all.find(q=>q.id==='listen-sort-d'+(di+1));assert.equal(q.cards.length,expectedCounts[di]);}
 for(const q of sort){

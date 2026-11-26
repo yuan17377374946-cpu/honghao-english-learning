@@ -27,3 +27,6 @@
 .picture-caption{font-size:17px;line-height:1.5;font-weight:800;color:#294653;text-align:center}
 .listening-card .picture-position{margin-top:0;font-size:14px;line-height:1.5}
 @media(max-width:740px){.listening-card{padding:9px 6px;min-height:0;gap:5px}.listening-card svg{height:auto;max-width:230px}.picture-caption{font-size:16px}.listening-card .picture-position{font-size:13px}.picture-letter{top:5px;left:6px}}
+
+.listening-card .listening-action-scene{display:block;width:100%;max-width:240px;height:auto;aspect-ratio:4/3;object-fit:contain;border-radius:14px;flex-shrink:0;background:#eff8ed}
+@media(max-width:740px){.listening-card .listening-action-scene{max-width:230px;border-radius:10px}}
