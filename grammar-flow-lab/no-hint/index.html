@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="#58b72b" name="theme-color"/><meta content="深圳中考英语与区级模拟题逐空练习：看提示词、找结构、选词形，沿判断路线一步步完成语法填空。" name="description"/>
+<title>无提示词语法填空 · 深圳中考真题专题</title>
+<link href="../style.css?v=20261126f" rel="stylesheet"/>
+<style>.candidate-line{color:#204b64!important;font-family:"Times New Roman","Microsoft YaHei",serif;font-size:17px!important;line-height:1.85;overflow-wrap:anywhere}.word-grid details summary{color:#367b22;font-size:16px}.word-grid article{min-width:0}</style></head>
+<body>
+<header class="topbar">
+<div class="brand"><svg aria-hidden="true" height="34" viewbox="0 0 33 34" width="33"><path d="M7 27V17h18V7M7 17V7" fill="none" stroke="#58b72b" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"></path><circle cx="7" cy="6" fill="#2385ba" r="4"></circle><circle cx="25" cy="6" fill="#58b72b" r="4"></circle><circle cx="7" cy="28" fill="#58b72b" r="4"></circle></svg><div><strong>无提示词 · 先找依据</strong><span>深圳2021—2024中考真题专题</span></div></div>
+<div class="top-actions"><a class="soft tool-link" href="../index.html?v=4">返回综合练习</a><button class="soft" id="candidateBtn">可填词小导图</button><button class="soft" id="mapBtn">无提示词流程</button><button class="soft" id="wordsBtn">专题方法卡</button><button class="quiet" id="reportBtn">课堂记录</button></div>
+</header>
+<main class="layout">
+<aside aria-label="练习目录" class="sidebar">
+<div class="lesson-intro"><p class="eyebrow">今晚这样练</p><h1>没有提示词，<br/>也能有据可循。</h1><p>今晚先做12道主练，把每一步依据说清楚；有余力再做2道从句进阶。</p></div>
+<div aria-label="题目分组" class="group-tabs" role="group"><button aria-pressed="true" data-filter="core">主练 12</button><button aria-pressed="false" data-filter="challenge">进阶 2</button><button aria-pressed="false" data-filter="review">错题回练</button><button aria-pressed="false" data-filter="all">全部</button></div>
+<div class="group-progress"><span id="groupCount"></span><div class="progress-track"><span id="progressFill"></span></div></div>
+<button aria-expanded="false" class="quiet mobile-only" id="mobileDirectory">展开题目目录</button>
+<nav aria-label="选择题目" class="question-nav" id="questionNav"></nav>
+<p class="status-key"><span class="dot green"></span>本轮独立完成 <span class="dot amber"></span>需要回练</p>
+<button class="source-index quiet" id="sourcesBtn">查看4年真题出处</button>
+<div class="sidebar-note">只练原题中未给提示词的空。先找结构、搭配和句意依据，再填词。</div>
+</aside>
+<section aria-label="当前练习" class="workspace">
+<div class="question-heading"><div><p class="eyebrow" id="questionCounter"></p><h2 id="questionTitle">读取题目</h2></div><button class="quiet" id="retryBtn">重练本题</button></div>
+<div class="empty-state" hidden="" id="emptyState"><h2>暂时没有需要回练的题</h2><p>可以返回主练继续。判断走错、求助或查看答案的题会出现在这里。</p><button class="primary" data-filter="core">返回主练</button></div>
+<div class="exercise" id="exercise">
+<article aria-label="原题与线索" class="question-paper">
+<div class="paper-heading"><span class="paper-label">先读这一句</span><span class="source-kind" id="sourceKind"></span></div>
+<p class="sentence" id="sentence" lang="en"></p>
+<div class="source-line" id="sourceLine"></div>
+<div class="question-tools"><button aria-pressed="false" class="chip" id="clueBtn">圈出本步线索</button><button aria-expanded="false" class="chip" id="translationBtn">看关键句意思</button><button aria-expanded="false" class="chip" id="contextBtn">读上下文</button></div>
+<div class="reading-help" hidden="" id="translation"></div><div class="reading-help context" hidden="" id="context" lang="en"></div>
+<div class="vocab" id="vocab"></div>
+<details class="source-details"><summary>查看原题出处与摘录说明</summary><div id="sourceDetails"></div></details>
+<div class="route-memory"><h3>已经走过的路线</h3><ol id="routeHistory"></ol><p id="routeEmpty">选完第一步，这里会记下你的判断。</p></div>
+</article>
+<section aria-label="一步一步判断" class="decision-panel" id="flowPanel">
+<div class="decision-top"><span class="step-number" id="stepNumber"></span><span id="stepTitle"></span><span id="stepMeter"></span></div>
+<div class="flow-reference"><span>对照原句判断</span><p id="flowSentence" lang="en"></p></div>
+<div id="decisionArea"><h3 id="stepPrompt"></h3><div aria-labelledby="stepPrompt" class="options" id="optionList" role="group"></div><div aria-live="polite" class="feedback" hidden="" id="stepFeedback" role="status"></div><div class="step-actions"><button class="quiet" id="hintBtn">这一步不会判断</button><button class="primary" hidden="" id="continueBtn">继续下一步</button></div></div>
+<div hidden="" id="answerArea">
+<span class="answer-kicker">路线走完，自己写出答案</span><h3>把词形落实到拼写。</h3>
+<form id="answerForm"><label for="answerInput">我的答案</label><div class="answer-row"><input aria-describedby="answerFeedback" autocapitalize="off" autocomplete="off" id="answerInput" maxlength="70" placeholder="本专题每空填写一个单词" spellcheck="false" type="text"/><button class="primary" type="submit">检查答案</button></div></form>
+<div aria-live="polite" class="feedback" hidden="" id="answerFeedback" role="status"></div>
+<div class="answer-help"><button class="quiet" id="formHintBtn">不知道怎么变形</button><button class="quiet danger-link" id="revealBtn">查看答案和完整解析</button></div>
+<div class="reading-help" hidden="" id="formHint"></div>
+<fieldset class="final-check" hidden="" id="finalCheck"><legend>最后填回原句检查 <span id="checkCount"></span></legend><label><input data-check="structure" type="checkbox"/>结构和句意通顺</label><label><input data-check="form" type="checkbox"/>词形、时态、单复数正确</label><label><input data-check="spelling" type="checkbox"/>拼写、漏词和大小写正确</label></fieldset>
+<div class="explanation" hidden="" id="explanation"></div>
+<section aria-labelledby="notebookHeading" class="notebook-card" hidden="" id="notebookArea">
+<div class="notebook-top"><span>做完一题，记下方法</span><h4 id="notebookHeading">抄到笔记本</h4><p>把本题依据、使用规则和易错点记到笔记本，再口头解释为什么这样填。</p></div>
+<div id="notebookContent"></div>
+<label class="notebook-check"><input id="notebookDone" type="checkbox"/>我已记到笔记本</label>
+</section>
+<button class="primary next-question" hidden="" id="nextBtn">完成检查，下一题</button>
+</div>
+<div class="decision-bottom"><button class="quiet" id="backStepBtn">上一步重新判断</button><span>看线索 → 作判断 → 填回检查</span></div>
+</section>
+</div>
+</section>
+</main>
+<footer class="page-footer">深圳2021—2024年中考真题原句摘练。共12道主练、2道进阶；未把有提示词的题改造成无提示词题。判断步骤与中文笔记为教学编写。<span id="storageStatus"></span></footer>
+<dialog class="wide-dialog" id="mapDialog"><div class="dialog-top"><h2>无提示词：固定排查顺序</h2><button aria-label="关闭流程地图" class="quiet" data-close="">关闭</button></div><div id="mapContent"></div></dialog>
+<dialog id="wordsDialog"><div class="dialog-top"><h2>无提示词方法卡</h2><button class="quiet" data-close="">关闭</button></div><p>先圈空格前后，再判断本空作用。某个词出现在句中，不代表它就是本空的依据。</p><div class="word-grid"><article><b>名词短语前</b><p>检查冠词、物主限定等。读整个短语，区分泛指、特指和搭配；a / an 看紧跟它的词开头发音。</p></article><article><b>前后形成搭配</b><p>连同前词和后面的内容一起看。介词可表示时间、来源、关系，也可能构成固定表达。</p></article><article><b>连接两部分</b><p>先读两边关系，再看已有标记。转折、递进、因果、让步等不能随便替换。</p></article><article><b>引导从句：进阶</b><p>先查从句有没有主语、谓语、宾语，再看缺少什么含义。what 可在从句中作成分；where 表示地点。</p></article></div><div class="reading-help">句首只提醒检查大写，不决定填什么。无提示词还可能涉及代词、助动词和其他句型；本专题先练这几年的真题实际考点。</div></dialog>
+<dialog class="wide-dialog" id="sourcesDialog"><div class="dialog-top"><h2>本课题目出处</h2><button class="quiet" data-close="">关闭</button></div><p>题目均为2021—2024年深圳市中考英语语法填空，逐题标注原题号；2024按试卷40—43题编号，旧整理卷对应第5—8空。每题可打开免费来源页核对。</p><div id="sourcesContent"></div></dialog>
+<dialog class="wide-dialog" id="reportDialog"><div class="dialog-top"><h2>课堂记录</h2><button class="quiet" data-close="">关闭</button></div><div id="reportContent"></div><div class="report-buttons"><button class="primary" id="downloadRecord">下载本次记录</button><button class="quiet" id="printBtn">打印题目与出处</button></div></dialog>
+<dialog class="wide-dialog" id="candidateDialog"><div class="dialog-top"><h2>无提示词 · 常见候选词小导图</h2><button class="quiet" data-close="">关闭</button></div><p>先判空位作用，再进入分支缩小范围。这是中考常见候选词库，不是所有可能答案的穷举。今天先练真题实际涉及的冠词、介词、连接关系，再选做从句题。</p><div class="map-entry">无提示词 → 看本空作用 → 选词类或结构 → 用句意与搭配验证</div><div class="word-grid"><article><details open=""><summary>① 冠词</summary><p>读整个名词短语：泛指、特指、搭配和紧跟的读音一起看。</p><p class="candidate-line">a / an / the</p></details></article><article><details open=""><summary>② 介词</summary><p>看前词＋空格＋后面内容，判断固定搭配、时间、地点、来源等。</p><p class="candidate-line">in / on / at / to / of / for / from / with / by / about / as</p><p class="candidate-line">into / over / under / between / among / through / across</p><p class="candidate-line">without / during / before / after / since / until / till / against</p></details></article><article><details open=""><summary>③ 连接关系</summary><p>先说清前后关系，再核对完整结构；部分词也有其他词性。</p><p class="candidate-line">并列与转折：and / but / or / so / yet / nor</p><p class="candidate-line">原因、条件、让步：because / if / unless / although / though</p><p class="candidate-line">时间等：when / while / before / after / until / till / since / as / once</p><p class="candidate-line">成对结构：both … and …；not only … but also …；either … or …；neither … nor …</p></details></article><article><details><summary>④ 从句引导词</summary><p>先查从句结构缺什么，再看要表达什么；有些词与上一支重合。</p><p class="candidate-line">that / what / which / who / whom / whose</p><p class="candidate-line">when / where / why / how / whether / if</p><p class="candidate-line">what 可在从句中作主语或宾语等；where 常表达地点。不能统一填 that。</p></details></article><article><details><summary>⑤ 代词及限定词</summary><p>回前文找所指，再看主语、宾语、所属、自己、单复数等作用。</p><p class="candidate-line">I / me / my / mine / myself；you / your / yours / yourself / yourselves</p><p class="candidate-line">he / him / his / himself；she / her / hers / herself</p><p class="candidate-line">it / its / itself；we / us / our / ours / ourselves；they / them / their / theirs / themselves</p><p class="candidate-line">指示、替代：this / that / these / those / one / ones</p><p class="candidate-line">数量、范围等：some / any / many / much / more / most / few / little / all / both / each / every / either / neither / no</p><p class="candidate-line">其他常见限定与指代：other / another / others；something / anything / nothing / everything；someone / anyone / nobody / everybody</p></details></article><article><details><summary>⑥ 其他结构中可能缺的词</summary><p>前三类都不吻合时，再扩大上下文检查。本专题不把无提示词限定成三类。</p><p class="candidate-line">不定式、否定与句型：to / not / never；感叹结构：what / how；存在结构：there</p><p class="candidate-line">程度及常见结构：so / such / too / enough / more / most / less / least / than / as</p><p class="candidate-line">be 与助动词：am / is / are / was / were / be / been / being；do / does / did；have / has / had</p><p class="candidate-line">其他常见功能副词：also / only / even / just / still / already / yet / very；常见情态词：can / could / may / might / must / should / will / would</p></details></article></div><div class="reading-help">题目每空要求一个词。上面的成对短语是完整结构提示，实际只填原句缺的那个词。before、after、since、that、as 等可能兼有不同用法，要按本句作用判断；不能看到单词就固定归类。</div></dialog><script src="data.js?v=20261126e"></script><script src="app.js?v=20261126e"></script>
+</body></html>
