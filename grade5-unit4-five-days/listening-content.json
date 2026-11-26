@@ -7,7 +7,7 @@
       "day": 0,
       "type": "listen-order",
       "skill": "听短文排序 · 3图起步",
-      "prompt": "放学后的三件事：听短文，按录音提及活动的顺序给图片编号。",
+      "prompt": "Tom给妈妈的放学留言：听录音，按提及活动的顺序给图片编号。",
       "cards": [
         {
           "kind": "run",
@@ -30,28 +30,28 @@
       "given": null,
       "parts": [
         {
-          "text": "After school, Tom is going to read an English book.",
+          "text": "Hi, Mum! I'm home. My new English book is here. I want to read it for a bit.",
           "card": 1,
-          "clue": "read an English book 对应读书图；这是录音先介绍的活动。",
-          "start": 0.4,
-          "end": 3.846
+          "clue": "new English book和read对应读书。",
+          "start": 0.451,
+          "end": 5.541
         },
         {
-          "text": "Then he is going to drink some water.",
+          "text": "Oh, I'm thirsty! There's some water on the table. Let me have a drink.",
           "card": 2,
-          "clue": "Then 承接上一项；drink some water 对应喝水。",
-          "start": 4.476,
-          "end": 6.947
+          "clue": "thirsty是口渴，have a drink对应喝水。",
+          "start": 6.074,
+          "end": 10.861
         },
         {
-          "text": "After that, he is going to run in the park.",
+          "text": "Dad is waiting by the door now. We're going to run in the park. See you later!",
           "card": 0,
-          "clue": "After that 表示随后；run in the park 对应跑步。",
-          "start": 7.577,
-          "end": 10.765
+          "clue": "Dad在门口等，接着说一起去公园跑步。",
+          "start": 11.243,
+          "end": 15.329
         }
       ],
-      "audioSrc": "audio/listen-sort-d1.mp3",
+      "audioSrc": "audio/listen-sort-d1-natural-v2.mp3",
       "hint": "先看懂各幅图。第一次听抓整体，第二次听核对人物和动作；按录音提及顺序，不按自己想象的作息或星期顺序。",
       "why": "每幅图都对应录音中的一项行动。可以分句重听，找到动作词、人物和顺序线索。",
       "challenge": true,
@@ -59,14 +59,16 @@
       "stage": 1,
       "examStyle": false,
       "practiceId": "listen-sort-d1b",
-      "duration": 11.395
+      "duration": 15.984,
+      "listeningFormat": "语音留言",
+      "audioRevision": 2
     },
     {
       "id": "listen-sort-d1b",
       "day": 0,
       "type": "listen-order",
       "skill": "听短文排序 · 同类再练",
-      "prompt": "周日的小安排：听短文，按录音提及活动的顺序给图片编号。",
+      "prompt": "Amy的周日小心愿：听录音，按提及活动的顺序给图片编号。",
       "cards": [
         {
           "kind": "cook",
@@ -89,28 +91,28 @@
       "given": null,
       "parts": [
         {
-          "text": "On Sunday morning, Amy is going to tidy her room.",
+          "text": "Look at my room. What a mess! I'm going to tidy it before Mum gets home.",
           "card": 2,
-          "clue": "先听到 tidy her room，整理房间。",
-          "start": 0.4,
-          "end": 4.28
+          "clue": "messy和tidy my room说明先整理房间。",
+          "start": 0.451,
+          "end": 5.439
         },
         {
-          "text": "Next, she is going to learn to paint.",
+          "text": "My new paints are on the shelf. I want to make a picture for her, too. A big yellow cat!",
           "card": 1,
-          "clue": "Next 后的 learn to paint 对应画画。",
-          "start": 4.91,
-          "end": 7.978
+          "clue": "new paints和picture说明画画。",
+          "start": 5.923,
+          "end": 11.062
         },
         {
-          "text": "Finally, she is going to cook with her father.",
+          "text": "For dinner, Dad says I can help in the kitchen. Great! I'm going to learn to cook with him.",
           "card": 0,
-          "clue": "Finally 是最后一项；cook 对应做饭。",
-          "start": 8.608,
-          "end": 11.779
+          "clue": "晚饭时跟爸爸学做饭。",
+          "start": 11.495,
+          "end": 16.432
         }
       ],
-      "audioSrc": "audio/listen-sort-d1b.mp3",
+      "audioSrc": "audio/listen-sort-d1b-natural-v2.mp3",
       "hint": "先看懂各幅图。第一次听抓整体，第二次听核对人物和动作；按录音提及顺序，不按自己想象的作息或星期顺序。",
       "why": "每幅图都对应录音中的一项行动。可以分句重听，找到动作词、人物和顺序线索。",
       "challenge": false,
@@ -118,7 +120,9 @@
       "stage": 1,
       "examStyle": false,
       "practiceId": null,
-      "duration": 12.409
+      "duration": 17.352,
+      "listeningFormat": "第一人称小故事",
+      "audioRevision": 2
     },
     {
       "id": "listen-sort-d2",
@@ -830,5 +834,18 @@
       "id": "d4q12",
       "text": "rain. train. play."
     }
-  ]
+  ],
+  "audio_provenance": {
+    "completed_natural_questions": [
+      "listen-sort-d1",
+      "listen-sort-d1b"
+    ],
+    "provider": "HeyGen Voice",
+    "source_speed": 1,
+    "lesson_rate": 0.85,
+    "editing": "Pitch-preserving fixed lesson tempo, 250ms leading and 300ms trailing padding. No per-word retiming.",
+    "alignment": "Provider word timestamps transformed to final audio coordinates; not independent speech recognition.",
+    "review_limit": "Content/timing checks and browser playback can be verified. Subjective listening review is not independently available.",
+    "remaining": "Other questions keep the existing Flite audio until quota is available."
+  }
 }

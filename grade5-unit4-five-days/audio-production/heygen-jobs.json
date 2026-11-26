@@ -1,0 +1,495 @@
+{
+  "voices": {
+    "adult_f": {
+      "id": "776f9d2ff401499a8f1f2bcb4ca46004",
+      "name": "Joanna - Warm & Conversational"
+    },
+    "adult_m": {
+      "id": "c30ecab014cb4a8d816d07f6b2b625c8",
+      "name": "Brodie - Breezy & Genuine"
+    },
+    "child_f": {
+      "id": "330290724a1b470fb63153f34d4c0183",
+      "name": "Annie - Lifelike"
+    },
+    "child_m": {
+      "id": "80b17a1be1594e578b92c0ddf4a37fc8",
+      "name": "Lewis - Imaginative & Expressive"
+    }
+  },
+  "jobs": [
+    {
+      "id": "listen-sort-d1-child_m",
+      "question": "listen-sort-d1",
+      "role": "child_m",
+      "voice": {
+        "id": "80b17a1be1594e578b92c0ddf4a37fc8",
+        "name": "Lewis - Imaginative & Expressive"
+      },
+      "turns": [
+        {
+          "part": 0,
+          "turn": 0,
+          "text": "Hi, Mum! I'm home. My new English book is here. I want to read it for a bit."
+        },
+        {
+          "part": 1,
+          "turn": 0,
+          "text": "Oh, I'm thirsty! There's some water on the table. Let me have a drink."
+        },
+        {
+          "part": 2,
+          "turn": 0,
+          "text": "Dad is waiting by the door now. We're going to run in the park. See you later!"
+        }
+      ],
+      "text": "Hi, Mum! I'm home. My new English book is here. I want to read it for a bit.\n\nOh, I'm thirsty! There's some water on the table. Let me have a drink.\n\nDad is waiting by the door now. We're going to run in the park. See you later!"
+    },
+    {
+      "id": "listen-sort-d1b-child_f",
+      "question": "listen-sort-d1b",
+      "role": "child_f",
+      "voice": {
+        "id": "330290724a1b470fb63153f34d4c0183",
+        "name": "Annie - Lifelike"
+      },
+      "turns": [
+        {
+          "part": 0,
+          "turn": 0,
+          "text": "Look at my room. What a mess! I'm going to tidy it before Mum gets home."
+        },
+        {
+          "part": 1,
+          "turn": 0,
+          "text": "My new paints are on the shelf. I want to make a picture for her, too. A big yellow cat!"
+        },
+        {
+          "part": 2,
+          "turn": 0,
+          "text": "For dinner, Dad says I can help in the kitchen. Great! I'm going to learn to cook with him."
+        }
+      ],
+      "text": "Look at my room. What a mess! I'm going to tidy it before Mum gets home.\n\nMy new paints are on the shelf. I want to make a picture for her, too. A big yellow cat!\n\nFor dinner, Dad says I can help in the kitchen. Great! I'm going to learn to cook with him."
+    },
+    {
+      "id": "listen-sort-d2-adult_f",
+      "question": "listen-sort-d2",
+      "role": "adult_f",
+      "voice": {
+        "id": "776f9d2ff401499a8f1f2bcb4ca46004",
+        "name": "Joanna - Warm & Conversational"
+      },
+      "turns": [
+        {
+          "part": 0,
+          "turn": 0,
+          "text": "Leo, are your books in your school bag?"
+        },
+        {
+          "part": 1,
+          "turn": 0,
+          "text": "What are you going to do after school?"
+        },
+        {
+          "part": 2,
+          "turn": 1,
+          "text": "That sounds fun."
+        },
+        {
+          "part": 3,
+          "turn": 0,
+          "text": "And your room? Please tidy it before dinner."
+        }
+      ],
+      "text": "Leo, are your books in your school bag?\n\nWhat are you going to do after school?\n\nThat sounds fun.\n\nAnd your room? Please tidy it before dinner."
+    },
+    {
+      "id": "listen-sort-d2-child_m",
+      "question": "listen-sort-d2",
+      "role": "child_m",
+      "voice": {
+        "id": "80b17a1be1594e578b92c0ddf4a37fc8",
+        "name": "Lewis - Imaginative & Expressive"
+      },
+      "turns": [
+        {
+          "part": 0,
+          "turn": 1,
+          "text": "Not yet, Mum. I'm putting them in now."
+        },
+        {
+          "part": 1,
+          "turn": 1,
+          "text": "Play football with Sam. He's got a new ball!"
+        },
+        {
+          "part": 2,
+          "turn": 0,
+          "text": "My sister wants to teach me a song when I get home. I'm going to sing with her."
+        },
+        {
+          "part": 3,
+          "turn": 1,
+          "text": "OK, Mum. I can do that."
+        }
+      ],
+      "text": "Not yet, Mum. I'm putting them in now.\n\nPlay football with Sam. He's got a new ball!\n\nMy sister wants to teach me a song when I get home. I'm going to sing with her.\n\nOK, Mum. I can do that."
+    },
+    {
+      "id": "listen-sort-d2b-child_f",
+      "question": "listen-sort-d2b",
+      "role": "child_f",
+      "voice": {
+        "id": "330290724a1b470fb63153f34d4c0183",
+        "name": "Annie - Lifelike"
+      },
+      "turns": [
+        {
+          "part": 0,
+          "turn": 0,
+          "text": "Hi, Eva! My swimming lesson is on Saturday. I want to learn to swim, so Mum is taking me to the pool."
+        },
+        {
+          "part": 1,
+          "turn": 0,
+          "text": "On Sunday, I'm going to help Mum cook lunch. I can wash the vegetables. What can you cook?"
+        },
+        {
+          "part": 2,
+          "turn": 0,
+          "text": "In the afternoon, my paints are coming out! I want to paint a picture for you."
+        },
+        {
+          "part": 3,
+          "turn": 0,
+          "text": "School again on Monday! Before bed, I need to put my books in my school bag. Send me your plans!"
+        }
+      ],
+      "text": "Hi, Eva! My swimming lesson is on Saturday. I want to learn to swim, so Mum is taking me to the pool.\n\nOn Sunday, I'm going to help Mum cook lunch. I can wash the vegetables. What can you cook?\n\nIn the afternoon, my paints are coming out! I want to paint a picture for you.\n\nSchool again on Monday! Before bed, I need to put my books in my school bag. Send me your plans!"
+    },
+    {
+      "id": "listen-sort-d3-adult_f",
+      "question": "listen-sort-d3",
+      "role": "adult_f",
+      "voice": {
+        "id": "776f9d2ff401499a8f1f2bcb4ca46004",
+        "name": "Joanna - Warm & Conversational"
+      },
+      "turns": [
+        {
+          "part": 0,
+          "turn": 0,
+          "text": "Anna, how do you want to stay healthy?"
+        },
+        {
+          "part": 1,
+          "turn": 0,
+          "text": "Are you joining a new club?"
+        },
+        {
+          "part": 2,
+          "turn": 0,
+          "text": "And after dinner? More TV?"
+        },
+        {
+          "part": 3,
+          "turn": 1,
+          "text": "Lovely!"
+        },
+        {
+          "part": 4,
+          "turn": 0,
+          "text": "Anything else?"
+        }
+      ],
+      "text": "Anna, how do you want to stay healthy?\n\nAre you joining a new club?\n\nAnd after dinner? More TV?\n\nLovely!\n\nAnything else?"
+    },
+    {
+      "id": "listen-sort-d3-child_f",
+      "question": "listen-sort-d3",
+      "role": "child_f",
+      "voice": {
+        "id": "330290724a1b470fb63153f34d4c0183",
+        "name": "Annie - Lifelike"
+      },
+      "turns": [
+        {
+          "part": 0,
+          "turn": 1,
+          "text": "Less juice and more water! I'm going to take my water bottle to school."
+        },
+        {
+          "part": 1,
+          "turn": 1,
+          "text": "Yes, the swimming club. My first lesson is on Wednesday."
+        },
+        {
+          "part": 2,
+          "turn": 1,
+          "text": "No! I'm going to read English. Just a little every evening."
+        },
+        {
+          "part": 3,
+          "turn": 0,
+          "text": "I want to help at home, too. Grandma is going to teach me to cook on Saturday."
+        },
+        {
+          "part": 4,
+          "turn": 1,
+          "text": "I'd like some new friends at my club. I'm going to say hello to someone new."
+        }
+      ],
+      "text": "Less juice and more water! I'm going to take my water bottle to school.\n\nYes, the swimming club. My first lesson is on Wednesday.\n\nNo! I'm going to read English. Just a little every evening.\n\nI want to help at home, too. Grandma is going to teach me to cook on Saturday.\n\nI'd like some new friends at my club. I'm going to say hello to someone new."
+    },
+    {
+      "id": "listen-sort-d3b-child_m",
+      "question": "listen-sort-d3b",
+      "role": "child_m",
+      "voice": {
+        "id": "80b17a1be1594e578b92c0ddf4a37fc8",
+        "name": "Lewis - Imaginative & Expressive"
+      },
+      "turns": [
+        {
+          "part": 0,
+          "turn": 0,
+          "text": "My books are on the floor again. Come on, Ben! I want to be tidy. My room needs some work."
+        },
+        {
+          "part": 1,
+          "turn": 0,
+          "text": "Here's my football shoe! I need it for the school team. We're going to play after school."
+        },
+        {
+          "part": 2,
+          "turn": 0,
+          "text": "There's my new storybook, too. I want to read it after dinner. It looks really good."
+        },
+        {
+          "part": 3,
+          "turn": 0,
+          "text": "And I must remember my water bottle. More water after exercise, Ben!"
+        },
+        {
+          "part": 4,
+          "turn": 0,
+          "text": "One more thing. The music club starts on Friday. I'm going to sing there. I hope I can remember the words!"
+        }
+      ],
+      "text": "My books are on the floor again. Come on, Ben! I want to be tidy. My room needs some work.\n\nHere's my football shoe! I need it for the school team. We're going to play after school.\n\nThere's my new storybook, too. I want to read it after dinner. It looks really good.\n\nAnd I must remember my water bottle. More water after exercise, Ben!\n\nOne more thing. The music club starts on Friday. I'm going to sing there. I hope I can remember the words!"
+    },
+    {
+      "id": "listen-sort-d4-adult_f",
+      "question": "listen-sort-d4",
+      "role": "adult_f",
+      "voice": {
+        "id": "776f9d2ff401499a8f1f2bcb4ca46004",
+        "name": "Joanna - Warm & Conversational"
+      },
+      "turns": [
+        {
+          "part": 0,
+          "turn": 0,
+          "text": "It's Saturday. The plants outside need water. Lucy picks up a little can and gives them a drink."
+        },
+        {
+          "part": 1,
+          "turn": 0,
+          "text": "Breakfast isn't ready yet. She opens her English book. A little reading is a good start to the day."
+        },
+        {
+          "part": 2,
+          "turn": 0,
+          "text": "Dad calls her from the door. They are going to run in the park. Lucy puts on her shoes and joins him."
+        },
+        {
+          "part": 3,
+          "turn": 0,
+          "text": "Back home after lunch, Lucy wants to paint the park. She adds a big tree and two little birds."
+        },
+        {
+          "part": 4,
+          "turn": 0,
+          "text": "That takes a long time. I'm thirsty now, she says. A glass of water is just what she needs."
+        },
+        {
+          "part": 5,
+          "turn": 0,
+          "text": "Paints and books are everywhere! Before bed, Lucy tidies her room. Now she's ready for another busy day."
+        }
+      ],
+      "text": "It's Saturday. The plants outside need water. Lucy picks up a little can and gives them a drink.\n\nBreakfast isn't ready yet. She opens her English book. A little reading is a good start to the day.\n\nDad calls her from the door. They are going to run in the park. Lucy puts on her shoes and joins him.\n\nBack home after lunch, Lucy wants to paint the park. She adds a big tree and two little birds.\n\nThat takes a long time. I'm thirsty now, she says. A glass of water is just what she needs.\n\nPaints and books are everywhere! Before bed, Lucy tidies her room. Now she's ready for another busy day."
+    },
+    {
+      "id": "listen-sort-d4b-adult_f",
+      "question": "listen-sort-d4b",
+      "role": "adult_f",
+      "voice": {
+        "id": "776f9d2ff401499a8f1f2bcb4ca46004",
+        "name": "Joanna - Warm & Conversational"
+      },
+      "turns": [
+        {
+          "part": 0,
+          "turn": 0,
+          "text": "Welcome to our class radio! Amy is new here. Her goal is to make new friends. Say hello to her today!"
+        },
+        {
+          "part": 1,
+          "turn": 0,
+          "text": "Tom wants to help his family. He's learning to cook with his dad. What's for dinner, Tom?"
+        },
+        {
+          "part": 2,
+          "turn": 0,
+          "text": "Ben loves ball games. Not football this time. He's going to practise basketball every day."
+        },
+        {
+          "part": 3,
+          "turn": 0,
+          "text": "Mia wants to get stronger. You can find her running in the park after school. Good luck, Mia!"
+        },
+        {
+          "part": 4,
+          "turn": 0,
+          "text": "Leo has some new paints. He wants to learn to paint animals. His first picture is a very funny cat."
+        },
+        {
+          "part": 5,
+          "turn": 0,
+          "text": "And Eva? No more missing books! She's going to pack her school bag before bed. That's all for today."
+        }
+      ],
+      "text": "Welcome to our class radio! Amy is new here. Her goal is to make new friends. Say hello to her today!\n\nTom wants to help his family. He's learning to cook with his dad. What's for dinner, Tom?\n\nBen loves ball games. Not football this time. He's going to practise basketball every day.\n\nMia wants to get stronger. You can find her running in the park after school. Good luck, Mia!\n\nLeo has some new paints. He wants to learn to paint animals. His first picture is a very funny cat.\n\nAnd Eva? No more missing books! She's going to pack her school bag before bed. That's all for today."
+    },
+    {
+      "id": "listen-sort-d5-adult_f",
+      "question": "listen-sort-d5",
+      "role": "adult_f",
+      "voice": {
+        "id": "776f9d2ff401499a8f1f2bcb4ca46004",
+        "name": "Joanna - Warm & Conversational"
+      },
+      "turns": [
+        {
+          "part": 0,
+          "turn": 0,
+          "text": "Ben, is your basketball game on Thursday?"
+        },
+        {
+          "part": 1,
+          "turn": 0,
+          "text": "Amy, what about you?"
+        },
+        {
+          "part": 2,
+          "turn": 0,
+          "text": "Leo can't be here today. His plan is to read English at the library on Wednesday."
+        },
+        {
+          "part": 3,
+          "turn": 0,
+          "text": "Mia, any plans for Saturday?"
+        },
+        {
+          "part": 4,
+          "turn": 0,
+          "text": "Tom is starting at a new school. He wants to make some new friends."
+        },
+        {
+          "part": 5,
+          "turn": 0,
+          "text": "And finally, Eva?"
+        }
+      ],
+      "text": "Ben, is your basketball game on Thursday?\n\nAmy, what about you?\n\nLeo can't be here today. His plan is to read English at the library on Wednesday.\n\nMia, any plans for Saturday?\n\nTom is starting at a new school. He wants to make some new friends.\n\nAnd finally, Eva?"
+    },
+    {
+      "id": "listen-sort-d5-child_m",
+      "question": "listen-sort-d5",
+      "role": "child_m",
+      "voice": {
+        "id": "80b17a1be1594e578b92c0ddf4a37fc8",
+        "name": "Lewis - Imaginative & Expressive"
+      },
+      "turns": [
+        {
+          "part": 0,
+          "turn": 1,
+          "text": "No, Friday! We're going to play after school."
+        }
+      ],
+      "text": "No, Friday! We're going to play after school."
+    },
+    {
+      "id": "listen-sort-d5-child_f",
+      "question": "listen-sort-d5",
+      "role": "child_f",
+      "voice": {
+        "id": "330290724a1b470fb63153f34d4c0183",
+        "name": "Annie - Lifelike"
+      },
+      "turns": [
+        {
+          "part": 1,
+          "turn": 1,
+          "text": "I'm going to sing at the music club on Monday. I'm a little excited!"
+        },
+        {
+          "part": 3,
+          "turn": 1,
+          "text": "The pool! I'm going to swim with Dad."
+        },
+        {
+          "part": 5,
+          "turn": 1,
+          "text": "My room is a mess. Sunday morning is my tidy-up time!"
+        }
+      ],
+      "text": "I'm going to sing at the music club on Monday. I'm a little excited!\n\nThe pool! I'm going to swim with Dad.\n\nMy room is a mess. Sunday morning is my tidy-up time!"
+    },
+    {
+      "id": "listen-sort-d5b-adult_m",
+      "question": "listen-sort-d5b",
+      "role": "adult_m",
+      "voice": {
+        "id": "c30ecab014cb4a8d816d07f6b2b625c8",
+        "name": "Brodie - Breezy & Genuine"
+      },
+      "turns": [
+        {
+          "part": 0,
+          "turn": 0,
+          "text": "Hello, everyone. Our class has some lovely new goals. Anna wants to read more English books. She's starting a new one on Thursday."
+        },
+        {
+          "part": 1,
+          "turn": 0,
+          "text": "Ben brings his water bottle every day now. Less juice, more water. That's his idea for staying healthy."
+        },
+        {
+          "part": 2,
+          "turn": 0,
+          "text": "Tom is going to learn to cook with his dad on Tuesday. He says he wants to make dinner for the family."
+        },
+        {
+          "part": 3,
+          "turn": 0,
+          "text": "Our new pupil Leo is joining a club on Friday. He hopes to make some friends there."
+        },
+        {
+          "part": 4,
+          "turn": 0,
+          "text": "Mia's swimming lesson has a new time. Wednesday afternoon. She's going to the pool with her mum."
+        },
+        {
+          "part": 5,
+          "turn": 0,
+          "text": "And Eva wants to keep her room tidy. A little work after dinner each day. Small steps can make a big difference!"
+        }
+      ],
+      "text": "Hello, everyone. Our class has some lovely new goals. Anna wants to read more English books. She's starting a new one on Thursday.\n\nBen brings his water bottle every day now. Less juice, more water. That's his idea for staying healthy.\n\nTom is going to learn to cook with his dad on Tuesday. He says he wants to make dinner for the family.\n\nOur new pupil Leo is joining a club on Friday. He hopes to make some friends there.\n\nMia's swimming lesson has a new time. Wednesday afternoon. She's going to the pool with her mum.\n\nAnd Eva wants to keep her room tidy. A little work after dinner each day. Small steps can make a big difference!"
+    }
+  ]
+}

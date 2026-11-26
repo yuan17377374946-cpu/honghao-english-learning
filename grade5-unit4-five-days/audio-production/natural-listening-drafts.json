@@ -1,6 +1,6 @@
 {
-  "status": "script_ready_audio_pending",
-  "note": "自然表达改稿，待更自然的语音服务连接后配音。当前网页MP3尚未替换。",
+  "status": "two_complete_audio_ready_remaining_blocked_by_allowance",
+  "note": "第1天两篇已生成并接入；其余8篇等待可用语音额度。第二天女声片段已保留，不能作为完整题播放。",
   "direction": "明亮、自然的儿童教学英语，清楚但不逐字顿读。对话接话流畅，问句有语调变化；关键词轻重音自然。无背景音乐、夸张音效或故意含混的发音。",
   "voices": {
     "adult_f": "温和、清晰的成年女声",

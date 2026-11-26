@@ -1,0 +1,701 @@
+{
+  "outputs": {
+    "listen-sort-d1-child_m": {
+      "audio_url": "https://resource2.heygen.ai/text_to_speech/630d41ab10c3483eaccb5b17c3c39baf/80b17a1be1594e578b92c0ddf4a37fc8/id=31a8cd835a6b45b3a092c975c8337c1a.wav",
+      "duration": 13.081496598639456,
+      "original_words": [
+        {
+          "text": "Hi",
+          "start_time": 0.256,
+          "end_time": 0.469
+        },
+        {
+          "text": "Mum",
+          "start_time": 0.555,
+          "end_time": 0.64
+        },
+        {
+          "text": "I'm",
+          "start_time": 0.981,
+          "end_time": 1.109
+        },
+        {
+          "text": "home",
+          "start_time": 1.152,
+          "end_time": 1.323
+        },
+        {
+          "text": "My",
+          "start_time": 1.749,
+          "end_time": 1.9627
+        },
+        {
+          "text": "new",
+          "start_time": 2.005,
+          "end_time": 2.0907
+        },
+        {
+          "text": "English",
+          "start_time": 2.133,
+          "end_time": 2.261
+        },
+        {
+          "text": "book",
+          "start_time": 2.432,
+          "end_time": 2.6027
+        },
+        {
+          "text": "is",
+          "start_time": 2.645,
+          "end_time": 2.7307
+        },
+        {
+          "text": "here",
+          "start_time": 2.773,
+          "end_time": 2.901
+        },
+        {
+          "text": "I",
+          "start_time": 3.456,
+          "end_time": 3.499
+        },
+        {
+          "text": "want",
+          "start_time": 3.541,
+          "end_time": 3.627
+        },
+        {
+          "text": "to",
+          "start_time": 3.669,
+          "end_time": 3.712
+        },
+        {
+          "text": "read",
+          "start_time": 3.755,
+          "end_time": 3.925
+        },
+        {
+          "text": "it",
+          "start_time": 3.968,
+          "end_time": 4.0107
+        },
+        {
+          "text": "for",
+          "start_time": 4.053,
+          "end_time": 4.181
+        },
+        {
+          "text": "a",
+          "start_time": 4.224,
+          "end_time": 4.2667
+        },
+        {
+          "text": "bit",
+          "start_time": 4.309,
+          "end_time": 4.395
+        },
+        {
+          "text": "Oh",
+          "start_time": 5.035,
+          "end_time": 5.163
+        },
+        {
+          "text": "I'm",
+          "start_time": 5.419,
+          "end_time": 5.589
+        },
+        {
+          "text": "thirsty",
+          "start_time": 5.632,
+          "end_time": 6.101
+        },
+        {
+          "text": "There's",
+          "start_time": 6.784,
+          "end_time": 6.912
+        },
+        {
+          "text": "some",
+          "start_time": 6.955,
+          "end_time": 7.04
+        },
+        {
+          "text": "water",
+          "start_time": 7.083,
+          "end_time": 7.253
+        },
+        {
+          "text": "on",
+          "start_time": 7.381,
+          "end_time": 7.424
+        },
+        {
+          "text": "the",
+          "start_time": 7.467,
+          "end_time": 7.552
+        },
+        {
+          "text": "table",
+          "start_time": 7.595,
+          "end_time": 7.765
+        },
+        {
+          "text": "Let",
+          "start_time": 8.363,
+          "end_time": 8.448
+        },
+        {
+          "text": "me",
+          "start_time": 8.491,
+          "end_time": 8.576
+        },
+        {
+          "text": "have",
+          "start_time": 8.619,
+          "end_time": 8.661
+        },
+        {
+          "text": "a",
+          "start_time": 8.704,
+          "end_time": 8.7467
+        },
+        {
+          "text": "drink",
+          "start_time": 8.789,
+          "end_time": 8.917
+        },
+        {
+          "text": "Dad",
+          "start_time": 9.429,
+          "end_time": 9.6
+        },
+        {
+          "text": "is",
+          "start_time": 9.643,
+          "end_time": 9.728
+        },
+        {
+          "text": "waiting",
+          "start_time": 9.771,
+          "end_time": 9.8987
+        },
+        {
+          "text": "by",
+          "start_time": 10.027,
+          "end_time": 10.155
+        },
+        {
+          "text": "the",
+          "start_time": 10.197,
+          "end_time": 10.24
+        },
+        {
+          "text": "door",
+          "start_time": 10.283,
+          "end_time": 10.4107
+        },
+        {
+          "text": "now",
+          "start_time": 10.496,
+          "end_time": 10.667
+        },
+        {
+          "text": "We're",
+          "start_time": 10.965,
+          "end_time": 11.093
+        },
+        {
+          "text": "going",
+          "start_time": 11.136,
+          "end_time": 11.264
+        },
+        {
+          "text": "to",
+          "start_time": 11.307,
+          "end_time": 11.349
+        },
+        {
+          "text": "run",
+          "start_time": 11.392,
+          "end_time": 11.52
+        },
+        {
+          "text": "in",
+          "start_time": 11.563,
+          "end_time": 11.605
+        },
+        {
+          "text": "the",
+          "start_time": 11.648,
+          "end_time": 11.733
+        },
+        {
+          "text": "park",
+          "start_time": 11.776,
+          "end_time": 11.904
+        },
+        {
+          "text": "See",
+          "start_time": 12.331,
+          "end_time": 12.501
+        },
+        {
+          "text": "you",
+          "start_time": 12.544,
+          "end_time": 12.5867
+        },
+        {
+          "text": "later",
+          "start_time": 12.629,
+          "end_time": 12.715
+        }
+      ],
+      "voiceId": "80b17a1be1594e578b92c0ddf4a37fc8",
+      "voiceName": "Lewis - Imaginative & Expressive",
+      "text": "Hi, Mum! I'm home. My new English book is here. I want to read it for a bit.\n\nOh, I'm thirsty! There's some water on the table. Let me have a drink.\n\nDad is waiting by the door now. We're going to run in the park. See you later!",
+      "language": "en",
+      "speed": 1,
+      "model": "server-selected"
+    },
+    "listen-sort-d1b-child_f": {
+      "audio_url": "https://resource2.heygen.ai/text_to_speech/630d41ab10c3483eaccb5b17c3c39baf/330290724a1b470fb63153f34d4c0183/id=3eeae6261eb14c568a2326f0786d688e.wav",
+      "duration": 14.235986394557823,
+      "original_words": [
+        {
+          "text": "Look",
+          "start_time": 0.256,
+          "end_time": 0.4267
+        },
+        {
+          "text": "at",
+          "start_time": 0.469,
+          "end_time": 0.555
+        },
+        {
+          "text": "my",
+          "start_time": 0.597,
+          "end_time": 0.64
+        },
+        {
+          "text": "room",
+          "start_time": 0.683,
+          "end_time": 0.896
+        },
+        {
+          "text": "What",
+          "start_time": 1.536,
+          "end_time": 1.621
+        },
+        {
+          "text": "a",
+          "start_time": 1.664,
+          "end_time": 1.749
+        },
+        {
+          "text": "mess",
+          "start_time": 1.792,
+          "end_time": 2.048
+        },
+        {
+          "text": "I'm",
+          "start_time": 2.603,
+          "end_time": 2.773
+        },
+        {
+          "text": "going",
+          "start_time": 2.816,
+          "end_time": 2.901
+        },
+        {
+          "text": "to",
+          "start_time": 2.944,
+          "end_time": 2.9867
+        },
+        {
+          "text": "tidy",
+          "start_time": 3.029,
+          "end_time": 3.328
+        },
+        {
+          "text": "it",
+          "start_time": 3.371,
+          "end_time": 3.456
+        },
+        {
+          "text": "before",
+          "start_time": 3.499,
+          "end_time": 3.584
+        },
+        {
+          "text": "Mum",
+          "start_time": 3.712,
+          "end_time": 3.8827
+        },
+        {
+          "text": "gets",
+          "start_time": 3.968,
+          "end_time": 4.096
+        },
+        {
+          "text": "home",
+          "start_time": 4.181,
+          "end_time": 4.309
+        },
+        {
+          "text": "My",
+          "start_time": 4.907,
+          "end_time": 4.992
+        },
+        {
+          "text": "new",
+          "start_time": 5.035,
+          "end_time": 5.1627
+        },
+        {
+          "text": "paints",
+          "start_time": 5.205,
+          "end_time": 5.4187
+        },
+        {
+          "text": "are",
+          "start_time": 5.504,
+          "end_time": 5.589
+        },
+        {
+          "text": "on",
+          "start_time": 5.632,
+          "end_time": 5.675
+        },
+        {
+          "text": "the",
+          "start_time": 5.717,
+          "end_time": 5.76
+        },
+        {
+          "text": "shelf",
+          "start_time": 5.803,
+          "end_time": 5.973
+        },
+        {
+          "text": "I",
+          "start_time": 6.485,
+          "end_time": 6.571
+        },
+        {
+          "text": "want",
+          "start_time": 6.613,
+          "end_time": 6.656
+        },
+        {
+          "text": "to",
+          "start_time": 6.699,
+          "end_time": 6.741
+        },
+        {
+          "text": "make",
+          "start_time": 6.784,
+          "end_time": 6.827
+        },
+        {
+          "text": "a",
+          "start_time": 6.869,
+          "end_time": 6.912
+        },
+        {
+          "text": "picture",
+          "start_time": 6.955,
+          "end_time": 7.125
+        },
+        {
+          "text": "for",
+          "start_time": 7.253,
+          "end_time": 7.381
+        },
+        {
+          "text": "her",
+          "start_time": 7.424,
+          "end_time": 7.509
+        },
+        {
+          "text": "too",
+          "start_time": 7.595,
+          "end_time": 7.765
+        },
+        {
+          "text": "A",
+          "start_time": 8.149,
+          "end_time": 8.2348
+        },
+        {
+          "text": "big",
+          "start_time": 8.277,
+          "end_time": 8.5335
+        },
+        {
+          "text": "yellow",
+          "start_time": 8.619,
+          "end_time": 8.7468
+        },
+        {
+          "text": "cat",
+          "start_time": 8.918,
+          "end_time": 9.088
+        },
+        {
+          "text": "For",
+          "start_time": 9.643,
+          "end_time": 9.8988
+        },
+        {
+          "text": "dinner",
+          "start_time": 9.941,
+          "end_time": 10.027
+        },
+        {
+          "text": "Dad",
+          "start_time": 10.496,
+          "end_time": 10.6668
+        },
+        {
+          "text": "says",
+          "start_time": 10.752,
+          "end_time": 10.88
+        },
+        {
+          "text": "I",
+          "start_time": 10.923,
+          "end_time": 11.008
+        },
+        {
+          "text": "can",
+          "start_time": 11.051,
+          "end_time": 11.136
+        },
+        {
+          "text": "help",
+          "start_time": 11.179,
+          "end_time": 11.264
+        },
+        {
+          "text": "in",
+          "start_time": 11.35,
+          "end_time": 11.392
+        },
+        {
+          "text": "the",
+          "start_time": 11.435,
+          "end_time": 11.477
+        },
+        {
+          "text": "kitchen",
+          "start_time": 11.52,
+          "end_time": 11.733
+        },
+        {
+          "text": "Great",
+          "start_time": 12.117,
+          "end_time": 12.373
+        },
+        {
+          "text": "I'm",
+          "start_time": 12.672,
+          "end_time": 12.8
+        },
+        {
+          "text": "going",
+          "start_time": 12.843,
+          "end_time": 12.928
+        },
+        {
+          "text": "to",
+          "start_time": 12.971,
+          "end_time": 13.014
+        },
+        {
+          "text": "learn",
+          "start_time": 13.056,
+          "end_time": 13.1415
+        },
+        {
+          "text": "to",
+          "start_time": 13.184,
+          "end_time": 13.2695
+        },
+        {
+          "text": "cook",
+          "start_time": 13.312,
+          "end_time": 13.3975
+        },
+        {
+          "text": "with",
+          "start_time": 13.44,
+          "end_time": 13.525
+        },
+        {
+          "text": "him",
+          "start_time": 13.568,
+          "end_time": 13.653
+        }
+      ],
+      "voiceId": "330290724a1b470fb63153f34d4c0183",
+      "voiceName": "Annie - Lifelike",
+      "text": "Look at my room. What a mess! I'm going to tidy it before Mum gets home.\n\nMy new paints are on the shelf. I want to make a picture for her, too. A big yellow cat!\n\nFor dinner, Dad says I can help in the kitchen. Great! I'm going to learn to cook with him.",
+      "language": "en",
+      "speed": 1,
+      "model": "server-selected"
+    },
+    "listen-sort-d2-adult_f": {
+      "audio_url": "https://resource2.heygen.ai/text_to_speech/630d41ab10c3483eaccb5b17c3c39baf/776f9d2ff401499a8f1f2bcb4ca46004/id=7589807ca7ee4f24bbd005c73f63a478.wav",
+      "duration": 8.565215419501135,
+      "original_words": [
+        {
+          "text": "Leo",
+          "start_time": 0.256,
+          "end_time": 0.512
+        },
+        {
+          "text": "are",
+          "start_time": 0.896,
+          "end_time": 1.195
+        },
+        {
+          "text": "your",
+          "start_time": 1.237,
+          "end_time": 1.3227
+        },
+        {
+          "text": "books",
+          "start_time": 1.365,
+          "end_time": 1.5787
+        },
+        {
+          "text": "in",
+          "start_time": 1.707,
+          "end_time": 1.749
+        },
+        {
+          "text": "your",
+          "start_time": 1.792,
+          "end_time": 1.877
+        },
+        {
+          "text": "school",
+          "start_time": 1.92,
+          "end_time": 2.133
+        },
+        {
+          "text": "bag",
+          "start_time": 2.176,
+          "end_time": 2.389
+        },
+        {
+          "text": "What",
+          "start_time": 2.859,
+          "end_time": 3.072
+        },
+        {
+          "text": "are",
+          "start_time": 3.115,
+          "end_time": 3.157
+        },
+        {
+          "text": "you",
+          "start_time": 3.2,
+          "end_time": 3.2427
+        },
+        {
+          "text": "going",
+          "start_time": 3.285,
+          "end_time": 3.371
+        },
+        {
+          "text": "to",
+          "start_time": 3.413,
+          "end_time": 3.456
+        },
+        {
+          "text": "do",
+          "start_time": 3.541,
+          "end_time": 3.6267
+        },
+        {
+          "text": "after",
+          "start_time": 3.669,
+          "end_time": 3.797
+        },
+        {
+          "text": "school",
+          "start_time": 3.925,
+          "end_time": 4.139
+        },
+        {
+          "text": "That",
+          "start_time": 4.565,
+          "end_time": 4.693
+        },
+        {
+          "text": "sounds",
+          "start_time": 4.736,
+          "end_time": 4.9067
+        },
+        {
+          "text": "fun",
+          "start_time": 5.035,
+          "end_time": 5.248
+        },
+        {
+          "text": "And",
+          "start_time": 5.632,
+          "end_time": 5.845
+        },
+        {
+          "text": "your",
+          "start_time": 5.888,
+          "end_time": 6.016
+        },
+        {
+          "text": "room",
+          "start_time": 6.059,
+          "end_time": 6.229
+        },
+        {
+          "text": "Please",
+          "start_time": 6.827,
+          "end_time": 7.168
+        },
+        {
+          "text": "tidy",
+          "start_time": 7.381,
+          "end_time": 7.637
+        },
+        {
+          "text": "it",
+          "start_time": 7.723,
+          "end_time": 7.765
+        },
+        {
+          "text": "before",
+          "start_time": 7.808,
+          "end_time": 7.893
+        },
+        {
+          "text": "dinner",
+          "start_time": 8.064,
+          "end_time": 8.235
+        }
+      ],
+      "voiceId": "776f9d2ff401499a8f1f2bcb4ca46004",
+      "voiceName": "Joanna - Warm & Conversational",
+      "text": "Leo, are your books in your school bag?\n\nWhat are you going to do after school?\n\nThat sounds fun.\n\nAnd your room? Please tidy it before dinner.",
+      "language": "en",
+      "speed": 1,
+      "model": "server-selected"
+    }
+  },
+  "blocked": {
+    "job": "listen-sort-d2-child_m",
+    "reason": "HTTP 402 insufficient monthly free speech allowance",
+    "retryable": false
+  },
+  "lessonPlaybackRate": 0.85
+}
