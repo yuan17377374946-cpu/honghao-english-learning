@@ -49,6 +49,9 @@
 
 音频为CMU Flite slt合成的原创练习，非教材或试卷原配录音。脚本、图片映射和分句时间见 listening-content.json。运行 node check-listening.cjs 验证题目、实际MP3、分句边界及答题记录。已在桌面浏览器验证完整播放、边听边排、完整收听限制和答后分句播放；尚未在微信真机验证。
 
-2026-11-26自然表达配音：第1天主线与换篇已改为放学留言、周日小故事，使用HeyGen Voice的Lewis与Annie合成音。整段保留连贯表达，课堂统一以0.85倍速保音调处理，未为凑时长变速。原始词时间映射到最终MP3，答后按语意段重听。其余8篇的自然表达稿已准备；因服务返回HTTP 402本月免费配音额度不足，未继续生成，仍使用旧稿旧音频。第2天只有部分角色声音，不发布成完整题。
+2026-11-26自然表达配音：第1天两篇保留HeyGen Voice的Lewis与Annie声音，课堂统一以0.85倍速保持音调处理。其余8篇已完成亲子对话、采访、自我提醒、小故事、校园广播和语音周报，使用本地Piper神经网络配音，不依赖插件额度。原5道短听辨也改为本地Piper配音。对话区分角色，按真实PCM段落边界提供重听。15道听力都使用静态MP3，原题ID、图片答案和学习记录保留。
 
 配音来源、精确文字与时间见 audio-production/heygen-results.json；原始WAV按字节原样保存于 heygen-originals.zip。assemble-natural.py只做本地转换，不调用或重试生成。自动检查验证文字映射和音频时长，不能代替对音色、语气及发音的主观试听。
+
+
+本地配音：安装 piper-tts==1.8.0，下载并校验 build-local.py 中固定哈希的模型文件，运行 `ORT_DISABLE_TELEMETRY=1 python audio-production/build-local.py --model-dir <模型目录>`。脚本在运行库初始化前关闭遥测。配音来源、许可及角色映射见 audio-production/voice-sources.html 和 local-audio-manifest.json。

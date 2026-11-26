@@ -1,10 +1,8 @@
 # 听力自然表达改稿与配音进度
 
-10篇稿件已改。第1天两篇已配音并接入；其余8篇因HeyGen本月免费配音额度不足待生成，网页保留其原有录音。第2天的一段女声已保存，但缺少另一角色，不能作为完整题播放。
+10篇改稿和录音均已完成：第1天两篇保留HeyGen配音，其余8篇使用本地Piper配音，不需要插件额度。原5道短听辨也已有本地MP3。
 
-配音要求：清楚而自然，不逐字顿读；对话有接话与问句语调，故事有轻重音。无背景音乐或夸张音效。保持小学听力难度，少量新词须能借助语境理解。
-
-排序仍以录音首次明确介绍的目标活动为准。临时调整仅改变时间，避免取消与保留的同一图片产生双解。文字题稿默认在答后讲解展示。
+配音和题稿默认在答后讲解展示。按录音介绍的活动顺序排序，背景里的物品、被否定的猜测和更正前的日期不直接当作最终行动。
 
 ## 第1天 · 主线练习：Tom给妈妈的放学留言
 
@@ -122,7 +120,7 @@
 
 **男孩角色：** My books are on the floor again. Come on, Ben! I want to be tidy. My room needs some work.
 
-**男孩角色：** Here's my football shoe! I need it for the school team. We're going to play after school.
+**男孩角色：** Here are my football shoes! I need them for the school team. We're going to play after school.
 
 **男孩角色：** There's my new storybook, too. I want to read it after dinner. It looks really good.
 
@@ -132,7 +130,7 @@
 
 参考图序：E → C → A → D → B
 
-- 图E：看到地上的书，提醒自己整理房间。
+- 图E：先提到书在地上，目的是说明要整理房间；提到books不等于在读书。
 - 图C：找出足球鞋，加入足球队。
 - 图A：晚饭后读新故事书。
 - 图D：运动后喝水。
@@ -142,7 +140,7 @@
 
 形式：连贯的小故事。重点：通过事件衔接排序，6图模拟。
 
-**女老师／妈妈：** It's Saturday. The plants outside need water. Lucy picks up a little can and gives them a drink.
+**女老师／妈妈：** It's Saturday. Lucy waters the plants outside. They're very dry today.
 
 **女老师／妈妈：** Breakfast isn't ready yet. She opens her English book. A little reading is a good start to the day.
 
@@ -156,11 +154,11 @@
 
 参考图序：C → E → A → F → B → D
 
-- 图C：阳台植物需要水，Lucy负责浇水。
+- 图C：先介绍Lucy给植物浇水；这里的water是给植物浇水，后面才介绍自己喝水。
 - 图E：吃早饭前读英语。
 - 图A：爸爸喊她出门，一起跑步。
 - 图F：午饭后把公园画下来。
-- 图B：画完口渴，喝了一杯水。
+- 图B：画画后口渴，a glass of water才对应人喝水，不要与前面的water the plants混淆。
 - 图D：画笔和书散开了，最后整理房间。
 
 ## 第4天 · 换篇练习：班级广播：我们的新目标

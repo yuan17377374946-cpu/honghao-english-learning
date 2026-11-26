@@ -1,0 +1,649 @@
+{
+  "engine": "Piper",
+  "version": "1.8.0",
+  "model": "en_GB-vctk-medium",
+  "model_url": "https://huggingface.co/rhasspy/piper-voices/tree/main/en/en_GB/vctk/medium",
+  "model_sha256": "fc3d92d266b1a6c03af2a38215e0eee430ca7fb360f641d7c3dcb17c7670c0f3",
+  "config_sha256": "8cc5a7678bf893c35cb6fde5d0812fb7e2b63e1eef54db250afd525277471f2d",
+  "speaker_map": {
+    "adult_f": "p228",
+    "adult_m": "p227",
+    "child_f": "p225",
+    "child_m": "p226"
+  },
+  "settings": {
+    "length_scale": 1.15,
+    "noise_scale": 0.333,
+    "noise_w_scale": 0.5
+  },
+  "sample_rate": 22050,
+  "timing": "Measured PCM boundaries of whole utterances; no guessed word timestamps.",
+  "review_limit": "Automated content, timing, encoding and browser checks; subjective audio quality remains for actual listening.",
+  "outputs": [
+    {
+      "id": "listen-sort-d2",
+      "audioSrc": "audio/listen-sort-d2-clear-v3.mp3",
+      "duration": 28.2,
+      "sha256": "9aa7e6b0b206869c43768d9c296bb3715a9bedc79a1761a19032bd4ab7437bb4",
+      "turns": [
+        {
+          "part": 0,
+          "turn": 0,
+          "role": "adult_f",
+          "speaker": "p228",
+          "text": "Leo, are your books in your school bag?",
+          "start": 0.35,
+          "end": 2.927
+        },
+        {
+          "part": 0,
+          "turn": 1,
+          "role": "child_m",
+          "speaker": "p226",
+          "text": "Not yet, Mum. I'm putting them in now.",
+          "start": 3.147,
+          "end": 6.259
+        },
+        {
+          "part": 1,
+          "turn": 0,
+          "role": "adult_f",
+          "speaker": "p228",
+          "text": "What are you going to do after school?",
+          "start": 6.809,
+          "end": 9.073
+        },
+        {
+          "part": 1,
+          "turn": 1,
+          "role": "child_m",
+          "speaker": "p226",
+          "text": "Play football with Sam. He's got a new ball!",
+          "start": 9.293,
+          "end": 12.787
+        },
+        {
+          "part": 2,
+          "turn": 0,
+          "role": "child_m",
+          "speaker": "p226",
+          "text": "My sister wants to teach me a song when I get home. I'm going to sing with her.",
+          "start": 13.337,
+          "end": 18.423
+        },
+        {
+          "part": 2,
+          "turn": 1,
+          "role": "adult_f",
+          "speaker": "p228",
+          "text": "That sounds fun.",
+          "start": 18.643,
+          "end": 20.175
+        },
+        {
+          "part": 3,
+          "turn": 0,
+          "role": "adult_f",
+          "speaker": "p228",
+          "text": "And your room? Please tidy it before dinner.",
+          "start": 20.725,
+          "end": 24.162
+        },
+        {
+          "part": 3,
+          "turn": 1,
+          "role": "child_m",
+          "speaker": "p226",
+          "text": "OK, Mum. I can do that.",
+          "start": 24.382,
+          "end": 27.284
+        }
+      ]
+    },
+    {
+      "id": "listen-sort-d2b",
+      "audioSrc": "audio/listen-sort-d2b-clear-v3.mp3",
+      "duration": 28.032,
+      "sha256": "b3a3fef946e063c2d2f97623b19a133675593aa1057c8bfaf6fa0bf36601be5f",
+      "turns": [
+        {
+          "part": 0,
+          "turn": 0,
+          "role": "child_f",
+          "speaker": "p225",
+          "text": "Hi, Eva! My swimming lesson is on Saturday. I want to learn to swim, so Mum is taking me to the pool.",
+          "start": 0.35,
+          "end": 7.188
+        },
+        {
+          "part": 1,
+          "turn": 0,
+          "role": "child_f",
+          "speaker": "p225",
+          "text": "On Sunday, I'm going to help Mum cook lunch. I can wash the vegetables. What can you cook?",
+          "start": 7.738,
+          "end": 14.089
+        },
+        {
+          "part": 2,
+          "turn": 0,
+          "role": "child_f",
+          "speaker": "p225",
+          "text": "In the afternoon, my paints are coming out! I want to paint a picture for you.",
+          "start": 14.639,
+          "end": 19.55
+        },
+        {
+          "part": 3,
+          "turn": 0,
+          "role": "child_f",
+          "speaker": "p225",
+          "text": "School again on Monday! Before bed, I need to put my books in my school bag. Send me your plans!",
+          "start": 20.1,
+          "end": 27.124
+        }
+      ]
+    },
+    {
+      "id": "listen-sort-d3",
+      "audioSrc": "audio/listen-sort-d3-clear-v3.mp3",
+      "duration": 35.184,
+      "sha256": "46ca340100b9403d02e0cd153ef0b248edbbbe1cfb3a07d202c5b3cd875a65d9",
+      "turns": [
+        {
+          "part": 0,
+          "turn": 0,
+          "role": "adult_f",
+          "speaker": "p228",
+          "text": "Anna, how do you want to stay healthy?",
+          "start": 0.35,
+          "end": 2.695
+        },
+        {
+          "part": 0,
+          "turn": 1,
+          "role": "child_f",
+          "speaker": "p225",
+          "text": "Less juice and more water! I'm going to take my water bottle to school.",
+          "start": 2.915,
+          "end": 7.211
+        },
+        {
+          "part": 1,
+          "turn": 0,
+          "role": "adult_f",
+          "speaker": "p228",
+          "text": "Are you joining a new club?",
+          "start": 7.611,
+          "end": 9.515
+        },
+        {
+          "part": 1,
+          "turn": 1,
+          "role": "child_f",
+          "speaker": "p225",
+          "text": "Yes, the swimming club. My first lesson is on Wednesday.",
+          "start": 9.735,
+          "end": 13.682
+        },
+        {
+          "part": 2,
+          "turn": 0,
+          "role": "adult_f",
+          "speaker": "p228",
+          "text": "And after dinner? More TV?",
+          "start": 14.082,
+          "end": 16.869
+        },
+        {
+          "part": 2,
+          "turn": 1,
+          "role": "child_f",
+          "speaker": "p225",
+          "text": "No! I'm going to read English. Just a little every evening.",
+          "start": 17.089,
+          "end": 21.872
+        },
+        {
+          "part": 3,
+          "turn": 0,
+          "role": "child_f",
+          "speaker": "p225",
+          "text": "I want to help at home, too. Grandma is going to teach me to cook on Saturday.",
+          "start": 22.272,
+          "end": 26.719
+        },
+        {
+          "part": 3,
+          "turn": 1,
+          "role": "adult_f",
+          "speaker": "p228",
+          "text": "Lovely!",
+          "start": 26.939,
+          "end": 28.088
+        },
+        {
+          "part": 4,
+          "turn": 0,
+          "role": "adult_f",
+          "speaker": "p228",
+          "text": "Anything else?",
+          "start": 28.488,
+          "end": 29.928
+        },
+        {
+          "part": 4,
+          "turn": 1,
+          "role": "child_f",
+          "speaker": "p225",
+          "text": "I'd like some new friends at my club. I'm going to say hello to someone new.",
+          "start": 30.148,
+          "end": 34.432
+        }
+      ]
+    },
+    {
+      "id": "listen-sort-d3b",
+      "audioSrc": "audio/listen-sort-d3b-clear-v3.mp3",
+      "duration": 34.776,
+      "sha256": "0a254feea070dc1ef1ce0159486ac526acad43ab032873b5c8dd261c0b9a6f5b",
+      "turns": [
+        {
+          "part": 0,
+          "turn": 0,
+          "role": "child_m",
+          "speaker": "p226",
+          "text": "My books are on the floor again. Come on, Ben! I want to be tidy. My room needs some work.",
+          "start": 0.35,
+          "end": 7.618
+        },
+        {
+          "part": 1,
+          "turn": 0,
+          "role": "child_m",
+          "speaker": "p226",
+          "text": "Here are my football shoes! I need them for the school team. We're going to play after school.",
+          "start": 8.018,
+          "end": 14.322
+        },
+        {
+          "part": 2,
+          "turn": 0,
+          "role": "child_m",
+          "speaker": "p226",
+          "text": "There's my new storybook, too. I want to read it after dinner. It looks really good.",
+          "start": 14.722,
+          "end": 20.469
+        },
+        {
+          "part": 3,
+          "turn": 0,
+          "role": "child_m",
+          "speaker": "p226",
+          "text": "And I must remember my water bottle. More water after exercise, Ben!",
+          "start": 20.869,
+          "end": 25.977
+        },
+        {
+          "part": 4,
+          "turn": 0,
+          "role": "child_m",
+          "speaker": "p226",
+          "text": "One more thing. The music club starts on Friday. I'm going to sing there. I hope I can remember the words!",
+          "start": 26.377,
+          "end": 34.017
+        }
+      ]
+    },
+    {
+      "id": "listen-sort-d4",
+      "audioSrc": "audio/listen-sort-d4-clear-v3.mp3",
+      "duration": 44.088,
+      "sha256": "b0986a5b837bc60191ec3b02d14801ccea775b7ad41e411ce59ab3e84bb2519e",
+      "turns": [
+        {
+          "part": 0,
+          "turn": 0,
+          "role": "adult_f",
+          "speaker": "p228",
+          "text": "It's Saturday. Lucy waters the plants outside. They're very dry today.",
+          "start": 0.35,
+          "end": 6.12
+        },
+        {
+          "part": 1,
+          "turn": 0,
+          "role": "adult_f",
+          "speaker": "p228",
+          "text": "Breakfast isn't ready yet. She opens her English book. A little reading is a good start to the day.",
+          "start": 6.52,
+          "end": 13.776
+        },
+        {
+          "part": 2,
+          "turn": 0,
+          "role": "adult_f",
+          "speaker": "p228",
+          "text": "Dad calls her from the door. They are going to run in the park. Lucy puts on her shoes and joins him.",
+          "start": 14.176,
+          "end": 20.84
+        },
+        {
+          "part": 3,
+          "turn": 0,
+          "role": "adult_f",
+          "speaker": "p228",
+          "text": "Back home after lunch, Lucy wants to paint the park. She adds a big tree and two little birds.",
+          "start": 21.24,
+          "end": 27.789
+        },
+        {
+          "part": 4,
+          "turn": 0,
+          "role": "adult_f",
+          "speaker": "p228",
+          "text": "That takes a long time. I'm thirsty now, she says. A glass of water is just what she needs.",
+          "start": 28.189,
+          "end": 35.456
+        },
+        {
+          "part": 5,
+          "turn": 0,
+          "role": "adult_f",
+          "speaker": "p228",
+          "text": "Paints and books are everywhere! Before bed, Lucy tidies her room. Now she's ready for another busy day.",
+          "start": 35.856,
+          "end": 43.333
+        }
+      ]
+    },
+    {
+      "id": "listen-sort-d4b",
+      "audioSrc": "audio/listen-sort-d4b-clear-v3.mp3",
+      "duration": 44.952,
+      "sha256": "3cfa8481c2cd6674fc485c0eaccc5d41b2369f45a8d4bec88ad9d1b474f47fb9",
+      "turns": [
+        {
+          "part": 0,
+          "turn": 0,
+          "role": "adult_f",
+          "speaker": "p228",
+          "text": "Welcome to our class radio! Amy is new here. Her goal is to make new friends. Say hello to her today!",
+          "start": 0.35,
+          "end": 8.256
+        },
+        {
+          "part": 1,
+          "turn": 0,
+          "role": "adult_f",
+          "speaker": "p228",
+          "text": "Tom wants to help his family. He's learning to cook with his dad. What's for dinner, Tom?",
+          "start": 8.656,
+          "end": 14.566
+        },
+        {
+          "part": 2,
+          "turn": 0,
+          "role": "adult_f",
+          "speaker": "p228",
+          "text": "Ben loves ball games. Not football this time. He's going to practise basketball every day.",
+          "start": 14.966,
+          "end": 21.595
+        },
+        {
+          "part": 3,
+          "turn": 0,
+          "role": "adult_f",
+          "speaker": "p228",
+          "text": "Mia wants to get stronger. You can find her running in the park after school. Good luck, Mia!",
+          "start": 21.995,
+          "end": 28.253
+        },
+        {
+          "part": 4,
+          "turn": 0,
+          "role": "adult_f",
+          "speaker": "p228",
+          "text": "Leo has some new paints. He wants to learn to paint animals. His first picture is a very funny cat.",
+          "start": 28.653,
+          "end": 36.014
+        },
+        {
+          "part": 5,
+          "turn": 0,
+          "role": "adult_f",
+          "speaker": "p228",
+          "text": "And Eva? No more missing books! She's going to pack her school bag before bed. That's all for today.",
+          "start": 36.414,
+          "end": 44.192
+        }
+      ]
+    },
+    {
+      "id": "listen-sort-d5",
+      "audioSrc": "audio/listen-sort-d5-clear-v3.mp3",
+      "duration": 38.4,
+      "sha256": "b6dc2000082c0a505c4711292b002105aa98a8bc62951c955db34295af75db89",
+      "turns": [
+        {
+          "part": 0,
+          "turn": 0,
+          "role": "adult_f",
+          "speaker": "p228",
+          "text": "Ben, is your basketball game on Thursday?",
+          "start": 0.35,
+          "end": 3.369
+        },
+        {
+          "part": 0,
+          "turn": 1,
+          "role": "child_m",
+          "speaker": "p226",
+          "text": "No, Friday! We're going to play after school.",
+          "start": 3.589,
+          "end": 7.176
+        },
+        {
+          "part": 1,
+          "turn": 0,
+          "role": "adult_f",
+          "speaker": "p228",
+          "text": "Amy, what about you?",
+          "start": 7.576,
+          "end": 9.515
+        },
+        {
+          "part": 1,
+          "turn": 1,
+          "role": "child_f",
+          "speaker": "p225",
+          "text": "I'm going to sing at the music club on Monday. I'm a little excited!",
+          "start": 9.735,
+          "end": 14.031
+        },
+        {
+          "part": 2,
+          "turn": 0,
+          "role": "adult_f",
+          "speaker": "p228",
+          "text": "Leo can't be here today. His plan is to read English at the library on Wednesday.",
+          "start": 14.431,
+          "end": 19.783
+        },
+        {
+          "part": 3,
+          "turn": 0,
+          "role": "adult_f",
+          "speaker": "p228",
+          "text": "Mia, any plans for Saturday?",
+          "start": 20.183,
+          "end": 22.424
+        },
+        {
+          "part": 3,
+          "turn": 1,
+          "role": "child_f",
+          "speaker": "p225",
+          "text": "The pool! I'm going to swim with Dad.",
+          "start": 22.644,
+          "end": 25.651
+        },
+        {
+          "part": 4,
+          "turn": 0,
+          "role": "adult_f",
+          "speaker": "p228",
+          "text": "Tom is starting at a new school. He wants to make some new friends.",
+          "start": 26.051,
+          "end": 30.671
+        },
+        {
+          "part": 5,
+          "turn": 0,
+          "role": "adult_f",
+          "speaker": "p228",
+          "text": "And finally, Eva?",
+          "start": 31.071,
+          "end": 32.836
+        },
+        {
+          "part": 5,
+          "turn": 1,
+          "role": "child_f",
+          "speaker": "p225",
+          "text": "My room is a mess. Sunday morning is my tidy-up time!",
+          "start": 33.056,
+          "end": 37.642
+        }
+      ]
+    },
+    {
+      "id": "listen-sort-d5b",
+      "audioSrc": "audio/listen-sort-d5b-clear-v3.mp3",
+      "duration": 44.256,
+      "sha256": "8420eadb2ae62ec9b204115a0a204ba7687707d4ce39231eaf799c6685926c8e",
+      "turns": [
+        {
+          "part": 0,
+          "turn": 0,
+          "role": "adult_m",
+          "speaker": "p227",
+          "text": "Hello, everyone. Our class has some lovely new goals. Anna wants to read more English books. She's starting a new one on Thursday.",
+          "start": 0.35,
+          "end": 9.603
+        },
+        {
+          "part": 1,
+          "turn": 0,
+          "role": "adult_m",
+          "speaker": "p227",
+          "text": "Ben brings his water bottle every day now. Less juice, more water. That's his idea for staying healthy.",
+          "start": 10.003,
+          "end": 17.259
+        },
+        {
+          "part": 2,
+          "turn": 0,
+          "role": "adult_m",
+          "speaker": "p227",
+          "text": "Tom is going to learn to cook with his dad on Tuesday. He says he wants to make dinner for the family.",
+          "start": 17.659,
+          "end": 23.29
+        },
+        {
+          "part": 3,
+          "turn": 0,
+          "role": "adult_m",
+          "speaker": "p227",
+          "text": "Our new pupil Leo is joining a club on Friday. He hopes to make some friends there.",
+          "start": 23.69,
+          "end": 28.868
+        },
+        {
+          "part": 4,
+          "turn": 0,
+          "role": "adult_m",
+          "speaker": "p227",
+          "text": "Mia's swimming lesson has a new time. Wednesday afternoon. She's going to the pool with her mum.",
+          "start": 29.268,
+          "end": 35.514
+        },
+        {
+          "part": 5,
+          "turn": 0,
+          "role": "adult_m",
+          "speaker": "p227",
+          "text": "And Eva wants to keep her room tidy. A little work after dinner each day. Small steps can make a big difference!",
+          "start": 35.914,
+          "end": 43.496
+        }
+      ]
+    },
+    {
+      "id": "d1q15",
+      "audioSrc": "audio/d1q15-clear-v3.mp3",
+      "duration": 1.728,
+      "sha256": "cfbb89edace5aab948eb524846ad50e9d637514db9f3b5d23bdf051c1fb16883",
+      "turns": [
+        {
+          "role": "adult_f",
+          "speaker": "p228",
+          "text": "match"
+        }
+      ]
+    },
+    {
+      "id": "d1-listen-goal",
+      "audioSrc": "audio/d1-listen-goal-clear-v3.mp3",
+      "duration": 6.0,
+      "sha256": "8776636354abc1369b43a54e233ad162496b26ccd917d9225e9e786643309d9a",
+      "turns": [
+        {
+          "role": "adult_f",
+          "speaker": "p228",
+          "text": "I want to be clean and tidy. I am going to put my books on the shelf after school."
+        }
+      ]
+    },
+    {
+      "id": "d2-listen-people",
+      "audioSrc": "audio/d2-listen-people-clear-v3.mp3",
+      "duration": 8.088,
+      "sha256": "ada5287a2a70ca5fb46136446275b2a2fc8137154fa594757dee23503a79ebd2",
+      "turns": [
+        {
+          "role": "adult_f",
+          "speaker": "p228",
+          "text": "Amy is going to watch basketball games on TV. Lingling is going to go running. They are going to work hard."
+        }
+      ]
+    },
+    {
+      "id": "d3-listen-time",
+      "audioSrc": "audio/d3-listen-time-clear-v3.mp3",
+      "duration": 5.64,
+      "sha256": "8954931d0a2b4970560b3779ace1ab0ddb6b0309772e50c9de954f4213114a67",
+      "turns": [
+        {
+          "role": "adult_f",
+          "speaker": "p228",
+          "text": "I am not going to read on Friday. I am going to read on Saturday morning."
+        }
+      ]
+    },
+    {
+      "id": "d4q12",
+      "audioSrc": "audio/d4q12-clear-v3.mp3",
+      "duration": 2.376,
+      "sha256": "16a16c0c7b3cb648c3a6ef6833e03255f056e8aa21ffa6b63e224002d4a0e03a",
+      "turns": [
+        {
+          "role": "adult_f",
+          "speaker": "p228",
+          "text": "rain. train. play."
+        }
+      ]
+    }
+  ],
+  "telemetry_disabled_before_runtime_initialization": true
+}

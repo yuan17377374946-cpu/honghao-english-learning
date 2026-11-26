@@ -2,6 +2,21 @@ const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('n
 global.window={};for(const file of ['data','curriculum','challenge'])require('./'+file+'.js');const previous=window.UNIT4.days.flatMap(d=>d.questions).map(q=>({id:q.id,answers:q.answers,answer:q.answer,pairs:q.pairs}));require('./listening.js');const U=window.UNIT4,A=require('./listening-ui.js');
 const all=U.days.flatMap(d=>d.questions),sort=all.filter(q=>q.type==='listen-order');assert.equal(sort.length,10);assert.equal(all.length,147);
 const visibleText=html=>html.replace(/<[^>]*>/g,'').replace(/&(?:amp|lt|gt|quot|#39);/g,x=>({'&amp;':'&','&lt;':'<','&gt;':'>','&quot;':'"','&#39;':"'"}[x]));
+const scripts=JSON.parse(fs.readFileSync(__dirname+'/audio-production/natural-listening-drafts.json','utf8')).questions;
+const localAudio=JSON.parse(fs.readFileSync(__dirname+'/audio-production/local-audio-manifest.json','utf8'));
+assert.equal(localAudio.outputs.length,13);
+for(const q of sort){
+ const script=scripts.find(s=>s.id===q.id);assert(script&&q.audioRevision>=2);
+ assert.deepEqual(q.parts.map(p=>p.text),script.parts.map(p=>p.turns.map(t=>t.text).join(' ')),'Live text must match the rendered script');
+}
+for(const output of localAudio.outputs){
+ const q=all.find(q=>q.id===output.id);assert.equal(q.audioSrc,output.audioSrc);
+ const hash=require('node:crypto').createHash('sha256').update(fs.readFileSync(path.join(__dirname,q.audioSrc))).digest('hex');assert.equal(hash,output.sha256,'Audio must match its build manifest');
+ if(q.type==='listen-order'){
+  for(const [i,p]of q.parts.entries()){const turns=output.turns.filter(t=>t.part===i);assert.equal(turns.map(t=>t.text).join(' '),p.text);assert(turns.every(t=>t.start>=p.start-.002&&t.end<=p.end+.002));}
+  if(['listen-sort-d2','listen-sort-d3','listen-sort-d5'].includes(q.id))assert(new Set(output.turns.map(t=>t.speaker)).size>=2,'Dialogue should retain different speakers');
+ }
+}
 for(const old of previous){const q=all.find(q=>q.id===old.id);for(const k of ['answer','answers','pairs'])assert.deepEqual(q[k],old[k]);}
 const expectedCounts=[3,4,5,6,6];
 for(const [di,d]of U.days.entries()){assert.equal(d.coreIds.length,12);assert.equal(d.coreIds.filter(id=>all.find(q=>q.id===id).challenge).length,6);assert.equal(d.coreIds.filter(id=>all.find(q=>q.id===id).type==='listen-order').length,1);const q=all.find(q=>q.id==='listen-sort-d'+(di+1));assert.equal(q.cards.length,expectedCounts[di]);}
@@ -12,10 +27,11 @@ for(const q of sort){
  let end=0;for(const p of q.parts){assert(p.start>=end&&p.end>p.start&&p.end<q.duration);assert(p.clue&&p.text);end=p.end;}
  const raw=A.body(q,{}, {},false);assert(!visibleText(raw).includes(q.parts[0].text),'Script should stay hidden before checking');assert(raw.includes('<audio'));assert(!raw.includes('autoplay'));
  if(q.examStyle)assert(!raw.includes('data-action="listen-part"'));
- assert(visibleText(A.review(q,{showListeningReview:true})).includes(q.parts[0].text));
+ for(const text of q.parts[0].turns?.map(t=>t.text)||[q.parts[0].text])assert(visibleText(A.review(q,{showListeningReview:true})).includes(text));
 }
 for(const q of all.filter(q=>q.audioSrc)){
  const file=path.join(__dirname,q.audioSrc);assert(fs.existsSync(file),q.id+' missing MP3');const meta=JSON.parse(cp.execFileSync('ffprobe',['-v','error','-show_entries','format=duration:stream=codec_name','-of','json',file],{encoding:'utf8'}));assert(meta.streams.some(s=>s.codec_name==='mp3'));assert(Number(meta.format.duration)>0);
+ cp.execFileSync('ffmpeg',['-v','error','-i',file,'-f','null','-'],{stdio:'pipe'});
 }
 // Drive the actual app through audio events and ordering; check without device speech support.
 const handlers={},els={},el=id=>els[id]||(els[id]={innerHTML:'',textContent:'',style:{},classList:{toggle(){},remove(){},add(){}},focus(){},querySelectorAll:()=>[],querySelector:()=>null});let saved;

@@ -57,12 +57,13 @@ for draft in drafts['questions']:
     print(draft['id'], round(duration, 3), 'seconds;', len(timestamps), 'aligned words')
 
 content['audio_provenance'] = {
+    **content.get('audio_provenance', {}),
     'completed_natural_questions': completed,
     'provider': 'HeyGen Voice', 'source_speed': 1, 'lesson_rate': rate,
     'editing': 'Pitch-preserving fixed lesson tempo, 250ms leading and 300ms trailing padding. No per-word retiming.',
     'alignment': 'Provider word timestamps transformed to final audio coordinates; not independent speech recognition.',
     'review_limit': 'Content/timing checks and browser playback can be verified. Subjective listening review is not independently available.',
-    'remaining': 'Other questions keep the existing Flite audio until quota is available.'
+    'remaining': content.get('audio_provenance', {}).get('remaining', 'Other questions keep the existing Flite audio until quota is available.')
 }
 (root / 'listening-content.json').write_text(json.dumps(content, ensure_ascii=False, indent=2) + '\n')
 module = (root / 'listening.js').read_text()
@@ -71,8 +72,9 @@ _, suffix = tail.split(';\n questions.forEach', 1)
 module = prefix + ' const questions=' + json.dumps(content['questions'], ensure_ascii=False, indent=2) + ';\n questions.forEach' + suffix
 module = module.replace('U.listeningRevision=1;', 'U.listeningRevision=2;')
 (root / 'listening.js').write_text(module)
-drafts['status'] = 'two_complete_audio_ready_remaining_blocked_by_allowance'
-drafts['note'] = '第1天两篇已生成并接入；其余8篇等待可用语音额度。第二天女声片段已保留，不能作为完整题播放。'
+if not all(q.get('audioRevision', 0) >= 2 for q in content['questions']):
+    drafts['status'] = 'two_complete_audio_ready_remaining_blocked_by_allowance'
+    drafts['note'] = '第1天两篇已生成并接入；其余8篇等待可用语音额度。第二天女声片段已保留，不能作为完整题播放。'
 (production / 'natural-listening-drafts.json').write_text(json.dumps(drafts, ensure_ascii=False, indent=2) + '\n')
 
 # Archive byte-identical original WAVs so expiring media URLs are never the only copy.

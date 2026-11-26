@@ -1,6 +1,6 @@
 {
-  "status": "two_complete_audio_ready_remaining_blocked_by_allowance",
-  "note": "第1天两篇已生成并接入；其余8篇等待可用语音额度。第二天女声片段已保留，不能作为完整题播放。",
+  "status": "all_ten_revised_scripts_and_audio_live",
+  "note": "第1天两篇保留HeyGen配音；其余8篇已用本地Piper配音，不再等待插件额度。",
   "direction": "明亮、自然的儿童教学英语，清楚但不逐字顿读。对话接话流畅，问句有语调变化；关键词轻重音自然。无背景音乐、夸张音效或故意含混的发音。",
   "voices": {
     "adult_f": "温和、清晰的成年女声",
@@ -283,7 +283,7 @@
       "parts": [
         {
           "card": "E",
-          "clue": "看到地上的书，提醒自己整理房间。",
+          "clue": "先提到书在地上，目的是说明要整理房间；提到books不等于在读书。",
           "turns": [
             {
               "voice": "child_m",
@@ -297,7 +297,7 @@
           "turns": [
             {
               "voice": "child_m",
-              "text": "Here's my football shoe! I need it for the school team. We're going to play after school."
+              "text": "Here are my football shoes! I need them for the school team. We're going to play after school."
             }
           ]
         },
@@ -341,11 +341,11 @@
       "parts": [
         {
           "card": "C",
-          "clue": "阳台植物需要水，Lucy负责浇水。",
+          "clue": "先介绍Lucy给植物浇水；这里的water是给植物浇水，后面才介绍自己喝水。",
           "turns": [
             {
               "voice": "adult_f",
-              "text": "It's Saturday. The plants outside need water. Lucy picks up a little can and gives them a drink."
+              "text": "It's Saturday. Lucy waters the plants outside. They're very dry today."
             }
           ]
         },
@@ -381,7 +381,7 @@
         },
         {
           "card": "B",
-          "clue": "画完口渴，喝了一杯水。",
+          "clue": "画画后口渴，a glass of water才对应人喝水，不要与前面的water the plants混淆。",
           "turns": [
             {
               "voice": "adult_f",
