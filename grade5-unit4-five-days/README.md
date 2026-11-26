@@ -36,3 +36,7 @@
 新增 `game-theme.css` 和 `review-logic.js`。闯关答错自动收集、保存首次作答并允许继续下一关；结束页可集中复习。错题本分为待复习、已掌握、全部记录，独立答对后仍保留历史。复习中断后可继续，导出记录同时保留历史。
 
 补充验证：`node check-review.cjs`。浏览器已验证错误收集、下一关、结束后复习、刷新恢复草稿、复习标记掌握与首次答案保留。
+
+
+
+2026-11-26进阶版：加载顺序为 data → curriculum → challenge → logic → review-logic → app。每天6热身＋6进阶，共137题，30道新增进阶题，旧题ID与记录保留。执行 node check-content.cjs、node check-challenge.cjs 检查完整课程。

@@ -1,9 +1,9 @@
 'use strict';
 const assert=require('node:assert/strict');
 const dir=require('node:fs').existsSync(require('node:path').join(__dirname,'dist/data.js'))?'./dist/':'./';
-global.window={};require(dir+'data.js');require(dir+'curriculum.js');
+global.window={};require(dir+'data.js');require(dir+'curriculum.js');require(dir+'challenge.js');
 const u=window.UNIT4, qs=u.days.flatMap(d=>d.questions), ids=new Set();
-assert.equal(u.days.length,5);assert.equal(u.vocab.length,24);assert.equal(qs.length,107);
+assert.equal(u.days.length,5);assert.equal(u.vocab.length,24);assert.equal(qs.length,137);
 for(const q of qs){
  assert(!ids.has(q.id),`重复ID：${q.id}`);ids.add(q.id);assert(q.prompt&&q.hint&&q.why,q.id);
  if(['choice','listen','reading','edit'].includes(q.type)){const opts=q.type==='edit'?q.replacements:q.options;assert(Number.isInteger(q.answer)&&q.answer>=0&&q.answer<opts.length,q.id);}
@@ -22,5 +22,6 @@ for(const [word]of u.vocab)assert.equal(qs.filter(q=>q.word===word).length,1,`�
 for(let d=1;d<=5;d++)for(let i=1;i<=(d===5?12:16);i++)assert(ids.has(`d${d}q${i}`),'旧题ID未保留');
 assert.equal(qs.filter(q=>!q.optional).length,60);
 assert.equal(qs.filter(q=>!q.optional&&q.type==='listen').length,4);
-assert.equal(qs.filter(q=>!q.optional&&q.type==='write').length,3);
-console.log('内容验证通过：107题，60个基础任务、47个选做；24个词条均有认读及拼写；4道基础听力、3次开放表达；原76题ID保留。');
+assert.equal(qs.filter(q=>!q.optional&&q.type==='write').length,5);
+console.log('内容验证通过：137题，60个每日任务、77个选做；24个词条均有认读及拼写；4道基础听力、5次进阶开放表达；原76题ID保留。');
+
