@@ -15,7 +15,7 @@
     [0,L('d1-listen-goal','听句子找目标','听Leo的话，他最想改善什么？','I want to be clean and tidy. I am going to put my books on the shelf after school.',[
       'Keep his things tidy.','Read more books.','Make new friends.'
     ],0,'他说想保持整洁，放学后会把书放在书架上。不能只听到 books 就选 read more。','先听 I want to 后面的目标，再听行动是否与它一致。')],
-    [1,{id:'d2-context',type:'cloze',skill:'把句型放回日记',prompt:'读这段比赛计划，补出每个空格的完整表达。',intro:'五个空格都要写出 be going to 和括号里的动作。',
+    [1,{id:'d2-context',type:'cloze',skill:'把句型放回日记',prompt:'用 be going to + 动词原形表示将来的计划，补全下面五句。',intro:'每空填完整的“am / is / are + going to + 括号内动词的原形”，不用抄整句。先看主语，选择合适的 be 动词。',
       fields:[
         {text:'There ___ a basketball match next month. (be)',answers:['is going to be']},
         {text:'Amy and I ___ hard. (work)',answers:['are going to work']},
@@ -26,7 +26,7 @@
     [1,L('d2-listen-people','听人物和行动','听计划，Amy打算做什么？','Amy is going to watch basketball games on TV. Lingling is going to go running. They are going to work hard.',[
       'Go running.','Watch basketball games on TV.','Learn to swim.'
     ],1,'Amy 看篮球比赛，Lingling 去跑步。两人的行动不能混在一起。','听到 Amy 后，留意紧接着的动作。')],
-    [1,W('d2-one-plan','自己写一句计划','想一件你明天真能做到的事，用 I am going to 写一句完整计划。','I am going to … tomorrow.','I am going to read for ten minutes tomorrow.',[
+    [1,W('d2-one-plan','自己写一句计划','想一件你明天真能做到的事，用 be going to + 动词原形表示将来的计划。以 I am going to 开头，写一句完整英文，并写明时间。','I am going to … tomorrow.','I am going to read for ten minutes tomorrow.',[
       '我写了完整的 I am going to 和动词原形。','我写的事情能做到，也说明了时间。'
     ],'先想“明天做什么”，再检查 am 有没有漏，going to 后的动作有没有用原形。',{writingGuide:'写1句：计划做什么＋什么时候。',compact:true,stage:3})],
     [2,O('d3-wh-question','独立拼问句','想问“你周日打算做什么”，按 What + be + 主语 + going to do 的顺序拼句。',[
@@ -81,6 +81,24 @@
   byId.d5q9.options=['On Monday and Wednesday.','Every evening.','On Friday.'];
   byId.d5q9.why='On Monday and Wednesday 是她读书的时间；与 Amy 练习是 Friday，要对准题目中的活动。';
 
+  // 题干说明动作、目标句型与作答范围，不让学生猜任务要求。
+  byId.d1q2.prompt='把左边三个英文目标和右边的中文意思一一配对。';
+  byId.d1q11.prompt='把这六个英文词和中文意思一一配对。';
+  byId.d1q8.prompt='用 want to + 动词原形，把“我想学习新事物”拼成完整的英文句子。';
+  byId.d2q4.prompt='为每一行的主语选择对应的 be 动词：am、is 或 are。';
+  byId.d2q5.prompt='用 want to + 动词原形，按顺序点词块，拼出“我想学做饭”。';
+  byId.d2q8.prompt='下面是 be going to + 动词原形的将来时句子。有一处错误，点出错误词，再选择正确替换。';
+  byId.d2q9.prompt='下面用 be going to + 动词原形表示将来的计划。有一个词形错误，点出它，再选择正确替换。';
+  byId.d2q10.prompt='用 be going to + 动词原形表示将来的计划，按顺序点词块，拼出“我们打算明天去跑步”。';
+  byId.d2q14.prompt='逐句看使用了哪种结构，再选择分类：want to + 动词原形，或 be going to + 动词原形。';
+  byId.d3q3.prompt='把左边六个英文词和右边的中文意思一一配对。';
+  byId.d3q4.prompt='用 be going to + 动词原形的否定形式（not 放在 be 后），拼出“Amy明天不打算读书”。';
+  byId.d3q5.prompt='用 be going to + 动词原形的一般疑问句，拼出“他们打算打篮球吗？”';
+  byId.d3q6.prompt='别人问你 Are you going to learn to cook? 请选择正确的肯定简短回答。';
+  byId.d3q7.prompt='别人问你 Is Amy going to run? 请选择正确的否定简短回答。';
+  byId.d3q12.prompt='为每个时间表达选择前面需要的介词：on、in 或“不加介词”。';
+  byId.d5q11.prompt='用 There be 的将来时结构 There is going to be，拼出“下个月将有一场比赛”。';
+  byId.d5q12.prompt='选一个你真想完成的目标，写4句英文：第1句用 I want to + 动词原形写目标；后3句用 I am going to + 动词原形写行动计划。至少一项行动写清时间或时长。';
   const wordDays=[0,0,0,0,0,1,1,1,1,1,2,2,2,2,2,3,3,3,3,3,4,4,4,4];
   u.vocab.forEach(([word,meaning],i)=>{
     let q=originals.find(q=>q.type==='input'&&q.answers?.length===1&&q.answers[0]===word);
@@ -106,7 +124,7 @@
   u.days[1].notes.push(['完整语境','be going to 不仅要会选一个词，也要会按主语写出整个表达：is going to be、are going to work、am going to go。']);
   u.days[3].notes.push(['用英文短答','Why 问原因或目的，可以使用 Because … 或 To … 回答。合理表达不只有参考示例一种，短答交给老师核对。']);
   ['#58cc02','#1cb0f6','#ffbd3e','#ad82f5','#ff8567'].forEach((color,i)=>{u.days[i].color=color;});
-  u.contentRevision=4;
+  u.contentRevision=5;
   u.coverage=[
     ['24个词条','每个词都有认读配对和独立拼写入口；基础任务选重点，其余可加练。'],
     ['七类目标','七类全部进入配对，另有情境选择、目标调查表和听句理解。'],
@@ -118,4 +136,5 @@
     ['补充与选做','名言理解、完整否定改写、其他词条拼写及拓展搭配。原配听力的数字与人物答案仍需原录音核实。']
   ];
 })();
+
 

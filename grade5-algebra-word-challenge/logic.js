@@ -47,5 +47,15 @@ function record(state,qid,answers,results,assisted,mode='main',variant=false){co
  }else if(!state.mistakes[qid]?.pending)rec.mastered=true;
  return{ok,assisted,mastered:rec.mastered};}
 function validateState(s,ids){if(!s||s.version!==1||typeof s.records!=='object'||!s.records||Array.isArray(s.records)||typeof s.mistakes!=='object'||!s.mistakes)throw Error('备份格式不正确');const valid=new Set(ids);const r=fresh();for(const id of valid){const rec=s.records[id];if(rec&&typeof rec==='object'&&rec.first&&Array.isArray(rec.first.results)&&typeof rec.first.answers==='object'){r.records[id]=rec;if(s.mistakes[id]&&typeof s.mistakes[id]==='object')r.mistakes[id]=s.mistakes[id];}}return r;}
-root.MathQuestLogic={parse,equalExpr,numeric,grade,fresh,record,validateState,snapshot,migrate};if(typeof module!=='undefined')module.exports=root.MathQuestLogic;
+// Keep answer formats unchanged: English uses an object; math uses an array.
+function pairTap(existing,selected,side,index){
+ const pairs=Array.isArray(existing)?[...existing]:{...existing};
+ if(!selected||selected.side===side)return {pairs,selected:selected?.index===index&&selected.side===side?null:{side,index}};
+ const left=side==='left'?index:selected.index,right=side==='right'?index:selected.index;
+ for(const key of Object.keys(pairs))if(pairs[key]===right){if(Array.isArray(pairs))pairs[key]=null;else delete pairs[key];}
+ pairs[left]=right;
+ return {pairs,selected:null};
+}
+root.MathQuestLogic={pairTap,parse,equalExpr,numeric,grade,fresh,record,validateState,snapshot,migrate};if(typeof module!=='undefined')module.exports=root.MathQuestLogic;
 })(typeof window!=='undefined'?window:globalThis);
+

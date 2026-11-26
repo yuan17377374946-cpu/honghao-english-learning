@@ -14,7 +14,7 @@ const diary=['On 11 October, Lingling wants to join the girls’ basketball team
 const story=['The boy’s father is ill. The family has little money.','Before school, the boy has to sell things and buy medicine for his father.','It is a long way. Today there are too many people. The boy hurries to school, but he is still late.','His teacher says, “Don’t be late again.” The boy feels sad.','He cuts a word into his desk. He is not going to be late again.'];
 const days=[
 {title:'认识我的目标',en:'Find my goal',color:'#2b5cff',intro:'先认出词语，再帮小伙伴找到适合自己的目标。',focus:'24个词条分批见面 · 七类目标 · 健康表达',steps:['目标配对','词语侦探','拼写小站','生活选择'],notes:[['目标从这里选',goals.map(p=>p.join('：')).join('\n')],['healthy / healthily','healthy 描述人或食物：healthy food；healthily 描述动作：eat healthily。']],questions:[
-M('七类目标','把目标和中文配成对。',goals.slice(0,4),'把词放在整个短语里记：do better in school 是“在学校表现得更好”。','每次先点一个英文，再点一个中文。'),
+M('七类目标','把目标和中文配成对。',goals.slice(0,4),'把词放在整个短语里记：do better in school 是“在学校表现得更好”。','左右任意一边先点，再点另一边的对应项。'),
 M('七类目标','还有三个小目标，把它们找出来。',goals.slice(4),'read more、be clean and tidy、exercise more 都可以接在 I want to 后面。','tidy 表示整洁；exercise 表示锻炼。'),
 M('词表①','给这六张词卡找到意思。',vocab.slice(0,6),'healthily 是“健康地”；exercise 可以表示锻炼或运动。','留意 goal（目标）和 survey（调查）。'),
 C('生活中的目标','Lily每天找不到自己的书。她最需要哪个目标？',['be clean and tidy','drink more water','exercise more'],0,'把书和用品整理好，对应 be clean and tidy。','先找和“收拾整齐”有关的目标。'),
@@ -105,3 +105,4 @@ days[1].steps[0]='热身与认词';days[2].steps[0]='热身与认词';days[3].st
 days.forEach((d,di)=>d.questions.forEach((q,qi)=>{q.stage=stages[di][qi];q.id=`d${di+1}q${qi+1}`;q.day=di;}));
 return {days,vocab,goals,diary,story,source:'依据周六19页《Unit 4 A better me 详细知识清单》编排。故事为课文内容的简写，练习情境为配套原创。',version:1};
 })();
+
