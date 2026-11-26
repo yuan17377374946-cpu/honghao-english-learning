@@ -40,3 +40,11 @@
 
 
 2026-11-26进阶版：加载顺序为 data → curriculum → challenge → logic → review-logic → app。每天6热身＋6进阶，共137题，30道新增进阶题，旧题ID与记录保留。执行 node check-content.cjs、node check-challenge.cjs 检查完整课程。
+
+## 2026-11-26 听短文排序与MP3
+
+最新加载顺序为 data → curriculum → challenge → listening → listening-ui → logic → review-logic → app。共147题，每天12关；每天一关听短文排序，另有一篇换篇练习。图片数依次为3、4、5、6、6；后四天含一个已编号示例，后两天模拟试卷先整篇听、提交后分句讲解。按录音提及顺序排序，不按星期或自行想象的作息。
+
+10篇新排序和原5道听力均使用同站点MP3，手动播放，无需设备英语语音包。点图和选项不重建播放器。可完整重听、慢速辅助、单独打开音频、答后逐句重听。辅助练习不计为独立掌握；首次错误和回练记录保留。单词清单朗读仍使用设备语音。
+
+音频为CMU Flite slt合成的原创练习，非教材或试卷原配录音。脚本、图片映射和分句时间见 listening-content.json。运行 node check-listening.cjs 验证题目、实际MP3、分句边界及答题记录。已在桌面浏览器验证完整播放、边听边排、完整收听限制和答后分句播放；尚未在微信真机验证。

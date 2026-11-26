@@ -1,0 +1,822 @@
+/* Original, exam-shaped listening practice. Audio is synthesized English, not the papers' original recording. */
+(() => {
+ const U=window.UNIT4;
+ const questions=[
+  {
+    "id": "listen-sort-d1",
+    "day": 0,
+    "type": "listen-order",
+    "skill": "听短文排序 · 3图起步",
+    "prompt": "放学后的三件事：听短文，按录音提及活动的顺序给图片编号。",
+    "cards": [
+      {
+        "kind": "run",
+        "label": "跑步"
+      },
+      {
+        "kind": "read",
+        "label": "读书"
+      },
+      {
+        "kind": "drink",
+        "label": "喝水"
+      }
+    ],
+    "answer": [
+      1,
+      2,
+      0
+    ],
+    "given": null,
+    "parts": [
+      {
+        "text": "After school, Tom is going to read an English book.",
+        "card": 1,
+        "clue": "read an English book 对应读书图；这是录音先介绍的活动。",
+        "start": 0.4,
+        "end": 3.846
+      },
+      {
+        "text": "Then he is going to drink some water.",
+        "card": 2,
+        "clue": "Then 承接上一项；drink some water 对应喝水。",
+        "start": 4.476,
+        "end": 6.947
+      },
+      {
+        "text": "After that, he is going to run in the park.",
+        "card": 0,
+        "clue": "After that 表示随后；run in the park 对应跑步。",
+        "start": 7.577,
+        "end": 10.765
+      }
+    ],
+    "audioSrc": "audio/listen-sort-d1.mp3",
+    "hint": "先看懂各幅图。第一次听抓整体，第二次听核对人物和动作；按录音提及顺序，不按自己想象的作息或星期顺序。",
+    "why": "每幅图都对应录音中的一项行动。可以分句重听，找到动作词、人物和顺序线索。",
+    "challenge": true,
+    "optional": false,
+    "stage": 1,
+    "examStyle": false,
+    "practiceId": "listen-sort-d1b",
+    "duration": 11.395
+  },
+  {
+    "id": "listen-sort-d1b",
+    "day": 0,
+    "type": "listen-order",
+    "skill": "听短文排序 · 同类再练",
+    "prompt": "周日的小安排：听短文，按录音提及活动的顺序给图片编号。",
+    "cards": [
+      {
+        "kind": "cook",
+        "label": "做饭"
+      },
+      {
+        "kind": "paint",
+        "label": "画画"
+      },
+      {
+        "kind": "tidy",
+        "label": "整理房间"
+      }
+    ],
+    "answer": [
+      2,
+      1,
+      0
+    ],
+    "given": null,
+    "parts": [
+      {
+        "text": "On Sunday morning, Amy is going to tidy her room.",
+        "card": 2,
+        "clue": "先听到 tidy her room，整理房间。",
+        "start": 0.4,
+        "end": 4.28
+      },
+      {
+        "text": "Next, she is going to learn to paint.",
+        "card": 1,
+        "clue": "Next 后的 learn to paint 对应画画。",
+        "start": 4.91,
+        "end": 7.978
+      },
+      {
+        "text": "Finally, she is going to cook with her father.",
+        "card": 0,
+        "clue": "Finally 是最后一项；cook 对应做饭。",
+        "start": 8.608,
+        "end": 11.779
+      }
+    ],
+    "audioSrc": "audio/listen-sort-d1b.mp3",
+    "hint": "先看懂各幅图。第一次听抓整体，第二次听核对人物和动作；按录音提及顺序，不按自己想象的作息或星期顺序。",
+    "why": "每幅图都对应录音中的一项行动。可以分句重听，找到动作词、人物和顺序线索。",
+    "challenge": false,
+    "optional": true,
+    "stage": 1,
+    "examStyle": false,
+    "practiceId": null,
+    "duration": 12.409
+  },
+  {
+    "id": "listen-sort-d2",
+    "day": 1,
+    "type": "listen-order",
+    "skill": "听短文排序 · 4图衔接",
+    "prompt": "Leo的放学计划：听短文，按录音提及活动的顺序给图片编号。",
+    "cards": [
+      {
+        "kind": "sing",
+        "label": "唱歌"
+      },
+      {
+        "kind": "pack",
+        "label": "装书包"
+      },
+      {
+        "kind": "tidy",
+        "label": "整理房间"
+      },
+      {
+        "kind": "football",
+        "label": "踢足球"
+      }
+    ],
+    "answer": [
+      1,
+      3,
+      0,
+      2
+    ],
+    "given": 1,
+    "parts": [
+      {
+        "text": "Before school, Leo is going to put his books in his school bag.",
+        "card": 1,
+        "clue": "put his books in his school bag 对应装书包；本项给出作示例。",
+        "start": 0.4,
+        "end": 4.448
+      },
+      {
+        "text": "After school, he is going to play football with his friends.",
+        "card": 3,
+        "clue": "play football 是足球，不是篮球。",
+        "start": 5.078,
+        "end": 8.766
+      },
+      {
+        "text": "Then he is going to sing with his sister.",
+        "card": 0,
+        "clue": "Then 后听到 sing，对应唱歌。",
+        "start": 9.396,
+        "end": 12.102
+      },
+      {
+        "text": "Before dinner, he is going to tidy his room.",
+        "card": 2,
+        "clue": "最后介绍 before dinner 的整理房间；按录音提及顺序编号。",
+        "start": 12.732,
+        "end": 15.942
+      }
+    ],
+    "audioSrc": "audio/listen-sort-d2.mp3",
+    "hint": "先看懂各幅图。第一次听抓整体，第二次听核对人物和动作；按录音提及顺序，不按自己想象的作息或星期顺序。",
+    "why": "每幅图都对应录音中的一项行动。可以分句重听，找到动作词、人物和顺序线索。",
+    "challenge": true,
+    "optional": false,
+    "stage": 1,
+    "examStyle": false,
+    "practiceId": "listen-sort-d2b",
+    "duration": 16.572
+  },
+  {
+    "id": "listen-sort-d2b",
+    "day": 1,
+    "type": "listen-order",
+    "skill": "听短文排序 · 同类再练",
+    "prompt": "Mia想学的新本领：听短文，按录音提及活动的顺序给图片编号。",
+    "cards": [
+      {
+        "kind": "paint",
+        "label": "画画"
+      },
+      {
+        "kind": "pack",
+        "label": "装书包"
+      },
+      {
+        "kind": "swim",
+        "label": "游泳"
+      },
+      {
+        "kind": "cook",
+        "label": "做饭"
+      }
+    ],
+    "answer": [
+      2,
+      3,
+      0,
+      1
+    ],
+    "given": 2,
+    "parts": [
+      {
+        "text": "Mia wants to learn to swim. She is going to the pool on Saturday.",
+        "card": 2,
+        "clue": "learn to swim 和 pool 对应游泳。",
+        "start": 0.4,
+        "end": 4.87
+      },
+      {
+        "text": "On Sunday morning, she is going to cook with her mother.",
+        "card": 3,
+        "clue": "第二项是 cook，不要把 Saturday 和 Sunday 混在一起。",
+        "start": 5.5,
+        "end": 9.439
+      },
+      {
+        "text": "In the afternoon, she is going to paint a picture.",
+        "card": 0,
+        "clue": "paint a picture 对应画画。",
+        "start": 10.069,
+        "end": 13.685
+      },
+      {
+        "text": "Before bed, she is going to put her books in her school bag.",
+        "card": 1,
+        "clue": "最后是把书装进书包，不是再次读书。",
+        "start": 14.315,
+        "end": 18.317
+      }
+    ],
+    "audioSrc": "audio/listen-sort-d2b.mp3",
+    "hint": "先看懂各幅图。第一次听抓整体，第二次听核对人物和动作；按录音提及顺序，不按自己想象的作息或星期顺序。",
+    "why": "每幅图都对应录音中的一项行动。可以分句重听，找到动作词、人物和顺序线索。",
+    "challenge": false,
+    "optional": true,
+    "stage": 1,
+    "examStyle": false,
+    "practiceId": null,
+    "duration": 18.947
+  },
+  {
+    "id": "listen-sort-d3",
+    "day": 2,
+    "type": "listen-order",
+    "skill": "听短文排序 · 5图辨信息",
+    "prompt": "Anna的健康与学习计划：听短文，按录音提及活动的顺序给图片编号。",
+    "cards": [
+      {
+        "kind": "friend",
+        "label": "结交朋友"
+      },
+      {
+        "kind": "cook",
+        "label": "做饭"
+      },
+      {
+        "kind": "read",
+        "label": "读书"
+      },
+      {
+        "kind": "swim",
+        "label": "游泳"
+      },
+      {
+        "kind": "drink",
+        "label": "喝水"
+      }
+    ],
+    "answer": [
+      4,
+      3,
+      2,
+      1,
+      0
+    ],
+    "given": 4,
+    "parts": [
+      {
+        "text": "Anna is going to drink more water every day.",
+        "card": 4,
+        "clue": "drink more water 是第一项行动。",
+        "start": 0.4,
+        "end": 3.261
+      },
+      {
+        "text": "On Wednesday, she is going to learn to swim.",
+        "card": 3,
+        "clue": "learn to swim 对应泳池图。",
+        "start": 3.891,
+        "end": 7.313
+      },
+      {
+        "text": "She is not going to watch TV after dinner. She is going to read English.",
+        "card": 2,
+        "clue": "watch TV 被否定了，真正的行动是 read English；本题没有看电视图。",
+        "start": 7.943,
+        "end": 13.107
+      },
+      {
+        "text": "On Saturday, she is going to learn to cook.",
+        "card": 1,
+        "clue": "learn to cook 对应锅和灶台。",
+        "start": 13.737,
+        "end": 17.125
+      },
+      {
+        "text": "At her new club, she is going to make new friends.",
+        "card": 0,
+        "clue": "最后介绍新社团里的 make new friends。",
+        "start": 17.755,
+        "end": 21.475
+      }
+    ],
+    "audioSrc": "audio/listen-sort-d3.mp3",
+    "hint": "先看懂各幅图。第一次听抓整体，第二次听核对人物和动作；按录音提及顺序，不按自己想象的作息或星期顺序。",
+    "why": "每幅图都对应录音中的一项行动。可以分句重听，找到动作词、人物和顺序线索。",
+    "challenge": true,
+    "optional": false,
+    "stage": 1,
+    "examStyle": false,
+    "practiceId": "listen-sort-d3b",
+    "duration": 22.105
+  },
+  {
+    "id": "listen-sort-d3b",
+    "day": 2,
+    "type": "listen-order",
+    "skill": "听短文排序 · 同类再练",
+    "prompt": "Ben准备怎样进步：听短文，按录音提及活动的顺序给图片编号。",
+    "cards": [
+      {
+        "kind": "read",
+        "label": "读书"
+      },
+      {
+        "kind": "sing",
+        "label": "唱歌"
+      },
+      {
+        "kind": "football",
+        "label": "踢足球"
+      },
+      {
+        "kind": "drink",
+        "label": "喝水"
+      },
+      {
+        "kind": "tidy",
+        "label": "整理房间"
+      }
+    ],
+    "answer": [
+      4,
+      2,
+      0,
+      3,
+      1
+    ],
+    "given": 4,
+    "parts": [
+      {
+        "text": "Ben is going to be clean and tidy. He is going to tidy his room.",
+        "card": 4,
+        "clue": "be clean and tidy 的行动是 tidy his room。",
+        "start": 0.4,
+        "end": 4.924
+      },
+      {
+        "text": "He is going to join the football team and play football after school.",
+        "card": 2,
+        "clue": "football 对应足球图。",
+        "start": 5.554,
+        "end": 9.839
+      },
+      {
+        "text": "After dinner, he is going to read a storybook.",
+        "card": 0,
+        "clue": "storybook 对应读书，不是唱歌。",
+        "start": 10.469,
+        "end": 14.055
+      },
+      {
+        "text": "He wants to stay healthy, so he is going to drink more water.",
+        "card": 3,
+        "clue": "drink more water 是健康行动。",
+        "start": 14.685,
+        "end": 18.792
+      },
+      {
+        "text": "He also wants to learn something new. He is going to sing at the music club.",
+        "card": 1,
+        "clue": "music club 和 sing 对应唱歌，最后才介绍。",
+        "start": 19.422,
+        "end": 24.734
+      }
+    ],
+    "audioSrc": "audio/listen-sort-d3b.mp3",
+    "hint": "先看懂各幅图。第一次听抓整体，第二次听核对人物和动作；按录音提及顺序，不按自己想象的作息或星期顺序。",
+    "why": "每幅图都对应录音中的一项行动。可以分句重听，找到动作词、人物和顺序线索。",
+    "challenge": false,
+    "optional": true,
+    "stage": 1,
+    "examStyle": false,
+    "practiceId": null,
+    "duration": 25.364
+  },
+  {
+    "id": "listen-sort-d4",
+    "day": 3,
+    "type": "listen-order",
+    "skill": "听短文排序 · 6图模拟",
+    "prompt": "六幅图小模拟：听短文，按录音提及活动的顺序给图片编号。",
+    "cards": [
+      {
+        "kind": "run",
+        "label": "跑步"
+      },
+      {
+        "kind": "drink",
+        "label": "喝水"
+      },
+      {
+        "kind": "plant",
+        "label": "给植物浇水"
+      },
+      {
+        "kind": "tidy",
+        "label": "整理房间"
+      },
+      {
+        "kind": "read",
+        "label": "读书"
+      },
+      {
+        "kind": "paint",
+        "label": "画画"
+      }
+    ],
+    "answer": [
+      2,
+      4,
+      0,
+      5,
+      1,
+      3
+    ],
+    "given": 2,
+    "parts": [
+      {
+        "text": "On Saturday, Lucy is going to water the plants first.",
+        "card": 2,
+        "clue": "water the plants 对应浇植物，已给出第1项。",
+        "start": 0.4,
+        "end": 4.542
+      },
+      {
+        "text": "Then she is going to read English for twenty minutes.",
+        "card": 4,
+        "clue": "read English 是第2项；twenty minutes 是时长。",
+        "start": 5.172,
+        "end": 8.33
+      },
+      {
+        "text": "After that, she is going to run in the park with her father.",
+        "card": 0,
+        "clue": "run in the park 对应跑步。",
+        "start": 8.96,
+        "end": 12.769
+      },
+      {
+        "text": "In the afternoon, she is going to paint a picture.",
+        "card": 5,
+        "clue": "paint a picture 对应画画。",
+        "start": 13.399,
+        "end": 17.015
+      },
+      {
+        "text": "She is going to drink some water after painting.",
+        "card": 1,
+        "clue": "after painting 提醒喝水在画画之后。",
+        "start": 17.645,
+        "end": 20.953
+      },
+      {
+        "text": "Before bed, she is going to tidy her room.",
+        "card": 3,
+        "clue": "最后介绍 tidy her room。",
+        "start": 21.583,
+        "end": 24.665
+      }
+    ],
+    "audioSrc": "audio/listen-sort-d4.mp3",
+    "hint": "先看懂各幅图。第一次听抓整体，第二次听核对人物和动作；按录音提及顺序，不按自己想象的作息或星期顺序。",
+    "why": "每幅图都对应录音中的一项行动。可以分句重听，找到动作词、人物和顺序线索。",
+    "challenge": true,
+    "optional": false,
+    "stage": 1,
+    "examStyle": true,
+    "practiceId": "listen-sort-d4b",
+    "duration": 25.295
+  },
+  {
+    "id": "listen-sort-d4b",
+    "day": 3,
+    "type": "listen-order",
+    "skill": "听短文排序 · 同类再练",
+    "prompt": "六位同学的目标：听短文，按录音提及活动的顺序给图片编号。",
+    "cards": [
+      {
+        "kind": "pack",
+        "label": "装书包"
+      },
+      {
+        "kind": "basketball",
+        "label": "打篮球"
+      },
+      {
+        "kind": "paint",
+        "label": "画画"
+      },
+      {
+        "kind": "friend",
+        "label": "结交朋友"
+      },
+      {
+        "kind": "cook",
+        "label": "做饭"
+      },
+      {
+        "kind": "run",
+        "label": "跑步"
+      }
+    ],
+    "answer": [
+      3,
+      4,
+      1,
+      5,
+      2,
+      0
+    ],
+    "given": 3,
+    "parts": [
+      {
+        "text": "Amy is going to make new friends at her new school.",
+        "card": 3,
+        "clue": "第一位Amy的目标是 make new friends。",
+        "start": 0.4,
+        "end": 3.992
+      },
+      {
+        "text": "Tom wants to help at home. He is going to learn to cook.",
+        "card": 4,
+        "clue": "Tom 的 cook 对应做饭。",
+        "start": 4.622,
+        "end": 8.663
+      },
+      {
+        "text": "Ben is going to practise basketball every day.",
+        "card": 1,
+        "clue": "basketball 对应篮球架，不是足球。",
+        "start": 9.293,
+        "end": 12.926
+      },
+      {
+        "text": "Mia wants to exercise more. She is going to run in the park.",
+        "card": 5,
+        "clue": "Mia 的行动是跑步。",
+        "start": 13.556,
+        "end": 18.138
+      },
+      {
+        "text": "Leo is going to learn to paint next month.",
+        "card": 2,
+        "clue": "Leo 是 paint，next month 只说明时间。",
+        "start": 18.768,
+        "end": 21.981
+      },
+      {
+        "text": "Eva is going to put her books in her school bag every evening.",
+        "card": 0,
+        "clue": "最后介绍Eva装书包；不要按人物名字猜顺序。",
+        "start": 22.611,
+        "end": 26.561
+      }
+    ],
+    "audioSrc": "audio/listen-sort-d4b.mp3",
+    "hint": "先看懂各幅图。第一次听抓整体，第二次听核对人物和动作；按录音提及顺序，不按自己想象的作息或星期顺序。",
+    "why": "每幅图都对应录音中的一项行动。可以分句重听，找到动作词、人物和顺序线索。",
+    "challenge": false,
+    "optional": true,
+    "stage": 1,
+    "examStyle": true,
+    "practiceId": null,
+    "duration": 27.191
+  },
+  {
+    "id": "listen-sort-d5",
+    "day": 4,
+    "type": "listen-order",
+    "skill": "听短文排序 · 提及顺序",
+    "prompt": "按介绍顺序给计划编号：听短文，按录音提及活动的顺序给图片编号。",
+    "cards": [
+      {
+        "kind": "read",
+        "label": "读书"
+      },
+      {
+        "kind": "tidy",
+        "label": "整理房间"
+      },
+      {
+        "kind": "friend",
+        "label": "结交朋友"
+      },
+      {
+        "kind": "basketball",
+        "label": "打篮球"
+      },
+      {
+        "kind": "swim",
+        "label": "游泳"
+      },
+      {
+        "kind": "sing",
+        "label": "唱歌"
+      }
+    ],
+    "answer": [
+      3,
+      5,
+      0,
+      4,
+      2,
+      1
+    ],
+    "given": 3,
+    "parts": [
+      {
+        "text": "Here are our plans. On Friday, Ben is going to play basketball.",
+        "card": 3,
+        "clue": "先介绍周五的篮球计划，按录音提及顺序，不按星期先后。",
+        "start": 0.4,
+        "end": 5.787
+      },
+      {
+        "text": "On Monday, Amy is going to sing at the music club.",
+        "card": 5,
+        "clue": "录音第2项才介绍周一的唱歌计划。",
+        "start": 6.417,
+        "end": 10.244
+      },
+      {
+        "text": "On Wednesday, Leo is going to read English at the library.",
+        "card": 0,
+        "clue": "第3项是Leo在图书馆读英语。",
+        "start": 10.874,
+        "end": 15.251
+      },
+      {
+        "text": "On Saturday, Mia is going to swim with her father.",
+        "card": 4,
+        "clue": "Mia 的 swim 对应游泳。",
+        "start": 15.881,
+        "end": 19.633
+      },
+      {
+        "text": "At his new school, Tom is going to make new friends.",
+        "card": 2,
+        "clue": "Tom 对应交新朋友。",
+        "start": 20.263,
+        "end": 23.829
+      },
+      {
+        "text": "Eva is going to tidy her room on Sunday morning.",
+        "card": 1,
+        "clue": "最后介绍Eva整理房间；Sunday 不决定它在录音中的位置。",
+        "start": 24.459,
+        "end": 27.906
+      }
+    ],
+    "audioSrc": "audio/listen-sort-d5.mp3",
+    "hint": "先看懂各幅图。第一次听抓整体，第二次听核对人物和动作；按录音提及顺序，不按自己想象的作息或星期顺序。",
+    "why": "每幅图都对应录音中的一项行动。可以分句重听，找到动作词、人物和顺序线索。",
+    "challenge": true,
+    "optional": false,
+    "stage": 1,
+    "examStyle": true,
+    "practiceId": "listen-sort-d5b",
+    "duration": 28.536
+  },
+  {
+    "id": "listen-sort-d5b",
+    "day": 4,
+    "type": "listen-order",
+    "skill": "听短文排序 · 同类再练",
+    "prompt": "新短文再测一次：听短文，按录音提及活动的顺序给图片编号。",
+    "cards": [
+      {
+        "kind": "cook",
+        "label": "做饭"
+      },
+      {
+        "kind": "swim",
+        "label": "游泳"
+      },
+      {
+        "kind": "tidy",
+        "label": "整理房间"
+      },
+      {
+        "kind": "read",
+        "label": "读书"
+      },
+      {
+        "kind": "friend",
+        "label": "结交朋友"
+      },
+      {
+        "kind": "drink",
+        "label": "喝水"
+      }
+    ],
+    "answer": [
+      3,
+      5,
+      0,
+      4,
+      1,
+      2
+    ],
+    "given": 3,
+    "parts": [
+      {
+        "text": "On Thursday, Anna is going to read more English books.",
+        "card": 3,
+        "clue": "录音先说Anna读英语。",
+        "start": 0.4,
+        "end": 4.26
+      },
+      {
+        "text": "To stay healthy, Ben is going to drink more water every day.",
+        "card": 5,
+        "clue": "Ben 的行动是喝水。",
+        "start": 4.89,
+        "end": 8.996
+      },
+      {
+        "text": "On Tuesday, Tom is going to learn to cook at home.",
+        "card": 0,
+        "clue": "接着介绍周二的Tom做饭；不要把星期顺序套进来。",
+        "start": 9.625,
+        "end": 13.566
+      },
+      {
+        "text": "On Friday, Leo is going to make new friends at his club.",
+        "card": 4,
+        "clue": "Leo 对应交朋友。",
+        "start": 14.196,
+        "end": 18.452
+      },
+      {
+        "text": "Mia is going to swim on Wednesday afternoon.",
+        "card": 1,
+        "clue": "第5项才是周三游泳；不是按星期排列。",
+        "start": 19.082,
+        "end": 22.05
+      },
+      {
+        "text": "Finally, Eva is going to tidy her room after dinner.",
+        "card": 2,
+        "clue": "Finally 后的整理房间为最后一项。",
+        "start": 22.68,
+        "end": 26.355
+      }
+    ],
+    "audioSrc": "audio/listen-sort-d5b.mp3",
+    "hint": "先看懂各幅图。第一次听抓整体，第二次听核对人物和动作；按录音提及顺序，不按自己想象的作息或星期顺序。",
+    "why": "每幅图都对应录音中的一项行动。可以分句重听，找到动作词、人物和顺序线索。",
+    "challenge": false,
+    "optional": true,
+    "stage": 1,
+    "examStyle": true,
+    "practiceId": null,
+    "duration": 26.985
+  }
+];
+ questions.forEach(q=>U.days[q.day].questions.push(q));
+ U.days.forEach((d,i)=>{
+  const id='listen-sort-d'+(i+1),slot=d.coreIds.findIndex(id=>id.startsWith('deep-e'));
+  d.coreIds[slot]=id;
+  d.questions.forEach(q=>q.optional=!d.coreIds.includes(q.id));
+  d.notes.push(['听排序的办法','先看图，听清人物和动作，按录音提及顺序编号。第一次抓整体，第二次补空并核对。不要按自己想象的作息或星期排列。']);
+ });
+ U.days.flatMap(d=>d.questions).filter(q=>q.type==='listen').forEach(q=>q.audioSrc='audio/'+q.id+'.mp3');
+ U.listeningRevision=1;
+ U.coverage.push(['听短文排图','每天1道主线排序，另有5道同类练习；3图起步，逐步到6图（含1个示例），答后可分句重听找依据。听力题配有MP3文件。']);
+})();
