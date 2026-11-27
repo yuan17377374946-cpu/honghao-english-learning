@@ -44,22 +44,29 @@ const withHint=[
 window.renderReviewMindmap=(q,options)=>{
  const el=document.getElementById('mindmap'),data=routes[q.id];
  if(!data)throw new Error('Missing mindmap route: '+q.id);
- let choice={mode:'',branch:'',leaf:'',...(options.choice||{})};
+ let choice={mode:'',branch:'',leaf:'',path:[],...(options.choice||{})};
+ if(!Array.isArray(choice.path))choice.path=[];
  const modes=[{id:'no-hint',name:'无提示词',caption:'根据结构、意思和搭配判断',nodes:noHint},{id:'with-hint',name:'有提示词',caption:'先认词性，再判断怎样变化',nodes:withHint}];
+ function deeper(nodes,depth=0){
+  const active=nodes.find(node=>node.id===choice.path[depth]);
+  return `<section class="map-deep-level" data-map-level="${depth}"><p class="map-deep-heading">${depth===0?'继续点开小卡片':'再看具体情况'}</p><div class="map-deep-cards">${nodes.map(node=>`<button type="button" class="map-deep-card" data-map-node="${node.id}" data-map-depth="${depth}" aria-expanded="${active===node}"><span>${esc(node.title)}</span><span class="map-expand-icon" aria-hidden="true">${active===node?'−':'＋'}</span></button>`).join('')}</div>${active?`<div class="map-deep-panel" data-map-panel="${depth}"><p class="map-detail-title">${esc(active.title)}</p><p class="map-deep-copy">${esc(active.text)}</p>${active.children.length?deeper(active.children,depth+1):'<p class="map-end">这条已展开到规则和例句；再点卡片可以收起。</p>'}</div>`:''}</section>`;
+ }
  function draw(){
-  el.innerHTML=`<div class="map-header"><div><p class="eyebrow">先自己判断</p><h3 id="mapTitle">选一条做题思路</h3></div><span class="map-question">${esc(q.title)}</span></div><p class="map-caption">先看有没有提示词，再选你认为合适的卡片。</p>${modes.map(mode=>{
+  el.innerHTML=`<div class="map-header"><div><p class="eyebrow">先自己判断</p><h3 id="mapTitle">选一条做题思路</h3></div><span class="map-question">${esc(q.title)}</span></div><p class="map-caption">先自己选分支；点小卡片继续展开，再点一次收起。</p>${modes.map(mode=>{
    const selected=choice.mode===mode.id?mode.nodes.find(n=>n.id===choice.branch):null;
-   return `<section class="map-card-group" aria-label="${esc(mode.name)}"><h4>${esc(mode.name)}</h4><p class="map-group-caption">${esc(mode.caption)}</p><div class="map-card-grid">${mode.nodes.map(node=>`<button type="button" class="map-choice-card" data-map-mode="${mode.id}" data-map-branch="${node.id}" aria-pressed="${selected===node}"><span>${esc(node.name)}</span></button>`).join('')}</div>${selected?`<div class="map-selection"><p class="map-selection-title">你选择了：${esc(selected.name)}</p><p class="map-selection-caption">继续选下面的小分支，看看判断方法是否适合这句话。</p><div class="map-subcards">${selected.children.map(([id,name,rule])=>`<button type="button" class="map-subcard" data-map-leaf="${id}" aria-pressed="${choice.leaf===id}">${esc(name)}</button>`).join('')}</div>${selected.children.filter(([id])=>id===choice.leaf).map(([id,name,rule])=>`<div class="map-rule-panel"><b>可以这样检查</b><p>${esc(rule)}</p></div>`).join('')}</div>`:''}</section>`;
+   return `<section class="map-card-group" aria-label="${esc(mode.name)}"><h4>${esc(mode.name)}</h4><p class="map-group-caption">${esc(mode.caption)}</p><div class="map-card-grid">${mode.nodes.map(node=>`<button type="button" class="map-choice-card" data-map-mode="${mode.id}" data-map-branch="${node.id}" aria-pressed="${selected===node}" aria-expanded="${selected===node}"><span>${esc(node.name)}</span></button>`).join('')}</div>${selected?`<div class="map-selection"><p class="map-selection-title">你选择了：${esc(selected.name)}</p><p class="map-selection-caption">下面每层卡片都能点开；先看规则，再判断是否适合这句话。</p><div class="map-subcards">${selected.children.map(([id,name,rule])=>`<button type="button" class="map-subcard" data-map-leaf="${id}" aria-pressed="${choice.leaf===id}" aria-expanded="${choice.leaf===id}"><span>${esc(name)}</span><span class="map-expand-icon" aria-hidden="true">${choice.leaf===id?'−':'＋'}</span></button>`).join('')}</div>${selected.children.filter(([id])=>id===choice.leaf).map(([id,name,rule])=>`<div class="map-rule-panel"><b>可以这样检查</b><p>${esc(rule)}</p>${deeper(window.REVIEW_GRAMMAR_BRANCHES[id]||[])}</div>`).join('')}</div>`:''}</section>`;
   }).join('')}${options.done?`<section class="map-review"><h4>做完再核对判断过程</h4><ol class="map-steps"><li><b>看线索</b><span>${esc(data[1])}</span></li><li><b>作判断</b><span>${esc(data[2])}</span></li><li><b>填回去检查</b><span>${esc(data[3])}</span></li></ol><p class="map-result">答案：<strong lang="en">${esc(options.answer)}</strong></p></section>`:''}<p class="map-foot">选卡片只记录你的思路，不会提前判断对错；详细解析在作答后核对。</p>`;
  }
  el.onclick=e=>{
-  const branch=e.target.closest('[data-map-branch]'),leaf=e.target.closest('[data-map-leaf]');
-  if(branch){choice={mode:branch.dataset.mapMode,branch:branch.dataset.mapBranch,leaf:''};}
-  else if(leaf){choice={...choice,leaf:leaf.dataset.mapLeaf};}
+  const branch=e.target.closest('[data-map-branch]'),leaf=e.target.closest('[data-map-leaf]'),node=e.target.closest('[data-map-node]');
+  let focusSelector;
+  if(branch){const same=choice.mode===branch.dataset.mapMode&&choice.branch===branch.dataset.mapBranch;choice=same?{mode:'',branch:'',leaf:'',path:[]}:{mode:branch.dataset.mapMode,branch:branch.dataset.mapBranch,leaf:'',path:[]};focusSelector='[data-map-branch="'+branch.dataset.mapBranch+'"]';}
+  else if(leaf){choice={...choice,leaf:choice.leaf===leaf.dataset.mapLeaf?'':leaf.dataset.mapLeaf,path:[]};focusSelector='[data-map-leaf="'+leaf.dataset.mapLeaf+'"]';}
+  else if(node){const depth=Number(node.dataset.mapDepth),id=node.dataset.mapNode,path=choice.path.slice(0,depth);if(choice.path[depth]!==id)path.push(id);choice={...choice,path};focusSelector='[data-map-node="'+id+'"][data-map-depth="'+depth+'"]';}
   else return;
-  options.onSelect({...choice});
+  options.onSelect({...choice,path:[...choice.path]});
   draw();
-  const selected=branch?el.querySelector('[data-map-branch="'+choice.branch+'"]'):el.querySelector('[data-map-leaf="'+choice.leaf+'"]');
+  const selected=el.querySelector(focusSelector);
   if(selected)selected.focus({preventScroll:true});
  };
  draw();
