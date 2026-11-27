@@ -19,5 +19,8 @@
 .reference-route{margin-top:16px;border-top:1px dashed var(--border);padding-top:10px}
 .reference-route li{margin:10px 0}.reference-route b{display:block}
 .top-actions{flex-wrap:wrap}.answer-kicker{color:#526f7d}
+.retry-all{display:block;width:100%;margin-top:12px;border-color:#a8c8da;background:#edf6fc;color:#225e80;font-size:16px;min-height:46px}
+.retry-all-hint{font-size:13px;color:var(--muted);line-height:1.6;margin-top:6px}
+.retry-all-status{font-size:14px;color:#347d14;line-height:1.6;margin-top:8px}
 @media(max-width:930px){.question-stack{position:static}#flowPanel{padding:20px}.exercise{display:flex;flex-direction:column}.question-stack{display:contents}.question-paper{order:1;width:100%}#flowPanel{order:2;width:100%}#answerArea{order:3;width:100%}}
 @media(max-width:640px){#flowPanel,.question-stack #answerArea{padding:18px 16px}.map-header{display:block}.map-question{display:none}.map-choice-card{min-height:60px;font-size:17px}.map-deep-cards{grid-template-columns:1fr}}
