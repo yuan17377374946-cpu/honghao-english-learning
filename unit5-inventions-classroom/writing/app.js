@@ -69,7 +69,7 @@
   function jumpToPractice(id) {
     state.view='grammar';save();render({focus:true});
     const el=document.getElementById(id);
-    if (el) { el.setAttribute('tabindex','-1');el.focus({preventScroll:true});el.scrollIntoView({block:'center'}); }
+    if (el) { el.setAttribute('tabindex','-1');el.focus({preventScroll:true});el.scrollIntoView({block:id.startsWith('writing-')?'start':'center'}); }
   }
   function grammar() {
     const questions = CMP.pairs.flatMap(p => p.questions);
