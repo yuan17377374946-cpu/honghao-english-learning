@@ -42,7 +42,7 @@ const withHint=[
  {id:'number',name:'数词',children:[['special','前三个：整体特殊变化','前三个的序数词形式要整体记忆。'],['spelling','特殊拼写变化','检查 five、eight、nine、twelve 等词的字母变化。'],['tens','整十数','检查末尾 y 的变化，再加序数词词尾。'],['compound','复合数词','只变最后一个词；注意连字符和个位的特殊变化。'],['regular','一般变化与数量表达','多数基数词变序数词加 th；也要判断语境是否仍需基数词。']]}
 ];
 window.renderReviewMindmap=(q,options)=>{
- const el=document.getElementById('mindmap'),data=routes[q.id];
+ const el=document.getElementById('mindmap'),data=routes[q.id]||window.REVIEW_MIXED_ROUTES?.[q.id];
  if(!data)throw new Error('Missing mindmap route: '+q.id);
  let choice={mode:'',branch:'',leaf:'',path:[],...(options.choice||{})};
  if(!Array.isArray(choice.path))choice.path=[];
@@ -52,6 +52,7 @@ window.renderReviewMindmap=(q,options)=>{
   return `<section class="map-deep-level" data-map-level="${depth}"><p class="map-deep-heading">${depth===0?'继续点开小卡片':'再看具体情况'}</p><div class="map-deep-cards">${nodes.map(node=>`<button type="button" class="map-deep-card" data-map-node="${node.id}" data-map-depth="${depth}" aria-expanded="${active===node}"><span>${esc(node.title)}</span><span class="map-expand-icon" aria-hidden="true">${active===node?'−':'＋'}</span></button>`).join('')}</div>${active?`<div class="map-deep-panel" data-map-panel="${depth}"><p class="map-detail-title">${esc(active.title)}</p><p class="map-deep-copy">${esc(active.text)}</p>${active.children.length?deeper(active.children,depth+1):'<p class="map-end">这条已展开到规则和例句；再点卡片可以收起。</p>'}</div>`:''}</section>`;
  }
  function draw(){
+  if(choice.leaf)options.onConsult?.('导图规则');
   el.innerHTML=`<div class="map-header"><div><p class="eyebrow">先自己判断</p><h3 id="mapTitle">选一条做题思路</h3></div><span class="map-question">${esc(q.title)}</span></div><p class="map-caption">先自己选分支；点小卡片继续展开，再点一次收起。</p>${modes.map(mode=>{
    const selected=choice.mode===mode.id?mode.nodes.find(n=>n.id===choice.branch):null;
    return `<section class="map-card-group" aria-label="${esc(mode.name)}"><h4>${esc(mode.name)}</h4><p class="map-group-caption">${esc(mode.caption)}</p><div class="map-card-grid">${mode.nodes.map(node=>`<button type="button" class="map-choice-card" data-map-mode="${mode.id}" data-map-branch="${node.id}" aria-pressed="${selected===node}" aria-expanded="${selected===node}"><span>${esc(node.name)}</span></button>`).join('')}</div>${selected?`<div class="map-selection"><p class="map-selection-title">你选择了：${esc(selected.name)}</p><p class="map-selection-caption">下面每层卡片都能点开；先看规则，再判断是否适合这句话。</p><div class="map-subcards">${selected.children.map(([id,name,rule])=>`<button type="button" class="map-subcard" data-map-leaf="${id}" aria-pressed="${choice.leaf===id}" aria-expanded="${choice.leaf===id}"><span>${esc(name)}</span><span class="map-expand-icon" aria-hidden="true">${choice.leaf===id?'−':'＋'}</span></button>`).join('')}</div>${selected.children.filter(([id])=>id===choice.leaf).map(([id,name,rule])=>`<div class="map-rule-panel"><b>可以这样检查</b><p>${esc(rule)}</p>${deeper(window.REVIEW_GRAMMAR_BRANCHES[id]||[])}</div>`).join('')}</div>`:''}</section>`;
