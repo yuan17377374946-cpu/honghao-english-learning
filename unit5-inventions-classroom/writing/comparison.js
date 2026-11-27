@@ -249,7 +249,7 @@ window.WRITING_COMPARISON = {
           "id": "cmp-11",
           "prompt": "改正：The machine works slowlyer than before.",
           "options": [
-            "slower",
+            "more slower",
             "more slowly"
           ],
           "answer": "more slowly",
