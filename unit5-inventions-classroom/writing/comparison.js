@@ -78,6 +78,42 @@ window.WRITING_COMPARISON = {
       "bad / badly",
       "worse",
       "the worst"
+    ],
+    [
+      "形容词",
+      "hard",
+      "harder",
+      "the hardest"
+    ],
+    [
+      "形容词",
+      "long",
+      "longer",
+      "the longest"
+    ],
+    [
+      "形容词",
+      "bright",
+      "brighter",
+      "the brightest"
+    ],
+    [
+      "副词",
+      "clearly",
+      "more clearly",
+      "the most clearly"
+    ],
+    [
+      "形容词",
+      "useful",
+      "more useful",
+      "the most useful"
+    ],
+    [
+      "形容词",
+      "simple",
+      "simpler",
+      "the simplest"
     ]
   ],
   "rules": [
@@ -268,6 +304,455 @@ window.WRITING_COMPARISON = {
           "hint": "最高级选-er/-est这一套，还是more/most这一套？"
         }
       ]
+    },
+    {
+      "title": "7 · 搬箱子：困难和重量",
+      "questions": [
+        {
+          "id": "cmp-13",
+          "prompt": "Without a lever, it is ____ to lift this heavy box.",
+          "options": [
+            "hard",
+            "hardly"
+          ],
+          "answer": "hard",
+          "why": "hard在这里是形容词，说明抬箱子很困难；比较级harder，最高级hardest。hardly不是这里需要的意思。",
+          "hint": "本句在说抬箱子困难，先选原级。"
+        },
+        {
+          "id": "cmp-14",
+          "prompt": "This box is ____ than that one.",
+          "options": [
+            "heavy",
+            "heavier",
+            "heaviest"
+          ],
+          "answer": "heavier",
+          "why": "than提示两者比较；heavy变y为i，再加-er，成为heavier。",
+          "hint": "先找than，再回忆heavy怎样变。"
+        }
+      ]
+    },
+    {
+      "title": "8 · 出行花时间，工具有用途",
+      "questions": [
+        {
+          "id": "cmp-15",
+          "prompt": "Walking takes a ____ time.",
+          "options": [
+            "long",
+            "longer",
+            "longest"
+          ],
+          "answer": "long",
+          "why": "a long time表示很长时间；这里没有作比较，直接用long。",
+          "hint": "这里有没有比较两个时间？"
+        },
+        {
+          "id": "cmp-16",
+          "prompt": "Of these three tools, this cart is the ____ for carrying books.",
+          "options": [
+            "useful",
+            "more useful",
+            "most useful"
+          ],
+          "answer": "most useful",
+          "why": "三种工具中选最有用的，用形容词最高级most useful；题干已有the。",
+          "hint": "先看比较范围，再看描述的是工具还是动作。"
+        }
+      ]
+    },
+    {
+      "title": "9 · 灯让房间怎样，让我们看得怎样",
+      "questions": [
+        {
+          "id": "cmp-17",
+          "prompt": "With the light on, the room is ____.",
+          "options": [
+            "bright",
+            "brightly"
+          ],
+          "answer": "bright",
+          "why": "is后说明room明亮，用形容词bright；brighter / brightest也可用于比较亮度。",
+          "hint": "说明room的状态，还是说明某个动作？"
+        },
+        {
+          "id": "cmp-18",
+          "prompt": "The light helps us see things ____ than before.",
+          "options": [
+            "clear",
+            "more clearly",
+            "most clearly"
+          ],
+          "answer": "more clearly",
+          "why": "说明see这个动作，用副词clearly；than before表示与以前比较，所以用more clearly。",
+          "hint": "先找动作see，再看than before。"
+        }
+      ]
+    },
+    {
+      "title": "10 · 作文开头和图书小车",
+      "questions": [
+        {
+          "id": "cmp-19",
+          "prompt": "My favourite ____ machine is the wheel.",
+          "options": [
+            "simple",
+            "simply"
+          ],
+          "answer": "simple",
+          "why": "simple修饰machine，组成simple machine；它的比较级、最高级可写simpler / simplest。",
+          "hint": "空格修饰machine这个名词。"
+        },
+        {
+          "id": "cmp-20",
+          "prompt": "This cart is ____ books.",
+          "options": [
+            "full of",
+            "most full",
+            "fullest"
+          ],
+          "answer": "full of",
+          "why": "full of books表示装满书；本句直接练词组，不需要比较级或最高级。",
+          "hint": "装满书，要用哪个完整词组？"
+        }
+      ]
+    },
+    {
+      "title": "11 · 不作比较时，也要会用原级",
+      "questions": [
+        {
+          "id": "cmp-21",
+          "prompt": "I like this lever. It is very ____.",
+          "options": [
+            "useful",
+            "usefully",
+            "more useful"
+          ],
+          "answer": "useful",
+          "why": "这里描述lever有用，用形容词原级useful；very后不直接接more useful。",
+          "hint": "very后要填形容词原级，还是比较级？"
+        },
+        {
+          "id": "cmp-22",
+          "prompt": "The ramp helps us move boards ____.",
+          "options": [
+            "easy",
+            "easily",
+            "easier"
+          ],
+          "answer": "easily",
+          "why": "空格说明move这个动作，用副词原级easily；只有需要比较时才用more easily或most easily。",
+          "hint": "形容词、副词先选对，再判断是否需要比较。"
+        }
+      ]
+    },
+    {
+      "title": "12 · 喜欢什么，以前怎样联系家人",
+      "questions": [
+        {
+          "id": "cmp-23",
+          "prompt": "My ____ invention is the washing machine.",
+          "options": [
+            "favourite",
+            "most favourite"
+          ],
+          "answer": "favourite",
+          "why": "My favourite invention是本课开头句；这里不写most favourite。",
+          "hint": "本课开头句怎样说“我最喜欢的发明”？"
+        },
+        {
+          "id": "cmp-24",
+          "prompt": "In the past, people ____ wrote letters to family far away.",
+          "options": [
+            "often",
+            "oftenly"
+          ],
+          "answer": "often",
+          "why": "often表示经常，是副词，本身就能说明动作发生的频率；不加-ly。",
+          "hint": "表示“经常”，often本身能不能直接用？"
+        }
+      ]
+    },
+    {
+      "title": "13 · 远行与远方的家人",
+      "questions": [
+        {
+          "id": "cmp-25",
+          "prompt": "For a long trip, planes are ____ faster than trains.",
+          "options": [
+            "usually",
+            "usual"
+          ],
+          "answer": "usually",
+          "why": "usually表示通常；本句用faster比较速度，用usually说明通常如此，不把usually硬变比较级。",
+          "hint": "这句中表示速度比较的词已经是哪一个？"
+        },
+        {
+          "id": "cmp-26",
+          "prompt": "In the past, people often wrote letters to family ____.",
+          "options": [
+            "far away",
+            "faraway"
+          ],
+          "answer": "far away",
+          "why": "far away放在family后，表示家人在远方；本课直接练family far away这个搭配。",
+          "hint": "这里要表达“在远方”，用两个词的短语。"
+        }
+      ]
     }
-  ]
+  ],
+  "targets": [
+    {
+      "id": "heavy",
+      "word": "heavy",
+      "kind": "形容词",
+      "cn": "重的",
+      "comparative": "heavier",
+      "superlative": "heaviest",
+      "use": "a heavy box / carry heavy books",
+      "practiceIds": [
+        "cmp-14"
+      ]
+    },
+    {
+      "id": "hard",
+      "word": "hard",
+      "kind": "形容词",
+      "cn": "困难的",
+      "comparative": "harder",
+      "superlative": "hardest",
+      "use": "It is hard to lift the box.",
+      "practiceIds": [
+        "cmp-13"
+      ]
+    },
+    {
+      "id": "easy",
+      "word": "easy",
+      "kind": "形容词",
+      "cn": "容易的",
+      "comparative": "easier",
+      "superlative": "easiest",
+      "use": "make our work easier",
+      "practiceIds": [
+        "cmp-1",
+        "cmp-3"
+      ]
+    },
+    {
+      "id": "easily",
+      "word": "easily",
+      "kind": "副词",
+      "cn": "容易地",
+      "comparative": "more easily",
+      "superlative": "most easily",
+      "use": "move things easily / lift it more easily",
+      "practiceIds": [
+        "cmp-2",
+        "cmp-4",
+        "cmp-22"
+      ]
+    },
+    {
+      "id": "fast",
+      "word": "fast",
+      "kind": "形容词 / 副词",
+      "cn": "快的；快地",
+      "comparative": "faster",
+      "superlative": "fastest",
+      "use": "travel fast / move faster",
+      "practiceIds": [
+        "cmp-9",
+        "cmp-10"
+      ]
+    },
+    {
+      "id": "long",
+      "word": "long",
+      "kind": "形容词",
+      "cn": "长的",
+      "comparative": "longer",
+      "superlative": "longest",
+      "use": "a long time / walk a long way",
+      "practiceIds": [
+        "cmp-15"
+      ]
+    },
+    {
+      "id": "bright",
+      "word": "bright",
+      "kind": "形容词",
+      "cn": "明亮的",
+      "comparative": "brighter",
+      "superlative": "brightest",
+      "use": "make the room bright",
+      "practiceIds": [
+        "cmp-17"
+      ]
+    },
+    {
+      "id": "clearly",
+      "word": "clearly",
+      "kind": "副词",
+      "cn": "清楚地",
+      "comparative": "more clearly",
+      "superlative": "most clearly",
+      "use": "see things clearly",
+      "practiceIds": [
+        "cmp-18"
+      ]
+    },
+    {
+      "id": "useful",
+      "word": "useful",
+      "kind": "形容词",
+      "cn": "有用的",
+      "comparative": "more useful",
+      "superlative": "most useful",
+      "use": "It is useful. / the most useful tool",
+      "practiceIds": [
+        "cmp-16",
+        "cmp-21"
+      ]
+    },
+    {
+      "id": "simple",
+      "word": "simple",
+      "kind": "形容词",
+      "cn": "简单的",
+      "comparative": "simpler",
+      "superlative": "simplest",
+      "use": "My favourite simple machine ...",
+      "practiceIds": [
+        "cmp-19"
+      ]
+    }
+  ],
+  "fixedWords": [
+    {
+      "id": "full",
+      "word": "full of",
+      "cn": "装满",
+      "use": "a cart full of books",
+      "practiceIds": [
+        "cmp-20"
+      ]
+    },
+    {
+      "id": "favourite",
+      "word": "favourite",
+      "cn": "最喜欢的",
+      "use": "My favourite invention is ...",
+      "practiceIds": [
+        "cmp-23"
+      ]
+    },
+    {
+      "id": "often",
+      "word": "often",
+      "cn": "经常",
+      "use": "People often wrote letters.",
+      "practiceIds": [
+        "cmp-24"
+      ]
+    },
+    {
+      "id": "usually",
+      "word": "usually",
+      "cn": "通常",
+      "use": "Planes are usually faster.",
+      "practiceIds": [
+        "cmp-25"
+      ]
+    },
+    {
+      "id": "far-away",
+      "word": "far away",
+      "cn": "在远方",
+      "use": "family far away",
+      "practiceIds": [
+        "cmp-26"
+      ]
+    }
+  ],
+  "sceneWords": {
+    "books": [
+      "heavy",
+      "hard",
+      "easy",
+      "easily",
+      "simple",
+      "favourite"
+    ],
+    "bicycle": [
+      "long",
+      "fast",
+      "easy",
+      "simple",
+      "favourite"
+    ],
+    "wheelchair": [
+      "hard",
+      "simple",
+      "favourite"
+    ],
+    "library": [
+      "easy",
+      "easily",
+      "useful",
+      "full",
+      "simple",
+      "favourite"
+    ],
+    "lever": [
+      "heavy",
+      "hard",
+      "easily",
+      "useful",
+      "simple",
+      "favourite"
+    ],
+    "opener": [
+      "hard",
+      "easy",
+      "easily",
+      "simple",
+      "favourite"
+    ],
+    "washing": [
+      "long",
+      "easy",
+      "favourite"
+    ],
+    "car": [
+      "long",
+      "easy",
+      "favourite"
+    ],
+    "light": [
+      "hard",
+      "bright",
+      "clearly",
+      "easy",
+      "favourite"
+    ],
+    "phone": [
+      "often",
+      "far-away",
+      "easy",
+      "favourite"
+    ],
+    "train": [
+      "long",
+      "fast",
+      "favourite"
+    ],
+    "plane": [
+      "long",
+      "fast",
+      "usually",
+      "favourite"
+    ]
+  }
 };

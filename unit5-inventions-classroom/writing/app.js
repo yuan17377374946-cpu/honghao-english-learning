@@ -17,6 +17,7 @@
   if (['review','grammar','scenes','compose'].includes(query.get('view'))) state.view = query.get('view');
   if (SCENES.some(s => s.id === query.get('scene'))) state.scene = query.get('scene');
   state.cmpAnswers = state.cmpAnswers || {};
+  state.cmpForms = state.cmpForms || {};
   let toastTimer, returnFocus;
   const current = () => SCENES.find(s => s.id === state.scene);
   function record(id = state.scene) {
@@ -47,15 +48,38 @@
     <div class="review-grid">${NOTES.map((n,i) => `<details class="note-card" data-review="${i}"><summary>${esc(n.title)}<small class="en">${esc(n.question)}</small></summary><div class="note-answer"><p class="en">${n.answer}</p><p class="muted">${esc(n.note)}</p><label class="language-toggle"><input type="checkbox" data-reviewed="${i}" ${state.reviewed.includes(i)?'checked':''}> 我能自己说清楚了</label></div></details>`).join('')}</div>
     <div class="review-bottom"><p>今晚建议先选：搬书、轮椅过校门、洗衣机、手机。<br>其余场景随时切换，课堂按实际进度安排。</p><button class="button primary" data-view="grammar">先分清形容词和副词</button></div>`;
   }
+  const normalForm = value => String(value || '').trim().toLowerCase().replace(/\s+/g,' ').replace(/^the /,'');
+  function formCorrect(t,r) {
+    const cs = [t.comparative], ss = [t.superlative];
+    if (t.id === 'simple') { cs.push('more simple'); ss.push('most simple'); }
+    return cs.includes(normalForm(r?.comparative)) && ss.includes(normalForm(r?.superlative));
+  }
+  function wordReady(t) {
+    const form = !t.comparative || (state.cmpForms[t.id]?.checked && formCorrect(t,state.cmpForms[t.id]));
+    return form && t.practiceIds.every(id => { const q = CMP.pairs.flatMap(p=>p.questions).find(q=>q.id===id),r=state.cmpAnswers[id]; return r?.checked && r.choice===q.answer; });
+  }
+  function wordPractice() {
+    const finished = CMP.targets.filter(t => state.cmpForms[t.id]?.checked && formCorrect(t,state.cmpForms[t.id])).length;
+    return `<section class="card writing-word-bank" id="writing-forms"><header class="grammar-practice-head"><h2>第一步 · 今晚作文会用的词，先练词形</h2><p id="form-progress">已核对 ${finished}/${CMP.targets.length} 组</p></header><p class="muted">可以先口头说，再填入比较级和最高级。不写the也可以；这些形式练过以后，回到下面的句子里选原级、比较级或最高级。</p><div class="word-drill-grid">${CMP.targets.map(t=>{const r=state.cmpForms[t.id]||{},ok=formCorrect(t,r);return `<article class="word-drill" id="word-${t.id}"><h3><span class="en">${esc(t.word)}</span> <small>${esc(t.cn)} · ${esc(t.kind)}</small></h3><p class="word-use en">${esc(t.use)}</p><div class="word-form-inputs"><label>比较级<input class="en" data-word-form="${t.id}" data-form-type="comparative" aria-label="${t.word}的比较级" value="${esc(r.comparative)}" autocomplete="off" spellcheck="false"></label><label>最高级<input class="en" data-word-form="${t.id}" data-form-type="superlative" aria-label="${t.word}的最高级" value="${esc(r.superlative)}" autocomplete="off" spellcheck="false"></label></div><button class="button" data-word-check="${t.id}">核对词形</button><div class="cmp-feedback ${ok?'correct':'retry'}" ${r.checked?'':'hidden'} role="status"><b>${ok?'两种词形都对了':'再对照这组词形'}</b><p class="en">${t.word} → ${t.comparative} → the ${t.superlative}</p><p>最高级放进句子时，再检查the是否已在题干中。</p></div><button class="word-jump" data-cmp-jump="${t.practiceIds[0]}">接着练这个词的句子 →</button></article>`;}).join('')}</div><section class="fixed-word-bank"><h3>这些搭配也先练，再用到作文里</h3><p>下面这些句子直接用原词或词组，不机械地变比较级。</p><div class="fixed-word-grid">${CMP.fixedWords.map(t=>`<button class="fixed-word ${wordReady(t)?'ready':''}" data-cmp-jump="${t.practiceIds[0]}"><strong class="en">${esc(t.word)}</strong><span>${esc(t.cn)}</span><small class="en">${esc(t.use)}</small><small>去练习${t.practiceIds[0].slice(4)} ${wordReady(t)?'· 已核对':''}</small></button>`).join('')}</div></section></section>`;
+  }
+  function scenePreparation(s) {
+    const words = (CMP.sceneWords[s.id] || []).map(id => [...CMP.targets,...CMP.fixedWords].find(t=>t.id===id));
+    return `<section class="prewrite-words"><div><b>这组作文会用到的词</b><p>${words.map(t=>`<span class="word-chip ${wordReady(t)?'ready':''}">${esc(t.word)}${wordReady(t)?' ✓':''}</span>`).join('')}</p><small>已核对词形和对应句子 ${words.filter(wordReady).length}/${words.length} 项；可以先补练，再回到本组图片。</small></div><button class="button" data-prewrite="${s.id}">先练这组词</button></section>`;
+  }
+  function jumpToPractice(id) {
+    state.view='grammar';save();render({focus:true});
+    const el=document.getElementById(id);
+    if (el) { el.setAttribute('tabindex','-1');el.focus({preventScroll:true});el.scrollIntoView({block:'center'}); }
+  }
   function grammar() {
     const questions = CMP.pairs.flatMap(p => p.questions);
     const checked = questions.filter(q => state.cmpAnswers[q.id]?.checked);
     const correct = checked.filter(q => state.cmpAnswers[q.id].choice === q.answer).length;
     return `<section class="page-heading"><div><p class="eyebrow">COMPARE · EXPLAIN · USE</p><h1>easier，还是 more easily？</h1><p>先看空格说明谁，再看比较几个，最后检查怎样变。</p></div><button class="button primary" data-view="scenes">练完，回到12组图片</button></section>
-    <section class="grammar-pair"><article class="card"><span class="tag simple">形容词 · 人或事物怎么样</span><p class="en grammar-example">The ramp makes our <strong>work easier</strong>.</p><p>工作变得更轻松。easier说明<strong>work</strong>怎么样。</p><p class="en">easy → easier → the easiest</p></article><article class="card"><span class="tag modern">副词 · 动作做得怎么样</span><p class="en grammar-example">We <strong>move</strong> boards <strong>more easily</strong> with a ramp.</p><p>搬木板的动作更轻松。more easily说明<strong>move</strong>这个动作。</p><p class="en">easily → more easily → the most easily</p></article></section>
+    <nav class="grammar-subnav" aria-label="写作前练习导航"><button class="button" data-cmp-jump="writing-forms">1 · 练词形</button><button class="button" data-cmp-jump="writing-context">2 · 练句子</button><button class="button primary" data-view="scenes">3 · 回到${esc(current().title)}</button></nav><section class="grammar-pair"><article class="card"><span class="tag simple">形容词 · 人或事物怎么样</span><p class="en grammar-example">The ramp makes our <strong>work easier</strong>.</p><p>工作变得更轻松。easier说明<strong>work</strong>怎么样。</p><p class="en">easy → easier → the easiest</p></article><article class="card"><span class="tag modern">副词 · 动作做得怎么样</span><p class="en grammar-example">We <strong>move</strong> boards <strong>more easily</strong> with a ramp.</p><p>搬木板的动作更轻松。more easily说明<strong>move</strong>这个动作。</p><p class="en">easily → more easily → the most easily</p></article></section>
     <section class="card grammar-guide"><h2>做题时，按这三步想</h2><ol><li><b>说明谁？</b> 人或事物的特点、状态用形容词；动作怎样进行通常用副词。不能只看空格前一个词。</li><li><b>比较几个？</b> 两者比较用比较级，常见than；三者及以上中选“最……”用最高级，常见of the three / in the class。</li><li><b>怎样变？</b> easy → easier / easiest；easily → more easily / most easily。fast、early作副词时也用-er / -est。</li></ol><p class="grammar-note">形容词最高级前通常有the；副词最高级前的the常可省略。题干已有the时，不重复填写。</p>
     <details class="grammar-details"><summary>展开变化规则和词形表</summary><div class="grammar-rules">${CMP.rules.map(([a,b])=>`<p><b>${esc(a)}</b><br><span class="en">${esc(b)}</span></p>`).join('')}</div><div class="grammar-table-wrap"><table class="grammar-table"><thead><tr><th>类型</th><th>原级</th><th>比较级</th><th>最高级</th></tr></thead><tbody>${CMP.rows.map(row=>`<tr>${row.map((v,i)=>`<td class="${i?'en':''}">${esc(v)}</td>`).join('')}</tr>`).join('')}</tbody></table></div><p class="grammar-note">另外记：much / many → more → most；little（少）→ less → least。最高级前是否加the，要放回句子判断。</p></details></section>
-    <section class="grammar-practice"><header class="grammar-practice-head"><h2>成对做，再说出理由</h2><p id="cmp-progress" role="status">已核对 ${checked.length}/12 题 · 当前答对 ${correct} 题</p></header><p class="muted">先选词，试着说“它说明谁、比较几个”。每组两句可以分别核对，提示和答案需要时再展开。</p><div class="grammar-pair-grid">${CMP.pairs.map(pair=>`<article class="card grammar-exercise"><h3>${esc(pair.title)}</h3>${pair.questions.map(q=>{const r=state.cmpAnswers[q.id]||{},ok=r.choice===q.answer;return `<section class="cmp-question" id="${q.id}"><label for="answer-${q.id}" class="en">${esc(q.prompt)}</label><div class="cmp-controls"><select id="answer-${q.id}" data-cmp-choice="${q.id}" aria-label="第${q.id.slice(4)}题选词"><option value="">选择填法</option>${q.options.map(o=>`<option ${r.choice===o?'selected':''} value="${esc(o)}">${esc(o)}</option>`).join('')}</select><button class="button" data-cmp-check="${q.id}">核对</button></div><details class="cmp-hint"><summary>想一想</summary><p>${esc(q.hint)}</p></details><div class="cmp-feedback ${ok?'correct':'retry'}" ${r.checked?'':'hidden'} role="status"><b>${ok?'这题选对了':'再对照这句话想一想'}</b><p class="en">${esc(q.prompt.startsWith('改正：')?q.prompt.slice(3).replace('slowlyer',q.answer).replace('most easiest',q.answer):q.prompt.replace('____',q.answer))}</p><p>${esc(q.why)}</p></div></section>`;}).join('')}</article>`).join('')}</div></section><div class="review-bottom"><p>回到杠杆、斜坡和轮子的图片，再各说一句：<br><span class="en">It makes our work easier. / We move things more easily.</span></p><button class="button primary" data-view="scenes">去图片里用一用</button></div>`;
+    ${wordPractice()}<section class="grammar-practice" id="writing-context"><header class="grammar-practice-head"><h2>第二步 · 放进作文里的句子</h2><p id="cmp-progress" role="status">已核对 ${checked.length}/${questions.length} 题 · 当前答对 ${correct} 题</p></header><p class="muted">前6组分清形容词和副词，后7组覆盖今晚作文里其余的描述词和搭配。先选词，再说“它说明谁、比较几个”。</p><div class="grammar-pair-grid">${CMP.pairs.map(pair=>`<article class="card grammar-exercise"><h3>${esc(pair.title)}</h3>${pair.questions.map(q=>{const r=state.cmpAnswers[q.id]||{},ok=r.choice===q.answer;return `<section class="cmp-question" id="${q.id}"><label for="answer-${q.id}" class="en">${esc(q.prompt)}</label><div class="cmp-controls"><select id="answer-${q.id}" data-cmp-choice="${q.id}" aria-label="第${q.id.slice(4)}题选词"><option value="">选择填法</option>${q.options.map(o=>`<option ${r.choice===o?'selected':''} value="${esc(o)}">${esc(o)}</option>`).join('')}</select><button class="button" data-cmp-check="${q.id}">核对</button></div><details class="cmp-hint"><summary>想一想</summary><p>${esc(q.hint)}</p></details><div class="cmp-feedback ${ok?'correct':'retry'}" ${r.checked?'':'hidden'} role="status"><b>${ok?'这题选对了':'再对照这句话想一想'}</b><p class="en">${esc(q.prompt.startsWith('改正：')?q.prompt.slice(3).replace('slowlyer',q.answer).replace('most easiest',q.answer):q.prompt.replace('____',q.answer))}</p><p>${esc(q.why)}</p></div></section>`;}).join('')}</article>`).join('')}</div></section><div class="review-bottom"><p>回到杠杆、斜坡和轮子的图片，再各说一句：<br><span class="en">It makes our work easier. / We move things more easily.</span></p><button class="button primary" data-view="scenes">去图片里用一用</button></div>`;
   }
   function navigation() {
     const visible = SCENES.filter(s => state.filter === 'all' || s.kind === state.filter);
@@ -79,7 +103,7 @@
   }
   function scenes() {
     const s = current(), r = record(), i = SCENES.indexOf(s);
-    return `<div class="class-layout">${navigation()}<section class="scene-stage"><header class="scene-heading"><div><span class="tag ${s.kind}">${taskLabel(s)}</span><h1>${esc(s.title)}</h1><p class="subtitle en">${esc(s.en)}</p></div><span class="scene-count">${i+1} / 12</span></header>${compare(s)}
+    return `<div class="class-layout">${navigation()}<section class="scene-stage"><header class="scene-heading"><div><span class="tag ${s.kind}">${taskLabel(s)}</span><h1>${esc(s.title)}</h1><p class="subtitle en">${esc(s.en)}</p></div><span class="scene-count">${i+1} / 12</span></header>${compare(s)}${scenePreparation(s)}
       <div class="picture-tools"><button class="button" data-zoom>放大对比图</button><button class="button" data-focus aria-pressed="${state.focus}">${state.focus?'显示场景目录':'收起目录，放大课堂'}</button><button class="button" data-big aria-pressed="${state.big}">大字 ${state.big?'开':'关'}</button></div>
       <div class="picture-question"><span class="en">${esc(s.question)}</span>${state.cn?`<small>${esc(s.questionCn)}</small>`:''}</div>
       <section class="draft-card"><div class="draft-title"><h2>轮到你写</h2><span class="save-label" id="save-label">${storageOK?'草稿保存在当前浏览器':'请导出草稿'}</span></div><div class="writing-fields">${[['before','1 · 左图：困难或原来的做法'],['after','2 · 右图：工具的用途或带来的变化'],['reason','3 · 再加一句：原因、感受或其他用途']].map(([k,l]) => `<label>${l}<textarea data-draft="${k}" aria-label="${l}" rows="2" spellcheck="true" lang="en" autocomplete="off" placeholder="Write your own sentence here.">${esc(r[k])}</textarea></label>`).join('')}</div>
@@ -97,7 +121,7 @@
     const s = current(), e = essay(), r = record();
     return `<section class="page-heading"><div><p class="eyebrow">MY IDEAS · MY SENTENCES</p><h1>把自己写的句子，连成一篇。</h1><p>先选对象，再写开头，把前后变化和喜欢的原因说清楚。</p></div><button class="button" data-view="scenes">回到这组图片</button></section><div class="compose-layout">
       <aside class="card compose-nav"><span class="tag ${s.kind}">${taskLabel(s)}</span><label for="compose-scene">选择写作对象与场景</label><select id="compose-scene" data-compose-scene>${SCENES.map(x => `<option value="${x.id}" ${x.id===s.id?'selected':''}>${x.title} · ${x.kind==='simple'?'简单机械':'现代发明'}</option>`).join('')}</select><div class="outline"><div><b>1</b><span>它是什么？</span></div><div><b>2</b><span>以前 / 没有它时怎样？</span></div><div><b>3</b><span>现在 / 有了它后怎样？</span></div><div><b>4</b><span>为什么喜欢它？</span></div></div><p class="model-note">本组已经填写 ${filled(r)}/3 栏。<br>先写自己的开头，再点“整理我的句子”，把开头和本组句子放进正文。</p><p class="source-note">任务要求依据已上传单元卷：A卷第22页第十四题、B卷第24页第十二题。练习场景、图像和参考句为本课堂配套创作；不把参考写法作为唯一答案。</p></aside>
-      <section class="card compose-draft"><label for="essay-title">作文标题</label><input class="title-input" id="essay-title" data-title value="${esc(e.title)}" lang="en"><label for="essay-intro">先写开头：我喜欢的是什么？</label><textarea class="intro-input en" id="essay-intro" data-intro rows="2" lang="en" spellcheck="true" placeholder="Write your own opening sentence.">${esc(e.intro || '')}</textarea><details class="teacher-note intro-guide"><summary>不会写开头？看句型</summary><p class="en">${s.kind === 'simple' ? 'My favourite simple machine is ____.' : 'My favourite invention is ____.'}</p><p>本组介绍的对象是 <b class="en">${esc(s.object)}</b>，把它放进空格。用自己的句子介绍也可以。</p></details><label for="essay">我的作文</label><textarea class="essay en" id="essay" data-essay lang="en" spellcheck="true" placeholder="Start with your own introduction. Then use your sentences about before and after.">${esc(e.text)}</textarea><p class="word-count" id="word-count">正文 ${wordCount(e.text)} 词 · 按完整意思写，不为凑字数重复句子。</p><div class="compose-actions"><button class="button primary" data-build>整理我的句子</button><button class="button" data-copy>复制作文</button><button class="button" data-model aria-expanded="${!!e.modelOpen}" aria-controls="essay-model">${e.modelOpen?'收起参考短文':'写完后，对照参考短文'}</button></div><div id="essay-model" ${e.modelOpen?'':'hidden'}><p class="model-note">一种可接受的写法。保留自己的表达，不必改成和参考短文一模一样。</p><p class="model en">${esc(s.model)}</p></div>${e.modelSeen?'<p class="model-note">已查看过本场景参考短文，记录会保留。</p>':''}</section>
+      <section class="card compose-draft">${scenePreparation(s)}<label for="essay-title">作文标题</label><input class="title-input" id="essay-title" data-title value="${esc(e.title)}" lang="en"><label for="essay-intro">先写开头：我喜欢的是什么？</label><textarea class="intro-input en" id="essay-intro" data-intro rows="2" lang="en" spellcheck="true" placeholder="Write your own opening sentence.">${esc(e.intro || '')}</textarea><details class="teacher-note intro-guide"><summary>不会写开头？看句型</summary><p class="en">${s.kind === 'simple' ? 'My favourite simple machine is ____.' : 'My favourite invention is ____.'}</p><p>本组介绍的对象是 <b class="en">${esc(s.object)}</b>，把它放进空格。用自己的句子介绍也可以。</p></details><label for="essay">我的作文</label><textarea class="essay en" id="essay" data-essay lang="en" spellcheck="true" placeholder="Start with your own introduction. Then use your sentences about before and after.">${esc(e.text)}</textarea><p class="word-count" id="word-count">正文 ${wordCount(e.text)} 词 · 按完整意思写，不为凑字数重复句子。</p><div class="compose-actions"><button class="button primary" data-build>整理我的句子</button><button class="button" data-copy>复制作文</button><button class="button" data-model aria-expanded="${!!e.modelOpen}" aria-controls="essay-model">${e.modelOpen?'收起参考短文':'写完后，对照参考短文'}</button></div><div id="essay-model" ${e.modelOpen?'':'hidden'}><p class="model-note">一种可接受的写法。保留自己的表达，不必改成和参考短文一模一样。</p><p class="model en">${esc(s.model)}</p></div>${e.modelSeen?'<p class="model-note">已查看过本场景参考短文，记录会保留。</p>':''}</section>
       <aside class="card compose-check"><h2 style="font-size:22px">写完，自己读一遍。</h2><div class="checklist">${checklist.map(([k,l]) => `<label><input type="checkbox" data-check="${k}" ${e.checks[k]?'checked':''}><span>${l}</span></label>`).join('')}</div><details class="teacher-note"><summary>用这些句型检查表达</summary><p class="en">My favourite … is …<br>Before, people …<br>Without it, it is hard to …<br>Now, we use … to …<br>It helps us …<br>I like it because …</p><p>Before / Long ago写过去的事时注意过去式；Without / With也能对比当前不同条件，不必硬改成过去时。</p></details><button class="button blue" style="margin-top:18px" data-export>保存课堂记录</button></aside>
     </div>`;
   }
@@ -135,6 +159,7 @@
       if (e?.text) lines.push('',e.title,e.text,`曾查看参考短文: ${e.modelSeen?'是':'否'}`);
       lines.push('');
     });
+    CMP.targets.forEach(t=>{const r=state.cmpForms[t.id];if(r?.comparative||r?.superlative)lines.push(`作文词形 ${t.word}: ${r.comparative||'未填'} / ${r.superlative||'未填'} · ${r.checked?(formCorrect(t,r)?'两种词形已核对正确':'需再练'):'未核对'}`);});
     const comparisonQuestions = CMP.pairs.flatMap(p => p.questions);
     if (comparisonQuestions.some(q => state.cmpAnswers[q.id]?.choice)) {
       lines.push('比较级与最高级练习');
@@ -167,6 +192,17 @@
     const d = b.dataset;
     if (d.closeZoom !== undefined) return closeZoom();
     if (d.view) return setView(d.view);
+    if (d.wordCheck) {
+      const t=CMP.targets.find(t=>t.id===d.wordCheck),r=state.cmpForms[d.wordCheck];
+      if (!r?.comparative?.trim() || !r?.superlative?.trim()) return toast('先写出两种词形，再核对。');
+      r.checked=true;save();render();$(`[data-word-check="${d.wordCheck}"]`)?.focus({preventScroll:true});return;
+    }
+    if (d.cmpJump) return jumpToPractice(d.cmpJump);
+    if (d.prewrite) {
+      const words=(CMP.sceneWords[d.prewrite]||[]).map(id=>[...CMP.targets,...CMP.fixedWords].find(t=>t.id===id));
+      const t=words.find(t=>!wordReady(t)) || words[0];
+      return jumpToPractice(t.comparative && !(state.cmpForms[t.id]?.checked && formCorrect(t,state.cmpForms[t.id])) ? 'word-'+t.id : (t.practiceIds.find(id=>{const q=CMP.pairs.flatMap(p=>p.questions).find(q=>q.id===id),r=state.cmpAnswers[id];return !r?.checked || r.choice!==q.answer;}) || t.practiceIds[0]));
+    }
     if (d.cmpCheck) {
       const r = state.cmpAnswers[d.cmpCheck];
       if (!r?.choice) return toast('先选一个填法，再核对。');
@@ -198,6 +234,11 @@
   });
   document.addEventListener('input', e => {
     const d = e.target.dataset;
+    if (d.wordForm) {
+      const r=state.cmpForms[d.wordForm] ||= {};r[d.formType]=e.target.value;r.checked=false;save();
+      const card=e.target.closest('.word-drill');card.querySelector('.cmp-feedback').hidden=true;
+      $('#form-progress').textContent=`已核对 ${CMP.targets.filter(t=>state.cmpForms[t.id]?.checked && formCorrect(t,state.cmpForms[t.id])).length}/${CMP.targets.length} 组`;return;
+    }
     if (d.draft) { record()[d.draft] = e.target.value; save(); const l = $('#save-label'); if (l) l.textContent = storageOK ? '已保存到当前浏览器' : '请导出草稿'; }
     if (d.essay !== undefined) { essay().text = e.target.value; save(); $('#word-count').textContent = `正文 ${wordCount(e.target.value)} 词 · 按完整意思写，不为凑字数重复句子。`; }
     if (d.title !== undefined) { essay().title = e.target.value; save(); }
