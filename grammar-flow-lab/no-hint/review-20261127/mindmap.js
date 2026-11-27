@@ -44,13 +44,24 @@ const withHint=[
 window.renderReviewMindmap=(q,options)=>{
  const el=document.getElementById('mindmap'),data=routes[q.id];
  if(!data)throw new Error('Missing mindmap route: '+q.id);
- const [leaf,clue,think,check]=data,isNumber=q.branch==='number';
- const steps=`<ol class="map-steps"><li><b>看线索</b><span>${esc(clue)}</span></li><li><b>作判断</b><span>${esc(think)}</span></li><li><b>填回去检查</b><span>${esc(check)}</span></li></ol>${options.done?`<p class="map-result">本题答案：<strong lang="en">${esc(options.answer)}</strong></p>`:'<p class="map-wait">先沿着分支判断，再在左边填写答案。</p>'}`;
- const tree=(nodes,active)=>`<ul class="map-tree">${nodes.map(node=>{
-  const current=active&&node.id===q.branch;
-  return `<li><details class="map-category ${current?'is-current':''}" ${current?'open':''}><summary>${esc(node.name)}${current?'<span class="map-badge">本题</span>':''}</summary><ul>${node.children.map(([id,name,rule])=>`<li><details class="map-leaf ${current&&id===leaf?'is-current':''}" ${current&&id===leaf?'open':''}><summary>${esc(name)}</summary>${current&&id===leaf?steps:`<p class="map-rule">${esc(rule)}</p>`}</details></li>`).join('')}</ul></details></li>`;
- }).join('')}</ul>`;
- el.innerHTML=`<div class="map-header"><div><p class="eyebrow">跟着分支想一想</p><h3 id="mapTitle">本题小思维导图</h3></div><span class="map-question">${esc(q.title)}</span></div><p class="map-caption">本题分支已展开；其他分支可点击查看。</p><div class="map-root">语法填空</div><div class="map-modes"><details class="map-mode ${!isNumber?'is-current':''}" ${!isNumber?'open':''}><summary>无提示词${!isNumber?'<span class="map-badge">本题</span>':''}</summary>${tree(noHint,!isNumber)}</details><details class="map-mode ${isNumber?'is-current':''}" ${isNumber?'open':''}><summary>有提示词${isNumber?'<span class="map-badge">本题</span>':''}</summary>${tree(withHint,isNumber)}</details></div><p class="map-foot">根据句子结构、意思和搭配判断；某个方向不适用时，再看其他分支。</p>`;
- el.onclick=e=>{const summary=e.target.closest('summary');if(summary&&!summary.parentElement.open&&!options.done)options.onHelp()};
+ let choice={mode:'',branch:'',leaf:'',...(options.choice||{})};
+ const modes=[{id:'no-hint',name:'无提示词',caption:'根据结构、意思和搭配判断',nodes:noHint},{id:'with-hint',name:'有提示词',caption:'先认词性，再判断怎样变化',nodes:withHint}];
+ function draw(){
+  el.innerHTML=`<div class="map-header"><div><p class="eyebrow">先自己判断</p><h3 id="mapTitle">选一条做题思路</h3></div><span class="map-question">${esc(q.title)}</span></div><p class="map-caption">先看有没有提示词，再选你认为合适的卡片。</p>${modes.map(mode=>{
+   const selected=choice.mode===mode.id?mode.nodes.find(n=>n.id===choice.branch):null;
+   return `<section class="map-card-group" aria-label="${esc(mode.name)}"><h4>${esc(mode.name)}</h4><p class="map-group-caption">${esc(mode.caption)}</p><div class="map-card-grid">${mode.nodes.map(node=>`<button type="button" class="map-choice-card" data-map-mode="${mode.id}" data-map-branch="${node.id}" aria-pressed="${selected===node}"><span>${esc(node.name)}</span></button>`).join('')}</div>${selected?`<div class="map-selection"><p class="map-selection-title">你选择了：${esc(selected.name)}</p><p class="map-selection-caption">继续选下面的小分支，看看判断方法是否适合这句话。</p><div class="map-subcards">${selected.children.map(([id,name,rule])=>`<button type="button" class="map-subcard" data-map-leaf="${id}" aria-pressed="${choice.leaf===id}">${esc(name)}</button>`).join('')}</div>${selected.children.filter(([id])=>id===choice.leaf).map(([id,name,rule])=>`<div class="map-rule-panel"><b>可以这样检查</b><p>${esc(rule)}</p></div>`).join('')}</div>`:''}</section>`;
+  }).join('')}${options.done?`<section class="map-review"><h4>做完再核对判断过程</h4><ol class="map-steps"><li><b>看线索</b><span>${esc(data[1])}</span></li><li><b>作判断</b><span>${esc(data[2])}</span></li><li><b>填回去检查</b><span>${esc(data[3])}</span></li></ol><p class="map-result">答案：<strong lang="en">${esc(options.answer)}</strong></p></section>`:''}<p class="map-foot">选卡片只记录你的思路，不会提前判断对错；详细解析在作答后核对。</p>`;
+ }
+ el.onclick=e=>{
+  const branch=e.target.closest('[data-map-branch]'),leaf=e.target.closest('[data-map-leaf]');
+  if(branch){choice={mode:branch.dataset.mapMode,branch:branch.dataset.mapBranch,leaf:''};}
+  else if(leaf){choice={...choice,leaf:leaf.dataset.mapLeaf};}
+  else return;
+  options.onSelect({...choice});
+  draw();
+  const selected=branch?el.querySelector('[data-map-branch="'+choice.branch+'"]'):el.querySelector('[data-map-leaf="'+choice.leaf+'"]');
+  if(selected)selected.focus({preventScroll:true});
+ };
+ draw();
 };
 })();
