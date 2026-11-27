@@ -35,7 +35,7 @@
   function taskLabel(s) { return s.kind === 'simple' ? 'A卷 · 简单机械' : 'B卷 · 现代发明'; }
   function translation(text) { return state.cn ? `<span class="translation">${esc(text)}</span>` : ''; }
   function picture(s, col) {
-    const files = ['scenes-01-04.png','scenes-05-08-v2.png','scenes-09-12.png'];
+    const files = ['scenes-01-04-u15.png','scenes-05-08-u15.png','scenes-09-12-u15.png'];
     return `<div class="scene-picture" role="img" aria-label="${esc(col ? s.afterAlt : s.beforeAlt)}" style="--col:${col};--row:${s.row}"><img src="assets/${files[s.sheet-1]}" alt="" aria-hidden="true" decoding="async"></div>`;
   }
   function compare(s) { return `<div class="compare"><figure><figcaption><span>${esc(s.beforeLabel || 'BEFORE')}</span><small>${esc(s.beforeCn || '使用前')}</small></figcaption>${picture(s,0)}</figure><figure class="after"><figcaption><span>${esc(s.afterLabel || 'AFTER')}</span><small>${esc(s.afterCn || '使用后')}</small></figcaption>${picture(s,1)}</figure></div>`; }
@@ -58,7 +58,7 @@
   function support(s) {
     const r = record();
     const steps = [['短语','想不到词时看'],['句型','不知道怎么连时看'],['参考句','写完以后再对照']];
-    return `<aside class="support" aria-label="分步写作提示"><div class="support-head"><h2>需要帮助时，再展开</h2><button data-hide-hints>全部收起</button></div><p class="support-intro">先看图自己说一句。需要时依次看短语、句型，写完再对照参考句。切换提示不会清空草稿。</p><label class="language-toggle"><input type="checkbox" data-cn ${state.cn?'checked':''}> 显示短语和句型的中文说明</label>
+    return `<aside class="support" aria-label="分步写作提示"><div class="support-head"><h2>需要帮助时，再展开</h2><button data-hide-hints>全部收起</button></div><p class="support-intro">先用熟悉的词说一句。短语优先复用Unit 1—5课内表达和以前学过的基础词；需要时再看句型和参考句。</p><label class="language-toggle"><input type="checkbox" data-cn ${state.cn?'checked':''}> 显示短语和句型的中文说明</label>
       <div class="support-steps">${steps.map(([title,sub],i) => `<section class="support-step" style="--step:${i}"><button data-hint="${i}" title="${sub}" aria-label="${i+1} · ${title}" aria-expanded="${!!r.open[i]}" aria-controls="hint-${i}"><span>${i+1} · ${title}</span></button><div class="support-body" id="hint-${i}" ${r.open[i]?'':'hidden'}>${hintContent(s,i)}</div></section>`).join('')}</div>
       ${r.maxSupport?`<p class="hint-used">本组曾查看：${['','短语','句型','参考句'][r.maxSupport]}。收起后仍会保留这条记录。</p>`:''}
       <details class="teacher-note"><summary>详细笔记与易错点</summary><p>${esc(s.note)}</p><p><strong>再问一句：</strong>${esc(s.questionCn)}</p></details>

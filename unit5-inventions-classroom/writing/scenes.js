@@ -1,4 +1,4 @@
-/* Original classroom scenes, revised after a complete teacher walkthrough on 2026-11-27. */
+/* Uses Unit 1–5 classroom language and familiar earlier vocabulary; revised 2026-11-27. */
 'use strict';
 window.WRITING_SCENES = [
   {
@@ -67,75 +67,75 @@ window.WRITING_SCENES = [
     ]
   },
   {
-    "id": "suitcase",
+    "id": "bicycle",
     "kind": "simple",
-    "title": "拉杆箱出行",
-    "en": "Wheels on a suitcase",
+    "title": "自行车上的轮子",
+    "en": "Wheels on a bicycle",
     "object": "the wheel",
     "sheet": 1,
     "row": 1,
-    "beforeAlt": "A traveller struggles to carry a heavy suitcase by its top handle.",
-    "afterAlt": "The traveller pulls a wheeled suitcase along the station platform.",
-    "question": "How does the traveller move the suitcase before and after?",
-    "questionCn": "原来怎么搬箱子？有轮子后怎样移动？",
+    "beforeAlt": "A man walks to the library with a backpack.",
+    "afterAlt": "The same man rides a bicycle to the library, wearing a helmet.",
+    "question": "Which way is faster? Where can you see wheels?",
+    "questionCn": "步行和骑车哪种更快？自行车哪里用到了轮子？",
     "phrases": [
       [
-        "carry a heavy suitcase",
-        "提沉重的行李箱"
+        "walk to the library",
+        "步行去图书馆"
       ],
       [
-        "at the station",
-        "在车站"
+        "ride a bicycle",
+        "骑自行车"
       ],
       [
-        "pull the suitcase",
-        "拉着行李箱"
+        "wheels on a bicycle",
+        "自行车上的轮子"
       ],
       [
-        "wheels on the suitcase",
-        "行李箱上的轮子"
+        "move faster",
+        "移动得更快"
       ],
       [
-        "make travelling easier",
+        "make travel easier",
         "让出行更轻松"
       ]
     ],
     "frames": [
       [
-        "Without wheels, it is hard to ____.",
-        "先说明提行李箱的困难。"
+        "We can see wheels on ____.",
+        "举出轮子在生活中的应用。"
       ],
       [
-        "With wheels, we can ____.",
-        "can后填动词原形开头的动作短语。"
+        "The wheels help the bicycle ____.",
+        "help后用动词原形。"
       ],
       [
-        "The wheels make travelling ____.",
-        "easier说明出行变得怎样。"
+        "Riding a bicycle is ____ than walking.",
+        "比较两种出行方式，用faster。"
       ]
     ],
     "refs": [
-      "Without wheels, it is hard to carry a heavy suitcase.",
-      "With wheels, we can pull the suitcase easily.",
-      "The wheels make travelling easier."
+      "We can see wheels on a bicycle.",
+      "The wheels help the bicycle move faster.",
+      "Riding a bicycle is faster than walking."
     ],
-    "note": "这一组用Without…/With…作条件对照，三句都可以用现在时。不要把整只行李箱说成一种简单机械，介绍的对象是轮子。suitcase是行李箱，pull是拉。",
-    "model": "My favourite simple machine is the wheel. We can see wheels on suitcases. Without wheels, it is hard to carry a heavy suitcase. With wheels, we can pull it easily. The wheels make travelling easier. I think they are very useful.",
-    "beforeLabel": "WITHOUT WHEELS",
-    "beforeCn": "没有轮子",
-    "afterLabel": "WITH WHEELS",
-    "afterCn": "有了轮子",
+    "note": "bicycle在第5单元第51、53、55页出现。简单机械是wheel，自行车是使用轮子的工具。两图比较两种出行方式，不必写成两个历史年代；骑车时戴helmet，复用第3单元的词。",
+    "model": "My favourite simple machine is the wheel. We can see wheels on a bicycle. They help the bicycle move faster. Riding a bicycle is faster than walking. I like the wheel because it makes travel easier.",
+    "beforeLabel": "ON FOOT",
+    "beforeCn": "步行",
+    "afterLabel": "BY BICYCLE",
+    "afterCn": "骑自行车",
     "frameAnswers": [
-      "carry a heavy suitcase",
-      "pull the suitcase easily",
-      "easier"
+      "a bicycle",
+      "move faster",
+      "faster"
     ]
   },
   {
     "id": "wheelchair",
     "kind": "simple",
     "title": "轮椅通过校门",
-    "en": "A ramp at the school entrance",
+    "en": "A ramp at the school door",
     "object": "the ramp",
     "sheet": 1,
     "row": 2,
@@ -153,8 +153,8 @@ window.WRITING_SCENES = [
         "上台阶"
       ],
       [
-        "at the school entrance",
-        "在学校入口处"
+        "at the school door",
+        "在校门口"
       ],
       [
         "get into the school",
@@ -185,7 +185,7 @@ window.WRITING_SCENES = [
       "I like the ramp because it helps people."
     ],
     "note": "第一句写困难，第二句写斜坡的帮助，第三句写喜欢的原因，三句分别对应左图、右图和自己的想法。them指坐轮椅的人。help them get into也可写help them to get into。wheelchair是轮椅，ramp是斜坡。",
-    "model": "My favourite simple machine is the ramp. There are steps at our school entrance. For people in wheelchairs, it is hard to go up the steps. The ramp helps them get into the school. I like the ramp because it helps people.",
+    "model": "My favourite simple machine is the ramp. There are steps at our school door. For people in wheelchairs, it is hard to go up the steps. The ramp helps them get into the school. I like the ramp because it helps people.",
     "beforeLabel": "WITHOUT A RAMP",
     "beforeCn": "没有斜坡",
     "afterLabel": "WITH A RAMP",
@@ -291,8 +291,8 @@ window.WRITING_SCENES = [
         "另一端上升"
       ],
       [
-        "with less effort",
-        "更省力地"
+        "lift the box more easily",
+        "更轻松地抬起箱子"
       ]
     ],
     "frames": [
@@ -305,17 +305,17 @@ window.WRITING_SCENES = [
         "to后用动词原形，说明向下按的目的。"
       ],
       [
-        "The lever helps us lift the box with ____.",
-        "with less effort表示更省力地。"
+        "The lever helps us lift the box ____.",
+        "说明抬箱子的动作变得更轻松，用more easily。"
       ]
     ],
     "refs": [
       "It is hard to lift one side of the heavy box by hand.",
       "We push one end down to lift the other end.",
-      "The lever helps us lift the box with less effort."
+      "The lever helps us lift the box more easily."
     ],
     "note": "看红色向下箭头和绿色向上箭头：人在较长的一端向下按，杠杆绕支点转动，另一端抬起箱子的一侧。支点必须与杆接触，箱子另一角仍着地。杠杆在这里用于抬起，不是把箱子搬到别处。one end后用goes。",
-    "model": "My favourite simple machine is the lever. It is hard to lift one side of a heavy box by hand. We put a lever under the box. When we push one end down, the other end goes up. The lever helps us lift one side of the box with less effort. I think it is useful.",
+    "model": "My favourite simple machine is the lever. It is hard to lift one side of a heavy box by hand. We put a lever under the box. When we push one end down, the other end goes up. The lever helps us lift one side of the box more easily. I think it is useful.",
     "beforeLabel": "BY HAND",
     "beforeCn": "用手抬",
     "afterLabel": "WITH A LEVER",
@@ -323,7 +323,7 @@ window.WRITING_SCENES = [
     "frameAnswers": [
       "one side of the heavy box",
       "lift the other end",
-      "less effort"
+      "more easily"
     ]
   },
   {
@@ -352,8 +352,8 @@ window.WRITING_SCENES = [
         "使用开瓶器"
       ],
       [
-        "lift the cap",
-        "撬起瓶盖"
+        "open the bottle easily",
+        "轻松地打开瓶子"
       ],
       [
         "work like a lever",
@@ -367,7 +367,7 @@ window.WRITING_SCENES = [
       ],
       [
         "We use a bottle opener to ____.",
-        "写出开瓶器对瓶盖的动作。"
+        "用熟悉的open a bottle说明用途。"
       ],
       [
         "This bottle opener works like ____.",
@@ -376,18 +376,18 @@ window.WRITING_SCENES = [
     ],
     "refs": [
       "It is hard to open this bottle by hand.",
-      "We use a bottle opener to lift the cap.",
+      "We use a bottle opener to open the bottle easily.",
       "This bottle opener works like a lever."
     ],
-    "note": "这里展示的是杠杆式开瓶器，不能泛化为每一种开瓶器都完全一样。写simple machine时介绍lever，再举bottle opener这个生活例子。opener是工具名，open是动作。",
-    "model": "My favourite simple machine is the lever. We can find one in this bottle opener. It is hard to open the bottle by hand. We use the opener to lift the cap. It works like a lever and makes the job easier. I like this useful tool.",
+    "note": "这里展示的是杠杆式开瓶器，不能泛化为每一种开瓶器都完全一样。写simple machine时介绍lever，再举bottle opener这个生活例子。opener是工具名，open是动作。 bottle opener在第5单元第52页课文中出现，可以保留；不用额外记cap。",
+    "model": "My favourite simple machine is the lever. We can find one in this bottle opener. It is hard to open this bottle by hand. We use the opener to open it easily. I like the lever because it makes our work easier.",
     "beforeLabel": "BY HAND",
     "beforeCn": "用手开",
     "afterLabel": "WITH AN OPENER",
     "afterCn": "使用开瓶器",
     "frameAnswers": [
       "this bottle",
-      "lift the cap",
+      "open the bottle easily",
       "a lever"
     ]
   },
@@ -417,8 +417,8 @@ window.WRITING_SCENES = [
         "把衣服放进机器"
       ],
       [
-        "save time and energy",
-        "节省时间和精力"
+        "save time",
+        "节省时间"
       ],
       [
         "do other things",
@@ -442,10 +442,10 @@ window.WRITING_SCENES = [
     "refs": [
       "In the past, people washed clothes by hand.",
       "Now, we use washing machines to wash clothes.",
-      "The washing machine saves us time and energy."
+      "The washing machine saves us time."
     ],
     "note": "clothes本身是复数形式，不能写a clothes。过去take变took；现在主语it，save要写saves。图中是把衣服装入洗衣机，不描述为把手伸进正在运转的机器。",
-    "model": "My favourite invention is the washing machine. In the past, people washed clothes by hand. It was tiring and took a lot of time. Now, we use washing machines to wash clothes. I like this invention because it saves us time and energy.",
+    "model": "My favourite invention is the washing machine. In the past, people washed clothes by hand. It took a long time. Now, we use washing machines to wash clothes. We can do other things. I like it because it makes our lives easier.",
     "verbHelp": "wash → washed · take → took",
     "beforeLabel": "IN THE PAST",
     "beforeCn": "以前手洗",
@@ -454,90 +454,91 @@ window.WRITING_SCENES = [
     "frameAnswers": [
       "washed clothes",
       "wash clothes",
-      "time and energy"
+      "time"
     ]
   },
   {
-    "id": "fridge",
+    "id": "car",
     "kind": "modern",
-    "title": "冰箱保存食物",
-    "en": "The fridge",
-    "object": "the fridge",
+    "title": "汽车帮助出行",
+    "en": "The car",
+    "object": "the car",
     "sheet": 2,
     "row": 3,
-    "beforeAlt": "Milk and vegetables left in a warm room have spoiled.",
-    "afterAlt": "A person puts fresh milk and vegetables in an open refrigerator.",
-    "question": "What happens to food in a warm room? How does a fridge help?",
-    "questionCn": "温暖的房间里食物会怎样？冰箱能帮助做什么？",
+    "beforeAlt": "A mother and child walk a long way along a pavement.",
+    "afterAlt": "The mother drives a car with the child safely seated in the back.",
+    "question": "How do they travel in each picture? Which way is faster?",
+    "questionCn": "两幅图分别怎样出行？哪种方式更快？",
     "phrases": [
       [
-        "go bad quickly",
-        "很快变坏"
+        "walk a long way",
+        "走很远的路"
       ],
       [
-        "keep food fresh",
-        "保持食物新鲜"
+        "take a long time",
+        "花很长时间"
       ],
       [
-        "put food in the fridge",
-        "把食物放进冰箱"
+        "travel by car",
+        "乘汽车出行"
       ],
       [
-        "for longer",
-        "更长时间"
+        "visit other places",
+        "去其他地方游玩"
       ],
       [
-        "waste less food",
-        "少浪费食物"
+        "make travel easier",
+        "让出行更轻松"
       ]
     ],
     "frames": [
       [
-        "Without a fridge, food can ____ quickly.",
-        "can后用动词原形。"
+        "In the past, some people ____ to visit other places.",
+        "只说some people，不说过去所有人都只能步行。"
       ],
       [
-        "The fridge helps us ____ for longer.",
-        "help us后填动作短语，不要重复写keep。"
+        "Now, we can travel ____.",
+        "by后直接写交通工具，不加a。"
       ],
       [
-        "I like the fridge because it helps us ____.",
-        "写出少浪费食物这个具体原因。"
+        "The car makes travel ____.",
+        "make后用形容词，说明出行变得怎样。"
       ]
     ],
     "refs": [
-      "Without a fridge, food can go bad quickly.",
-      "The fridge helps us keep food fresh for longer.",
-      "I like the fridge because it helps us waste less food."
+      "In the past, some people walked a long way to visit other places.",
+      "Now, we can travel by car.",
+      "The car makes travel easier."
     ],
-    "note": "food在这里是不可数名词，写food can go bad，不加s。冰箱能延缓食物变坏，不能说让食物永远新鲜，也不能让已经坏掉的食物恢复新鲜。fridge和refrigerator均可。",
-    "model": "My favourite invention is the fridge. Before people used fridges, it was hard to keep some food fresh. In warm weather, food could go bad quickly. Now, we use fridges to keep food fresh for longer. I like the fridge because it helps us waste less food.",
-    "beforeLabel": "WITHOUT A FRIDGE",
-    "beforeCn": "未冷藏",
-    "afterLabel": "WITH A FRIDGE",
-    "afterCn": "使用冰箱",
+    "note": "car在第5单元第51、53、55页出现；make travel easier与本单元写作用法一致。by car中不加a。两图作出行方式对比，不代表现在没人走路。",
+    "model": "My favourite invention is the car. In the past, some people walked a long way to visit other places. It took a long time. Now, we can travel by car. I like the car because it makes travel easier.",
+    "beforeLabel": "ON FOOT",
+    "beforeCn": "步行",
+    "afterLabel": "BY CAR",
+    "afterCn": "乘汽车",
     "frameAnswers": [
-      "go bad",
-      "keep food fresh",
-      "waste less food"
-    ]
+      "walked a long way",
+      "by car",
+      "easier"
+    ],
+    "verbHelp": "walk → walked · take → took"
   },
   {
     "id": "light",
     "kind": "modern",
     "title": "电灯照亮夜晚",
-    "en": "The electric light",
-    "object": "the electric light",
+    "en": "The light",
+    "object": "the light",
     "sheet": 3,
     "row": 0,
     "beforeAlt": "A child reads a book by dim candlelight at night with an adult nearby.",
     "afterAlt": "The child reads comfortably under an electric desk lamp.",
-    "question": "How did people get light at night? What changes with electric lights?",
-    "questionCn": "以前夜里用什么照明？有电灯后有什么变化？",
+    "question": "Is it easy to read at night in each picture?",
+    "questionCn": "两幅图里，夜晚读书分别容易吗？",
     "phrases": [
       [
-        "use candles",
-        "使用蜡烛"
+        "be hard to read",
+        "读书很困难"
       ],
       [
         "read at night",
@@ -558,34 +559,33 @@ window.WRITING_SCENES = [
     ],
     "frames": [
       [
-        "Long ago, people used ____ at night.",
-        "used是use的过去式；空格填照明物品。"
+        "Without a light, it is hard to ____ at night.",
+        "先写没有灯时，夜里做什么很困难。"
       ],
       [
-        "Now, electric lights make our rooms ____.",
-        "空格用形容词，说明房间变得怎样。"
+        "Now, lights make our rooms ____.",
+        "用形容词说明房间变得怎样。"
       ],
       [
         "They help us ____ at night.",
-        "They指electric lights，后面写具体帮助。"
+        "They指lights，写出读书这个具体用途。"
       ]
     ],
     "refs": [
-      "Long ago, people used candles at night.",
-      "Now, electric lights make our rooms bright.",
-      "They help us read and see things clearly at night."
+      "Without a light, it is hard to read at night.",
+      "Now, lights make our rooms bright.",
+      "They help us read at night."
     ],
-    "note": "used candles是过去的动作；use electric lights是现在的用途。make our rooms bright中bright是形容词。无需添加未经核实的发明年份或“某人独自发明”的历史说法。",
-    "model": "My favourite invention is the electric light. Long ago, people used candles at night. Sometimes it was hard to see things clearly. Now, electric lights make our rooms bright. They help us read at night. I like this invention because it makes our lives easier.",
-    "verbHelp": "use → used",
+    "note": "左图用蜡烛照明，candle只需看懂图片，不列为写作必记词。可直接用熟悉的read at night说困难和用途；light在这里是灯，与第4单元“轻的”意思不同。make our rooms bright中bright是形容词。",
+    "model": "My favourite invention is the light. Without a light, it is hard to read at night. Now, lights make our rooms bright. They help us read at night. I like the light because it makes our lives easier.",
     "beforeLabel": "IN THE PAST",
     "beforeCn": "过去的照明",
     "afterLabel": "NOW",
     "afterCn": "现在的照明",
     "frameAnswers": [
-      "candles",
+      "read",
       "bright",
-      "read and see things clearly"
+      "read"
     ]
   },
   {
@@ -598,60 +598,60 @@ window.WRITING_SCENES = [
     "row": 1,
     "beforeAlt": "A child writes a letter to a grandparent who lives far away.",
     "afterAlt": "The child has a video call with the grandparent on a smartphone.",
-    "question": "How did people keep in touch in the past? What can we do with mobile phones now?",
-    "questionCn": "过去怎样联系远方家人？图中的手机正在做什么？",
+    "question": "How did people talk to family far away? What can phones help us do?",
+    "questionCn": "过去怎样联系远方家人？手机帮助我们做什么？",
     "phrases": [
       [
         "write letters",
         "写信"
       ],
       [
-        "wait for a reply",
-        "等待回信"
-      ],
-      [
         "family far away",
         "远方的家人"
       ],
       [
-        "make video calls",
-        "打视频电话"
+        "talk to our family",
+        "与家人交谈"
       ],
       [
-        "see and talk to our grandparents",
-        "看见祖父母并与他们交谈"
+        "call for help",
+        "呼叫求助"
+      ],
+      [
+        "make our lives easier",
+        "让我们的生活更轻松"
       ]
     ],
     "frames": [
       [
         "In the past, people often ____ to family far away.",
-        "often表示常常，不是说过去只有这一种联系办法。"
+        "讲过去，write要变成wrote。"
       ],
       [
         "Now, we use mobile phones to ____.",
-        "对照右图，具体写视频通话。"
+        "直接写talk to our family；不必另记视频通话这个词组。"
       ],
       [
-        "I like my mobile phone because I can ____.",
-        "写与自己有关的具体原因。"
+        "I like the mobile phone because it makes our lives ____.",
+        "用easier说明喜欢的原因。"
       ]
     ],
     "refs": [
       "In the past, people often wrote letters to family far away.",
-      "Now, we use mobile phones to make video calls.",
-      "I like my mobile phone because I can see and talk to my grandparents."
+      "Now, we use mobile phones to talk to our family.",
+      "I like the mobile phone because it makes our lives easier."
     ],
-    "note": "图中明确是mobile phone，右图是video call，作文对象和画面要一致。左图写信与右图视频通话作对照，不代表手机出现前只有写信。过去写write→wrote、wait→waited；use…to和can后仍用动词原形。my grandparents对应自己的祖父母，our grandparents对应大家的。",
-    "model": "My favourite invention is the mobile phone. In the past, people often wrote letters to family far away and waited for a reply. Now, we can make video calls on mobile phones. I can see and talk to my grandparents. I like this invention because it helps us keep in touch easily.",
-    "verbHelp": "write → wrote · wait → waited",
+    "note": "手机出现在第5单元第57页的写作活动中。右图可以直接写talk to our family，不要求另记video call；call for help复用第3单元短语。过去写信只是例子，不代表以前只有这一种联系办法。",
+    "model": "My favourite invention is the mobile phone. In the past, people often wrote letters to family far away. Now, we use mobile phones to talk to our family. We can also call for help. I like it because it makes our lives easier.",
+    "verbHelp": "write → wrote",
     "beforeLabel": "LETTERS",
     "beforeCn": "写信",
-    "afterLabel": "VIDEO CALLS",
-    "afterCn": "视频通话",
+    "afterLabel": "BY PHONE",
+    "afterCn": "用手机交谈",
     "frameAnswers": [
       "wrote letters",
-      "make video calls",
-      "see and talk to my grandparents"
+      "talk to our family",
+      "easier"
     ]
   },
   {
@@ -708,7 +708,7 @@ window.WRITING_SCENES = [
       "Travelling by train is faster than walking."
     ],
     "note": "两幅图比较步行和乘火车，不是精确的历史复原。Travelling by train is faster than walking.直接比较两种出行方式，更清楚。by train中不加a；fast的比较级是faster，不写more faster。不编造图上没有的精确耗时。",
-    "model": "My favourite invention is the train. In the past, some people walked a long way to visit other places. It took a lot of time. Now, we can travel by train. Travelling by train is faster than walking. I like trains because I can travel comfortably with my family.",
+    "model": "My favourite invention is the train. In the past, some people walked a long way to visit other places. It took a long time. Now, we can travel by train. Travelling by train is faster than walking. I like the train because it helps us travel fast.",
     "verbHelp": "walk → walked · take → took",
     "beforeLabel": "ON FOOT",
     "beforeCn": "步行",
@@ -721,69 +721,68 @@ window.WRITING_SCENES = [
     ]
   },
   {
-    "id": "vacuum",
+    "id": "plane",
     "kind": "modern",
-    "title": "吸尘器清洁房间",
-    "en": "The vacuum cleaner",
-    "object": "the vacuum cleaner",
+    "title": "飞机帮助远行",
+    "en": "The plane",
+    "object": "the plane",
     "sheet": 3,
     "row": 3,
-    "beforeAlt": "An adult sweeps a dusty floor with a broom and dustpan.",
-    "afterAlt": "The adult cleans the same floor with a canister vacuum cleaner.",
-    "question": "Which tools do you see? How does the new tool help?",
-    "questionCn": "前后分别用了什么工具？新工具带来什么帮助？",
+    "beforeAlt": "A mother and child sit inside a train at a station.",
+    "afterAlt": "A passenger plane flies above clouds; the same family sit inside the plane.",
+    "question": "Which is faster for a long trip, a train or a plane?",
+    "questionCn": "长途出行时，火车和飞机通常哪种更快？",
     "phrases": [
       [
-        "sweep the floor",
-        "扫地"
+        "travel by train",
+        "乘火车旅行"
       ],
       [
-        "use a broom",
-        "使用扫帚"
+        "travel by plane",
+        "乘飞机旅行"
       ],
       [
-        "pick up dust",
-        "吸走灰尘"
+        "in the sky",
+        "在空中"
       ],
       [
-        "clean the floor",
-        "清洁地面"
+        "travel faster",
+        "出行更快"
       ],
       [
-        "make cleaning easier",
-        "让清洁更轻松"
+        "visit other places",
+        "去其他地方游玩"
       ]
     ],
     "frames": [
       [
-        "Before, people used ____ to sweep the floor.",
-        "used后填工具；to后保持原形sweep。"
+        "We can travel by ____.",
+        "先说左图的交通方式。"
       ],
       [
-        "Now, we use vacuum cleaners to ____.",
-        "写出吸尘器的具体用途。"
+        "Planes help us travel in ____.",
+        "复用第5单元in the sky。"
       ],
       [
-        "A vacuum cleaner makes cleaning ____.",
-        "easier描述清洁这件事变得怎样。"
+        "For a long trip, travelling by plane is usually ____ than travelling by train.",
+        "比较两种出行方式，通常用faster。"
       ]
     ],
     "refs": [
-      "Before, people used brooms to sweep the floor.",
-      "Now, we use vacuum cleaners to pick up dust.",
-      "A vacuum cleaner makes cleaning easier."
+      "We can travel by train.",
+      "Planes help us travel in the sky.",
+      "For a long trip, travelling by plane is usually faster than travelling by train."
     ],
-    "note": "这组是两种清洁办法的对照，不表示现在不能用扫帚。vacuum cleaner是吸尘器，不是洗衣机，也不把它说成可以清除所有污渍。make cleaning easier中用easier。",
-    "model": "My favourite invention is the vacuum cleaner. Before people had vacuum cleaners, they used brooms to sweep the floor. Now, we can use vacuum cleaners to pick up dust. I like this invention because it makes cleaning easier.",
-    "verbHelp": "use → used",
-    "beforeLabel": "WITH A BROOM",
-    "beforeCn": "使用扫帚",
-    "afterLabel": "WITH A VACUUM",
-    "afterCn": "使用吸尘器",
+    "note": "plane和in the sky来自第5单元第51页；第57页也用飞机练习写作。两幅图比较两种现在仍在使用的出行方式，不必都写过去时。通常长途飞行更快，短途全程还受候机等时间影响。",
+    "model": "My favourite invention is the plane. In the past, some people travelled a long way by train. It took a long time. Now, we can travel by plane. Planes help us travel in the sky. I like them because they help us travel faster.",
+    "beforeLabel": "BY TRAIN",
+    "beforeCn": "乘火车",
+    "afterLabel": "BY PLANE",
+    "afterCn": "乘飞机",
     "frameAnswers": [
-      "brooms",
-      "pick up dust",
-      "easier"
+      "train",
+      "the sky",
+      "faster"
     ]
   }
 ];
