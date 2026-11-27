@@ -1,0 +1,188 @@
+'use strict';
+(() => {
+  const SCENES = window.WRITING_SCENES;
+  const NOTES = window.WRITING_REVIEW;
+  const KEY = 'hongren-unit5-writing-20261127-v1';
+  const $ = (s, root = document) => root.querySelector(s);
+  const $$ = (s, root = document) => Array.from(root.querySelectorAll(s));
+  const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  let state = {version:1,view:'review',scene:'books',filter:'all',cn:false,big:false,focus:false,records:{},essays:{},reviewed:[]};
+  let storageOK = true;
+  try { const saved = JSON.parse(localStorage.getItem(KEY) || 'null'); if (saved?.version === 1) state = {...state,...saved}; } catch (_) { storageOK = false; }
+  if (!SCENES.some(s => s.id === state.scene)) state.scene = SCENES[0].id;
+  if (!['review','scenes','compose'].includes(state.view)) state.view = 'review';
+  if (!['all','simple','modern'].includes(state.filter)) state.filter = 'all';
+  const query = new URLSearchParams(location.search);
+  if (['review','scenes','compose'].includes(query.get('view'))) state.view = query.get('view');
+  if (SCENES.some(s => s.id === query.get('scene'))) state.scene = query.get('scene');
+  let toastTimer, returnFocus;
+  const current = () => SCENES.find(s => s.id === state.scene);
+  function record(id = state.scene) { return state.records[id] ||= {before:'',after:'',reason:'',open:[false,false,false],maxSupport:0,assessment:''}; }
+  function essay(id = state.scene) { return state.essays[id] ||= {title:SCENES.find(s => s.id === id).kind === 'simple' ? 'My Favourite Simple Machine' : 'My Favourite Invention',text:'',checks:{},modelOpen:false,modelSeen:false}; }
+  function toast(message) { const t = $('#toast'); t.textContent = message; t.hidden = false; clearTimeout(toastTimer); toastTimer = setTimeout(() => { t.hidden = true; }, 3600); }
+  function save() {
+    try { localStorage.setItem(KEY, JSON.stringify(state)); storageOK = true; }
+    catch (_) { if (storageOK) toast('当前浏览器无法保存，请先用“保存课堂记录”导出草稿。'); storageOK = false; }
+  }
+  function announce(message) { $('#status').textContent = message; }
+  function filled(r) { return ['before','after','reason'].filter(k => r[k]?.trim()).length; }
+  function wordCount(text) { return (text.match(/[A-Za-z]+(?:['’-][A-Za-z]+)*/g) || []).length; }
+  function taskLabel(s) { return s.kind === 'simple' ? 'A卷 · 简单机械' : 'B卷 · 现代发明'; }
+  function translation(text) { return state.cn ? `<span class="translation">${esc(text)}</span>` : ''; }
+  function picture(s, col) {
+    const files = ['scenes-01-04.png','scenes-05-08.png','scenes-09-12.png'];
+    return `<div class="scene-picture" role="img" aria-label="${esc(col ? s.afterAlt : s.beforeAlt)}" style="--col:${col};--row:${s.row}"><img src="assets/${files[s.sheet-1]}" alt="" aria-hidden="true" decoding="async"></div>`;
+  }
+  function compare(s) { return `<div class="compare"><figure><figcaption><span>BEFORE</span><small>使用前</small></figcaption>${picture(s,0)}</figure><figure class="after"><figcaption><span>AFTER</span><small>使用后</small></figcaption>${picture(s,1)}</figure></div>`; }
+  function review() {
+    return `<section class="page-heading"><div><p class="eyebrow">RECALL · SAY · CHECK</p><h1>先回忆昨天，再写今天的句子。</h1><p>先不看答案，自己说一说；点击卡片，再对照笔记。</p></div><button class="button primary" data-view="scenes">开始看图写句子</button></section>
+    <div class="intro-cards"><section class="card"><span class="tag simple">A卷 · 第22页</span><h2 class="en">My Favourite Simple Machine</h2><p>选轮子、斜坡或杠杆，说明没有它时的困难、有了它后的帮助，再说自己的想法。</p></section><section class="card"><span class="tag modern">B卷 · 第24页</span><h2>我最喜欢的现代发明</h2><p>它是什么？以前没有它时，人们怎样生活或出行？现在怎样帮助人们？为什么喜欢它？</p></section></div>
+    <div class="review-grid">${NOTES.map((n,i) => `<details class="note-card" data-review="${i}"><summary>${esc(n.title)}<small class="en">${esc(n.question)}</small></summary><div class="note-answer"><p class="en">${n.answer}</p><p class="muted">${esc(n.note)}</p><label class="language-toggle"><input type="checkbox" data-reviewed="${i}" ${state.reviewed.includes(i)?'checked':''}> 我能自己说清楚了</label></div></details>`).join('')}</div>
+    <div class="review-bottom"><p>今晚建议先选：搬书、轮椅过校门、洗衣机、电话。<br>其余场景随时切换，课堂按实际进度安排。</p><button class="button primary" data-view="scenes">进入12组场景</button></div>`;
+  }
+  function navigation() {
+    const visible = SCENES.filter(s => state.filter === 'all' || s.kind === state.filter);
+    return `<aside class="scene-nav" aria-label="场景选择"><h2>选一幅图，开口说</h2><div class="filters">${[['all','全部'],['simple','简单机械'],['modern','现代发明']].map(([v,l]) => `<button class="filter" data-filter="${v}" aria-pressed="${state.filter===v}">${l}</button>`).join('')}</div><div class="scene-list">${visible.map(s => { const i = SCENES.indexOf(s); const r = record(s.id); return `<button class="scene-link ${s.id===state.scene?'active':''}" data-scene="${s.id}" aria-current="${s.id===state.scene?'true':'false'}"><span class="num">${String(i+1).padStart(2,'0')}</span><span>${s.title}</span>${filled(r)===3?'<span class="done" aria-label="三栏已填写">✓</span>':''}</button>`; }).join('')}</div><p class="draft-count">已填写 ${SCENES.filter(s => filled(record(s.id))>0).length}/12 组<br>草稿保存在当前浏览器</p></aside>`;
+  }
+  function hintContent(s, step) {
+    if (step === 0) return s.phrases.map(([en,cn]) => `<div class="phrase"><b class="en">${esc(en)}</b>${translation(cn)}</div>`).join('');
+    if (step === 1) return s.frames.map(([en,cn]) => `<div class="frame en">${esc(en).replace(/____/g,'<span class="gap">____</span>')}${translation(cn)}</div>`).join('');
+    return s.refs.map((sentence,i) => `<p class="reference en"><small>${['BEFORE · 原来的情况','AFTER · 现在的帮助','ONE MORE IDEA · 补充一句'][i]}</small>${esc(sentence)}</p>`).join('');
+  }
+  function support(s) {
+    const r = record();
+    const steps = [['短语','想不到词时看'],['句型','不知道怎么连时看'],['参考句','写完以后再对照']];
+    return `<aside class="support" aria-label="分步写作提示"><div class="support-head"><h2>需要帮助时，再展开</h2><button data-hide-hints>全部收起</button></div><p class="support-intro">先看图自己说一句。每层可以单独展开、收起，切换场景会保留写好的内容。</p><label class="language-toggle"><input type="checkbox" data-cn ${state.cn?'checked':''}> 显示短语和句型的中文说明</label>
+      ${steps.map(([title,sub],i) => `<section class="support-step"><button data-hint="${i}" aria-expanded="${!!r.open[i]}" aria-controls="hint-${i}"><span>${i+1} · ${title}</span><small>${r.open[i]?'收起':sub}</small></button><div class="support-body" id="hint-${i}" ${r.open[i]?'':'hidden'}>${hintContent(s,i)}</div></section>`).join('')}
+      ${r.maxSupport?`<p class="hint-used">本组曾查看：${['','短语','句型','参考句'][r.maxSupport]}。收起后仍会保留这条记录。</p>`:''}
+      <details class="teacher-note"><summary>详细笔记与易错点</summary><p>${esc(s.note)}</p><p><strong>再问一句：</strong>${esc(s.questionCn)}</p></details>
+      <div class="teacher-note"><p>老师记录这次表现</p><div class="assessment">${[['independent','独立完成'],['prompted','提示后完成'],['review','再练一次']].map(([v,l]) => `<button data-assess="${v}" class="${r.assessment===v?'active':''}" aria-pressed="${r.assessment===v}">${l}</button>`).join('')}</div><p class="muted" style="font-size:12px">表现由老师判断；查看提示的记录单独保留。</p></div>
+    </aside>`;
+  }
+  function scenes() {
+    const s = current(), r = record(), i = SCENES.indexOf(s);
+    return `<div class="class-layout">${navigation()}<section class="scene-stage"><header class="scene-heading"><div><span class="tag ${s.kind}">${taskLabel(s)}</span><h1>${esc(s.title)}</h1><p class="subtitle en">${esc(s.en)}</p></div><span class="scene-count">${i+1} / 12</span></header>${compare(s)}
+      <div class="picture-tools"><button class="button" data-zoom>放大对比图</button><button class="button" data-focus aria-pressed="${state.focus}">${state.focus?'显示场景目录':'收起目录，放大课堂'}</button><button class="button" data-big aria-pressed="${state.big}">大字 ${state.big?'开':'关'}</button></div>
+      <div class="picture-question"><span class="en">${esc(s.question)}</span>${state.cn?`<small>${esc(s.questionCn)}</small>`:''}</div>
+      <section class="draft-card"><div class="draft-title"><h2>轮到你写</h2><span class="save-label" id="save-label">${storageOK?'草稿保存在当前浏览器':'请导出草稿'}</span></div><div class="writing-fields">${[['before','1 · BEFORE — 原来的困难'],['after','2 · AFTER — 现在的帮助'],['reason','3 · 再加一句：原因、感受或其他用途']].map(([k,l]) => `<label>${l}<textarea data-draft="${k}" aria-label="${l}" rows="2" spellcheck="true" lang="en" autocomplete="off" placeholder="Write your own sentence here.">${esc(r[k])}</textarea></label>`).join('')}</div>
+      <div class="scene-bottom"><div class="pager"><button class="button" data-prev ${i===0?'disabled':''}>上一组</button><button class="button" data-next ${i===SCENES.length-1?'disabled':''}>下一组</button></div><button class="button primary" data-view="compose">用这组写作文</button></div></section>
+    </section>${support(s)}</div>`;
+  }
+  const checklist = [
+    ['topic','我写的是题目要求的简单机械或现代发明。'],
+    ['before','我写清楚了使用前的困难或以前的生活。'],
+    ['after','我写了它现在怎样帮助人们。'],
+    ['reason','我写出了自己的想法或喜欢的原因。'],
+    ['language','我检查了动词形式、单复数、大小写和标点。']
+  ];
+  function compose() {
+    const s = current(), e = essay(), r = record();
+    return `<section class="page-heading"><div><p class="eyebrow">MY IDEAS · MY SENTENCES</p><h1>把自己写的句子，连成一篇。</h1><p>先选对象，再写开头，把前后变化和喜欢的原因说清楚。</p></div><button class="button" data-view="scenes">回到这组图片</button></section><div class="compose-layout">
+      <aside class="card compose-nav"><span class="tag ${s.kind}">${taskLabel(s)}</span><label for="compose-scene">选择写作对象与场景</label><select id="compose-scene" data-compose-scene>${SCENES.map(x => `<option value="${x.id}" ${x.id===s.id?'selected':''}>${x.title} · ${x.kind==='simple'?'简单机械':'现代发明'}</option>`).join('')}</select><div class="outline"><div><b>1</b><span>它是什么？</span></div><div><b>2</b><span>以前 / 没有它时怎样？</span></div><div><b>3</b><span>现在 / 有了它后怎样？</span></div><div><b>4</b><span>为什么喜欢它？</span></div></div><p class="model-note">本组已经填写 ${filled(r)}/3 栏。<br>“整理我的句子”只使用你写的内容；开头和衔接由你自己补上。</p><p class="source-note">任务要求依据已上传单元卷：A卷第22页第十四题、B卷第24页第十二题。练习场景、图像和参考句为本课堂配套创作；不把参考写法作为唯一答案。</p></aside>
+      <section class="card compose-draft"><label for="essay-title">作文标题</label><input class="title-input" id="essay-title" data-title value="${esc(e.title)}" lang="en"><label for="essay">我的作文</label><textarea class="essay en" id="essay" data-essay lang="en" spellcheck="true" placeholder="Start with your own introduction. Then use your sentences about before and after.">${esc(e.text)}</textarea><p class="word-count" id="word-count">正文 ${wordCount(e.text)} 词 · 按完整意思写，不为凑字数重复句子。</p><div class="compose-actions"><button class="button primary" data-build>整理我的句子</button><button class="button" data-copy>复制作文</button><button class="button" data-model aria-expanded="${!!e.modelOpen}" aria-controls="essay-model">${e.modelOpen?'收起参考短文':'写完后，对照参考短文'}</button></div><div id="essay-model" ${e.modelOpen?'':'hidden'}><p class="model-note">一种可接受的写法。保留自己的表达，不必改成和参考短文一模一样。</p><p class="model en">${esc(s.model)}</p></div>${e.modelSeen?'<p class="model-note">已查看过本场景参考短文，记录会保留。</p>':''}</section>
+      <aside class="card compose-check"><h2 style="font-size:22px">写完，自己读一遍。</h2><div class="checklist">${checklist.map(([k,l]) => `<label><input type="checkbox" data-check="${k}" ${e.checks[k]?'checked':''}><span>${l}</span></label>`).join('')}</div><details class="teacher-note"><summary>用这些句型检查表达</summary><p class="en">My favourite … is …<br>Before, people …<br>Without it, it is hard to …<br>Now, we use … to …<br>It helps us …<br>I like it because …</p><p>Before / Long ago写过去的事时注意过去式；Without / With也能对比当前不同条件，不必硬改成过去时。</p></details><button class="button blue" style="margin-top:18px" data-export>保存课堂记录</button></aside>
+    </div>`;
+  }
+  function render({focus=false}={}) {
+    const top = window.scrollY;
+    document.body.classList.toggle('text-large', !!state.big);
+    document.body.classList.toggle('focus-scene', !!state.focus && state.view === 'scenes');
+    $$('[data-view]', $('.lesson-route')).forEach(b => { b.classList.toggle('active', b.dataset.view === state.view); b.setAttribute('aria-current', b.dataset.view === state.view ? 'step' : 'false'); });
+    $('#main').innerHTML = state.view === 'review' ? review() : state.view === 'compose' ? compose() : scenes();
+    document.title = state.view === 'scenes' ? `${current().title} · 宏仁Unit 5作文课` : '宏仁 · Unit 5 看图写作文';
+    if (focus) { $('#main').focus({preventScroll:true}); window.scrollTo(0,0); } else window.scrollTo(0,top);
+    $$('.scene-picture img').forEach(img => img.addEventListener('error', () => {
+      const box = img.parentElement; box.innerHTML = `<span class="image-fallback">${esc(box.getAttribute('aria-label'))}</span>`;
+    }, {once:true}));
+  }
+  function setView(view) { state.view = view; save(); render({focus:true}); announce(`已进入${{review:'笔记复习',scenes:'场景写句子',compose:'作文草稿'}[view]}`); }
+  function chooseScene(id) {
+    if (!SCENES.some(s => s.id === id)) return;
+    state.scene = id;
+    if (state.filter !== 'all' && current().kind !== state.filter) state.filter = current().kind;
+    save(); render({focus:true});
+  }
+  function zoom() {
+    returnFocus = document.activeElement;
+    const el = document.createElement('div'); el.className = 'zoom'; el.id = 'zoom'; el.setAttribute('role','dialog'); el.setAttribute('aria-modal','true'); el.setAttribute('aria-labelledby','zoom-title');
+    el.innerHTML = `<div class="zoom-inner"><div class="zoom-head"><h2 id="zoom-title">${esc(current().title)}</h2><button class="button" data-close-zoom>关闭大图</button></div>${compare(current())}</div>`;
+    document.body.appendChild(el); document.body.classList.add('zoom-open'); $('[data-close-zoom]').focus();
+  }
+  function closeZoom() { $('#zoom')?.remove(); document.body.classList.remove('zoom-open'); returnFocus?.focus(); }
+  function downloadRecords() {
+    const lines = ['宏仁 · Unit 5 看图写作文',new Date().toLocaleString('zh-CN'),''];
+    SCENES.forEach(s => { const r = record(s.id), e = state.essays[s.id]; if (!filled(r) && !e?.text?.trim() && !r.maxSupport && !r.assessment) return;
+      lines.push(`${SCENES.indexOf(s)+1}. ${s.title}`,`BEFORE: ${r.before}`,`AFTER: ${r.after}`,`补充: ${r.reason}`,`曾查看提示: ${['无','短语','句型','参考句'][r.maxSupport]}`,`老师记录: ${{independent:'独立完成',prompted:'提示后完成',review:'再练一次'}[r.assessment] || '未记录'}`);
+      if (e?.text) lines.push('',e.title,e.text,`曾查看参考短文: ${e.modelSeen?'是':'否'}`);
+      lines.push('');
+    });
+    const url = URL.createObjectURL(new Blob([lines.join('\n')],{type:'text/plain;charset=utf-8'}));
+    const a = document.createElement('a'); a.href = url; a.download = 'Hongren-Unit5-Writing-20261127.txt'; a.click(); setTimeout(() => URL.revokeObjectURL(url),500);
+    toast('课堂记录已准备下载，请留意浏览器下载列表。');
+  }
+  function mergeDrafts() {
+    const r = record(), e = essay();
+    const text = ['before','after','reason'].map(k => r[k].trim()).filter(Boolean).join('\n');
+    if (!text) return toast('先回到图片旁，写下自己的句子，再整理进作文。');
+    if (e.text.trim()) {
+      const missing = ['before','after','reason'].map(k => r[k].trim()).filter(v => v && !e.text.includes(v));
+      if (!missing.length) return toast('这些句子已经在草稿里了，不重复加入。');
+      e.text = e.text.trimEnd() + '\n' + missing.join('\n');
+    } else e.text = text;
+    save(); render(); toast('已放入你写的句子。再补开头，读一遍，调整衔接。');
+  }
+  document.addEventListener('click', async event => {
+    if (event.target.id === 'zoom') return closeZoom();
+    const b = event.target.closest('button'); if (!b || b.disabled) return;
+    const d = b.dataset;
+    if (d.closeZoom !== undefined) return closeZoom();
+    if (d.view) return setView(d.view);
+    if (d.scene) return chooseScene(d.scene);
+    if (d.filter) { state.filter = d.filter; if (d.filter !== 'all' && current().kind !== d.filter) state.scene = SCENES.find(s => s.kind === d.filter).id; save(); return render(); }
+    if (d.hint !== undefined) {
+      const r = record(), i = Number(d.hint); r.open[i] = !r.open[i]; if (r.open[i]) r.maxSupport = Math.max(r.maxSupport,i+1); save(); render(); $(`[data-hint="${i}"]`)?.focus({preventScroll:true}); return;
+    }
+    if (d.hideHints !== undefined) { record().open = [false,false,false]; save(); return render(); }
+    if (d.assess) { record().assessment = d.assess; save(); return render(); }
+    if (d.prev !== undefined || d.next !== undefined) { const i = SCENES.indexOf(current()) + (d.next !== undefined ? 1 : -1); if (SCENES[i]) chooseScene(SCENES[i].id); return; }
+    if (d.zoom !== undefined) return zoom();
+    if (d.big !== undefined) { state.big = !state.big; save(); return render(); }
+    if (d.focus !== undefined) { state.focus = !state.focus; save(); return render(); }
+    if (d.build !== undefined) return mergeDrafts();
+    if (d.model !== undefined) { const e = essay(); e.modelOpen = !e.modelOpen; if (e.modelOpen) e.modelSeen = true; save(); return render(); }
+    if (d.copy !== undefined) {
+      const e = essay(); if (!e.text.trim()) return toast('先写下自己的作文。');
+      try { await navigator.clipboard.writeText(e.title+'\n\n'+e.text); toast('作文已复制。'); }
+      catch (_) { $('#essay').focus(); $('#essay').select(); toast('请按 Ctrl+C 或长按复制选中的作文。'); } return;
+    }
+    if (d.export !== undefined || b.id === 'export') return downloadRecords();
+    if (b.id === 'fullscreen') {
+      try { if (document.fullscreenElement) await document.exitFullscreen(); else await document.documentElement.requestFullscreen(); }
+      catch (_) { toast('浏览器暂未允许全屏，可以使用浏览器的全屏功能。'); }
+    }
+  });
+  document.addEventListener('input', e => {
+    const d = e.target.dataset;
+    if (d.draft) { record()[d.draft] = e.target.value; save(); const l = $('#save-label'); if (l) l.textContent = storageOK ? '已保存到当前浏览器' : '请导出草稿'; }
+    if (d.essay !== undefined) { essay().text = e.target.value; save(); $('#word-count').textContent = `正文 ${wordCount(e.target.value)} 词 · 按完整意思写，不为凑字数重复句子。`; }
+    if (d.title !== undefined) { essay().title = e.target.value; save(); }
+  });
+  document.addEventListener('change', e => {
+    const d = e.target.dataset;
+    if (d.cn !== undefined) { state.cn = e.target.checked; save(); render(); }
+    if (d.composeScene !== undefined) chooseScene(e.target.value);
+    if (d.check) { essay().checks[d.check] = e.target.checked; save(); }
+    if (d.reviewed !== undefined) { const n = Number(d.reviewed); state.reviewed = state.reviewed.filter(v => v !== n); if (e.target.checked) state.reviewed.push(n); save(); }
+  });
+  document.addEventListener('keydown', e => {
+    if ($('#zoom')) {
+      if (e.key === 'Escape') closeZoom();
+      if (e.key === 'Tab') { e.preventDefault(); $('[data-close-zoom]').focus(); }
+      return;
+    }
+    if (/INPUT|TEXTAREA|SELECT/.test(e.target.tagName)) return;
+    if (state.view === 'scenes' && e.altKey && ['ArrowLeft','ArrowRight'].includes(e.key)) { e.preventDefault(); const i = SCENES.indexOf(current()) + (e.key === 'ArrowRight'?1:-1); if (SCENES[i]) chooseScene(SCENES[i].id); }
+  });
+  if (!storageOK) toast('当前浏览器无法读取旧记录，可继续上课并导出草稿。');
+  render();
+})();
