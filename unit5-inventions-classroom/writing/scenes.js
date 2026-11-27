@@ -102,8 +102,8 @@ window.WRITING_SCENES = [
     ],
     "frames": [
       [
-        "We can see wheels on ____.",
-        "举出轮子在生活中的应用。"
+        "It takes a long time to ____ to the library.",
+        "先说左图步行花的时间；to后用动词原形。"
       ],
       [
         "The wheels help the bicycle ____.",
@@ -115,7 +115,7 @@ window.WRITING_SCENES = [
       ]
     ],
     "refs": [
-      "We can see wheels on a bicycle.",
+      "It takes a long time to walk to the library.",
       "The wheels help the bicycle move faster.",
       "Riding a bicycle is faster than walking."
     ],
@@ -126,7 +126,7 @@ window.WRITING_SCENES = [
     "afterLabel": "BY BICYCLE",
     "afterCn": "骑自行车",
     "frameAnswers": [
-      "a bicycle",
+      "walk",
       "move faster",
       "faster"
     ]
