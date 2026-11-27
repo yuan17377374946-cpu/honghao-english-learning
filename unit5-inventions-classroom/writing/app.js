@@ -2,6 +2,7 @@
 (() => {
   const SCENES = window.WRITING_SCENES;
   const NOTES = window.WRITING_REVIEW;
+  const CMP = window.WRITING_COMPARISON;
   const KEY = 'hongren-unit5-writing-20261127-v1';
   const $ = (s, root = document) => root.querySelector(s);
   const $$ = (s, root = document) => Array.from(root.querySelectorAll(s));
@@ -10,11 +11,12 @@
   let storageOK = true;
   try { const saved = JSON.parse(localStorage.getItem(KEY) || 'null'); if (saved?.version === 1) state = {...state,...saved}; } catch (_) { storageOK = false; }
   if (!SCENES.some(s => s.id === state.scene)) state.scene = SCENES[0].id;
-  if (!['review','scenes','compose'].includes(state.view)) state.view = 'review';
+  if (!['review','grammar','scenes','compose'].includes(state.view)) state.view = 'review';
   if (!['all','simple','modern'].includes(state.filter)) state.filter = 'all';
   const query = new URLSearchParams(location.search);
-  if (['review','scenes','compose'].includes(query.get('view'))) state.view = query.get('view');
+  if (['review','grammar','scenes','compose'].includes(query.get('view'))) state.view = query.get('view');
   if (SCENES.some(s => s.id === query.get('scene'))) state.scene = query.get('scene');
+  state.cmpAnswers = state.cmpAnswers || {};
   let toastTimer, returnFocus;
   const current = () => SCENES.find(s => s.id === state.scene);
   function record(id = state.scene) {
@@ -40,10 +42,20 @@
   }
   function compare(s) { return `<div class="compare"><figure><figcaption><span>${esc(s.beforeLabel || 'BEFORE')}</span><small>${esc(s.beforeCn || '使用前')}</small></figcaption>${picture(s,0)}</figure><figure class="after"><figcaption><span>${esc(s.afterLabel || 'AFTER')}</span><small>${esc(s.afterCn || '使用后')}</small></figcaption>${picture(s,1)}</figure></div>`; }
   function review() {
-    return `<section class="page-heading"><div><p class="eyebrow">RECALL · SAY · CHECK</p><h1>先回忆昨天，再写今天的句子。</h1><p>先不看答案，自己说一说；点击卡片，再对照笔记。</p></div><button class="button primary" data-view="scenes">开始看图写句子</button></section>
+    return `<section class="page-heading"><div><p class="eyebrow">RECALL · SAY · CHECK</p><h1>先回忆昨天，再写今天的句子。</h1><p>先不看答案，自己说一说；点击卡片，再对照笔记。</p></div><button class="button primary" data-view="grammar">先练比较级与最高级</button></section>
     <div class="intro-cards"><section class="card"><span class="tag simple">A卷 · 第22页</span><h2 class="en">My Favourite Simple Machine</h2><p>选轮子、斜坡或杠杆，说明没有它时的困难、有了它后的帮助，再说自己的想法。</p></section><section class="card"><span class="tag modern">B卷 · 第24页</span><h2>我最喜欢的现代发明</h2><p>它是什么？以前没有它时，人们怎样生活或出行？现在怎样帮助人们？为什么喜欢它？</p></section></div>
     <div class="review-grid">${NOTES.map((n,i) => `<details class="note-card" data-review="${i}"><summary>${esc(n.title)}<small class="en">${esc(n.question)}</small></summary><div class="note-answer"><p class="en">${n.answer}</p><p class="muted">${esc(n.note)}</p><label class="language-toggle"><input type="checkbox" data-reviewed="${i}" ${state.reviewed.includes(i)?'checked':''}> 我能自己说清楚了</label></div></details>`).join('')}</div>
-    <div class="review-bottom"><p>今晚建议先选：搬书、轮椅过校门、洗衣机、手机。<br>其余场景随时切换，课堂按实际进度安排。</p><button class="button primary" data-view="scenes">进入12组场景</button></div>`;
+    <div class="review-bottom"><p>今晚建议先选：搬书、轮椅过校门、洗衣机、手机。<br>其余场景随时切换，课堂按实际进度安排。</p><button class="button primary" data-view="grammar">先分清形容词和副词</button></div>`;
+  }
+  function grammar() {
+    const questions = CMP.pairs.flatMap(p => p.questions);
+    const checked = questions.filter(q => state.cmpAnswers[q.id]?.checked);
+    const correct = checked.filter(q => state.cmpAnswers[q.id].choice === q.answer).length;
+    return `<section class="page-heading"><div><p class="eyebrow">COMPARE · EXPLAIN · USE</p><h1>easier，还是 more easily？</h1><p>先看空格说明谁，再看比较几个，最后检查怎样变。</p></div><button class="button primary" data-view="scenes">练完，回到12组图片</button></section>
+    <section class="grammar-pair"><article class="card"><span class="tag simple">形容词 · 人或事物怎么样</span><p class="en grammar-example">The ramp makes our <strong>work easier</strong>.</p><p>工作变得更轻松。easier说明<strong>work</strong>怎么样。</p><p class="en">easy → easier → the easiest</p></article><article class="card"><span class="tag modern">副词 · 动作做得怎么样</span><p class="en grammar-example">We <strong>move</strong> boards <strong>more easily</strong> with a ramp.</p><p>搬木板的动作更轻松。more easily说明<strong>move</strong>这个动作。</p><p class="en">easily → more easily → the most easily</p></article></section>
+    <section class="card grammar-guide"><h2>做题时，按这三步想</h2><ol><li><b>说明谁？</b> 人或事物的特点、状态用形容词；动作怎样进行通常用副词。不能只看空格前一个词。</li><li><b>比较几个？</b> 两者比较用比较级，常见than；三者及以上中选“最……”用最高级，常见of the three / in the class。</li><li><b>怎样变？</b> easy → easier / easiest；easily → more easily / most easily。fast、early作副词时也用-er / -est。</li></ol><p class="grammar-note">形容词最高级前通常有the；副词最高级前的the常可省略。题干已有the时，不重复填写。</p>
+    <details class="grammar-details"><summary>展开变化规则和词形表</summary><div class="grammar-rules">${CMP.rules.map(([a,b])=>`<p><b>${esc(a)}</b><br><span class="en">${esc(b)}</span></p>`).join('')}</div><div class="grammar-table-wrap"><table class="grammar-table"><thead><tr><th>类型</th><th>原级</th><th>比较级</th><th>最高级</th></tr></thead><tbody>${CMP.rows.map(row=>`<tr>${row.map((v,i)=>`<td class="${i?'en':''}">${esc(v)}</td>`).join('')}</tr>`).join('')}</tbody></table></div><p class="grammar-note">另外记：much / many → more → most；little（少）→ less → least。最高级前是否加the，要放回句子判断。</p></details></section>
+    <section class="grammar-practice"><header class="grammar-practice-head"><h2>成对做，再说出理由</h2><p id="cmp-progress" role="status">已核对 ${checked.length}/12 题 · 当前答对 ${correct} 题</p></header><p class="muted">先选词，试着说“它说明谁、比较几个”。每组两句可以分别核对，提示和答案需要时再展开。</p><div class="grammar-pair-grid">${CMP.pairs.map(pair=>`<article class="card grammar-exercise"><h3>${esc(pair.title)}</h3>${pair.questions.map(q=>{const r=state.cmpAnswers[q.id]||{},ok=r.choice===q.answer;return `<section class="cmp-question" id="${q.id}"><label for="answer-${q.id}" class="en">${esc(q.prompt)}</label><div class="cmp-controls"><select id="answer-${q.id}" data-cmp-choice="${q.id}" aria-label="第${q.id.slice(4)}题选词"><option value="">选择填法</option>${q.options.map(o=>`<option ${r.choice===o?'selected':''} value="${esc(o)}">${esc(o)}</option>`).join('')}</select><button class="button" data-cmp-check="${q.id}">核对</button></div><details class="cmp-hint"><summary>想一想</summary><p>${esc(q.hint)}</p></details><div class="cmp-feedback ${ok?'correct':'retry'}" ${r.checked?'':'hidden'} role="status"><b>${ok?'这题选对了':'再对照这句话想一想'}</b><p class="en">${esc(q.prompt.startsWith('改正：')?q.prompt.slice(3).replace('slowlyer',q.answer).replace('most easiest',q.answer):q.prompt.replace('____',q.answer))}</p><p>${esc(q.why)}</p></div></section>`;}).join('')}</article>`).join('')}</div></section><div class="review-bottom"><p>回到杠杆、斜坡和轮子的图片，再各说一句：<br><span class="en">It makes our work easier. / We move things more easily.</span></p><button class="button primary" data-view="scenes">去图片里用一用</button></div>`;
   }
   function navigation() {
     const visible = SCENES.filter(s => state.filter === 'all' || s.kind === state.filter);
@@ -94,14 +106,14 @@
     document.body.classList.toggle('text-large', !!state.big);
     document.body.classList.toggle('focus-scene', !!state.focus && state.view === 'scenes');
     $$('[data-view]', $('.lesson-route')).forEach(b => { b.classList.toggle('active', b.dataset.view === state.view); b.setAttribute('aria-current', b.dataset.view === state.view ? 'step' : 'false'); });
-    $('#main').innerHTML = state.view === 'review' ? review() : state.view === 'compose' ? compose() : scenes();
+    $('#main').innerHTML = state.view === 'review' ? review() : state.view === 'compose' ? compose() : state.view === 'grammar' ? grammar() : scenes();
     document.title = state.view === 'scenes' ? `${current().title} · 宏仁Unit 5作文课` : '宏仁 · Unit 5 看图写作文';
     if (focus) { $('#main').focus({preventScroll:true}); window.scrollTo(0,0); } else window.scrollTo(0,top);
     $$('.scene-picture img').forEach(img => img.addEventListener('error', () => {
       const box = img.parentElement; box.innerHTML = `<span class="image-fallback">${esc(box.getAttribute('aria-label'))}</span>`;
     }, {once:true}));
   }
-  function setView(view) { state.view = view; save(); render({focus:true}); announce(`已进入${{review:'笔记复习',scenes:'场景写句子',compose:'作文草稿'}[view]}`); }
+  function setView(view) { state.view = view; save(); render({focus:true}); announce(`已进入${{review:'笔记复习',grammar:'比较级与最高级',scenes:'场景写句子',compose:'作文草稿'}[view]}`); }
   function chooseScene(id) {
     if (!SCENES.some(s => s.id === id)) return;
     state.scene = id;
@@ -123,6 +135,11 @@
       if (e?.text) lines.push('',e.title,e.text,`曾查看参考短文: ${e.modelSeen?'是':'否'}`);
       lines.push('');
     });
+    const comparisonQuestions = CMP.pairs.flatMap(p => p.questions);
+    if (comparisonQuestions.some(q => state.cmpAnswers[q.id]?.choice)) {
+      lines.push('比较级与最高级练习');
+      comparisonQuestions.forEach(q => { const r = state.cmpAnswers[q.id]; if (r?.choice) lines.push(`${q.id}: ${q.prompt}`,`选择: ${r.choice} · ${r.checked ? (r.choice===q.answer?'核对后正确':'核对后需再练') : '尚未核对'}`); });
+    }
     const url = URL.createObjectURL(new Blob([lines.join('\n')],{type:'text/plain;charset=utf-8'}));
     const a = document.createElement('a'); a.href = url; a.download = 'Hongren-Unit5-Writing-20261127.txt'; a.click(); setTimeout(() => URL.revokeObjectURL(url),500);
     toast('课堂记录已准备下载，请留意浏览器下载列表。');
@@ -150,6 +167,11 @@
     const d = b.dataset;
     if (d.closeZoom !== undefined) return closeZoom();
     if (d.view) return setView(d.view);
+    if (d.cmpCheck) {
+      const r = state.cmpAnswers[d.cmpCheck];
+      if (!r?.choice) return toast('先选一个填法，再核对。');
+      r.checked = true; save(); render(); $(`[data-cmp-check="${d.cmpCheck}"]`)?.focus({preventScroll:true}); return;
+    }
     if (d.scene) return chooseScene(d.scene);
     if (d.filter) { state.filter = d.filter; if (d.filter !== 'all' && current().kind !== d.filter) state.scene = SCENES.find(s => s.kind === d.filter).id; save(); return render(); }
     if (d.hint !== undefined) {
@@ -183,6 +205,7 @@
   });
   document.addEventListener('change', e => {
     const d = e.target.dataset;
+    if (d.cmpChoice) { state.cmpAnswers[d.cmpChoice] = {choice:e.target.value,checked:false}; save(); render(); $(`[data-cmp-choice="${d.cmpChoice}"]`)?.focus({preventScroll:true}); return; }
     if (d.cn !== undefined) { state.cn = e.target.checked; save(); render(); }
     if (d.composeScene !== undefined) chooseScene(e.target.value);
     if (d.check) { essay().checks[d.check] = e.target.checked; save(); }
